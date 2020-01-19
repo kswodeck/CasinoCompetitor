@@ -1,4 +1,10 @@
 var ones_wins = [], twos_wins = [], threes_wins = [], fours_wins = [], fives_wins = [], sixes_wins = []; //total results arrays declared. Has to be delcared outside of functions so they can keep incrementing globally
+document.getElementById("one_win").innerText = ones_wins.length;
+document.getElementById("two_win").innerText = twos_wins.length;
+document.getElementById("three_win").innerText = threes_wins.length;
+document.getElementById("four_win").innerText = fours_wins.length;
+document.getElementById("five_win").innerText = fives_wins.length;
+document.getElementById("six_win").innerText = sixes_wins.length;
 function diceRoll() {
   let node1 = document.getElementById("dice-roll-div"); // node2 = document.getElementById("winner-div");
   while (node1.hasChildNodes()) {
