@@ -1,0 +1,171 @@
+:root {
+  --dice-width: 9%;
+  --card-width: 100%;
+}
+
+body {
+  font-family: "Georgia", "Verdana", "Times New Roman";
+  font-size: 100%;
+}
+
+#page-description-div, #dice-quantity-input-div, #dicequantity {
+  font-size: calc(6.5px + 0.45vw);
+}
+
+#dicequantity {
+  background-color: gold;
+  color: darkblue;
+  font-weight: bold;
+  width: calc(28px + 0.45vw);
+  height: calc(14px + 0.45vw);
+}
+
+#dicequantity:hover {
+  background-color: darkblue;
+  color: gold;
+}
+
+#coin-flip-tally-div, #dice-roll-tally-div {
+  margin: 2% auto;
+	width: 110px;
+  border: solid 4px darkblue;
+  line-height: 1.25;
+  padding: 0.2% 0.1%;
+  display: none;
+}
+
+#tally-heading {
+  font-size: 140%;
+  font-weight: bold;
+  display: block;
+}
+
+.cards {
+  width: var(--card-width);
+  min-width: 40px;
+  max-width: 150px;
+  margin: 1% 0.1%;
+}
+
+.coin {
+  width: calc(100px + 4vw);
+  margin: 0.2% 0;
+}
+
+.dice {
+  width: var(--dice-width);
+  min-width: 28px;
+  margin: 0 auto;
+}
+
+#coin-flip-button, #dice-roll-button, #card-deal-button, #clear-tally-button {
+  background-color: gold;
+  color: crimson;
+  font-weight: bold;
+  padding: 0.1% 1%;
+  border: solid 2px crimson;
+}
+
+#coin-flip-button, #dice-roll-button, #card-deal-button {
+  font-size:calc(16px + 1vw);
+}
+
+#coin-flip-button:hover, #dice-roll-button:hover, #card-deal-button:hover, #clear-tally-button:hover {
+  background-color: darkblue;
+  color: gold;
+  border: solid 2px gold;
+}
+
+.winner, #winner, #final_winner {
+  font-size: calc(12px + 0.45vw);
+  font-weight: bold;
+  color: darkblue;
+  text-shadow: 5px 10px 9px lightsteelblue;
+  display: block;
+}
+
+.winner {
+  margin: 0 2%;
+  text-transform: uppercase;
+}
+
+#home-heading, #page-heading {
+  font-size: calc(20px + 1.2vw);
+  text-transform: uppercase;
+  color: darkblue;
+  text-shadow: 7px 2px 7px lightsteelblue, 7px 6px 7px lightsteelblue, 7px 10px 7px lightsteelblue;
+}
+
+#page-heading {
+  font-size: calc(16px + 0.8vw);
+  text-shadow: 5px 10px 9px lightsteelblue;
+}
+
+#welcome-home {
+  font-size: 70%;
+  font-style: italic;
+  text-transform: none;
+  color: darkblue;
+  text-shadow: 5px 10px 9px lightsteelblue;
+}
+
+#home-logo {
+  width: calc(100px + 8vw);
+  display: block;
+}
+
+#header {
+  overflow: hidden;
+  z-index: 3;
+}
+#header a:hover {
+  color: crimson;
+}
+
+#main-head-link {
+  font-size: 120%;
+  font-style: italic;
+  letter-spacing: -1.5px;
+  color: gold;
+  font-weight: bold;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+#main-links-list a {
+  color: gold;
+  font-weight: bold;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 2;
+}
+#footer a {
+  color: crimson;
+  font-size: 90%;
+  font-weight: bold;
+  text-decoration: underline;
+}
+#footer a:hover {
+  color: gold;
+}
+
+@media (max-width: 575px) {
+    #footer a {
+      margin: 0 3px;
+    }
+    #main-head-link, .navbar-toggler{
+      font-size: calc(7px + 1.6vw);
+    }
+    #main-links-list {
+      font-size: calc(5px + 1.6vw);
+    }
+}
+
+.main-navbar {
+  display: block;
+}
