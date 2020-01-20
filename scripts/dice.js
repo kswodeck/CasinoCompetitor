@@ -65,6 +65,11 @@ function diceRoll() {
         diceImage[i].style.setProperty("--dice-width", newSize + "%");
       }
     }
+  document.getElementById("dice-roll-current-div").style.display = "block";
+  document.getElementById("current-tally-heading").innerText = "Current Tally";
+  document.getElementById("current-ones-tally").innerText = "Ones: "; document.getElementById("current-twos-tally").innerText = "Twos: ";
+  document.getElementById("current-threes-tally").innerText = "Threes: "; document.getElementById("current-fours-tally").innerText = "Fours: ";
+  document.getElementById("current-fives-tally").innerText = "Fives: "; document.getElementById("current-sixes-tally").innerText = "Sixes: ";
   document.getElementById("dice-roll-tally-div").style.display = "block";
   document.getElementById("tally-heading").innerText = "Tally";
   document.getElementById("ones-tally").innerText = "Ones: "; document.getElementById("twos-tally").innerText = "Twos: ";

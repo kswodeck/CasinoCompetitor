@@ -25,16 +25,17 @@ body {
   color: gold;
 }
 
-#coin-flip-tally-div, #dice-roll-tally-div {
+#coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
   margin: 2% auto;
 	width: 110px;
+  height: 185px;
   border: solid 4px darkblue;
   line-height: 1.25;
   padding: 0.2% 0.1%;
   display: none;
 }
 
-#tally-heading {
+#tally-heading, #current-tally-heading {
   font-size: 130%;
   font-weight: bold;
   display: block;
