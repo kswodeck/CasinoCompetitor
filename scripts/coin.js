@@ -1,6 +1,5 @@
 var heads_wins = [], tails_wins = []; //heads and totals results arrays declared. Has to be declared outside of functions so they can keep incrementing globally
-document.getElementById("head_win").innerText = heads_wins.length; 
-document.getElementById("tail_win").innerText = tails_wins.length;
+document.getElementById("head_win").innerText = heads_wins.length; document.getElementById("tail_win").innerText = tails_wins.length;
 function coinFlip() {
   let node1 = document.getElementById("coin-flip-div"), node2 = document.getElementById("winner-div");
   while (node1.hasChildNodes()) {

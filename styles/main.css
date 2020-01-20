@@ -25,7 +25,7 @@ body {
   color: gold;
 }
 
-#coin-flip-tally-div, #dice-roll-tall-div {
+#coin-flip-tally-div, #dice-roll-tally-div {
   margin: 2% auto;
 	width: 110px;
   border: solid 4px darkblue;
@@ -58,7 +58,7 @@ body {
   margin: 0 auto;
 }
 
-#coin-flip-button, #dice-roll-button, #card-deal-button, #clear-tall-button {
+#coin-flip-button, #dice-roll-button, #card-deal-button, #clear-tally-button {
   background-color: gold;
   color: crimson;
   font-weight: bold;
@@ -156,10 +156,10 @@ body {
 
 @media (max-width: 575px) {
     #main-head-link, .navbar-toggler{
-      font-size: calc(9px + 1.2vw);
+      font-size: calc(12px + 1vw);
     }
     #main-links-list {
-      font-size: calc(7px + 1.2vw);
+      font-size: calc(8px + 1vw);
     }
 }
 
