@@ -151,7 +151,7 @@ body {
   width: 100%;
   z-index: 2;
   overflow: hidden;
-  flex: 1;
+  padding-top: 30px;
 }
 #footer a {
   color: crimson;
