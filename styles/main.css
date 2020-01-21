@@ -6,6 +6,8 @@
 body {
   font-family: "Georgia", "Verdana", "Times New Roman";
   font-size: 100%;
+  overflow-x:hidden;
+  overflow-y: auto;
 }
 
 #page-description-div, #dice-quantity-input-div, #dicequantity {
@@ -148,7 +150,8 @@ body {
   bottom: 0;
   width: 100%;
   z-index: 2;
-  overflow:hidden;
+  overflow: hidden;
+  flex: 1;
 }
 #footer a {
   color: crimson;

@@ -34,26 +34,26 @@ function coinFlip() {
   document.getElementById("heads-tally").innerText = "Heads: "; document.getElementById("tails-tally").innerText = "Tails: ";
 }
 
-function score(){
-  function win(){
-    let winner_text = document.createElement("span");
-    winner_text.setAttribute("id", "final_winner");
-    div = document.getElementById("winner-div");
-    div.appendChild(winner_text);
-  }
-  if ((heads_wins.length + tails_wins.length) % 9 == 0){
-    if (heads_wins.length > tails_wins.length){
-      win();
-      final_winner = `The winner is HEADS with ${heads_wins.length} wins!`
-      print_winner();
-    }
-    else if (tails_wins.length > heads_wins.length) {
-      win();
-      final_winner = `The winner is TAILS with ${tails_wins.length} wins!`
-      print_winner();
-    }
-  }
-}
+// function score(){
+//   function win(){
+//     let winner_text = document.createElement("span");
+//     winner_text.setAttribute("id", "final_winner");
+//     div = document.getElementById("winner-div");
+//     div.appendChild(winner_text);
+//   }
+//   if ((heads_wins.length + tails_wins.length) % 9 == 0){
+//     if (heads_wins.length > tails_wins.length){
+//       win();
+//       final_winner = `The winner is HEADS with ${heads_wins.length} wins!`
+//       print_winner();
+//     }
+//     else if (tails_wins.length > heads_wins.length) {
+//       win();
+//       final_winner = `The winner is TAILS with ${tails_wins.length} wins!`
+//       print_winner();
+//     }
+//   }
+// }
 
 function coin_Grow() {
   let elem = document.getElementById("coin");
