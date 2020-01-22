@@ -33,7 +33,6 @@ function Card(numValue, numSuit) {
   this.cardImgSrc = "assets/images/cards/"+this.numValue+"-"+this.numSuit+".png";
 }
 
-
 // this.valueName = function () {
 //   return this.numValue==1 ? "one" : this.numValue==2 ? "two" : this.numValue==3 ? "three" : this.numValue==4 ? "four" :
 //   this.numValue==5 ? "five" : this.numValue==6 ? "six" : this.numValue==7 ? "seven": this.numValue==8 ? "eight" :
