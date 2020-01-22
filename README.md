@@ -9,7 +9,7 @@ With strategy mode turn on, Poker Partner will evaluate the hand you are dealt a
 Poker Partner can also show you the percentages of winning each type of poker hand based on what cards you have held, ensuring that you understand the stakes before the final redeal is done.
 
 
-Need to exclude 5 cards of the same value being present. To do this, we need to prevent each card from being both the same value and suit of another
+Need to exclude 5 cards of the same value being present. To do this, we need to prevent each card from being both the same value and suit of another.. in other words, no card identity can be duplicated
 
 
 Likelihood of Achieving Hand Categories
