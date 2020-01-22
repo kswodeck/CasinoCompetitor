@@ -5,32 +5,32 @@ function getCards() {
     cardImages[i].removeChild(cardImages[i].lastChild);
     }
   }
-  const numCards = 5;
   var cards = [];
-  //var jokerIsEnabled = false; //will get a true or false value from user input
   function getRandomCardValues() { //for calculating the values of each card
     let randomValues = [Math.floor((Math.random()*13)+1),Math.floor((Math.random()*4)+1)]
     return randomValues;
   }
-  for (let currentCard=0; currentCard<numCards; currentCard++)
+  for (let currentCard=0; currentCard<5; currentCard++)
   {
     let currentValues = getRandomCardValues();
     let numValue = currentValues[0]; //13 card value options excluding jokers. 1=ace, 11=jack, 12=queen, 13=king
     let numSuit = currentValues[1]; //4 card suit options excluding jokers. club,diamond,heart,spade
-    cards[currentCard] = new Card(numValue,numSuit);
-    cards.push(cards[currentCard]); //This works!
+    identity = numValue+"-"+numSuit;
+    cards[currentCard] = new Card(numValue,numSuit,identity);
+    cards.push(cards[currentCard]);
     let cardImage = document.createElement("img");
     cardImage.className ="cards";
-    cardImage.src = cards[currentCard].cardImgSrc;
+    cardImage.src = cards[currentCard].imgSrc;
     document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardImage);
     cardImage.setAttribute("id", "card"+currentCard);
   }
 }
 
-function Card(numValue, numSuit) {
+function Card(numValue, numSuit, valueSuit) {
   this.numValue = numValue;
   this.numSuit = numSuit;
-  this.cardImgSrc = "assets/images/cards/"+this.numValue+"-"+this.numSuit+".png";
+  this.identity = identity;
+  this.imgSrc = "assets/images/cards/"+this.identity+".png";
 }
 
 // this.valueName = function () {
