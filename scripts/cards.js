@@ -1,3 +1,5 @@
+var handsDealt = 0;
+
 function getCards() {
   let cardImages = document.getElementsByClassName("card-slot-div");
   for (let i=0; i < cardImages.length; i++){
@@ -22,7 +24,6 @@ function getCards() {
           numValue = currentValues[0]; //13 card value options excluding jokers. 1=ace, 11=jack, 12=queen, 13=king
           numSuit = currentValues[1]; //4 card suit options excluding jokers. club,diamond,heart,spade
           identity = numValue+"-"+numSuit;
-          // if (cards.includes(cards.identity) == false)
           if (cards.filter(x => (x.identity === identity)).length === 0){
             isSameIdentity=false;
           }
@@ -34,6 +35,8 @@ function getCards() {
     cardImage.src = cards[currentCard].imgSrc;
     document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardImage);
   }
+  handsDealt++;
+  alert(cards.length); //fix BUG: for some reason, cards.length is going up to 6 or more every time
 }
 
 function Card(numValue,numSuit,identity) {
