@@ -7,14 +7,14 @@ function getCards() {
   }
   var cards = [];
   function getRandomCardValues() { //for calculating the values of each card
-    let randomValues = [Math.floor((Math.random()*13)+1),Math.floor((Math.random()*4)+1)]
+    let randomValues = [Math.floor((Math.random()*13)+1),Math.floor((Math.random()*4)+1)];
     return randomValues;
   }
   for (let currentCard=0; currentCard<5; currentCard++){
         let isSameIdentity=true;
-        while (isSameIdentity==true)
+        while (isSameIdentity===true)
         {
-          if (currentCard == 0)
+          if (currentCard === 0)
           {
             isSameIdentity=false;
           }
@@ -23,7 +23,7 @@ function getCards() {
           numSuit = currentValues[1]; //4 card suit options excluding jokers. club,diamond,heart,spade
           identity = numValue+"-"+numSuit;
           // if (cards.includes(cards.identity) == false)
-          if (cards.filter(object => (object.identity === identity)).length == 0){
+          if (cards.filter(x => (x.identity === identity)).length === 0){
             isSameIdentity=false;
           }
         }
