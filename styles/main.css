@@ -50,7 +50,7 @@ body {
   width: var(--card-width);
   min-width: 40px;
   max-width: 150px;
-  margin: 1% 0.1%;
+  margin: auto;
 }
 
 .coin {
@@ -83,17 +83,23 @@ body {
   border: solid 2px gold;
 }
 
-.winner, #winner, #final_winner {
+.winner, #winner, #final_winner, .hold-card-text {
   font-size: calc(12px + 0.45vw);
   font-weight: bold;
   color: darkblue;
   text-shadow: 5px 10px 9px lightsteelblue;
   display: block;
+  text-transform: uppercase;
+  text-align: center;
+
 }
 
 .winner {
   margin: 0 2%;
-  text-transform: uppercase;
+}
+
+.hold-card-text {
+  margin: 2%;
 }
 
 #home-heading, #page-heading {

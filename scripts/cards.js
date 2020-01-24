@@ -1,6 +1,10 @@
 var handsDealt = 0;
 
 function getCards() {
+  // let list = document.getElementsByClassName("cards");
+  // for(let i = list.length - 1; 0 <= i; i--)
+  // if(list[i] && list[i].parentElement)
+  // list[i].parentElement.removeChild(list[i]);
   let cardImages = document.getElementsByClassName("card-slot-div");
   for (let i=0; i < cardImages.length; i++){
   while (cardImages[i].hasChildNodes()) {
@@ -28,15 +32,27 @@ function getCards() {
             isSameIdentity=false;
           }
         }
-    cards[currentCard] = new Card(numValue,numSuit,identity);
-    cards.push(cards[currentCard]);
+    cards.push(new Card(numValue,numSuit,identity));
     let cardImage = document.createElement("img");
-    cardImage.className ="cards";
+    cardImage.className ="cards img-fluid";
     cardImage.src = cards[currentCard].imgSrc;
+    let currentCardNum = currentCard+1;
+    cardImage.setAttribute("id", "card"+currentCardNum);
+    cardImage.addEventListener("click", function(){toggleCardHold('card'+currentCardNum+'hold');});
     document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardImage);
+    let cardHold = document.createElement("figcaption");
+    cardHold.className ="hold-card-text";
+    cardHold.setAttribute("id", "card"+currentCardNum+"hold")
+    document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardHold);
+
   }
-  handsDealt++;
-  alert(cards.length); //fix BUG: for some reason, cards.length is going up to 6 or more every time
+  if (handsDealt==0)
+  {
+    handsDealt++;
+  }
+  else {
+    handsDealt = 0;
+  }
 }
 
 function Card(numValue,numSuit,identity) {
@@ -48,6 +64,11 @@ function Card(numValue,numSuit,identity) {
   this.isJackOrBetter = isJackOrBetter(this.numValue);
   this.valueName = getValueName(this.numValue);
   this.suitName = getSuitName(this.numSuit);
+}
+
+function toggleCardHold(currentHoldElement) {
+  holdElement = document.getElementById(currentHoldElement);
+  holdElement.innerText=="HOLD" ? holdElement.innerText = "" : holdElement.innerText = "HOLD";
 }
 
 function isRoyal(value) {
