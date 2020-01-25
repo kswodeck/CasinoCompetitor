@@ -1,13 +1,12 @@
 var ones_wins = [], twos_wins = [], threes_wins = [], fours_wins = [], fives_wins = [], sixes_wins = []; //total results arrays declared. Has to be delcared outside of functions so they can keep incrementing globally
-var current_ones_wins = [], current_twos_wins = [], current_threes_wins = [], current_fours_wins = [], current_fives_wins = [], current_sixes_wins = [];
 document.getElementById("one_win").innerText = ones_wins.length; document.getElementById("two_win").innerText = twos_wins.length;
 document.getElementById("three_win").innerText = threes_wins.length; document.getElementById("four_win").innerText = fours_wins.length;
 document.getElementById("five_win").innerText = fives_wins.length; document.getElementById("six_win").innerText = sixes_wins.length;
 function diceRoll() {
-  current_ones_wins = [], current_twos_wins = [], current_threes_wins = [], current_fours_wins = [], current_fives_wins = [], current_sixes_wins = [];
-  document.getElementById("current_one_win").innerText = current_ones_wins.length; document.getElementById("current_two_win").innerText = current_twos_wins.length;
-  document.getElementById("current_three_win").innerText = current_threes_wins.length; document.getElementById("current_four_win").innerText = current_fours_wins.length;
-  document.getElementById("current_five_win").innerText = current_fives_wins.length; document.getElementById("current_six_win").innerText = current_sixes_wins.length;
+  var current_ones_wins = [], current_twos_wins = [], current_threes_wins = [], current_fours_wins = [], current_fives_wins = [], current_sixes_wins = [];
+  document.getElementById("current_one_win").innerText = "0"; document.getElementById("current_two_win").innerText = "0";
+  document.getElementById("current_three_win").innerText = "0"; document.getElementById("current_four_win").innerText = "0";
+  document.getElementById("current_five_win").innerText = "0"; document.getElementById("current_six_win").innerText = "0";
   let node1 = document.getElementById("dice-roll-div"); // node2 = document.getElementById("winner-div");
   while (node1.hasChildNodes()) {
     node1.removeChild(node1.lastChild);
@@ -83,15 +82,7 @@ function diceRoll() {
       }
     }
   document.getElementById("dice-roll-current-div").style.display = "block";
-  document.getElementById("current-tally-heading").innerText = "Current Tally";
-  document.getElementById("current-ones-tally").innerText = "Ones: "; document.getElementById("current-twos-tally").innerText = "Twos: ";
-  document.getElementById("current-threes-tally").innerText = "Threes: "; document.getElementById("current-fours-tally").innerText = "Fours: ";
-  document.getElementById("current-fives-tally").innerText = "Fives: "; document.getElementById("current-sixes-tally").innerText = "Sixes: ";
   document.getElementById("dice-roll-tally-div").style.display = "block";
-  document.getElementById("tally-heading").innerText = "Total Tally";
-  document.getElementById("ones-tally").innerText = "Ones: "; document.getElementById("twos-tally").innerText = "Twos: ";
-  document.getElementById("threes-tally").innerText = "Threes: "; document.getElementById("fours-tally").innerText = "Fours: ";
-  document.getElementById("fives-tally").innerText = "Fives: "; document.getElementById("sixes-tally").innerText = "Sixes: ";
   document.getElementById("dice-clear-tally-col").style.display = "block";
 }
 

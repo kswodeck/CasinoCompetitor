@@ -24,14 +24,13 @@ function coinFlip() {
     tail_win = `${tails_wins.push(result)}`;
     document.getElementById("tail_win").innerText = tail_win;
   }
+  document.getElementById("head_win").className = "result-tally", document.getElementById("tail_win").className = "result-tally";
   let text = document.createElement("span");
   text.className ="winner";
   text.innerText = winner;
   div = document.getElementById("winner-div");
   div.appendChild(text);
   document.getElementById("coin-flip-tally-div").style.display = "block";
-  document.getElementById("tally-heading").innerText = "Tally";
-  document.getElementById("heads-tally").innerText = "Heads: "; document.getElementById("tails-tally").innerText = "Tails: ";
 }
 
 // function score(){

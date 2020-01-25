@@ -28,12 +28,16 @@ body {
 }
 
 #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
-  margin: 2% auto;
-  width: 110px;
-  border: solid calc(0.8px + 0.25vw) darkblue;
+  margin: 2% auto 0 auto;
+  border: solid calc(1px + 0.2vw) darkblue;
   line-height: 1.25;
   padding: 0.2% 0.1%;
   display: none;
+  text-align: center;
+  max-width: 180px;
+}
+#coin-flip-tally-div{
+  width: 115px;
 }
 
 #dice-clear-tally-col {
@@ -41,15 +45,17 @@ body {
 }
 
 #tally-heading, #current-tally-heading {
-  font-size: 130%;
+  font-size: calc(11px + 0.5vw); /* 130% */
   font-weight: bold;
   display: block;
 }
 
+.result-tally {
+  font-size: calc(10px + 0.4vw); /* 100% */
+}
+
 .cards {
   width: var(--card-width);
-  min-width: 40px;
-  max-width: 150px;
   margin: auto;
 }
 
@@ -72,11 +78,12 @@ body {
   border: solid 2px crimson;
   white-space: nowrap;
 }
-
 #coin-flip-button, #dice-roll-button, #card-deal-button {
   font-size:calc(16px + 1vw);
 }
-
+#clear-tally-button {
+  font-size:calc(11.5px + 0.3vw);
+}
 #coin-flip-button:hover, #dice-roll-button:hover, #card-deal-button:hover, #clear-tally-button:hover {
   background-color: darkblue;
   color: gold;
@@ -84,22 +91,17 @@ body {
 }
 
 .winner, #winner, #final_winner, .hold-card-text {
-  font-size: calc(12px + 0.45vw);
+  font-size: calc(9px + 0.6vw);
   font-weight: bold;
   color: darkblue;
   text-shadow: 5px 10px 9px lightsteelblue;
   display: block;
   text-transform: uppercase;
   text-align: center;
-
-}
-
-.winner {
-  margin: 0 2%;
 }
 
 .hold-card-text {
-  margin: 2%;
+  margin: 2% 0;
 }
 
 #home-heading, #page-heading {
@@ -176,8 +178,12 @@ body {
     #main-links-list {
       font-size: calc(8px + 1vw);
     }
+    #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
+      width: 105px;
+      line-height: 1;
+    }
 }
 
-.main-navbar {
+#main-navbar {
   display: block;
 }

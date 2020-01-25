@@ -14,14 +14,14 @@
   <body class="m-auto">
     <div class="container-fluid p-0">
       <header id="header" class="mb-md-4 mb-2">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark main-navbar py-md-2 py-1" role="navigation">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark py-md-2 py-1" id="main-navbar" role="navigation">
           <div class="row" id="main-links-row">
-            <div class="col-4 header-div pl-lg-3 pl-md-1 px-0"><a id="main-head-link" href="home.html">Game Changer</a></div>
-                <div class="col-4 header-div pt-md-1 p-0">
+            <div class="col-4 pl-lg-3 pl-md-1 px-0"><a id="main-head-link" href="home.html">Game Changer</a></div>
+                <div class="col-4 pt-md-1 p-0">
                   <div class="collapse navbar-collapse" id="navbar-content">
-                    <ul class="navbar-nav navbar-center top-nav-list text-center m-auto" id="main-links-list">
+                    <ul class="navbar-nav text-center m-auto" id="main-links-list">
                       <div class="col-md-3 top-menu-div">
-                        <li class="nav-item"><a class="nav-link p-0" role="button" href="home.html">Home<span class="sr-only"></span></a></li>
+                        <li class="nav-item"><a class="nav-link p-0" role="button" href="home.html">Home</a></li>
                       </div>
                       <div class="col-md-3 top-menu-div">
                         <li class="nav-item active"><a class="nav-link active p-0" href="cards.html">Cards<span class="sr-only">(current)</span></a></li>
@@ -48,7 +48,7 @@
       <div id="card-prep-div" class="card-play-div text-center m-lg-3 m-2">
         <button type="button" name="deal-button" id="card-deal-button" class="btn mb-lg-2 mb-sm-1 mb-0" onclick="getCards()">Deal Cards</button>
       </div>
-      <div class="container-xl justify-content-center p-0">
+      <div class="container-xl p-0">
         <div id="dealt-cards-div" class="card-play-div row justify-content-center m-lg-3 m-md-2 m-sm-1 my-1 mx-0">
           <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card1div">
             <img class ="cards img-fluid" src="assets/images/cards/card_standard_blue_back.png" id="card1" onclick="toggleCardHold('card1hold')">
@@ -76,8 +76,8 @@
    <footer id="footer" class="d-md-block d-none">
      <nav class="navbar-nav navbar-expand navbar-dark bg-dark m-auto">
        <ul class="navbar-nav navbar-center bottom-nav-list m-auto">
-         <li class="nav-item active"><a class="nav-link" href="home.html">Home</a></li>
-         <li class="nav-item"><a class="nav-link" href="cards.html">Cards<span class="sr-only">(current)</span></a></li>
+         <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+         <li class="nav-item active"><a class="nav-link active" href="cards.html">Cards<span class="sr-only">(current)</span></a></li>
          <li class="nav-item"><a class="nav-link" href="dice.html">Dice</a></li>
          <li class="nav-item"><a class="nav-link" href="coin.html">Coin</a></li>
        </ul>
