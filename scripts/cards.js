@@ -7,14 +7,15 @@ function getCards() {
   // for(let i = list.length - 1; 0 <= i; i--)
   // if(list[i] && list[i].parentElement)
   // list[i].parentElement.removeChild(list[i]);
+
   document.getElementById("game-over-heading").style.display = "none";
   let cardImages = document.getElementsByClassName("card-slot-div");
   for (let i=0; i < cardImages.length; i++){
-  while (cardImages[i].hasChildNodes()) {
-    cardImages[i].removeChild(cardImages[i].lastChild);
+    while (cardImages[i].hasChildNodes()) {
+        cardImages[i].removeChild(cardImages[i].lastChild);
     }
   }
-  if (handsDealt >= 2)
+  if (handsDealt >= 3)
   {
     handsDealt = 0;
   }
@@ -90,12 +91,19 @@ function getCards() {
         if (currentCard == 4) {
           cards = [];
           cards2 = [];
-          // let gameOver = document.createElement("h3");
-          // gameOver.setAttribute("id", "game-over-heading");
-          // document.getElementById("cards-container").appendChild(gameOver);
-          // gameOver.innerHTML = "Game Over";\
+          // document.getElementById("game-over-heading").style.color = "darkblue"; if a hand category has been acheived, blue text
+          // document.getElementById("game-over-heading").style.color = "crimson"; if no hand categories have been acheived, red text
           document.getElementById("game-over-heading").style.display = "block";
         }
+    }
+    else
+    {
+        let cardImage = document.createElement("img");
+        cardImage.className ="cards img-fluid";
+        cardImage.src="assets/images/cards/card_standard_blue_back.png";
+        cardImage.setAttribute("id", "card"+currentCard);
+        document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardImage);
+        document.getElementById("card-deal-button").innerText = "Deal Cards";
     }
   }
   handsDealt++;
