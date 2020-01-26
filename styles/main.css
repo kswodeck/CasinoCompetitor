@@ -111,9 +111,17 @@ body {
   text-shadow: 7px 2px 7px lightsteelblue, 7px 6px 7px lightsteelblue, 7px 10px 7px lightsteelblue;
 }
 
-#page-heading {
+#page-heading, #game-over-heading {
   font-size: calc(18px + 0.9vw);
   text-shadow: 5px 10px 9px lightsteelblue;
+}
+
+#game-over-heading {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: crimson;
+  text-align: center;
+  display: none;
 }
 
 #welcome-home {

@@ -1,22 +1,30 @@
 var handsDealt = 0;
+var cards = [];
+var cards2 = [];
 
 function getCards() {
   // let list = document.getElementsByClassName("cards");
   // for(let i = list.length - 1; 0 <= i; i--)
   // if(list[i] && list[i].parentElement)
   // list[i].parentElement.removeChild(list[i]);
+  document.getElementById("game-over-heading").style.display = "none";
   let cardImages = document.getElementsByClassName("card-slot-div");
   for (let i=0; i < cardImages.length; i++){
   while (cardImages[i].hasChildNodes()) {
     cardImages[i].removeChild(cardImages[i].lastChild);
     }
   }
-  var cards = [];
+  if (handsDealt >= 2)
+  {
+    handsDealt = 0;
+  }
   function getRandomCardValues() { //for calculating the values of each card
     let randomValues = [Math.floor((Math.random()*13)+1),Math.floor((Math.random()*4)+1)];
     return randomValues;
   }
   for (let currentCard=0; currentCard<5; currentCard++){
+    if (handsDealt==0)
+    {
         let isSameIdentity=true;
         while (isSameIdentity===true)
         {
@@ -36,23 +44,61 @@ function getCards() {
     let cardImage = document.createElement("img");
     cardImage.className ="cards img-fluid";
     cardImage.src = cards[currentCard].imgSrc;
-    let currentCardNum = currentCard+1;
-    cardImage.setAttribute("id", "card"+currentCardNum);
-    cardImage.addEventListener("click", function(){toggleCardHold('card'+currentCardNum+'hold');});
+    cardImage.setAttribute("id", "card"+currentCard);
+    cardImage.addEventListener("click", function(){toggleCardHold("hold"+currentCard);});
     document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardImage);
     let cardHold = document.createElement("figcaption");
     cardHold.className ="hold-card-text";
-    cardHold.setAttribute("id", "card"+currentCardNum+"hold")
+    cardHold.setAttribute("id", "hold"+currentCard)
     document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardHold);
-
+    document.getElementById("card-deal-button").innerText = "Redeal Cards";
+    }
+    else if (handsDealt==1)
+    {
+      let isSameIdentity=true;
+      while (isSameIdentity===true)
+      {
+        currentValues = getRandomCardValues();
+        numValue = currentValues[0]; //13 card value options excluding jokers. 1=ace, 11=jack, 12=queen, 13=king
+        numSuit = currentValues[1]; //4 card suit options excluding jokers. club,diamond,heart,spade
+        identity = numValue+"-"+numSuit;
+        if (cards.filter(x => (x.identity === identity)).length === 0){
+          isSameIdentity=false;
+          if (currentCard === 0)
+          {
+            isSameIdentity=false;
+          }
+          else if (cards2.filter(x => (x.identity === identity)).length === 0){
+            isSameIdentity=false;
+          }
+        }
+      }
+      if (cards[currentCard].isHeld == true)
+      {
+        cards2.push(new Card(cards[currentCard].numValue,cards[currentCard].numSuit,cards[currentCard].identity));
+        // cards2[currentCard] = Object.assign(cards[currentCard], cards2[currentCard]);
+      }
+      else {
+        cards2.push(new Card(numValue,numSuit,identity));
+      }
+        let cardImage = document.createElement("img");
+        cardImage.className ="cards img-fluid";
+        cardImage.src = cards2[currentCard].imgSrc;
+        cardImage.setAttribute("id", "card"+currentCard);
+        document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardImage);
+        document.getElementById("card-deal-button").innerText = "Play Again";
+        if (currentCard == 4) {
+          cards = [];
+          cards2 = [];
+          // let gameOver = document.createElement("h3");
+          // gameOver.setAttribute("id", "game-over-heading");
+          // document.getElementById("cards-container").appendChild(gameOver);
+          // gameOver.innerHTML = "Game Over";\
+          document.getElementById("game-over-heading").style.display = "block";
+        }
+    }
   }
-  if (handsDealt==0)
-  {
-    handsDealt++;
-  }
-  else {
-    handsDealt = 0;
-  }
+  handsDealt++;
 }
 
 function Card(numValue,numSuit,identity) {
@@ -64,11 +110,22 @@ function Card(numValue,numSuit,identity) {
   this.isJackOrBetter = isJackOrBetter(this.numValue);
   this.valueName = getValueName(this.numValue);
   this.suitName = getSuitName(this.numSuit);
+  this.isHeld = false;
 }
 
 function toggleCardHold(currentHoldElement) {
-  holdElement = document.getElementById(currentHoldElement);
-  holdElement.innerText=="HOLD" ? holdElement.innerText = "" : holdElement.innerText = "HOLD";
+  if (handsDealt == 1)
+  {
+    holdElement = document.getElementById(currentHoldElement);
+    holdElement.innerText=="HOLD" ? holdElement.innerText = "" : holdElement.innerText = "HOLD";
+    // alert(holdElement.parentElement.id);
+    // let cardNum = parseInt(currentHoldElement.replace(/hold-/,""));
+    let cardNum = parseInt(currentHoldElement.replace(/hold/,""));
+    cards[cardNum].isHeld != true ? cards[cardNum].isHeld = true : cards[cardNum].isHeld = false;
+  }
+  else {
+    return;
+  }
 }
 
 function isRoyal(value) {

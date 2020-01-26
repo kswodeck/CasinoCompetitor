@@ -48,29 +48,30 @@
       <div id="card-prep-div" class="card-play-div text-center m-lg-3 m-2">
         <button type="button" name="deal-button" id="card-deal-button" class="btn mb-lg-2 mb-sm-1 mb-0" onclick="getCards()">Deal Cards</button>
       </div>
-      <div class="container-xl p-0">
+      <div class="container-xl p-0" id="cards-container">
         <div id="dealt-cards-div" class="card-play-div row justify-content-center m-lg-3 m-md-2 m-sm-1 my-1 mx-0">
-          <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card1div">
-            <img class ="cards img-fluid" src="assets/images/cards/card_standard_blue_back.png" id="card1" onclick="toggleCardHold('card1hold')">
-            <figcaption class="hold-card-text" id="card1hold"></figcaption>
+          <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card-0-div">
+            <img class ="cards img-fluid" src="assets/images/cards/card_standard_blue_back.png" id="card0" onclick="toggleCardHold('hold0')">
+            <figcaption class="hold-card-text" id="hold0"></figcaption>
           </div>
-          <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card2div">
-            <img class ="cards img-fluid" src="assets/images/cards/card_standard_blue_back.png" id="card2" onclick="toggleCardHold('card2hold')">
-            <figcaption class="hold-card-text" id="card2hold"></figcaption>
+          <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card-1-div">
+            <img class ="cards img-fluid" src="assets/images/cards/card_standard_blue_back.png" id="card2" onclick="toggleCardHold('hold1')">
+            <figcaption class="hold-card-text" id="hold1"></figcaption>
           </div>
-          <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card3div">
-            <img class ="cards img-fluid" src="assets/images/cards/card_standard_blue_back.png" id="card3" onclick="toggleCardHold('card3hold')">
-            <figcaption class="hold-card-text" id="card3hold"></figcaption>
+          <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card-2-div">
+            <img class ="cards img-fluid" src="assets/images/cards/card_standard_blue_back.png" id="card3" onclick="toggleCardHold('hold2')">
+            <figcaption class="hold-card-text" id="hold2"></figcaption>
           </div>
-          <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card4div">
-            <img class ="cards img-fluid" src="assets/images/cards/card_standard_blue_back.png" id="card4" onclick="toggleCardHold('card4hold')">
-            <figcaption class="hold-card-text" id="card4hold"></figcaption>
+          <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card-3-div">
+            <img class ="cards img-fluid" src="assets/images/cards/card_standard_blue_back.png" id="card4" onclick="toggleCardHold('hold3')">
+            <figcaption class="hold-card-text" id="hold3"></figcaption>
           </div>
-          <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card5div">
-            <img class ="cards img-fluid" src="assets/images/cards/card_standard_blue_back.png" id="card5" onclick="toggleCardHold('card5hold')">
-            <figcaption class="hold-card-text" id="card5hold"></figcaption>
+          <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card-4-div">
+            <img class ="cards img-fluid" src="assets/images/cards/card_standard_blue_back.png" id="card5" onclick="toggleCardHold('hold4')">
+            <figcaption class="hold-card-text" id="hold4"></figcaption>
           </div>
         </div>
+        <h3 id="game-over-heading">Game Over</h3>
       </div>
     </div>
    <footer id="footer" class="d-md-block d-none">
