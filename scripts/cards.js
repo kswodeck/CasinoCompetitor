@@ -3,11 +3,6 @@ var cards = [];
 var cards2 = [];
 
 function getCards() {
-  // let list = document.getElementsByClassName("cards");
-  // for(let i = list.length - 1; 0 <= i; i--)
-  // if(list[i] && list[i].parentElement)
-  // list[i].parentElement.removeChild(list[i]);
-
   document.getElementById("game-over-heading").style.display = "none";
   let cardImages = document.getElementsByClassName("card-slot-div");
   for (let i=0; i < cardImages.length; i++){
@@ -24,7 +19,7 @@ function getCards() {
     return randomValues;
   }
   for (let currentCard=0; currentCard<5; currentCard++){
-    if (handsDealt==0)
+    if (handsDealt===0)
     {
         let isSameIdentity=true;
         while (isSameIdentity===true)
@@ -50,7 +45,7 @@ function getCards() {
     document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardImage);
     let cardHold = document.createElement("figcaption");
     cardHold.className ="hold-card-text";
-    cardHold.setAttribute("id", "hold"+currentCard)
+    cardHold.setAttribute("id", "hold"+currentCard);
     document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardHold);
     document.getElementById("card-deal-button").innerText = "Redeal Cards";
     }
@@ -74,7 +69,7 @@ function getCards() {
           }
         }
       }
-      if (cards[currentCard].isHeld == true)
+      if (cards[currentCard].isHeld === true)
       {
         cards2.push(new Card(cards[currentCard].numValue,cards[currentCard].numSuit,cards[currentCard].identity));
         // cards2[currentCard] = Object.assign(cards[currentCard], cards2[currentCard]);
@@ -129,7 +124,7 @@ function toggleCardHold(currentHoldElement) {
     // alert(holdElement.parentElement.id);
     // let cardNum = parseInt(currentHoldElement.replace(/hold-/,""));
     let cardNum = parseInt(currentHoldElement.replace(/hold/,""));
-    cards[cardNum].isHeld != true ? cards[cardNum].isHeld = true : cards[cardNum].isHeld = false;
+    cards[cardNum].isHeld !== true ? cards[cardNum].isHeld = true : cards[cardNum].isHeld = false;
   }
   else {
     return;
@@ -140,15 +135,22 @@ function isRoyal(value) {
   if (value == 1 || value == 10 || value == 11 || value == 12 || value == 13)
   {return true} else {return false}
 }
+
 function isJackOrBetter(value) {
-  if (value == 1 || value == 11 || value == 12 || value == 13)
-  {return true} else {return false}
+  if (value == 1 || value == 11 || value == 12 || value == 13) {
+    return true;
+  }
+  else {
+    return false;
+  }
 }
+
 function getValueName(value) {
   return value==1 ? "one" : value==2 ? "two" : value==3 ? "three" : value==4 ? "four" :
   value==5 ? "five" : value==6 ? "six" : value==7 ? "seven": value==8 ? "eight" :
   value==9 ? "nine" : value==10 ? "ten" : value==11 ? "jack" : value==12 ? "queen" : "king";
 }
+
 function getSuitName(value) {
   return (value==1)?"clubs":(value==2)?"diamonds":(value==3)?"hearts":"spades";
 }
