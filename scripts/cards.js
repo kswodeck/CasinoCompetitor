@@ -59,12 +59,11 @@ function getCards() {
         numSuit = currentValues[1]; //4 card suit options excluding jokers. club,diamond,heart,spade
         identity = numValue+"-"+numSuit;
         if (cards.filter(x => (x.identity === identity)).length === 0){
-          isSameIdentity=false;
           if (currentCard === 0)
           {
             isSameIdentity=false;
           }
-          else if (cards2.filter(x => (x.identity === identity)).length === 0){
+          else if (cards2.filter(y => (y.identity === identity)).length === 0){
             isSameIdentity=false;
           }
         }
