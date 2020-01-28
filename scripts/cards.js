@@ -47,6 +47,7 @@ function getCards() {
     cardHold.className ="hold-card-text";
     cardHold.setAttribute("id", "hold"+currentCard);
     document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardHold);
+    cardHold.innerText = "HOLD";
     document.getElementById("card-deal-button").innerText = "Redeal Cards";
     }
     else if (handsDealt==1)
@@ -119,9 +120,8 @@ function toggleCardHold(currentHoldElement) {
   if (handsDealt == 1)
   {
     holdElement = document.getElementById(currentHoldElement);
-    holdElement.innerText=="HOLD" ? holdElement.innerText = "" : holdElement.innerText = "HOLD";
-    // alert(holdElement.parentElement.id);
-    // let cardNum = parseInt(currentHoldElement.replace(/hold-/,""));
+    // holdElement.innerText=="HOLD" ? holdElement.innerText = "" : holdElement.innerText = "HOLD";
+    holdElement.style.opacity != 1 ? holdElement.style.opacity = 1 : holdElement.style.opacity = 0.0001;
     let cardNum = parseInt(currentHoldElement.replace(/hold/,""));
     cards[cardNum].isHeld !== true ? cards[cardNum].isHeld = true : cards[cardNum].isHeld = false;
   }

@@ -102,7 +102,12 @@ body {
 
 .hold-card-text {
   margin: 2% 0;
+  opacity: 0.0001;
 }
+
+/* #hold0, #hold1, #hold2, #hold3, #hold4 {
+  opacity: 0.0001;
+} */
 
 #home-heading, #page-heading {
   font-size: calc(23px + 1vw);
