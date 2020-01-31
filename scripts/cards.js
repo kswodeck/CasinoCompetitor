@@ -1,15 +1,15 @@
 var handsDealt = 0;
+var rankAchieved = false;
 var cards = [];
 var cards2 = [];
 
 function getCards() {
-  document.getElementById("game-over-heading").style.display = "none";
-  let cardImages = document.getElementsByClassName("card-slot-div");
-  for (let i=0; i < cardImages.length; i++){
-    while (cardImages[i].hasChildNodes()) {
-        cardImages[i].removeChild(cardImages[i].lastChild);
+  document.getElementById("hand-ranking-heading").style.display = "none";
+    var cardImages = document.getElementsByClassName("cards");
+    while(cardImages.length > 0){
+        cardImages[0].parentNode.removeChild(cardImages[0]);
     }
-  }
+
   if (handsDealt >= 3)
   {
     handsDealt = 0;
@@ -21,8 +21,9 @@ function getCards() {
   for (let currentCard=0; currentCard<5; currentCard++){
     if (handsDealt===0)
     {
-        let isSameIdentity=true;
-        while (isSameIdentity===true)
+      document.getElementById("hold"+currentCard).style.opacity = 0.0001;
+      let isSameIdentity=true;
+      while (isSameIdentity===true)
         {
           if (currentCard === 0)
           {
@@ -37,21 +38,13 @@ function getCards() {
           }
         }
     cards.push(new Card(numValue,numSuit,identity));
-    let cardImage = document.createElement("img");
-    cardImage.className ="cards img-fluid";
-    cardImage.src = cards[currentCard].imgSrc;
-    cardImage.setAttribute("id", "card"+currentCard);
+    let cardImage = createCardElement(cards[currentCard].imgSrc, currentCard);
     cardImage.addEventListener("click", function(){toggleCardHold("hold"+currentCard);});
-    document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardImage);
-    let cardHold = document.createElement("figcaption");
-    cardHold.className ="hold-card-text";
-    cardHold.setAttribute("id", "hold"+currentCard);
-    document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardHold);
-    cardHold.innerText = "HOLD";
     document.getElementById("card-deal-button").innerText = "Redeal Cards";
     }
     else if (handsDealt==1)
     {
+      document.getElementById("hold"+currentCard).style.opacity = 0.0001;
       let isSameIdentity=true;
       while (isSameIdentity===true)
       {
@@ -72,33 +65,31 @@ function getCards() {
       if (cards[currentCard].isHeld === true)
       {
         cards2.push(new Card(cards[currentCard].numValue,cards[currentCard].numSuit,cards[currentCard].identity));
-        // cards2[currentCard] = Object.assign(cards[currentCard], cards2[currentCard]);
       }
       else {
         cards2.push(new Card(numValue,numSuit,identity));
       }
-        let cardImage = document.createElement("img");
-        cardImage.className ="cards img-fluid";
-        cardImage.src = cards2[currentCard].imgSrc;
-        cardImage.setAttribute("id", "card"+currentCard);
-        document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardImage);
+        createCardElement(cards2[currentCard].imgSrc, currentCard);
         document.getElementById("card-deal-button").innerText = "Play Again";
         if (currentCard == 4) {
           cards = [];
           cards2 = [];
-          // document.getElementById("game-over-heading").style.color = "darkblue"; if a hand category has been acheived, blue text
-          // document.getElementById("game-over-heading").style.color = "crimson"; if no hand categories have been acheived, red text
-          document.getElementById("game-over-heading").style.display = "block";
+          if (rankAchieved === true)
+          {
+            // document.getElementById("hand-ranking-heading").style.color = "darkblue"; if a hand category has been acheived, blue text
+          }
+          else
+          {
+            // document.getElementById("hand-ranking-heading").style.color = "crimson"; if no hand categories have been acheived, red text
+          }
+          document.getElementById("hand-ranking-heading").style.display = "block";
         }
     }
     else
     {
-        let cardImage = document.createElement("img");
-        cardImage.className ="cards img-fluid";
-        cardImage.src="assets/images/cards/card_standard_blue_back.png";
-        cardImage.setAttribute("id", "card"+currentCard);
-        document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardImage);
-        document.getElementById("card-deal-button").innerText = "Deal Cards";
+      document.getElementById("hold"+currentCard).style.opacity = 0.0001;
+      createCardElement("assets/images/cards/card_standard_blue_back.png", currentCard);
+      document.getElementById("card-deal-button").innerText = "Deal Cards";
     }
   }
   handsDealt++;
@@ -116,11 +107,19 @@ function Card(numValue,numSuit,identity) {
   this.isHeld = false;
 }
 
+function createCardElement(imgUrl, currentCard){
+  let cardImage = document.createElement("img");
+  cardImage.className ="cards img-fluid";
+  cardImage.src = imgUrl;
+  cardImage.setAttribute("id", "card"+currentCard);
+  document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardImage);
+  return cardImage;
+}
+
 function toggleCardHold(currentHoldElement) {
   if (handsDealt == 1)
   {
     holdElement = document.getElementById(currentHoldElement);
-    // holdElement.innerText=="HOLD" ? holdElement.innerText = "" : holdElement.innerText = "HOLD";
     holdElement.style.opacity != 1 ? holdElement.style.opacity = 1 : holdElement.style.opacity = 0.0001;
     let cardNum = parseInt(currentHoldElement.replace(/hold/,""));
     cards[cardNum].isHeld !== true ? cards[cardNum].isHeld = true : cards[cardNum].isHeld = false;

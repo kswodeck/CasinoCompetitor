@@ -105,6 +105,14 @@ body {
   opacity: 0.0001;
 }
 
+/* #cards-container {
+  height: calc(60px + 30vw + 2vh);
+  min-height: 220px;
+  max-height: 400px;
+  background: no-repeat url("../assets/images/cards-background.jpg");
+  border-radius: 25px;
+} */
+
 /* #hold0, #hold1, #hold2, #hold3, #hold4 {
   opacity: 0.0001;
 } */
@@ -116,12 +124,12 @@ body {
   text-shadow: 7px 2px 7px lightsteelblue, 7px 6px 7px lightsteelblue, 7px 10px 7px lightsteelblue;
 }
 
-#page-heading, #game-over-heading {
+#page-heading, #hand-ranking-heading {
   font-size: calc(18px + 0.9vw);
   text-shadow: 5px 10px 9px lightsteelblue;
 }
 
-#game-over-heading {
+#hand-ranking-heading {
   text-transform: uppercase;
   font-weight: bold;
   color: crimson;
