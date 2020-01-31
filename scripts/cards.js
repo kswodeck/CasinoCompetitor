@@ -123,6 +123,18 @@ function toggleCardHold(currentHoldElement) {
     holdElement.style.opacity != 1 ? holdElement.style.opacity = 1 : holdElement.style.opacity = 0.0001;
     let cardNum = parseInt(currentHoldElement.replace(/hold/,""));
     cards[cardNum].isHeld !== true ? cards[cardNum].isHeld = true : cards[cardNum].isHeld = false;
+    let holdCount = 0;
+    for (let i=0; i<5; i++){
+      if (cards[i].isHeld == true){
+        holdCount++;
+      }
+    }
+    if (holdCount >= 4){
+      document.getElementById("card-deal-button").innerText = "Hold Cards";
+    }
+    else {
+      document.getElementById("card-deal-button").innerText = "Redeal Cards";
+    }
   }
   else {
     return;
