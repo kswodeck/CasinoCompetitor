@@ -188,7 +188,7 @@ function getHandRanking(currentHand){
           {
             alert("Royal Flush");
           }
-          else if (){ //determines if straight flush, not royal. Difficult to determine. Need each card to be 1 apart
+          else if (isStraightHand == true){ //determines if straight flush, not royal. Difficult to determine. Need each card to be 1 apart
             isRoyalHand = false;
             alert("Straight Flush");
           }
