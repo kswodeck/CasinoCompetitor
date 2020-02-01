@@ -1,7 +1,7 @@
 var handsDealt = 0;
-var rankAchieved = false;
 var cards = [];
 var cards2 = [];
+var rankAchieved = false;
 
 function getCards() {
   document.getElementById("hand-ranking-heading").style.display = "none";
@@ -9,7 +9,6 @@ function getCards() {
     while(cardImages.length > 0){
         cardImages[0].parentNode.removeChild(cardImages[0]);
     }
-
   if (handsDealt >= 3)
   {
     handsDealt = 0;
@@ -92,6 +91,7 @@ function getCards() {
       document.getElementById("card-deal-button").innerText = "Deal Cards";
     }
   }
+
   handsDealt++;
 }
 
@@ -104,6 +104,7 @@ function Card(numValue,numSuit,identity) {
   this.isJackOrBetter = isJackOrBetter(this.numValue);
   this.valueName = getValueName(this.numValue);
   this.suitName = getSuitName(this.numSuit);
+  this.numValuesMatching = 0;
   this.isHeld = false;
 }
 
@@ -165,13 +166,39 @@ function getSuitName(value) {
   return (value==1)?"clubs":(value==2)?"diamonds":(value==3)?"hearts":"spades";
 }
 
-// function isEqual(v1, v2)
-// {
-//   if (v1 == v2)
-//   {return true} else {return false}
-// }
-// function isSameIdentity(currentObject, index, arr) {
-//   if (index === 0)
-//   {return false;}
-//   else {return (currentObject.identity === arr[index - 1].identity);}
-// }
+function isEqual(v1, v2)
+{
+  if (v1 == v2)
+  {return true} else {return false}
+}
+
+function getHandRanking(currentHand){
+  let isRoyalHand = true;
+  let isStraightHand = true;
+  let isFlushHand = true;
+  let isJackOrBetterHand = true;
+  let isFullHouse = false;
+  for (let currentCard=0; currentCard<5; currentCard++){
+    for (let comparedCard=4; comparedCard>=0; comparedCard--)
+    {
+      if (currentCard != comparedCard){
+        if (currentHand[currentCard].numSuit == currentHand[comparedCard].numSuit){ //conditional to determine flush (royal, straight, normal)
+          isJackOrBetterHand = false;
+          if (currentHand[currentCard].isRoyalHand == true) //determines if royal flush
+          {
+            alert("Royal Flush");
+          }
+          else if (){ //determines if straight flush, not royal. Difficult to determine. Need each card to be 1 apart
+            isRoyalHand = false;
+            alert("Straight Flush");
+          }
+          else { //hand is just a normal flush
+            isStraightHand = false;
+            isRoyalHand = false;
+            alert("Flush");
+          }
+        }
+      }
+    }
+  }
+}
