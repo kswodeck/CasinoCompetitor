@@ -39,7 +39,6 @@ function getCards() {
     cards.push(new Card(numValue,numSuit,identity));
     let cardImage = createCardElement(cards[currentCard].imgSrc, currentCard);
     cardImage.addEventListener("click", function(){toggleCardHold("hold"+currentCard);});
-    document.getElementById("card-deal-button").innerText = "Redeal Cards";
     }
     else if (handsDealt==1)
     {
@@ -124,19 +123,7 @@ function toggleCardHold(currentHoldElement) {
     holdElement.style.opacity != 1 ? holdElement.style.opacity = 1 : holdElement.style.opacity = 0.0001;
     let cardNum = parseInt(currentHoldElement.replace(/hold/,""));
     cards[cardNum].isHeld !== true ? cards[cardNum].isHeld = true : cards[cardNum].isHeld = false;
-    let holdCount = 0;
-    for (let i=0; i<5; i++){
-      if (cards[i].isHeld == true){
-        holdCount++;
-      }
     }
-    if (holdCount >= 4){
-      document.getElementById("card-deal-button").innerText = "Hold Cards";
-    }
-    else {
-      document.getElementById("card-deal-button").innerText = "Redeal Cards";
-    }
-  }
   else {
     return;
   }
