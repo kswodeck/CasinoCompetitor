@@ -95,13 +95,14 @@ function getCards() {
   }
   if (handsDealt==0 || handsDealt==1)
   {
-    let rankingText = getHandRanking(currentHand);
     if (rankAchieved === true)
     {
+      document.getElementById("hand-ranking-heading").innerText = getHandRanking(currentHand);
       document.getElementById("hand-ranking-heading").style.color = "darkblue"; // if a hand category has been acheived, blue text
     }
     else
     {
+      document.getElementById("hand-ranking-heading").innerText = "Game Over";
       document.getElementById("hand-ranking-heading").style.color = "crimson"; // if no hand categories have been acheived, red text
     }
   }
@@ -174,36 +175,33 @@ function isEqual(v1, v2)
 }
 
 function getHandRanking(hand){
-  let handRanking = "Game Over";
   let isFlush = isFlushHand(hand);
   let isRoyal = isRoyalHand(hand);
   let isStraight = isStraightHand(hand[0].numValue,hand[1].numValue,hand[2].numValue,hand[3].numValue,hand[4].numValue);
+  let highestSameKindCount = getSameKindCount(hand);
   let isJackOrBetterHand = true;
   let isFullHouse = false;
-  for (let currentCard=0; currentCard<=4; currentCard++){
-    for (let comparedCard=4; comparedCard>=0; comparedCard--)
-    {
-      if (currentCard != comparedCard){
-        if (isFlush===true){ //conditional to determine flush (royal, straight, normal)
+        if (isFlush==true){ //conditional to determine flush (royal, straight, normal)
           rankAchieved = true;
           isJackOrBetterHand = false;
-          if (isRoyal == true) //determines if royal flush
+          if (isRoyal==true) //determines if royal flush
           {
             alert("Royal Flush"); //working
-            return handRanking = "Royal Flush";
+            return "Royal Flush";
           }
-          else if (isStraight == true){ //determines if straight flush, not royal. Difficult to determine. Need each card to be 1 apart
+          else if (isStraight==true){ //determines if straight flush, not royal. Difficult to determine. Need each card to be 1 apart
             alert("Straight Flush"); //working
-            return handRanking = "Straight Flush";
+            return "Straight Flush";
           }
-          else { //hand is just a normal flush
+          else { //hand is a normal flush
             alert("Flush"); //working
-            return handRanking = "Flush";
+            return "Flush";
           }
         }
-      }
-    }
-  }
+        else if (isStraight==true){ //determines if hand is normal straight
+          alert("Straight"); //working
+          return "Straight";
+        }
 }
 
 function isFlushHand(hand){
@@ -245,4 +243,15 @@ function isRoyalHand(hand){
       return false;
     }
   }
+}
+
+function getSameKindCount(hand){
+  for (let i=0;i<5;i++){
+  let currentKindCount = 1; //make sameKindCount a property of each card object, track which cards have matches
+   for (let j=4;j>=0;j--){
+    
+   }
+   hand[i].sameKindCount = currentKindCount;
+  }
+  return 1;
 }
