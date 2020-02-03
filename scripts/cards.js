@@ -198,6 +198,10 @@ function getHandRanking(hand){
             return "Flush";
           }
         }
+        else if (isRoyal==true){ //determines if hand is a Royal Straight (of different suits)
+          alert("Straight"); //working
+          return "Straight";
+        }
         else if (isStraight==true){ //determines if hand is normal straight
           alert("Straight"); //working
           return "Straight";
