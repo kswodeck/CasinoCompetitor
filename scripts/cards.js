@@ -252,7 +252,7 @@ function isRoyalHand(hand){
 function getSameKindCount(hand){
   for (let i=0;i<5;i++){
   let currentKindCount = 1; //make sameKindCount a property of each card object, track which cards have matches
-   for (let j=4;j>=0;j--){
+   for (let j=4;j>=0;j--){ //make hasPair a property of each card object only if that card's currentKindCount == 2
     
    }
    hand[i].sameKindCount = currentKindCount;
