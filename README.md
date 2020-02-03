@@ -27,7 +27,7 @@ Flush
 Not a royal or straight flush. If (cards[1].numSuit == cards[2].numSuit AND cards[2].numSuit == cards[3].numSuit AND cards[3].numSuit == cards[4].numSuit AND cards[4].numSuit == cards[5].numSuit).. isFlush == true
 
 Straight
-Not a royal or straight flush. Find the lowest card. Check if there is a card that is equal to cards[i].numValue+1, then +2, +3, +4. In this case ace can be either at the beginning or the end. If an ace(1) exists.. in other words, if the lowest card isRoyal, try both incrementing from 1 or decrementing from 14.. isStraight == true
+Not a royal or straight flush. Find the lowest card. Check if there is a card that is equal to cards[i].numValue+1, then +2, +3, +4. Aces at the end of a straight do not need to be checked, since Royal Flush will already have checked for it (will have a different check for non Flush Royal Straights)
 
 3 of a Kind
 Not 4 of a kind or full house. If any 3 cards numValues are equal
@@ -42,4 +42,4 @@ Not 4 or 3 of a kind or full house or two pair. If two cards numValues are both 
 functions, booleans, and incrementing variables:
 isFlush, isStraight (bool functions)
 isRoyal, isJackOrBetter (object functions assigned through object properties) DONE
-pairs, sameValues (incrementing globals)
+pairs, sameValues (incrementing variables)
