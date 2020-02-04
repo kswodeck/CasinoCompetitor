@@ -2,7 +2,6 @@ var handsDealt = 0;
 var cards = [];
 var cards2 = [];
 var currentHand = cards;
-var rankAchieved = false;
 
 function getCards() {
   document.getElementById("hand-ranking-heading").style.display = "none";
@@ -93,17 +92,18 @@ function getCards() {
       document.getElementById("card-deal-button").innerText = "Deal Cards";
     }
   }
-  if (handsDealt==0 || handsDealt==1)
+  if (handsDealt<2)
   {
-    if (rankAchieved === true)
+    let handResultText = getHandRanking(currentHand);
+    document.getElementById("hand-ranking-heading").innerText = handResultText;
+    if (handResultText=="Game Over")
     {
-      document.getElementById("hand-ranking-heading").innerText = getHandRanking(currentHand);
-      document.getElementById("hand-ranking-heading").style.color = "darkblue"; // if a hand category has been acheived, blue text
+      document.getElementById("hand-ranking-heading").style.color = "crimson"; // if no hand categories have been acheived, red text
     }
     else
     {
-      document.getElementById("hand-ranking-heading").innerText = "Game Over";
-      document.getElementById("hand-ranking-heading").style.color = "crimson"; // if no hand categories have been acheived, red text
+    document.getElementById("hand-ranking-heading").style.display = "block";
+    document.getElementById("hand-ranking-heading").style.color = "darkblue"; // if a hand category has been acheived, blue text
     }
   }
   handsDealt++;
@@ -178,11 +178,10 @@ function getHandRanking(hand){
   let isFlush = isFlushHand(hand);
   let isRoyal = isRoyalHand(hand);
   let isStraight = isStraightHand(hand[0].numValue,hand[1].numValue,hand[2].numValue,hand[3].numValue,hand[4].numValue);
-  let highestSameKindCount = getSameKindCount(hand);
-  let isJackOrBetterHand = true;
-  let isFullHouse = false;
+  let highestSameKindCount = classifySameKinds(hand);
+  let isPair = pairExists(hand);
+  // alert("Pair: "+isPair+". HighKindCount: "+highestSameKindCount)
         if (isFlush==true){ //conditional to determine flush (royal, straight, normal)
-          rankAchieved = true;
           isJackOrBetterHand = false;
           if (isRoyal==true) //determines if royal flush
           {
@@ -198,7 +197,7 @@ function getHandRanking(hand){
             return "Flush";
           }
         }
-        else if (isRoyal==true){ //determines if hand is a Royal Straight (of different suits)
+        else if (isRoyal==true && isPair!=true){ //determines if hand is a Royal Straight (of different suits)
           alert("Straight"); //working
           return "Straight";
         }
@@ -206,34 +205,50 @@ function getHandRanking(hand){
           alert("Straight"); //working
           return "Straight";
         }
+        else if (highestSameKindCount == 4){
+          alert("4 of a Kind"); //working
+          return "4 of a Kind";
+        }
+        else if (highestSameKindCount == 3){
+          if (isPair==true){
+            alert("Full House"); //working
+            return "Full House";
+          }
+          else {
+            alert("3 of a Kind"); //not working
+            return "3 of a Kind";
+          }
+        }
+        else if (isTwoPairHand(hand)==true){
+          alert("Two Pair"); //working
+          return "Two Pair";
+          }
+        else if (isJackOrBetterHand(hand)==true){
+          alert("Jacks or Better"); //working
+          return "Jacks or Better";
+        }
+        else {
+          return "Game Over";
+        }
 }
 
 function isFlushHand(hand){
-  // let sameSuitCount = 0;
-  // let isFlush = currentHand.every(isEqual(currentHand[0].numSuit))
   if (isEqual(hand[0].numSuit,hand[1].numSuit) && isEqual(hand[1].numSuit,hand[2].numSuit)
   && isEqual(hand[2].numSuit,hand[3].numSuit) && isEqual(hand[3].numSuit,hand[4].numSuit))
   {
     return true;
   }
-  else {
-    {
-      return false;
-    }
-  }
+  return false;
 }
 
 function isStraightHand(v0,v1,v2,v3,v4){
   let compArray = [v0,v1,v2,v3,v4];
   let minNum = Math.min(v0,v1,v2,v3,v4);
-    if (compArray.includes(minNum+1) && compArray.includes(minNum+2) && compArray.includes(minNum+3) && compArray.includes(minNum+4))
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
+  if (compArray.includes(minNum+1) && compArray.includes(minNum+2) && compArray.includes(minNum+3) && compArray.includes(minNum+4))
+  {
+    return true;
+  }
+  return false;
 }
 
 function isRoyalHand(hand){
@@ -242,20 +257,64 @@ function isRoyalHand(hand){
   {
     return true;
   }
-  else {
-    {
-      return false;
-    }
-  }
+  return false;
 }
 
-function getSameKindCount(hand){
+function classifySameKinds(hand){
   for (let i=0;i<5;i++){
-  let currentKindCount = 1; //make sameKindCount a property of each card object, track which cards have matches
-   for (let j=4;j>=0;j--){ //make hasPair a property of each card object only if that card's currentKindCount == 2
-    
-   }
+  currentKindCount = 1; //make sameKindCount a property of each card object, track which cards have matches
+    for (let j=4;j>=0;j--){ //make hasPair a property of each card object only if that card's currentKindCount == 2
+     if (hand[i] != hand[j]){
+        if (hand[i].numValue == hand[j].numValue){
+          currentKindCount++;
+        }
+      }
+    }
    hand[i].sameKindCount = currentKindCount;
+   if (currentKindCount==2){
+     hand[i].hasPair = true;
+     if (hand[i].isJackOrBetter==true){
+       hand[i].isJackOrBetterPair = true;
+     }
+     else {
+       hand[i].isJackOrBetterPair = false;
+     }
+   }
+   else {
+     hand[i].hasPair = false;
+   }
   }
-  return 1;
+  return Math.max(hand[0].sameKindCount,hand[1].sameKindCount,hand[2].sameKindCount,hand[3].sameKindCount,hand[4].sameKindCount);
+}
+
+function pairExists(hand){
+  for (let i=0;i<5;i++){
+    if (hand[i].hasPair == true){
+      return true;
+    }
+  }
+  return false;
+}
+
+function isTwoPairHand(hand){
+  let numPairs = 0;
+  for (let i=0;i<5;i++){
+    if (hand[i].hasPair == true){
+      numPairs++;
+    }
+  }
+  if (numPairs==4)
+  {
+    return true;
+  }
+  return false;
+}
+
+function isJackOrBetterHand(hand){
+  for (let i=0;i<5;i++){
+    if (hand[i].isJackOrBetterPair == true){
+      return true;
+    }
+  }
+  return false;
 }
