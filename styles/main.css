@@ -94,13 +94,13 @@ body {
   background-color: crimson;
   color: gold;
   font-weight: bold;
-  padding: 0.3% 1% 4% 1%;
+  padding: 0.1% 1% 4% 1%;
   border: solid 2px gold;
-  border-radius: 30px;
+  border-radius: 50px;
   white-space: nowrap;
   font-size:calc(12px + 0.5vw);
-  width: calc(40px + 2vw + 0.5vh);
-  height: calc(28px + 1.2vw + 1vh);
+  width: calc(38px + 2.3vw);
+  height: calc(30px + 1.4vw);
 }
 #bet-button:hover {
   background-color: darkblue;
