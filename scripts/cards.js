@@ -328,7 +328,7 @@ function isJackOrBetterHand(hand){
 }
 
 function toggleBet() {
-  if (currentBet < 4)
+  if (currentBet < 5)
   {
     currentBet++;
   }
@@ -341,31 +341,36 @@ function toggleBet() {
 function collectCoins(result){
   let currentWin=0;
   if(result=="Jacks or Better"){
-   currentWin=currentBet*2;
+   currentWin=currentBet;
   }
   else if(result=="Two Pair"){
-    currentWin=currentBet*3;
+    currentWin=currentBet*2;
   }
   else if(result=="3 of a Kind") {
-    currentWin=currentBet*4;
+    currentWin=currentBet*3;
   }
   else if (result == "Straight") {
-    currentWin = currentBet * 6;
+    currentWin = currentBet*4;
   }
   else if (result == "Flush") {
-    currentWin = currentBet * 7;
+    currentWin = currentBet*6;
   }
   else if (result == "Full House") {
-    currentWin = currentBet * 9;
+    currentWin = currentBet*9;
   }
   else if (result == "4 of a Kind") {
-    currentWin = currentBet * 14;
+    currentWin = currentBet*25;
   }
   else if (result == "Straight Flush") {
-    currentWin = currentBet * 25;
+    currentWin = currentBet*50;
   }
   else if (result == "Royal Flush") {
-    currentWin = currentBet * 40;
+    if (currentBet<5){
+      currentWin = currentBet*250;
+    }
+    else {
+      currentWin = 4000;
+    }
   }
   document.getElementById("current-win-span").innerText = currentWin;
   //alert("You Won: "+currentWin+" coins. You Had: "+totalCoins);
