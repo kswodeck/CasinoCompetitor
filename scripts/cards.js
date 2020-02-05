@@ -3,8 +3,10 @@ var cards = [];
 var cards2 = [];
 var currentHand = cards;
 var totalCoins = 50;
+var currentBet = 1;
 
 function getCards() {
+  document.getElementById("current-win-span").innerText = 0;
   document.getElementById("hand-ranking-heading").style.display = "none";
     var cardImages = document.getElementsByClassName("cards");
     while(cardImages.length > 0){
@@ -93,6 +95,9 @@ function getCards() {
       document.getElementById("card-deal-button").innerText = "Deal Cards";
     }
   }
+  if (handsDealt==0){
+    totalCoins=totalCoins-currentBet;
+  }
   if (handsDealt<2)
   {
     let handResultText = getHandRanking(currentHand);
@@ -100,11 +105,15 @@ function getCards() {
     if (handResultText=="Game Over")
     {
       document.getElementById("hand-ranking-heading").style.color = "crimson"; // if no hand categories have been acheived, red text
+      //alert("You now have: "+totalCoins+" coins");
     }
     else
     {
     document.getElementById("hand-ranking-heading").style.display = "block";
     document.getElementById("hand-ranking-heading").style.color = "darkblue"; // if a hand category has been acheived, blue text
+      if(handsDealt==1){
+        collectCoins(handResultText);
+      }
     }
   }
   handsDealt++;
@@ -181,7 +190,6 @@ function getHandRanking(hand){
   let isStraight = isStraightHand(hand[0].numValue,hand[1].numValue,hand[2].numValue,hand[3].numValue,hand[4].numValue);
   let highestSameKindCount = classifySameKinds(hand);
   let isPair = pairExists(hand);
-  // alert("Pair: "+isPair+". HighKindCount: "+highestSameKindCount)
         if (isFlush==true){ //conditional to determine flush (royal, straight, normal)
           isJackOrBetterHand = false;
           if (isRoyal==true) //determines if royal flush
@@ -317,4 +325,50 @@ function isJackOrBetterHand(hand){
     }
   }
   return false;
+}
+
+function toggleBet() {
+  if (currentBet < 4)
+  {
+    currentBet++;
+  }
+  else {
+    currentBet = 1;
+  }
+  document.getElementById("current-bet-span").innerText = currentBet;
+}
+
+function collectCoins(result){
+  let currentWin=0;
+  if(result=="Jacks or Better"){
+   currentWin=currentBet*2;
+  }
+  else if(result=="Two Pair"){
+    currentWin=currentBet*3;
+  }
+  else if(result=="3 of a Kind") {
+    currentWin=currentBet*4;
+  }
+  else if (result == "Straight") {
+    currentWin = currentBet * 6;
+  }
+  else if (result == "Flush") {
+    currentWin = currentBet * 7;
+  }
+  else if (result == "Full House") {
+    currentWin = currentBet * 9;
+  }
+  else if (result == "4 of a Kind") {
+    currentWin = currentBet * 14;
+  }
+  else if (result == "Straight Flush") {
+    currentWin = currentBet * 25;
+  }
+  else if (result == "Royal Flush") {
+    currentWin = currentBet * 40;
+  }
+  document.getElementById("current-win-span").innerText = currentWin;
+  //alert("You Won: "+currentWin+" coins. You Had: "+totalCoins);
+  totalCoins = totalCoins + currentWin;
+  //alert("You now have: "+totalCoins+" coins");
 }
