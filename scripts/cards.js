@@ -198,7 +198,7 @@ function getHandRanking(hand){
             return "Flush";
           }
         }
-        else if (isRoyal==true && isPair!=true){ //determines if hand is a Royal Straight (of different suits)
+        else if (isRoyal==true && highestSameKindCount==1){ //determines if hand is a Royal Straight (of different suits)
           alert("Straight"); //working
           return "Straight";
         }
@@ -225,7 +225,6 @@ function getHandRanking(hand){
           return "Two Pair";
           }
         else if (isJackOrBetterHand(hand)==true){
-          alert("Jacks or Better"); //working
           return "Jacks or Better";
         }
         else {
