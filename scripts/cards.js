@@ -2,6 +2,7 @@ var handsDealt = 0;
 var cards = [];
 var cards2 = [];
 var currentHand = cards;
+var totalCoins = 50;
 
 function getCards() {
   document.getElementById("hand-ranking-heading").style.display = "none";
