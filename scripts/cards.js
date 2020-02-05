@@ -3,6 +3,7 @@ var cards = [];
 var cards2 = [];
 var currentHand = cards;
 var totalCoins = 50;
+var currentBet = 1; //form.elements.dicequantity.value;
 
 function getCards() {
   document.getElementById("hand-ranking-heading").style.display = "none";
