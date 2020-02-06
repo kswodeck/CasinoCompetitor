@@ -70,6 +70,22 @@ body {
   margin: 0 auto;
 }
 
+#coins-img {
+  width: calc(20px + 1vw);
+}
+
+#coins-img {
+  width: calc(20px + 1vw);
+  margin-right: 5%;
+}
+
+#total-coins-span {
+  font-size:calc(11px + 0.3vw);
+  color: gold;
+  font-weight: bold;
+  margin-right: 1%;
+}
+
 #coin-flip-button, #dice-roll-button, #card-deal-button, #clear-tally-button {
   background-color: gold;
   color: crimson;
@@ -106,6 +122,10 @@ body {
   background-color: darkblue;
   color: gold;
   border: solid 2px gold;
+}
+
+#win-button:hover {
+  cursor:default;
 }
 
 #current-win-span, #current-bet-span{
