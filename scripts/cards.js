@@ -2,7 +2,7 @@ var handsDealt = 0;
 var cards = [];
 var cards2 = [];
 var currentHand = cards;
-var totalCoins = 50;
+var totalCoins = 100;
 var currentBet = 1;
 
 function getCards() {
