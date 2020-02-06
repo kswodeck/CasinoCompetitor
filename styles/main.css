@@ -71,19 +71,15 @@ body {
 }
 
 #coins-img {
-  width: calc(20px + 1vw);
-}
-
-#coins-img {
-  width: calc(20px + 1vw);
+  width: calc(22px + 1vw);
   margin-right: 5%;
 }
 
 #total-coins-span {
-  font-size:calc(11px + 0.3vw);
+  font-size:calc(12px + 0.3vw);
   color: gold;
   font-weight: bold;
-  margin-right: 1%;
+  margin-right: 1.5%;
 }
 
 #coin-flip-button, #dice-roll-button, #card-deal-button, #clear-tally-button {

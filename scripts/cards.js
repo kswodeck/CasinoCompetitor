@@ -7,7 +7,6 @@ var currentBet = 1;
 
 function getCards() {
   document.getElementById("current-win-span").innerText = 0;
-  document.getElementById("win-button").style.backgroundColor = "crimson";
   document.getElementById("hand-ranking-heading").style.display = "none";
     var cardImages = document.getElementsByClassName("cards");
     while(cardImages.length > 0){
@@ -52,7 +51,6 @@ function getCards() {
     cards.push(new Card(numValue,numSuit,identity));
     let cardImage = createCardElement(cards[currentCard].imgSrc, currentCard);
     cardImage.addEventListener("click", function(){toggleCardHold("hold"+currentCard);});
-    document.getElementById("card"+currentCard).style.cursor = "pointer";
     }
     else if (handsDealt==1)
     {
@@ -99,7 +97,6 @@ function getCards() {
   }
   if (handsDealt==0){
     totalCoins=totalCoins-currentBet;
-    updateTotalCoins();
   }
   if (handsDealt<2)
   {
@@ -376,13 +373,7 @@ function collectCoins(result){
     }
   }
   document.getElementById("current-win-span").innerText = currentWin;
-  document.getElementById("win-button").style.backgroundColor = "darkblue";
   //alert("You Won: "+currentWin+" coins. You Had: "+totalCoins);
   totalCoins = totalCoins + currentWin;
-  updateTotalCoins();
   //alert("You now have: "+totalCoins+" coins");
-}
-
-function updateTotalCoins(){
-
 }
