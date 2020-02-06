@@ -97,6 +97,7 @@ function getCards() {
   }
   if (handsDealt==0){
     totalCoins=totalCoins-currentBet;
+    document.getElementById("total-coins-span").innerText = totalCoins;
   }
   if (handsDealt<2)
   {
@@ -372,8 +373,9 @@ function collectCoins(result){
       currentWin = 4000;
     }
   }
+  totalCoins = totalCoins + currentWin;
+  document.getElementById("total-coins-span").innerText = totalCoins;
   document.getElementById("current-win-span").innerText = currentWin;
   //alert("You Won: "+currentWin+" coins. You Had: "+totalCoins);
-  totalCoins = totalCoins + currentWin;
   //alert("You now have: "+totalCoins+" coins");
 }

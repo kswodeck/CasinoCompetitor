@@ -72,7 +72,6 @@ body {
 
 #coins-img {
   width: calc(22px + 1vw);
-  margin-right: 5%;
 }
 
 #total-coins-span {
@@ -126,7 +125,7 @@ body {
 
 #current-win-span, #current-bet-span{
   display: block;
-  line-height: 0.5;
+  line-height: 40%;
   text-align: center;
 }
 
