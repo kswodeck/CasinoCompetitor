@@ -226,12 +226,11 @@ function getHandRanking(hand){
             return "Full House";
           }
           else {
-            alert("3 of a Kind"); //not working
+            alert("3 of a Kind");
             return "3 of a Kind";
           }
         }
         else if (isTwoPairHand(hand)==true){
-          alert("Two Pair"); //working
           return "Two Pair";
           }
         else if (isJackOrBetterHand(hand)==true){
