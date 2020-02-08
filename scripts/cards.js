@@ -12,6 +12,7 @@ function getCards() {
     while(cardImages.length > 0){
         cardImages[0].parentNode.removeChild(cardImages[0]);
     }
+    document.getElementById("win-button").style.backgroundColor="crimson";
   if (handsDealt >= 3)
   {
     handsDealt = 0;
@@ -329,14 +330,19 @@ function isJackOrBetterHand(hand){
 }
 
 function toggleBet() {
-  if (currentBet < 5)
-  {
-    currentBet++;
+  if (handsDealt==0 || handsDealt==3){
+    if (currentBet < 5)
+    {
+      currentBet++;
+    }
+    else {
+      currentBet = 1;
+    }
+  document.getElementById("current-bet-span").innerText = currentBet;
   }
   else {
-    currentBet = 1;
+    return;
   }
-  document.getElementById("current-bet-span").innerText = currentBet;
 }
 
 function collectCoins(result){
@@ -374,8 +380,7 @@ function collectCoins(result){
     }
   }
   totalCoins = totalCoins + currentWin;
+  document.getElementById("win-button").style.backgroundColor="darkblue";
   document.getElementById("total-coins-span").innerText = totalCoins;
   document.getElementById("current-win-span").innerText = currentWin;
-  //alert("You Won: "+currentWin+" coins. You Had: "+totalCoins);
-  //alert("You now have: "+totalCoins+" coins");
 }
