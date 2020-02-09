@@ -12,19 +12,23 @@
     <title>Game Changer</title>
   </head>
   <body class="m-auto">
-    <div class="container-fluid p-0">
+    <div id ="main-container" class="container-fluid">
       <header id="header" class="mb-md-4 mb-2">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark py-md-2 py-1" id="main-navbar" role="navigation">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark py-sm-1 py-0" id="main-navbar" role="navigation">
           <div class="row" id="main-links-row">
             <div class="col-4 pl-lg-3 pl-md-1 px-0"><a id="main-head-link" href="home.html">Game Changer</a></div>
                 <div class="col-4 pt-md-1 p-0">
                   <div class="collapse navbar-collapse" id="navbar-content">
                     <ul class="navbar-nav text-center m-auto" id="main-links-list">
                       <div class="col-md-3 top-menu-div">
-                        <li class="nav-item active"><a class="nav-link active p-0" role="button" href="home.html">Home<span class="sr-only">(current)</span></a></li>
+                        <li class="nav-item"><a class="nav-link p-0" role="button" href="home.html">Home</a></li>
                       </div>
-                      <div class="col-md-3 top-menu-div">
-                        <li class="nav-item"><a class="nav-link p-0" href="cards.html">Cards</a></li>
+                      <div class="col-md-3 top-menu-div cards-dropdown">
+                        <a class="btn dropdown-toggle p-0 ml-md-0 ml-2" href="cards.html" role="button" id="dropdownCardsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cards</a>
+                       <div class="dropdown-menu p-0" id="cardsDropdown" aria-labelledby="dropdownCardsLink">
+                         <a class="dropdown-item px-md-1 p-0" href="cards.html">Competitive</a>
+                         <a class="dropdown-item px-md-1 p-0" href="practice-cards.html">Practice</a>
+                       </div>
                       </div>
                       <div class="col-md-3 top-menu-div">
                         <li class="nav-item"><a class="nav-link p-0" href="dice.html">Dice</a></li>
@@ -35,19 +39,18 @@
                   </ul>
                 </div>
               </div>
-          <div class="col-4 header-div text-right p-lg-2 p-md-1 pr-1 p-0" id="collapse-button-div">
-            <button id="hamburger-button" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
+          <div class="col-4 header-div text-right p-md-1 pr-1 p-0" id="collapse-button-div">
+              <button id="hamburger-button" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
           </div>
         </div>
       </nav>
     </header>
       <h1 id="home-heading" class="text-center"><span id="welcome-home">Welcome to</span><br />Game Changer</h1>
       <img src="assets\images\game-changer-home-logo.jpg" alt="GameChanger" id="home-logo" class="m-auto img-fluid">
-  </div>
    <footer id="footer" class="d-md-block d-none">
-     <nav class="navbar-nav navbar-expand navbar-dark bg-dark m-auto">
+     <nav id="bottom-navbar" class="navbar-nav navbar-expand navbar-dark bg-dark m-auto">
        <ul class="navbar-nav navbar-center m-auto text-center" id="bottom-nav-list">
          <li class="nav-item active"><a class="nav-link active" href="home.html">Home<span class="sr-only">(current)</span></a></li>
          <li class="nav-item"><a class="nav-link" href="cards.html">Cards</a></li>
@@ -55,7 +58,8 @@
          <li class="nav-item"><a class="nav-link" href="coin.html">Coin</a></li>
        </ul>
      </nav>
-   </footer>
+    </footer>
+   </div>
   </body>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

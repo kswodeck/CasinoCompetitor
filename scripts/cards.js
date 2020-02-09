@@ -1,11 +1,21 @@
 var handsDealt = 0;
 var cards = [];
 var cards2 = [];
-var currentHand = cards;
 var totalCoins = 100;
 var currentBet = 1;
 
 function getCards() {
+  if (totalCoins<=0){
+    outOfCoinsDialog();
+    handsDealt=2;
+  }
+  else if (totalCoins-currentBet < 0) {
+    // toggleBet();
+    handsDealt=2;
+    alert("You don't have enough coins for your current bet\nDecrease your bet and try again");
+  }
+  var currentHand = 0;
+  document.getElementById("card-deal-button").setAttribute('disabled', 'disabled');
   document.getElementById("current-win-span").innerText = 0;
   document.getElementById("hand-ranking-heading").style.display = "none";
     var cardImages = document.getElementsByClassName("cards");
@@ -22,7 +32,6 @@ function getCards() {
     return randomValues;
   }
   for (let currentCard=0; currentCard<5; currentCard++){
-    // let first = 10;
     if (handsDealt===0)
     {
       currentHand = cards;
@@ -35,15 +44,8 @@ function getCards() {
             isSameIdentity=false;
           }
           currentValues = getRandomCardValues();
-          // if (currentCard==0){
-          //   currentValues = [1,3];
-          // }
-          // else {
-          //   currentValues = [first,3];
-          // }
-          numValue = currentValues[0]; //13 card value options excluding jokers. 1=ace, 11=jack, 12=queen, 13=king
-          numSuit = currentValues[1]; //4 card suit options excluding jokers. club,diamond,heart,spade
-          // first++;
+          numValue = currentValues[0]; //13 card value options: 1=ace, 11=jack, 12=queen, 13=king
+          numSuit = currentValues[1]; //4 card suit options: club,diamond,heart,spade
           identity = numValue+"-"+numSuit;
           if (cards.filter(x => (x.identity === identity)).length === 0){
             isSameIdentity=false;
@@ -52,6 +54,7 @@ function getCards() {
     cards.push(new Card(numValue,numSuit,identity));
     let cardImage = createCardElement(cards[currentCard].imgSrc, currentCard);
     cardImage.addEventListener("click", function(){toggleCardHold("hold"+currentCard);});
+    document.getElementById("bet-button").setAttribute('disabled', 'disabled');
     }
     else if (handsDealt==1)
     {
@@ -61,8 +64,8 @@ function getCards() {
       while (isSameIdentity===true)
       {
         currentValues = getRandomCardValues();
-        numValue = currentValues[0]; //13 card value options excluding jokers. 1=ace, 11=jack, 12=queen, 13=king
-        numSuit = currentValues[1]; //4 card suit options excluding jokers. club,diamond,heart,spade
+        numValue = currentValues[0]; //13 card value options: 1=ace, 11=jack, 12=queen, 13=king
+        numSuit = currentValues[1]; //4 card suit options: club,diamond,heart,spade
         identity = numValue+"-"+numSuit;
         if (cards.filter(x => (x.identity === identity)).length === 0){
           if (currentCard === 0)
@@ -74,7 +77,7 @@ function getCards() {
           }
         }
       }
-      if (cards[currentCard].isHeld === true)
+      if (cards[currentCard].isHeld===true)
       {
         cards2.push(new Card(cards[currentCard].numValue,cards[currentCard].numSuit,cards[currentCard].identity));
       }
@@ -94,6 +97,8 @@ function getCards() {
       document.getElementById("hold"+currentCard).style.opacity = 0.0001;
       createCardElement("assets/images/cards/card_standard_blue_back.png", currentCard);
       document.getElementById("card-deal-button").innerText = "Deal Cards";
+      document.getElementById("card-deal-button").removeAttribute("disabled");
+      document.getElementById("bet-button").removeAttribute("disabled");
     }
   }
   if (handsDealt==0){
@@ -106,8 +111,7 @@ function getCards() {
     document.getElementById("hand-ranking-heading").innerText = handResultText;
     if (handResultText=="Game Over")
     {
-      document.getElementById("hand-ranking-heading").style.color = "crimson"; // if no hand categories have been acheived, red text
-      //alert("You now have: "+totalCoins+" coins");
+      document.getElementById("hand-ranking-heading").style.color = "crimson"; // if no hand category has been acheived, red text
     }
     else
     {
@@ -119,17 +123,16 @@ function getCards() {
     }
   }
   handsDealt++;
+  document.getElementById("card-deal-button").removeAttribute("disabled");
 }
 
-function Card(numValue,numSuit,identity) {
+function Card(numValue,numSuit,identity){
   this.numValue = numValue;
   this.numSuit = numSuit;
   this.identity = identity;
   this.imgSrc = "assets/images/cards/"+this.identity+".png";
   this.isRoyal = isRoyal(this.numValue);
   this.isJackOrBetter = isJackOrBetter(this.numValue);
-  this.valueName = getValueName(this.numValue);
-  this.suitName = getSuitName(this.numSuit);
   this.numValuesMatching = 0;
   this.isHeld = false;
 }
@@ -170,16 +173,6 @@ function isJackOrBetter(value) {
   }
 }
 
-function getValueName(value) {
-  return value==1 ? "one" : value==2 ? "two" : value==3 ? "three" : value==4 ? "four" :
-  value==5 ? "five" : value==6 ? "six" : value==7 ? "seven": value==8 ? "eight" :
-  value==9 ? "nine" : value==10 ? "ten" : value==11 ? "jack" : value==12 ? "queen" : "king";
-}
-
-function getSuitName(value) {
-  return (value==1)?"clubs":(value==2)?"diamonds":(value==3)?"hearts":"spades";
-}
-
 function isEqual(v1, v2)
 {
   if (v1 == v2)
@@ -192,14 +185,14 @@ function getHandRanking(hand){
   let isStraight = isStraightHand(hand[0].numValue,hand[1].numValue,hand[2].numValue,hand[3].numValue,hand[4].numValue);
   let highestSameKindCount = classifySameKinds(hand);
   let isPair = pairExists(hand);
-        if (isFlush==true){ //conditional to determine flush (royal, straight, normal)
+        if (isFlush===true){ //determine if flush (royal, straight, normal)
           isJackOrBetterHand = false;
-          if (isRoyal==true) //determines if royal flush
+          if (isRoyal===true) //determine if royal flush
           {
             alert("Royal Flush"); //working
             return "Royal Flush";
           }
-          else if (isStraight==true){ //determines if straight flush, not royal. Difficult to determine. Need each card to be 1 apart
+          else if (isStraight===true){ //determine if straight flush, not royal. Need each card to be 1 apart
             alert("Straight Flush"); //working
             return "Straight Flush";
           }
@@ -208,11 +201,11 @@ function getHandRanking(hand){
             return "Flush";
           }
         }
-        else if (isRoyal==true && highestSameKindCount==1){ //determines if hand is a Royal Straight (of different suits)
+        else if (isRoyal===true && highestSameKindCount==1){ //determines if hand is a Royal Straight (of different suits)
           alert("Straight"); //working
           return "Straight";
         }
-        else if (isStraight==true){ //determines if hand is normal straight
+        else if (isStraight===true){ //determines if hand is normal straight
           alert("Straight"); //working
           return "Straight";
         }
@@ -221,19 +214,18 @@ function getHandRanking(hand){
           return "4 of a Kind";
         }
         else if (highestSameKindCount == 3){
-          if (isPair==true){
+          if (isPair===true){
             alert("Full House"); //working
             return "Full House";
           }
           else {
-            alert("3 of a Kind");
             return "3 of a Kind";
           }
         }
-        else if (isTwoPairHand(hand)==true){
+        else if (isTwoPairHand(hand)===true){
           return "Two Pair";
           }
-        else if (isJackOrBetterHand(hand)==true){
+        else if (isJackOrBetterHand(hand)===true){
           return "Jacks or Better";
         }
         else {
@@ -330,7 +322,13 @@ function isJackOrBetterHand(hand){
 
 function toggleBet() {
   if (handsDealt==0 || handsDealt==3){
-    if (currentBet < 5)
+    if (totalCoins-currentBet <= 0){
+      currentBet = 1;
+      if (currentBet != 5){
+        alert("You don't have enough coins to increase bet");
+      }
+    }
+    else if (currentBet < 5)
     {
       currentBet++;
     }
@@ -382,4 +380,38 @@ function collectCoins(result){
   document.getElementById("win-button").style.backgroundColor="darkblue";
   document.getElementById("total-coins-span").innerText = totalCoins;
   document.getElementById("current-win-span").innerText = currentWin;
+}
+
+// function outOfCoinsDialog(){
+// // "Update details" button opens the <dialog> modally
+// let updateButton = document.getElementById('updateDetails');
+// let favDialog = document.getElementById('favDialog');
+// let outputBox = document.querySelector('output');
+// let selectEl = document.querySelector('select');
+// let confirmBtn = document.getElementById('confirmBtn');
+// updateButton.addEventListener('click', function onOpen() {
+//   if (typeof favDialog.showModal === "function") {
+//     favDialog.showModal();
+//   } else {
+//     alert("The <dialog> API is not supported by this browser");
+//   }
+// });
+// // "Favorite animal" input sets the value of the submit button
+// selectEl.addEventListener('change', function onSelect(e) {
+//   confirmBtn.value = selectEl.value;
+// });
+// // "Confirm" button of form triggers "close" on dialog because of [method="dialog"]
+// favDialog.addEventListener('close', function onClose() {
+//   outputBox.value = favDialog.returnValue + " button clicked - " + (new Date()).toString();
+// });
+// }
+
+function outOfCoinsDialog(){
+let favDialog = document.getElementById('favDialog');
+let confirmBtn = document.getElementById('confirmBtn');
+  if (typeof favDialog.showModal === "function") {
+    favDialog.showModal();
+  } else {
+    alert("The <dialog> API is not supported by this browser");
+  }
 }

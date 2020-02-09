@@ -6,8 +6,11 @@
 body {
   font-family: "Georgia", "Verdana", "Times New Roman";
   font-size: 100%;
-  overflow-x:hidden;
-  overflow-y: auto;
+  overflow: hidden;
+}
+
+#main-container {
+  padding: 0;
 }
 
 #page-description-div, #dice-quantity-input-div, #dicequantity {
@@ -79,6 +82,7 @@ body {
   color: gold;
   font-weight: bold;
   margin-right: 1.5%;
+  text-align: right;
 }
 
 #coin-flip-button, #dice-roll-button, #card-deal-button, #clear-tally-button {
@@ -100,6 +104,10 @@ body {
   color: gold;
   border: solid 2px gold;
 }
+#coin-flip-button:disabled, #dice-roll-button:disabled, #card-deal-button:disabled, #clear-tally-button:disabled {
+  opacity: 0.1;
+  cursor:default;
+}
 
 #bet-button, #win-button {
   background-color: crimson;
@@ -115,12 +123,14 @@ body {
 }
 #bet-button:hover {
   background-color: darkblue;
-  color: gold;
-  border: solid 2px gold;
+}
+#bet-button:disabled {
+  background-color: crimson;
 }
 
-#win-button:hover {
-  cursor:default;
+#bet-button:disabled, #win-button:disabled {
+  cursor: default;
+  opacity: 1;
 }
 
 #current-win-span, #current-bet-span{
@@ -150,10 +160,6 @@ body {
   max-height: 400px;
   background: no-repeat url("../assets/images/cards-background.jpg");
   border-radius: 25px;
-} */
-
-/* #hold0, #hold1, #hold2, #hold3, #hold4 {
-  opacity: 0.0001;
 } */
 
 #home-heading, #page-heading {
@@ -190,8 +196,7 @@ body {
 }
 
 #header {
-  overflow: hidden;
-  z-index: 3;
+  z-index: 10;
 }
 #header a:hover {
   color: crimson;
@@ -206,29 +211,107 @@ body {
   text-decoration: underline;
   text-transform: uppercase;
 }
-#main-links-list a {
+#main-links-list a, #dropdownCardsLink {
   color: gold;
   font-weight: bold;
   text-decoration: underline;
   text-transform: uppercase;
 }
+#dropdownCardsLink {
+  font-size: 100%;
+  border: none;
+  margin-bottom: 2px;
+}
+
+#cardsDropdown {
+  min-width: 130px;
+  background-color: #343a40;
+  text-align: center;
+  border: none;
+  margin-top: 5%;
+}
+
+#cardsDropdown a {
+  text-decoration: none;
+}
+
+.dropdown-toggle::after {
+  margin-left: 0;
+}
 
 #footer {
   position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   z-index: 2;
-  overflow: hidden;
-  padding-top: 30px;
+  padding: 30px 0 0 0;
 }
 #footer a {
   color: crimson;
   font-size: 90%;
   font-weight: bold;
   text-decoration: underline;
+  display: none;
 }
 #footer a:hover {
   color: gold;
+}
+
+#main-navbar {
+  display:block;
+}
+
+#practice-mode-link{
+  color: darkblue;
+}
+#practice-mode-link:hover{
+  color: crimson;
+}
+
+#dialog-popup-text, #favDialog, #dialog-menu {
+  text-align: center;
+  margin: auto;
+}
+
+#confirmBtn {
+  background-color: darkblue;
+  color: gold;
+  font-weight: bold;
+  padding: 0.1% 1% 4% 1%;
+  border: solid 1px gold;
+  border-radius: 5px;
+  white-space: nowrap;
+  font-size:calc(11px + 0.4vw);
+  width: calc(32px + 2.4vw);
+  height: calc(20px + 1vw);
+  margin: auto;
+}
+#cancelBtn {
+  background-color: crimson;
+  color: gold;
+  font-weight: bold;
+  padding: 0.1% 1% 4% 1%;
+  border: solid 1px gold;
+  border-radius: 5px;
+  white-space: nowrap;
+  font-size:calc(11px + 0.4vw);
+  width: calc(32px + 2.4vw);
+  height: calc(20px + 1vw);
+  margin: auto;
+}
+#cancelBtn:hover {
+  background-color: darkblue;
+}
+#confirmBtn:hover {
+  background-color: crimson;
+}
+#go-button-link{
+  color: gold;
+}
+#go-button-link:hover{
+  text-decoration: none;
 }
 
 @media (max-width: 575px) {
@@ -242,8 +325,7 @@ body {
       width: 105px;
       line-height: 1;
     }
-}
-
-#main-navbar {
-  display: block;
+    #dropdownCardsLink {
+      margin-bottom: 0;
+    }
 }
