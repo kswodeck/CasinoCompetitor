@@ -268,15 +268,25 @@ body {
   color: crimson;
 }
 
-#dialog-popup-text, #favDialog {
+#coin-win-popup-span, #number-coins-won {
+  color: darkblue;
+  font-weight: bold;
+  font-size:calc(12px + 0.4vw);
+}
+
+#dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog {
   text-align: center;
 }
 
-#cancelBtn, #confirmBtn {
+#outOfCoinsDialog, #winCoinsDialog {
+  border: solid 3px darkblue;
+}
+
+#winCoinsCancel, #confirmBtn, #outOfCoinsCancel {
   background-color: crimson;
   color: gold;
   font-weight: bold;
-  padding: 0.1% 1% 4% 1%;
+  padding: 0.1% 1% 1% 1%;
   border: solid 1px gold;
   border-radius: 2px;
   white-space: nowrap;
@@ -285,10 +295,10 @@ body {
   height: calc(22px + 1vw);
   margin: auto;
 }
-#confirmBtn, #cancelBtn:hover {
+#confirmBtn, #winCoinsCancel:hover, #outOfCoinsCancel:hover {
   background-color: darkblue;
 }
-#cancelBtn, #confirmBtn:hover {
+#confirmBtn:hover {
   background-color: crimson;
 }
 #go-button-link{
@@ -298,8 +308,11 @@ body {
   text-decoration: none;
 }
 
-#dialogButtonDiv {
+#dialogButtonDiv, #coinDialogDiv {
   margin-top: 2%;
+}
+#coinDialogDiv {
+  margin-top: 5%;
 }
 
 @media (max-width: 575px) {

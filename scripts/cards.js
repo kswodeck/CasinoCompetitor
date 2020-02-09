@@ -1,7 +1,7 @@
 var handsDealt = 0;
 var cards = [];
 var cards2 = [];
-var totalCoins = 100;
+var totalCoins = 10;
 var currentBet = 1;
 
 function getCards() {
@@ -216,7 +216,6 @@ function getHandRanking(hand){
         }
         else if (highestSameKindCount == 3){
           if (isPair===true){
-            alert("Full House"); //working
             return "Full House";
           }
           else {
@@ -344,34 +343,45 @@ function collectCoins(result){
   let currentWin=0;
   if(result=="Jacks or Better"){
    currentWin=currentBet;
+   winCoinsDialog(currentWin,result);
   }
   else if(result=="Two Pair"){
     currentWin=currentBet*2;
+    winCoinsDialog(currentWin,result);
   }
   else if(result=="3 of a Kind") {
     currentWin=currentBet*3;
+    winCoinsDialog(currentWin,result);
   }
   else if (result == "Straight") {
     currentWin = currentBet*4;
+    winCoinsDialog(currentWin,result);
   }
   else if (result == "Flush") {
     currentWin = currentBet*6;
+    winCoinsDialog(currentWin,result);
   }
   else if (result == "Full House") {
     currentWin = currentBet*9;
+    winCoinsDialog(currentWin,result);
   }
   else if (result == "4 of a Kind") {
     currentWin = currentBet*25;
+    winCoinsDialog(currentWin,result);
   }
   else if (result == "Straight Flush") {
     currentWin = currentBet*50;
+    winCoinsDialog(currentWin,result);
   }
   else if (result == "Royal Flush") {
     if (currentBet<5){
       currentWin = currentBet*250;
+      winCoinsDialog(currentWin,result);
     }
     else {
+      result = "Game Over";
       currentWin = 4000;
+      winCoinsDialog(currentWin,result);
     }
   }
   totalCoins = totalCoins + currentWin;
@@ -381,11 +391,35 @@ function collectCoins(result){
 }
 
 function outOfCoinsDialog(){
-let favDialog = document.getElementById('favDialog');
+let outOfCoinsDialog = document.getElementById('outOfCoinsDialog');
 let confirmBtn = document.getElementById('confirmBtn');
-  if (typeof favDialog.showModal === "function") {
-    favDialog.showModal();
+  if (typeof outOfCoinsDialog.showModal === "function") {
+    outOfCoinsDialog.showModal();
   } else {
     alert("The <dialog> API is not supported by this browser");
   }
+  document.getElementById('outOfCoinsCancel').onclick = function() {
+    outOfCoinsDialog.close();
+  }
+}
+
+function winCoinsDialog(currentWin,result) {
+  let winCoinsDialog = document.getElementById('winCoinsDialog');
+  let coinsPlurality = "coins";
+    if (typeof winCoinsDialog.showModal === "function") {
+      if (currentWin == 1) {
+        document.getElementById('coins-text').innerText = "coin";
+      }
+      else {
+        document.getElementById('coins-text').innerText = "coins";
+      }
+      document.getElementById('coin-win-popup-span').innerText = result;
+      document.getElementById('number-coins-won').innerText = " "+currentWin+" ";
+      winCoinsDialog.showModal();
+    } else {
+      alert("The <dialog> API is not supported by this browser");
+    }
+    document.getElementById('winCoinsCancel').onclick = function() {
+      winCoinsDialog.close();
+    }
 }

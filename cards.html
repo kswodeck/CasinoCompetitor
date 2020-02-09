@@ -87,17 +87,26 @@
         <h3 id="hand-ranking-heading">GAME OVER</h3>
       </div>
       <!-- Simple pop-up dialog box containing a form -->
-<dialog id="favDialog">
-    <p id="dialog-popup-text">You ran out of coins<br />
+<dialog id="outOfCoinsDialog">
+    <p class="dialog-popup-text">You ran out of coins!<br />
     Play <a id="practice-mode-link" href="practice-cards.html">Practice Mode</a></p>
-    <div id="dialogButtonDiv" class = "row justify-content-around">  
+    <div id="dialogButtonDiv" class = "row justify-content-around">
       <div class = "col">
-        <button id="cancelBtn" class="btn" value="cancel">Cancel</button>
+        <button id="outOfCoinsCancel" class="btn" value="cancel">Cancel</button>
       </div>
       <div class = "col">
        <button id="confirmBtn" class="btn"><a id="go-button-link" role="button" href="practice-cards.html">Go</a></button>
       </div>
-    </div>  
+    </div>
+</dialog>
+<dialog id="winCoinsDialog">
+  <span id="coin-win-popup-span"></span><br />
+  <span id="coin-win-popup-text" class="dialog-popup-text">You win<span id="number-coins-won"></span><span id="coins-text"></span></span>
+    <div id="coinDialogDiv" class = "row justify-content-around">
+      <div class = "col">
+        <button id="winCoinsCancel" class="btn" value="cancel">OK</button>
+      </div>
+    </div>
 </dialog>
    <footer id="footer" class="d-md-block d-none">
      <nav id="bottom-navbar" class="navbar-nav navbar-expand navbar-dark bg-dark m-auto">
