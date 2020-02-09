@@ -5,11 +5,11 @@ var totalCoins = 100;
 var currentBet = 1;
 
 function getCards() {
-  if (totalCoins<=0){
+  if (totalCoins<=0 && handsDealt != 1 && handsDealt != 2){
     outOfCoinsDialog();
     handsDealt=2;
   }
-  else if (totalCoins-currentBet < 0) {
+  else if (totalCoins-currentBet < 0  && handsDealt != 1 && handsDealt != 2) {
     // toggleBet();
     handsDealt=2;
     alert("You don't have enough coins for your current bet\nDecrease your bet and try again");
@@ -326,7 +326,7 @@ function toggleBet() {
       if (currentBet != 5){
         alert("You don't have enough coins to increase bet");
       }
-        currentBet = 1;
+      currentBet = 1;
     }
     else if (currentBet < 5)
     {
@@ -381,30 +381,6 @@ function collectCoins(result){
   document.getElementById("total-coins-span").innerText = totalCoins;
   document.getElementById("current-win-span").innerText = currentWin;
 }
-
-// function outOfCoinsDialog(){
-// // "Update details" button opens the <dialog> modally
-// let updateButton = document.getElementById('updateDetails');
-// let favDialog = document.getElementById('favDialog');
-// let outputBox = document.querySelector('output');
-// let selectEl = document.querySelector('select');
-// let confirmBtn = document.getElementById('confirmBtn');
-// updateButton.addEventListener('click', function onOpen() {
-//   if (typeof favDialog.showModal === "function") {
-//     favDialog.showModal();
-//   } else {
-//     alert("The <dialog> API is not supported by this browser");
-//   }
-// });
-// // "Favorite animal" input sets the value of the submit button
-// selectEl.addEventListener('change', function onSelect(e) {
-//   confirmBtn.value = selectEl.value;
-// });
-// // "Confirm" button of form triggers "close" on dialog because of [method="dialog"]
-// favDialog.addEventListener('close', function onClose() {
-//   outputBox.value = favDialog.returnValue + " button clicked - " + (new Date()).toString();
-// });
-// }
 
 function outOfCoinsDialog(){
 let favDialog = document.getElementById('favDialog');
