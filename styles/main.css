@@ -223,6 +223,10 @@ body {
   margin-bottom: 2px;
 }
 
+#cards-dropdown a:focus, #cards-dropdown a:active, #cards-dropdown a:visited, #cards-dropdown a:link, #cards-dropdown a:hover, #cards-dropdown a:unvisited {
+  border: none;
+}
+
 #cardsDropdown {
   min-width: 130px;
   background-color: #343a40;
@@ -274,20 +278,7 @@ body {
   margin: 1% auto 0 auto;
 }
 
-#confirmBtn {
-  background-color: darkblue;
-  color: gold;
-  font-weight: bold;
-  padding: 0.1% 1% 4% 1%;
-  border: solid 1px gold;
-  border-radius: 5px;
-  white-space: nowrap;
-  font-size:calc(11px + 0.4vw);
-  width: calc(40px + 2.3vw);
-  height: calc(20px + 1vw);
-  margin: auto;
-}
-#cancelBtn {
+#cancelBtn, #confirmBtn {
   background-color: crimson;
   color: gold;
   font-weight: bold;
@@ -295,10 +286,16 @@ body {
   border: solid 1px gold;
   border-radius: 5px;
   white-space: nowrap;
-  font-size:calc(11px + 0.4vw);
+  font-size: calc(11px + 0.4vw);
   width: calc(40px + 2.3vw);
   height: calc(20px + 1vw);
   margin: auto;
+}
+#confirmBtn {
+  background-color: darkblue;
+}
+#cancelBtn {
+  background-color: crimson;
 }
 #cancelBtn:hover {
   background-color: darkblue;
@@ -319,6 +316,7 @@ body {
     }
     #main-links-list, #cardsDropdown a {
       font-size: calc(8px + 1vw);
+      text-decoration: underline;
     }
     #coin-flip-tally-div, #dice-roll-tally-div {
       width: 105px;
@@ -326,5 +324,12 @@ body {
     }
     #dropdownCardsLink {
       margin-bottom: 0;
+    }
+    #cardsDropdown {
+      min-width: 100px;
+    }
+    #cardsDropdown a:hover {
+      color: crimson;
+      background-color: #343a40;
     }
 }
