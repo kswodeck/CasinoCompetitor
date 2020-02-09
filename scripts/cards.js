@@ -9,11 +9,6 @@ function getCards() {
     outOfCoinsDialog();
     handsDealt=2;
   }
-  else if (totalCoins-currentBet < 0  && handsDealt != 1 && handsDealt != 2) {
-    handsDealt=2;
-    //create dialog for this
-    alert("You don't have enough coins for your current bet\nDecrease your bet and try again");
-  }
   var currentHand = 0;
   document.getElementById("card-deal-button").setAttribute('disabled', 'disabled');
   document.getElementById("current-win-span").innerText = 0;
@@ -123,6 +118,12 @@ function getCards() {
     }
   }
   handsDealt++;
+  if (totalCoins-currentBet < 0  && handsDealt != 1 && handsDealt != 2) {
+    while (totalCoins - currentBet < 0 && currentBet !=1) {
+    currentBet--;
+  }
+    document.getElementById("current-bet-span").innerText = currentBet;
+    }
   document.getElementById("card-deal-button").removeAttribute("disabled");
 }
 
