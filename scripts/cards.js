@@ -10,8 +10,8 @@ function getCards() {
     handsDealt=2;
   }
   else if (totalCoins-currentBet < 0  && handsDealt != 1 && handsDealt != 2) {
-    // toggleBet();
     handsDealt=2;
+    //create dialog for this
     alert("You don't have enough coins for your current bet\nDecrease your bet and try again");
   }
   var currentHand = 0;
@@ -323,9 +323,6 @@ function isJackOrBetterHand(hand){
 function toggleBet() {
   if (handsDealt==0 || handsDealt==3){
     if (totalCoins-currentBet <= 0){
-      if (currentBet != 5){
-        alert("You don't have enough coins to increase bet");
-      }
       currentBet = 1;
     }
     else if (currentBet < 5)
