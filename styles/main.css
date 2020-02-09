@@ -219,12 +219,7 @@ body {
 }
 #dropdownCardsLink {
   font-size: 100%;
-  border: none;
   margin-bottom: 2px;
-}
-
-#cards-dropdown a:focus, #cards-dropdown a:active, #cards-dropdown a:visited, #cards-dropdown a:link, #cards-dropdown a:hover, #cards-dropdown a:unvisited {
-  border: none;
 }
 
 #cardsDropdown {
