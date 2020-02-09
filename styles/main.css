@@ -228,7 +228,6 @@ body {
   background-color: #343a40;
   text-align: center;
   border: none;
-  margin-top: 5%;
 }
 
 #cardsDropdown a {
@@ -272,7 +271,7 @@ body {
 
 #dialog-popup-text, #favDialog, #dialog-menu {
   text-align: center;
-  margin: auto;
+  margin: 0.5% auto 0 auto;
 }
 
 #confirmBtn {
@@ -318,10 +317,10 @@ body {
     #main-head-link, .navbar-toggler{
       font-size: calc(12px + 1vw);
     }
-    #main-links-list {
+    #main-links-list, #cardsDropdown a {
       font-size: calc(8px + 1vw);
     }
-    #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
+    #coin-flip-tally-div, #dice-roll-tally-div {
       width: 105px;
       line-height: 1;
     }

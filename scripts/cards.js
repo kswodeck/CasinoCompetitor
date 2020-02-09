@@ -323,10 +323,10 @@ function isJackOrBetterHand(hand){
 function toggleBet() {
   if (handsDealt==0 || handsDealt==3){
     if (totalCoins-currentBet <= 0){
-      currentBet = 1;
       if (currentBet != 5){
         alert("You don't have enough coins to increase bet");
       }
+        currentBet = 1;
     }
     else if (currentBet < 5)
     {

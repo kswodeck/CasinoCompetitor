@@ -25,7 +25,7 @@
                       </div>
                       <div class="col-md-3 top-menu-div cards-dropdown">
                         <a class="btn dropdown-toggle p-0 ml-md-0 ml-2" href="cards.html" role="button" id="dropdownCardsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cards</a>
-                       <div class="dropdown-menu mt-md-2 p-0" id="cardsDropdown" aria-labelledby="dropdownCardsLink">
+                       <div class="dropdown-menu mt-lg-1 p-0" id="cardsDropdown" aria-labelledby="dropdownCardsLink">
                          <a class="dropdown-item px-md-1 p-0" href="cards.html">Competitive</a>
                          <a class="dropdown-item px-md-1 p-0" href="practice-cards.html">Practice</a>
                        </div>
@@ -92,8 +92,14 @@
     <p id="dialog-popup-text">You have ran out of coins..<br />
     Play <a id="practice-mode-link" href="practice-cards.html">Practice Mode</a></p>
     <menu id="dialog-menu">
-      <button id="cancelBtn" class="btn" value="cancel">Cancel</button>
-      <button id="confirmBtn" class="btn"><a id="go-button-link" role="button" href="practice-cards.html">Go</a></button>
+     <div class = "row justify-content-around">
+      <div class = "col">
+        <button id="cancelBtn" class="btn" value="cancel">Cancel</button>
+      </div>
+      <div class = "col">
+       <button id="confirmBtn" class="btn"><a id="go-button-link" role="button" href="practice-cards.html">Go</a></button>
+      </div>
+     </div>
     </menu>
   </form>
 </dialog>
