@@ -187,50 +187,44 @@ function getHandRanking(hand){
   let isStraight = isStraightHand(hand[0].numValue,hand[1].numValue,hand[2].numValue,hand[3].numValue,hand[4].numValue);
   let highestSameKindCount = classifySameKinds(hand);
   let isPair = pairExists(hand);
+  let result = "Game Over"
         if (isFlush===true){ //determine if flush (royal, straight, normal)
           isJackOrBetterHand = false;
           if (isRoyal===true) //determine if royal flush
           {
-            alert("Royal Flush"); //working
-            return "Royal Flush";
+            result="Royal Flush";
           }
-          else if (isStraight===true){ //determine if straight flush, not royal. Need each card to be 1 apart
-            alert("Straight Flush"); //working
-            return "Straight Flush";
+          else if (isStraight===true){ //determine if straight flush, not royal. Need each card to be 1 apart //working
+            result="Straight Flush";
           }
           else { //hand is a normal flush
-            return "Flush";
+            result="Flush";
           }
         }
         else if (isRoyal===true && highestSameKindCount==1){ //determines if hand is a Royal Straight (of different suits)
-          alert("Straight"); //working
-          return "Straight";
+          result="Straight";
         }
         else if (isStraight===true){ //determines if hand is normal straight
-          alert("Straight"); //working
-          return "Straight";
+          result="Straight";
         }
         else if (highestSameKindCount == 4){
-          alert("4 of a Kind"); //working
-          return "4 of a Kind";
+          result="4 of a Kind";
         }
         else if (highestSameKindCount == 3){
           if (isPair===true){
-            return "Full House";
+            result="Full House";
           }
           else {
-            return "3 of a Kind";
+            result="3 of a Kind";
           }
         }
         else if (isTwoPairHand(hand)===true){
-          return "Two Pair";
+          result="Two Pair";
           }
         else if (isJackOrBetterHand(hand)===true){
-          return "Jacks or Better";
+          result="Jacks or Better";
         }
-        else {
-          return "Game Over";
-        }
+  return result;
 }
 
 function isFlushHand(hand){
@@ -263,8 +257,8 @@ function isRoyalHand(hand){
 
 function classifySameKinds(hand){
   for (let i=0;i<5;i++){
-  currentKindCount = 1; //make sameKindCount a property of each card object, track which cards have matches
-    for (let j=4;j>=0;j--){ //make hasPair a property of each card object only if that card's currentKindCount == 2
+  let currentKindCount = 1;
+    for (let j=4;j>=0;j--){
      if (hand[i] != hand[j]){
         if (hand[i].numValue == hand[j].numValue){
           currentKindCount++;
@@ -343,51 +337,41 @@ function collectCoins(result){
   let currentWin=0;
   if(result=="Jacks or Better"){
    currentWin=currentBet;
-   winCoinsDialog(currentWin,result);
   }
   else if(result=="Two Pair"){
     currentWin=currentBet*2;
-    winCoinsDialog(currentWin,result);
   }
   else if(result=="3 of a Kind") {
     currentWin=currentBet*3;
-    winCoinsDialog(currentWin,result);
   }
   else if (result == "Straight") {
     currentWin = currentBet*4;
-    winCoinsDialog(currentWin,result);
   }
   else if (result == "Flush") {
     currentWin = currentBet*6;
-    winCoinsDialog(currentWin,result);
   }
   else if (result == "Full House") {
     currentWin = currentBet*9;
-    winCoinsDialog(currentWin,result);
   }
   else if (result == "4 of a Kind") {
     currentWin = currentBet*25;
-    winCoinsDialog(currentWin,result);
   }
   else if (result == "Straight Flush") {
     currentWin = currentBet*50;
-    winCoinsDialog(currentWin,result);
   }
   else if (result == "Royal Flush") {
     if (currentBet<5){
       currentWin = currentBet*250;
-      winCoinsDialog(currentWin,result);
     }
     else {
-      result = "Game Over";
       currentWin = 4000;
-      winCoinsDialog(currentWin,result);
     }
   }
   totalCoins = totalCoins + currentWin;
   document.getElementById("win-button").style.backgroundColor="darkblue";
   document.getElementById("total-coins-span").innerText = totalCoins;
   document.getElementById("current-win-span").innerText = currentWin;
+  winCoinsDialog(currentWin,result);
 }
 
 function outOfCoinsDialog(){

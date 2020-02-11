@@ -51,7 +51,7 @@
       <!-- <div id="page-description-div" class="justify-content-center text-center">Master the strategies of poker with this virtual deck of cards!</div> -->
       <div id = "card-prep-row" class="justify-content-around mb-lg-2 my-1">
         <div id="card-play-div" class="card-play-div text-center m-lg-3 m-2">
-          <button id="card-deal-button" class="btn" type="button" name="deal-button" onclick="getCards()">Deal Cards</button>
+          <button id="card-deal-button" class="btn" type="button" name="deal-button" onclick="getPracticeCards()">Deal Cards</button>
         </div>
       </div>
       <div class="container-xl p-0" id="cards-container">
@@ -79,6 +79,12 @@
         </div>
         <h3 id="hand-ranking-heading">GAME OVER</h3>
       </div>
+  <dialog id="winHandDialog">
+    <span id="hand-win-popup-span"></span>
+    <div id="winHandDiv">
+        <button id="winHandCancel" class="btn" value="cancel">OK</button>
+      </div>
+  </dialog>
    <footer id="footer" class="d-md-block d-none">
      <nav id="bottom-navbar" class="navbar-nav navbar-expand navbar-dark bg-dark m-auto">
        <ul class="navbar-nav navbar-center bottom-nav-list m-auto">

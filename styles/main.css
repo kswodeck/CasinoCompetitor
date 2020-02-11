@@ -271,13 +271,13 @@ body {
   color: crimson;
 }
 
-#coin-win-popup-span, #number-coins-won {
+#coin-win-popup-span, #number-coins-won, #hand-win-popup-span {
   color: darkblue;
   font-weight: bold;
   font-size:calc(14px + 0.6vw);
 }
 
-#dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog {
+#dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv {
   text-align: center;
 }
 
@@ -285,12 +285,12 @@ body {
   width: calc(18px + 0.8vw)
 }
 
-#outOfCoinsDialog, #winCoinsDialog {
+#outOfCoinsDialog, #winCoinsDialog, #winHandDialog {
   border: solid 3px darkblue;
   border-radius: 10px;
 }
 
-#winCoinsCancel, #confirmBtn, #outOfCoinsCancel {
+#winCoinsCancel, #confirmBtn, #outOfCoinsCancel, #winHandCancel {
   background-color: crimson;
   color: gold;
   font-weight: bold;
@@ -303,7 +303,7 @@ body {
   height: calc(22px + 1vw);
   margin: auto;
 }
-#confirmBtn, #winCoinsCancel:hover, #outOfCoinsCancel:hover {
+#confirmBtn, #winCoinsCancel:hover, #winHandCancel, #outOfCoinsCancel:hover {
   background-color: darkblue;
 }
 #confirmBtn:hover {

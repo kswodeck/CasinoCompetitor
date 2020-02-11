@@ -2,7 +2,7 @@ var handsDealt = 0;
 var cards = [];
 var cards2 = [];
 
-function getCards() {
+function getPracticeCards() {
   var currentHand = 0;
   document.getElementById("card-deal-button").setAttribute('disabled', 'disabled');
   document.getElementById("hand-ranking-heading").style.display = "none";
@@ -158,58 +158,53 @@ function isEqual(v1, v2)
   {return true} else {return false}
 }
 
-function getHandRanking(hand){
+function getHandRanking(hand) {
   let isFlush = isFlushHand(hand);
   let isRoyal = isRoyalHand(hand);
-  let isStraight = isStraightHand(hand[0].numValue,hand[1].numValue,hand[2].numValue,hand[3].numValue,hand[4].numValue);
+  let isStraight = isStraightHand(hand[0].numValue, hand[1].numValue, hand[2].numValue, hand[3].numValue, hand[4].numValue);
   let highestSameKindCount = classifySameKinds(hand);
   let isPair = pairExists(hand);
-        if (isFlush===true){ //determine if flush (royal, straight, normal)
-          isJackOrBetterHand = false;
-          if (isRoyal===true) //determine if royal flush
-          {
-            alert("Royal Flush"); //working
-            return "Royal Flush";
-          }
-          else if (isStraight===true){ //determine if straight flush, not royal. Need each card to be 1 apart
-            alert("Straight Flush"); //working
-            return "Straight Flush";
-          }
-          else { //hand is a normal flush
-            alert("Flush"); //working
-            return "Flush";
-          }
-        }
-        else if (isRoyal===true && highestSameKindCount==1){ //determines if hand is a Royal Straight (of different suits)
-          alert("Straight"); //working
-          return "Straight";
-        }
-        else if (isStraight===true){ //determines if hand is normal straight
-          alert("Straight"); //working
-          return "Straight";
-        }
-        else if (highestSameKindCount == 4){
-          alert("4 of a Kind"); //working
-          return "4 of a Kind";
-        }
-        else if (highestSameKindCount == 3){
-          if (isPair===true){
-            alert("Full House"); //working
-            return "Full House";
-          }
-          else {
-            return "3 of a Kind";
-          }
-        }
-        else if (isTwoPairHand(hand)===true){
-          return "Two Pair";
-          }
-        else if (isJackOrBetterHand(hand)===true){
-          return "Jacks or Better";
-        }
-        else {
-          return "Game Over";
-        }
+  let result = "Game Over"
+  if (isFlush === true) { //determine if flush (royal, straight, normal)
+    isJackOrBetterHand = false;
+    if (isRoyal === true) //determine if royal flush
+    {
+      result = "Royal Flush";
+    }
+    else if (isStraight === true) { //determine if straight flush, not royal. Need each card to be 1 apart //working
+      result = "Straight Flush";
+    }
+    else { //hand is a normal flush
+      result = "Flush";
+    }
+  }
+  else if (isRoyal === true && highestSameKindCount == 1) { //determines if hand is a Royal Straight (of different suits)
+    result = "Straight";
+  }
+  else if (isStraight === true) { //determines if hand is normal straight
+    result = "Straight";
+  }
+  else if (highestSameKindCount == 4) {
+    result = "4 of a Kind";
+  }
+  else if (highestSameKindCount == 3) {
+    if (isPair === true) {
+      result = "Full House";
+    }
+    else {
+      result = "3 of a Kind";
+    }
+  }
+  else if (isTwoPairHand(hand) === true) {
+    result = "Two Pair";
+  }
+  else if (isJackOrBetterHand(hand) === true) {
+    result = "Jacks or Better";
+  }
+  if (result!="Game Over" && handsDealt==1) {
+    winHandDialog(result);
+  }
+  return result;
 }
 
 function isFlushHand(hand){
@@ -242,8 +237,8 @@ function isRoyalHand(hand){
 
 function classifySameKinds(hand){
   for (let i=0;i<5;i++){
-  currentKindCount = 1; //make sameKindCount a property of each card object, track which cards have matches
-    for (let j=4;j>=0;j--){ //make hasPair a property of each card object only if that card's currentKindCount == 2
+  let currentKindCount = 1;
+    for (let j=4;j>=0;j--){
      if (hand[i] != hand[j]){
         if (hand[i].numValue == hand[j].numValue){
           currentKindCount++;
@@ -297,4 +292,18 @@ function isJackOrBetterHand(hand){
     }
   }
   return false;
+}
+
+function winHandDialog(result) {
+  let winDialog = document.getElementById('winHandDialog');
+  if (typeof winDialog.showModal === "function") {
+    document.getElementById('hand-win-popup-span').innerText = result;
+    winDialog.showModal();
+    setTimeout(function() { winDialog.close() }, 3000);
+  } else {
+    alert("The <dialog> API is not supported by this browser");
+  }
+  document.getElementById('winHandCancel').onclick = function() {
+    winDialog.close();
+  }
 }
