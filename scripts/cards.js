@@ -404,9 +404,13 @@ let confirmBtn = document.getElementById('confirmBtn');
 }
 
 function winCoinsDialog(currentWin,result) {
-  let winCoinsDialog = document.getElementById('winCoinsDialog');
+  let coinsDialog = document.getElementById('winCoinsDialog');
   let coinsPlurality = "coins";
-    if (typeof winCoinsDialog.showModal === "function") {
+  let openedDialog;
+  function closeDialog(dialogClosed){
+    dialogClosed.close();
+  }
+    if (typeof coinsDialog.showModal === "function") {
       if (currentWin == 1) {
         document.getElementById('coins-text').innerText = "coin";
       }
@@ -415,11 +419,12 @@ function winCoinsDialog(currentWin,result) {
       }
       document.getElementById('coin-win-popup-span').innerText = result;
       document.getElementById('number-coins-won').innerText = " "+currentWin+" ";
-      winCoinsDialog.showModal();
+      coinsDialog.showModal();
+      // openedDialog = setTimeout(closeDialog(coinsDialog), 2000); //not working
     } else {
       alert("The <dialog> API is not supported by this browser");
     }
     document.getElementById('winCoinsCancel').onclick = function() {
-      winCoinsDialog.close();
+      coinsDialog.close();
     }
 }
