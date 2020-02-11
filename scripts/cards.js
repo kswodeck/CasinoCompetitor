@@ -1,8 +1,9 @@
 var handsDealt = 0;
 var cards = [];
 var cards2 = [];
-var totalCoins = 10;
+var totalCoins = 100;
 var currentBet = 1;
+document.getElementById("total-coins-span").innerText = totalCoins;
 
 function getCards() {
   if (totalCoins<=0 && handsDealt != 1 && handsDealt != 2){
@@ -198,7 +199,6 @@ function getHandRanking(hand){
             return "Straight Flush";
           }
           else { //hand is a normal flush
-            alert("Flush"); //working
             return "Flush";
           }
         }
@@ -405,22 +405,11 @@ let confirmBtn = document.getElementById('confirmBtn');
 
 function winCoinsDialog(currentWin,result) {
   let coinsDialog = document.getElementById('winCoinsDialog');
-  let coinsPlurality = "coins";
-  let openedDialog;
-  function closeDialog(dialogClosed){
-    dialogClosed.close();
-  }
     if (typeof coinsDialog.showModal === "function") {
-      if (currentWin == 1) {
-        document.getElementById('coins-text').innerText = "coin";
-      }
-      else {
-        document.getElementById('coins-text').innerText = "coins";
-      }
       document.getElementById('coin-win-popup-span').innerText = result;
       document.getElementById('number-coins-won').innerText = " "+currentWin+" ";
       coinsDialog.showModal();
-      // openedDialog = setTimeout(closeDialog(coinsDialog), 2000); //not working
+      setTimeout(function(){ coinsDialog.close() }, 3500);
     } else {
       alert("The <dialog> API is not supported by this browser");
     }

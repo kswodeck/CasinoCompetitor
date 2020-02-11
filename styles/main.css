@@ -271,11 +271,15 @@ body {
 #coin-win-popup-span, #number-coins-won {
   color: darkblue;
   font-weight: bold;
-  font-size:calc(12px + 0.4vw);
+  font-size:calc(14px + 0.6vw);
 }
 
 #dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog {
   text-align: center;
+}
+
+#coins-popup-img {
+  width: calc(18px + 0.8vw)
 }
 
 #outOfCoinsDialog, #winCoinsDialog {
