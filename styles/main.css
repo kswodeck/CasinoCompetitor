@@ -284,6 +284,7 @@ body {
 
 #outOfCoinsDialog, #winCoinsDialog {
   border: solid 3px darkblue;
+  border-radius: 10px;
 }
 
 #winCoinsCancel, #confirmBtn, #outOfCoinsCancel {
