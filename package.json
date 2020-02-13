@@ -1,0 +1,19 @@
+{
+  "name": "gamechanger",
+  "version": "1.0.0",
+  "description": "Welcome to my project, currently called \"Game Changer\". This is a virtual casino type of web app where luck and chance is the calling card.\r Features include a virtual coin flipper, virtual dice rolling (up to 20 dice) as well as virtual 5 card poker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kswodeck/GameChanger.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kswodeck/GameChanger/issues"
+  },
+  "homepage": "https://github.com/kswodeck/GameChanger#readme"
+}

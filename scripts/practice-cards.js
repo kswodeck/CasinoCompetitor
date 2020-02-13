@@ -31,10 +31,10 @@ function getPracticeCards() {
           {
             isSameIdentity=false;
           }
-          currentValues = getRandomCardValues();
-          numValue = currentValues[0]; //13 card value options excluding jokers. 1=ace, 11=jack, 12=queen, 13=king
-          numSuit = currentValues[1]; //4 card suit options excluding jokers. club,diamond,heart,spade
-          identity = numValue+"-"+numSuit;
+          let currentValues = getRandomCardValues();
+          var numValue = currentValues[0]; //13 card value options excluding jokers. 1=ace, 11=jack, 12=queen, 13=king
+          var numSuit = currentValues[1]; //4 card suit options excluding jokers. club,diamond,heart,spade
+          var identity = numValue+"-"+numSuit;
           if (cards.filter(x => (x.identity === identity)).length === 0){
             isSameIdentity=false;
           }
@@ -50,10 +50,10 @@ function getPracticeCards() {
       let isSameIdentity=true;
       while (isSameIdentity===true)
       {
-        currentValues = getRandomCardValues();
-        numValue = currentValues[0]; //13 card value options excluding jokers. 1=ace, 11=jack, 12=queen, 13=king
-        numSuit = currentValues[1]; //4 card suit options excluding jokers. club,diamond,heart,spade
-        identity = numValue+"-"+numSuit;
+        let currentValues = getRandomCardValues();
+        var numValue = currentValues[0]; //13 card value options excluding jokers. 1=ace, 11=jack, 12=queen, 13=king
+        var numSuit = currentValues[1]; //4 card suit options excluding jokers. club,diamond,heart,spade
+        var identity = numValue+"-"+numSuit;
         if (cards.filter(x => (x.identity === identity)).length === 0){
           if (currentCard === 0)
           {
@@ -128,7 +128,7 @@ function createCardElement(imgUrl, currentCard){
 function toggleCardHold(currentHoldElement) {
   if (handsDealt == 1)
   {
-    holdElement = document.getElementById(currentHoldElement);
+    let holdElement = document.getElementById(currentHoldElement);
     holdElement.style.opacity != 1 ? holdElement.style.opacity = 1 : holdElement.style.opacity = 0.0001;
     let cardNum = parseInt(currentHoldElement.replace(/hold/,""));
     cards[cardNum].isHeld !== true ? cards[cardNum].isHeld = true : cards[cardNum].isHeld = false;
