@@ -24,10 +24,32 @@ function getCards() {
     handsDealt = 0;
   }
   function getRandomCardValues() { //for calculating the values of each card
-    let randomValues = [Math.floor((Math.random()*13)+1),Math.floor((Math.random()*4)+1)];
-    return randomValues;
+    let currentValues = [Math.floor((Math.random()*13)+1),Math.floor((Math.random()*4)+1)];
+    let numValue = currentValues[0]; //13 card value options excluding jokers. 1=ace, 11=jack, 12=queen, 13=king
+    let numSuit = currentValues[1]; //4 card suit options excluding jokers. club,diamond,heart,spade
+    currentValues.push(numValue+"-"+numSuit);
+    return currentValues;
+  }
+  function Card(numValue,numSuit,identity){
+    this.numValue = numValue;
+    this.numSuit = numSuit;
+    this.identity = identity;
+    this.imgSrc = "assets/images/cards/"+this.identity+".png";
+    this.isRoyal = isRoyal(this.numValue);
+    this.isJackOrBetter = isJackOrBetter(this.numValue);
+    this.numValuesMatching = 0;
+    this.isHeld = false;
+  }
+  function createCardElement(imgUrl, currentCard){
+    let cardImage = document.createElement("img");
+    cardImage.className ="cards img-fluid";
+    cardImage.src = imgUrl;
+    cardImage.setAttribute("id", "card"+currentCard);
+    document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardImage);
+    return cardImage;
   }
   for (let currentCard=0; currentCard<5; currentCard++){
+    let currentValues = 0;
     if (handsDealt===0)
     {
       currentHand = cards;
@@ -39,15 +61,12 @@ function getCards() {
           {
             isSameIdentity=false;
           }
-          let currentValues = getRandomCardValues();
-          var numValue = currentValues[0]; //13 card value options: 1=ace, 11=jack, 12=queen, 13=king
-          var numSuit = currentValues[1]; //4 card suit options: club,diamond,heart,spade
-          var identity = numValue+"-"+numSuit;
-          if (cards.filter(x => (x.identity === identity)).length === 0){
+          currentValues = getRandomCardValues();
+          if (cards.filter(x => (x.identity === currentValues[2])).length === 0){
             isSameIdentity=false;
           }
         }
-    cards.push(new Card(numValue,numSuit,identity));
+    cards.push(new Card(currentValues[0],currentValues[1],currentValues[2]));
     let cardImage = createCardElement(cards[currentCard].imgSrc, currentCard);
     cardImage.addEventListener("click", function(){toggleCardHold("hold"+currentCard);});
     document.getElementById("bet-button").setAttribute('disabled', 'disabled');
@@ -59,16 +78,13 @@ function getCards() {
       let isSameIdentity=true;
       while (isSameIdentity===true)
       {
-        let currentValues = getRandomCardValues();
-        var numValue = currentValues[0]; //13 card value options: 1=ace, 11=jack, 12=queen, 13=king
-        var numSuit = currentValues[1]; //4 card suit options: club,diamond,heart,spade
-        var identity = numValue+"-"+numSuit;
-        if (cards.filter(x => (x.identity === identity)).length === 0){
+        currentValues = getRandomCardValues();
+        if (cards.filter(x => (x.identity === currentValues[2])).length === 0){
           if (currentCard === 0)
           {
             isSameIdentity=false;
           }
-          else if (cards2.filter(y => (y.identity === identity)).length === 0){
+          else if (cards2.filter(y => (y.identity === currentValues[2])).length === 0){
             isSameIdentity=false;
           }
         }
@@ -78,7 +94,7 @@ function getCards() {
         cards2.push(new Card(cards[currentCard].numValue,cards[currentCard].numSuit,cards[currentCard].identity));
       }
       else {
-        cards2.push(new Card(numValue,numSuit,identity));
+        cards2.push(new Card(currentValues[0],currentValues[1],currentValues[2]));
       }
         createCardElement(cards2[currentCard].imgSrc, currentCard);
         document.getElementById("card-deal-button").innerText = "Play Again";
@@ -128,26 +144,6 @@ function getCards() {
   document.getElementById("card-deal-button").removeAttribute("disabled");
 }
 
-function Card(numValue,numSuit,identity){
-  this.numValue = numValue;
-  this.numSuit = numSuit;
-  this.identity = identity;
-  this.imgSrc = "assets/images/cards/"+this.identity+".png";
-  this.isRoyal = isRoyal(this.numValue);
-  this.isJackOrBetter = isJackOrBetter(this.numValue);
-  this.numValuesMatching = 0;
-  this.isHeld = false;
-}
-
-function createCardElement(imgUrl, currentCard){
-  let cardImage = document.createElement("img");
-  cardImage.className ="cards img-fluid";
-  cardImage.src = imgUrl;
-  cardImage.setAttribute("id", "card"+currentCard);
-  document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardImage);
-  return cardImage;
-}
-
 function toggleCardHold(currentHoldElement) {
   if (handsDealt == 1)
   {
@@ -189,7 +185,6 @@ function getHandRanking(hand){
   let isPair = pairExists(hand);
   let result = "Game Over"
         if (isFlush===true){ //determine if flush (royal, straight, normal)
-          isJackOrBetterHand = false;
           if (isRoyal===true) //determine if royal flush
           {
             result="Royal Flush";
