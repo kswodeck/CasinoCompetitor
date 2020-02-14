@@ -171,6 +171,7 @@ body {
 #home-heading, #page-heading {
   color: darkblue;
   font-weight: bold;
+  text-align: center
 }
 
 #page-heading, #hand-ranking-heading {
@@ -323,7 +324,7 @@ body {
   margin-top: 5%;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 575px), (max-height: 650px) {
     #main-head-link, .navbar-toggler{
       font-size: calc(12px + 1vw);
     }
