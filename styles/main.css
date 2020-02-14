@@ -331,7 +331,7 @@ body {
       font-size: calc(8px + 1vw);
       text-decoration: underline;
     }
-    #coin-flip-tally-div, #dice-roll-tally-div {
+    #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
       width: 105px;
       line-height: 1;
     }

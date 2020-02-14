@@ -1,6 +1,7 @@
 var heads_wins = [], tails_wins = []; //heads and totals results arrays declared. Has to be declared outside of functions so they can keep incrementing globally
 document.getElementById("head_win").innerText = heads_wins.length; document.getElementById("tail_win").innerText = tails_wins.length;
 function coinFlip() {
+  let winner = '';
   let node1 = document.getElementById("coin-flip-div"), node2 = document.getElementById("winner-div");
   while (node1.hasChildNodes()) {
     node1.removeChild(node1.lastChild);
@@ -14,21 +15,21 @@ function coinFlip() {
   var result = flip();
   if (result == 1){
     let coin = "heads";
-    createCoin(coin);
-    head_win = heads_wins.push(result);
+    winner = createCoin(coin, winner);
+    let head_win = heads_wins.push(result);
     document.getElementById("head_win").innerText = head_win;
   }
   else if (result == 2) {
     let coin = "tails";
-    createCoin(coin);
-    tail_win = `${tails_wins.push(result)}`;
+    winner = createCoin(coin, winner);
+    let tail_win = `${tails_wins.push(result)}`;
     document.getElementById("tail_win").innerText = tail_win;
   }
   document.getElementById("head_win").className = "result-tally", document.getElementById("tail_win").className = "result-tally";
   let text = document.createElement("span");
   text.className ="winner";
   text.innerText = winner;
-  div = document.getElementById("winner-div");
+  let div = document.getElementById("winner-div");
   div.appendChild(text);
   document.getElementById("coin-flip-tally-div").style.display = "block";
 }
@@ -79,14 +80,13 @@ function createCoin(coin){
   let source = document.getElementById("coin-flip-div");
   source.appendChild(img);
   coin_Grow();
-  winner = coin;
+  return coin;
 }
 
-function print_winner(){
-  winner = ''
-  document.getElementById("final_winner").innerHTML = final_winner;
-  // debugger;
-}
+// function print_winner(){
+//   winner = '';
+//   document.getElementById("final_winner").innerHTML = final_winner;
+// }
 
 function clearTally() {
   heads_wins = [], tails_wins = [];

@@ -25,49 +25,49 @@ function diceRoll() {
       if (result == 1){
         let dice = "one";
         createDice(dice,i);
-        one_win = ones_wins.push(result);
+        let one_win = ones_wins.push(result);
         document.getElementById("one_win").innerText = one_win;
-        current_one_win = current_ones_wins.push(result);
+        let current_one_win = current_ones_wins.push(result);
         document.getElementById("current_one_win").innerText = current_one_win;
       }
       else if (result == 2) {
         let dice = "two";
         createDice(dice,i);
-        two_win = `${twos_wins.push(result)}`;
+        let two_win = `${twos_wins.push(result)}`;
         document.getElementById("two_win").innerText = two_win;
-        current_two_win = current_twos_wins.push(result);
+        let current_two_win = current_twos_wins.push(result);
         document.getElementById("current_two_win").innerText = current_two_win;
       }
       else if (result == 3) {
         let dice = "three";
         createDice(dice,i);
-        three_win = `${threes_wins.push(result)}`;
+        let three_win = `${threes_wins.push(result)}`;
         document.getElementById("three_win").innerText = three_win;
-        current_three_win = current_threes_wins.push(result);
+        let current_three_win = current_threes_wins.push(result);
         document.getElementById("current_three_win").innerText = current_three_win;
       }
       else if (result == 4) {
         let dice = "four";
         createDice(dice,i);
-        four_win = `${fours_wins.push(result)}`;
+        let four_win = `${fours_wins.push(result)}`;
         document.getElementById("four_win").innerText = four_win;
-        current_four_win = current_fours_wins.push(result);
+        let current_four_win = current_fours_wins.push(result);
         document.getElementById("current_four_win").innerText = current_four_win;
       }
       else if (result == 5) {
         let dice = "five";
         createDice(dice,i);
-        five_win = `${fives_wins.push(result)}`;
+        let five_win = `${fives_wins.push(result)}`;
         document.getElementById("five_win").innerText = five_win;
-        current_five_win = current_fives_wins.push(result);
+        let current_five_win = current_fives_wins.push(result);
         document.getElementById("current_five_win").innerText = current_five_win;
       }
       else if (result == 6) {
         let dice = "six";
         createDice(dice,i);
-        six_win = `${sixes_wins.push(result)}`;
+        let six_win = `${sixes_wins.push(result)}`;
         document.getElementById("six_win").innerText = six_win;
-        current_six_win = current_sixes_wins.push(result);
+        let current_six_win = current_sixes_wins.push(result);
         document.getElementById("current_six_win").innerText = current_six_win;
       }
     }
