@@ -30,31 +30,39 @@ body {
   color: gold;
 }
 
-#coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
+#coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div, #hand-odds-div {
   margin: 2% auto 0 auto;
   border: solid calc(1px + 0.2vw) darkblue;
   line-height: 1.25;
   padding: 0.2% 0.1%;
-  display: none;
   text-align: center;
+  display: none;
+}
+#coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
+  width: 115px;
   max-width: 180px;
 }
-#coin-flip-tally-div{
-  width: 115px;
+#hand-odds-div {
+  max-width: 240px;
 }
 
 #dice-clear-tally-col {
   display: none;
 }
 
-#tally-heading, #current-tally-heading {
+.table-heading, .current-table-heading {
   font-size: calc(11px + 0.5vw); /* 130% */
   font-weight: bold;
   display: block;
 }
 
-.result-tally {
-  font-size: calc(10px + 0.4vw); /* 100% */
+.result-tally, .odds-span, .result {
+  font-size: calc(10px + 0.4vw);
+}
+
+.result {
+  font-weight: bold;
+  color: darkblue;
 }
 
 .cards {
@@ -334,6 +342,10 @@ body {
     }
     #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
       width: 105px;
+      line-height: 1;
+    }
+    #hand-odds-div {
+      width: 150px;
       line-height: 1;
     }
     #dropdownCardsLink {
