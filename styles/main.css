@@ -54,6 +54,7 @@ body {
   font-size: calc(11px + 0.5vw); /* 130% */
   font-weight: bold;
   display: block;
+  text-decoration: underline;
 }
 
 .result-tally, .odds-span, .result, .loss, .win {
