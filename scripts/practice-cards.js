@@ -141,11 +141,11 @@ function getHandRanking(hand) {
   let isRoyal = isRoyalHand(hand);
   let isStraight = isStraightHand(hand[0].numValue, hand[1].numValue, hand[2].numValue, hand[3].numValue, hand[4].numValue);
   let result = "Game Over";
-  if (isJackOrBetterHand(hand) === true) {
-    result = "Jacks or Better";
-  }
-  else if (isTwoPairHand(hand) === true) {
+  if (isTwoPairHand(hand) === true) {
     result = "Two Pair";
+  }
+  else if (isJackOrBetterHand(hand) === true) {
+    result = "Jacks or Better";
   }
   else if (highestSameKindCount == 3) {
     if (pairExists(hand) === true) {
