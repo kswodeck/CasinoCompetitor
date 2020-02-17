@@ -36,14 +36,14 @@ body {
   line-height: 1.25;
   padding: 0.2% 0.1%;
   text-align: center;
-  display: none;
 }
 #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
   width: 115px;
   max-width: 180px;
+  display: none;
 }
 #hand-odds-div {
-  max-width: 240px;
+  max-width: 270px;
 }
 
 #dice-clear-tally-col {
@@ -63,6 +63,14 @@ body {
 .result {
   font-weight: bold;
   color: darkblue;
+}
+.loss {
+  font-weight: bold;
+  color: crimson;
+}
+.win {
+  font-weight: bold;
+  color: green;
 }
 
 .cards {

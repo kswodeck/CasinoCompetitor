@@ -56,7 +56,6 @@ function getPracticeCards() {
     {
       currentHand = cards;
       document.getElementById("hold"+currentCard).style.opacity = 0.0001;
-      document.getElementById("hand-odds-div").style.display = "block";
       let isSameIdentity=true;
       while (isSameIdentity===true)
         {
@@ -115,6 +114,7 @@ function getPracticeCards() {
       createCardElement("assets/images/cards/card_standard_blue_back.png", currentCard);
       document.getElementById("card-deal-button").innerText = "Deal Cards";
       document.getElementById("card-deal-button").removeAttribute("disabled");
+      document.getElementById("hand-odds-div").style.display = "block";
       document.getElementById("hold"+currentCard).style.opacity = 0.0001;
     }
   }
