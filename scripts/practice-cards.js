@@ -1,6 +1,6 @@
-var handsDealt = 0;
 var cards = [];
 var cards2 = [];
+var handsDealt = 0;
 
 function getPracticeCards() {
   function getRandomCardValues() { //for calculating the values of each card
@@ -257,6 +257,10 @@ function getHandRanking(hand) {
     }
     return false;
   }
+}
+
+function getHandOdds(){
+  return;
 }
 
 function toggleCardHold(currentHoldElement) {
