@@ -68,18 +68,14 @@ function getPracticeCards() {
             isSameIdentity=false;
           }
         }
-      cards.push(new Card(currentValues[0],currentValues[1],currentValues[2]));
-      let cardImage = createCardElement(cards[currentCard].imgSrc, currentCard);
-      cardImage.addEventListener("click", function(){toggleCardHold("hold"+currentCard);});
-      if (currentCard == 4){
-        // getHandOdds();
-      }
+    cards.push(new Card(currentValues[0],currentValues[1],currentValues[2]));
+    let cardImage = createCardElement(cards[currentCard].imgSrc, currentCard);
+    cardImage.addEventListener("click", function(){toggleCardHold("hold"+currentCard);});
     }
     else if (handsDealt==1)
     {
       currentHand = cards2;
       document.getElementById("hold"+currentCard).style.opacity = 0.0001;
-      document.getElementById("hand-odds-div").style.display = "none";
       let isSameIdentity=true;
       while (isSameIdentity===true)
       {
@@ -107,15 +103,16 @@ function getPracticeCards() {
           cards = [];
           cards2 = [];
           document.getElementById("hand-ranking-heading").style.display = "block";
+          document.getElementById("hand-odds-div").style.display = "none";
         }
     }
     else
     {
+      document.getElementById("hold"+currentCard).style.opacity = 0.0001;
       createCardElement("assets/images/cards/card_standard_blue_back.png", currentCard);
       document.getElementById("card-deal-button").innerText = "Deal Cards";
       document.getElementById("card-deal-button").removeAttribute("disabled");
       document.getElementById("hand-odds-div").style.display = "block";
-      document.getElementById("hold"+currentCard).style.opacity = 0.0001;
     }
   }
   if (handsDealt<2)
@@ -265,38 +262,7 @@ function getHandRanking(hand) {
 }
 
 function getHandOdds(){
-  let totalCardsRemaining = 52;
-  // alert("getting hand odds");
   return;
-  for (let currentCard=0; currentCard<5; currentCard++){
-    function getRoyalFlushOdds(){
-
-    }
-    function getStraightFlushOdds(){
-
-    }
-    function getFourOfAKindOdds(){
-
-    }
-    function getFullHouseOdds(){
-
-    }
-    function getFlushOdds(){
-
-    }
-    function getStraightOdds(){
-
-    }
-    function getThreeOfAKindOdds(){
-
-    }
-    function getTwoPairOdds(){
-
-    }
-    function getJacksOrBetterOdds(){
-
-    }
-  }
 }
 
 function toggleCardHold(currentHoldElement) {
