@@ -277,7 +277,7 @@ function winHandDialog(result) {
   if (typeof winDialog.showModal === "function") {
     document.getElementById('hand-win-popup-span').innerText = result;
     winDialog.showModal();
-    setTimeout(function() { winDialog.close() }, 2500);
+    setTimeout(function() { winDialog.close() }, 2000);
   } else {
     alert("The <dialog> API is not supported by this browser");
   }

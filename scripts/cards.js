@@ -369,7 +369,7 @@ function winCoinsDialog(currentWin,result) {
       document.getElementById('coin-win-popup-span').innerText = result;
       document.getElementById('number-coins-won').innerText = " "+currentWin+" ";
       coinsDialog.showModal();
-      setTimeout(function(){ coinsDialog.close() }, 3000);
+      setTimeout(function(){ coinsDialog.close() }, 2500);
     } else {
       alert("The <dialog> API is not supported by this browser");
     }
