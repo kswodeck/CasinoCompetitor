@@ -158,7 +158,7 @@ function getHandRanking(hand) {
   if (isTwoPairHand(hand) === true) {
     result = "Two Pair";
   }
-  else if (isJackOrBetterHand(hand) === true) {
+  else if (isJackOrBetterHand(hand) === true && highestSameKindCount == 2) {
     result = "Jacks or Better";
   }
   else if (highestSameKindCount == 3) {
