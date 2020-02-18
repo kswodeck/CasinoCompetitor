@@ -71,6 +71,7 @@ function getPracticeCards() {
     cards.push(new Card(currentValues[0],currentValues[1],currentValues[2]));
     let cardImage = createCardElement(cards[currentCard].imgSrc, currentCard);
     cardImage.addEventListener("click", function(){toggleCardHold("hold"+currentCard);});
+    document.getElementById("hand-odds-div").style.display = "none";
     }
     else if (handsDealt==1)
     {
@@ -103,7 +104,7 @@ function getPracticeCards() {
           cards = [];
           cards2 = [];
           document.getElementById("hand-ranking-heading").style.display = "block";
-          document.getElementById("hand-odds-div").style.display = "none";
+          // document.getElementById("hand-odds-div").style.display = "none";
         }
     }
     else
@@ -132,6 +133,17 @@ function getPracticeCards() {
     document.getElementById("hand-ranking-heading").style.display = "block";
     document.getElementById("hand-ranking-heading").style.color = "darkblue"; // if a hand category has been acheived, blue text
     }
+    // if (handsDealt==0){
+    //   if (resultText=="Royal Flush"){
+    //     document.getElementById("royal-flush-odds").innerText = "100";
+    //   }
+    //   else {
+    //     getHandOdds();
+    //   }
+    // }
+    // else {
+    //   document.getElementById("royal-flush-odds").innerText = "0.000154";
+    // }
   }
   handsDealt++;
   document.getElementById("card-deal-button").removeAttribute("disabled");
@@ -262,6 +274,74 @@ function getHandRanking(hand) {
 }
 
 function getHandOdds(){
+  // let royalFlushOdds = getRoyalFlushOdds();
+  // alert("Royal Flush Odds ran");
+  // document.getElementById("royal-flush-odds").innerText = royalFlushOdds;
+  // function getRoyalFlushOdds(){
+  //   let remainingRoyalFlushCombos = 4;
+  //   let clubRoyalFlushRemains = 1,diamondRoyalFlushRemains = 1,heartRoyalFlushRemains = 1,spadeRoyalFlushRemains = 1;
+  //   let royalClubsRemaining = 5,royalDiamondsRemaining = 5,royalHeartsRemaining = 5,royalSpadesRemaining = 5;
+  //   let cardsHeld = 0;
+  //   for (let currentCard = 0; currentCard < 5; currentCard++){
+  //     if (cards[currentCard].isRoyal === false && cards[currentCard].isHeld === true) {
+  //       return 0;
+  //     }
+  //     else if (cards[currentCard].isRoyal === true && cards[currentCard].isHeld === false){
+  //       if (cards[currentCard].numSuit == 1){
+  //         clubRoyalFlushRemains = 0;
+  //       }
+  //       else if (cards[currentCard].numSuit == 2){
+  //         diamondRoyalFlushRemains = 0;
+  //       }
+  //       else if (cards[currentCard].numSuit == 3){
+  //         heartRoyalFlushRemains = 0;
+  //       }
+  //       else {
+  //         spadeRoyalFlushRemains = 0;
+  //       }
+  //       remainingRoyalFlushCombos=clubRoyalFlushRemains+diamondRoyalFlushRemains+heartRoyalFlushRemains+spadeRoyalFlushRemains;
+  //     }
+  //     else if (cards[currentCard].isRoyal === true && cards[currentCard].isHeld === true) {
+  //       if (cards[currentCard].numSuit == 1){
+  //         royalClubsRemaining--;
+  //         if (royalDiamondsRemaining <= royalClubsRemaining || royalHeartsRemaining <= royalClubsRemaining || royalSpadesRemaining <= royalClubsRemaining){
+  //           return 0;
+  //         }
+  //         cardsHeld++;
+  //       }
+  //       else if (cards[currentCard].numSuit == 2){
+  //         royalDiamondsRemaining--;
+  //         if (royalClubsRemaining <= royalDiamondsRemaining || royalHeartsRemaining <= royalDiamondsRemaining || royalSpadesRemaining <= royalDiamondsRemaining){
+  //           return 0;
+  //         }
+  //         cardsHeld++;
+  //       }
+  //       else if (cards[currentCard].numSuit == 3){
+  //         royalHeartsRemaining--;
+  //         if (royalDiamondsRemaining <= royalHeartsRemaining || royalClubsRemaining <= royalHeartsRemaining || royalSpadesRemaining <= royalHeartsRemaining){
+  //           return 0;
+  //         }
+  //         cardsHeld++;
+  //       }
+  //       else {
+  //         royalSpadesRemaining--;
+  //         if (royalDiamondsRemaining <= royalSpadesRemaining || royalHeartsRemaining <= royalSpadesRemaining || royalClubsRemaining <= royalSpadesRemaining){
+  //           return 0;
+  //         }
+  //         cardsHeld++;
+  //       }
+  //     }
+  //   }
+  //   let closestRoyalFlush = Math.min(royalClubsRemaining,royalDiamondsRemaining,royalHeartsRemaining,royalSpadesRemaining);
+  //   let num = 1/((2598960/remainingRoyalFlushCombos)/cardsHeld)*100;
+  //   if (cardsHeld===0){
+  //     num = 1/((2598960/remainingRoyalFlushCombos)-(49980*5))*100;
+  //   }
+  //   if (num === 0){
+  //     return 0;
+  //   }
+  //   return num.toFixed(6);
+  // }
   return;
 }
 

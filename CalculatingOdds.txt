@@ -19,7 +19,9 @@ Jacks
 Queens = 4/47 + 3/46 + 2/45 = 4/138 (2.9%) (2.17%) Qs 3 of a Kind odds
 Kings = 4/47 + 3/46 + 2/45 = 4/138 (2.9%) (2.17%) Ks 3 of a Kind odds
 
-100-20.6353846154 = 79.3646153846
+N = 47, n = 5-cardsHeld, K = 4, k = 5
+
+
 3 cards will be gone forever.. and a random card will be taken out of 47, then out of 46, then out of 45
 	
 	function getRoyalFlushOdds(){
