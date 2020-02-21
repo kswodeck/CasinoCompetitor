@@ -11,24 +11,30 @@ function getPracticeCards() {
     currentValues.push(numValue+"-"+numSuit);
     return currentValues;
   }
-  function Card(numValue,numSuit,identity){
-    this.numValue = numValue;
-    this.numSuit = numSuit;
-    this.identity = identity;
-    this.imgSrc = "assets/images/cards/"+this.identity+".png";
-    this.isRoyal = isRoyal(this.numValue);
-    this.isJackOrBetter = isJackOrBetter(this.numValue);
-    this.isHeld = false;
-    function isRoyal(value) {
-      if (value == 1 || value == 10 || value == 11 || value == 12 || value == 13)
-      {return true} else {return false}
-    }
-    function isJackOrBetter(value) {
-      if (value == 1 || value == 11 || value == 12 || value == 13) {
-        return true;
+  class Card {
+    constructor(numValue, numSuit, identity) {
+      this.numValue = numValue;
+      this.numSuit = numSuit;
+      this.identity = identity;
+      this.imgSrc = "assets/images/cards/" + this.identity + ".png";
+      this.isRoyal = isRoyal(this.numValue);
+      this.isJackOrBetter = isJackOrBetter(this.numValue);
+      this.isHeld = false;
+      function isRoyal(value) {
+        if (value == 1 || value == 10 || value == 11 || value == 12 || value == 13) {
+          return true;
+        }
+        else {
+          return false;
+        }
       }
-      else {
-        return false;
+      function isJackOrBetter(value) {
+        if (value == 1 || value == 11 || value == 12 || value == 13) {
+          return true;
+        }
+        else {
+          return false;
+        }
       }
     }
   }
