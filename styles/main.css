@@ -6,7 +6,7 @@
 body {
   font-family: "Georgia", "Verdana", "Times New Roman";
   font-size: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 #main-container {
@@ -31,7 +31,7 @@ body {
 }
 
 #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div, #hand-odds-div {
-  margin: 2% auto 0 auto;
+  margin: 2% auto 2% auto;
   border: solid calc(1px + 0.2vw) darkblue;
   line-height: 1.25;
   padding: 0.2% 0.1%;
@@ -44,6 +44,25 @@ body {
 }
 #hand-odds-div {
   max-width: 270px;
+}
+
+#show-hide-odds-div {
+  text-align: center;
+}
+
+#show-hide-odds-button {
+  cursor: pointer;
+  color: gold;
+  background-color: darkblue;
+  border: solid 1px crimson;
+  padding: 0.2% 0.3%;
+  font-weight: bold;
+  font-size: calc(11px + 0.3vw);
+}
+#show-hide-odds-button:hover {
+  color: gold;
+  background-color: crimson;
+  border: solid 1px darkblue;
 }
 
 #dice-clear-tally-col {

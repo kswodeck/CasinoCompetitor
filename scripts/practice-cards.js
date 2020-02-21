@@ -72,6 +72,7 @@ function getPracticeCards() {
     let cardImage = createCardElement(cards[currentCard].imgSrc, currentCard);
     cardImage.addEventListener("click", function(){toggleCardHold("hold"+currentCard);});
     document.getElementById("hand-odds-div").style.display = "none";
+    document.getElementById("show-hide-odds-button").style.display = "none";
     }
     else if (handsDealt==1)
     {
@@ -113,7 +114,11 @@ function getPracticeCards() {
       createCardElement("assets/images/cards/card_standard_blue_back.png", currentCard);
       document.getElementById("card-deal-button").innerText = "Deal Cards";
       document.getElementById("card-deal-button").removeAttribute("disabled");
-      document.getElementById("hand-odds-div").style.display = "block";
+      let showHideOddsButton = document.getElementById("show-hide-odds-button");
+      if (showHideOddsButton.innerText == "Hide Odds") {
+        document.getElementById("hand-odds-div").style.display = "block";
+      }
+      showHideOddsButton.style.display = "inline-block";
     }
   }
   if (handsDealt<2)
@@ -355,6 +360,19 @@ function toggleCardHold(currentHoldElement) {
     }
   else {
     return;
+  }
+}
+
+function toggleOddsTable(){
+  let oddsDiv = document.getElementById("hand-odds-div");
+  let showHideOdds = document.getElementById("show-hide-odds-button");
+  if (oddsDiv.style.display == "none"){
+      oddsDiv.style.display = "block";
+      showHideOdds.innerText = "Hide Odds";
+  }
+  else {
+      oddsDiv.style.display = "none";
+      showHideOdds.innerText = "Show Odds";
   }
 }
 
