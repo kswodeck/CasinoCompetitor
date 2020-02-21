@@ -2,6 +2,7 @@ var cards = [];
 var cards2 = [];
 var handsDealt = 0;
 
+// eslint-disable-next-line no-unused-vars
 function getPracticeCards() {
   function getRandomCardValues() { //for calculating the values of each card
     let currentValues = [Math.floor((Math.random()*13)+1),Math.floor((Math.random()*4)+1)];
@@ -278,6 +279,7 @@ function getHandRanking(hand) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 function getHandOdds(){
   // let royalFlushOdds = getRoyalFlushOdds();
   // alert("Royal Flush Odds ran");
@@ -363,6 +365,7 @@ function toggleCardHold(currentHoldElement) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 function toggleOddsTable(){
   let oddsDiv = document.getElementById("hand-odds-div");
   let showHideOdds = document.getElementById("show-hide-odds-button");

@@ -5,6 +5,7 @@ var totalCoins = 100;
 var currentBet = 1;
 document.getElementById("total-coins-span").innerText = totalCoins;
 
+// eslint-disable-next-line no-unused-vars
 function getCards() {
   function getRandomCardValues() { //for calculating the values of each card
     let currentValues = [Math.floor((Math.random()*13)+1),Math.floor((Math.random()*4)+1)];
@@ -332,6 +333,7 @@ function toggleCardHold(currentHoldElement) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 function toggleBet() {
   if (handsDealt==0 || handsDealt==3){
     if (totalCoins-currentBet <= 0){
