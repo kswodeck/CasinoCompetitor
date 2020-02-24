@@ -371,7 +371,7 @@ body {
   margin-top: 5%;
 }
 
-@media (max-width: 575px), (max-height: 650px) {
+@media (max-width: 575px) {
     #main-head-link, .navbar-toggler{
       font-size: calc(12px + 1vw);
     }
