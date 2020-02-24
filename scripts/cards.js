@@ -102,7 +102,7 @@ function getCards () {
     handsDealt = 0;
   }
   for (let currentCard = 0; currentCard < 5; currentCard++) {
-    var holdCurrentCard = document.getElementById('hold' + currentCard);
+    let holdCurrentCard = document.getElementById('hold' + currentCard);
     const betButton = document.getElementById('bet-button');
     var currentValues = 0;
     if (handsDealt === 0) {
@@ -119,8 +119,8 @@ function getCards () {
         }
       }
       cards.push(new Card(currentValues[0], currentValues[1], currentValues[2]));
-      const cardImage = createCardElement(cards[currentCard].imgSrc, currentCard);
-      cardImage.addEventListener('click', function () { toggleCardHold('hold' + currentCard); });
+      let currentCardImage = createCardElement(cards[currentCard].imgSrc, currentCard);
+      currentCardImage.addEventListener('click', function () { toggleCardHold('hold' + currentCard); });
       betButton.setAttribute('disabled', 'disabled');
     } else if (handsDealt === 1) {
       currentHand = cards2;
@@ -294,11 +294,9 @@ function getHandRanking (hand) {
 function toggleCardHold (currentHoldElement) {
   if (handsDealt === 1) {
     const holdElement = document.getElementById(currentHoldElement);
-    holdElement.style.opacity !== 1 ? holdElement.style.opacity = 1 : holdElement.style.opacity = 0.0001;
+    holdElement.style.opacity != 1 ? holdElement.style.opacity = 1 : holdElement.style.opacity = 0.0001;
     const cardNum = parseInt(currentHoldElement.replace(/hold/, ''));
     cards[cardNum].isHeld !== true ? cards[cardNum].isHeld = true : cards[cardNum].isHeld = false;
-  } else {
-
   }
 }
 

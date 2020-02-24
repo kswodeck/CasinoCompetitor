@@ -331,7 +331,7 @@ function getHandOdds () {
 function toggleCardHold (currentHoldElement) {
   if (handsDealt === 1) {
     const holdElement = document.getElementById(currentHoldElement);
-    holdElement.style.opacity !== 1 ? holdElement.style.opacity = 1 : holdElement.style.opacity = 0.0001;
+    holdElement.style.opacity != 1 ? holdElement.style.opacity = 1 : holdElement.style.opacity = 0.0001;
     const cardNum = parseInt(currentHoldElement.replace(/hold/, ''));
     cards[cardNum].isHeld !== true ? cards[cardNum].isHeld = true : cards[cardNum].isHeld = false;
   } else {
