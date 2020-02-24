@@ -4,8 +4,8 @@ var cards = [];
 var cards2 = [];
 var totalCoins = 100;
 var currentBet = 1;
-var totalCoinsSpan = document.getElementById('total-coins-span');
-var currentBetSpan = document.getElementById('current-bet-span');
+const totalCoinsSpan = document.getElementById('total-coins-span');
+const currentBetSpan = document.getElementById('current-bet-span');
 totalCoinsSpan.innerText = totalCoins;
 
 // eslint-disable-next-line no-unused-vars
@@ -86,14 +86,14 @@ function getCards () {
     handsDealt = 2;
   }
   var currentHand = 0;
-  var winButton = document.getElementById('win-button');
-  var currentWinSpan = document.getElementById('current-win-span');
-  var handRankingHeading = document.getElementById('hand-ranking-heading');
-  var cardDealButton = document.getElementById('card-deal-button')
+  const winButton = document.getElementById('win-button');
+  const currentWinSpan = document.getElementById('current-win-span');
+  const handRankingHeading = document.getElementById('hand-ranking-heading');
+  const cardDealButton = document.getElementById('card-deal-button')
   cardDealButton.setAttribute('disabled', 'disabled');
   currentWinSpan.innerText = 0;
   handRankingHeading.style.display = 'none';
-  var cardImages = document.getElementsByClassName('cards');
+  const cardImages = document.getElementsByClassName('cards');
   while (cardImages.length > 0) {
     cardImages[0].parentNode.removeChild(cardImages[0]);
   }
@@ -103,7 +103,7 @@ function getCards () {
   }
   for (let currentCard = 0; currentCard < 5; currentCard++) {
     var holdCurrentCard = document.getElementById('hold' + currentCard);
-    var betButton = document.getElementById('bet-button');
+    const betButton = document.getElementById('bet-button');
     var currentValues = 0;
     if (handsDealt === 0) {
       currentHand = cards;
