@@ -89,7 +89,8 @@ function getCards () {
   const winButton = document.getElementById('win-button');
   const currentWinSpan = document.getElementById('current-win-span');
   const handRankingHeading = document.getElementById('hand-ranking-heading');
-  const cardDealButton = document.getElementById('card-deal-button')
+  const cardDealButton = document.getElementById('card-deal-button');
+  const betButton = document.getElementById('bet-button');
   cardDealButton.setAttribute('disabled', 'disabled');
   currentWinSpan.innerText = 0;
   handRankingHeading.style.display = 'none';
@@ -103,7 +104,6 @@ function getCards () {
   }
   for (let currentCard = 0; currentCard < 5; currentCard++) {
     let holdCurrentCard = document.getElementById('hold' + currentCard);
-    const betButton = document.getElementById('bet-button');
     var currentValues = 0;
     if (handsDealt === 0) {
       currentHand = cards;

@@ -99,6 +99,10 @@ body {
   margin: auto;
 }
 
+#card0, #card1, #card2, #card3, #card4 {
+  transition: all 5s;
+}
+
 .coin {
   width: calc(100px + 4vw);
   margin: 0.2% 0;
