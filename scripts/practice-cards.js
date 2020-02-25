@@ -39,23 +39,11 @@ function getPracticeCards () {
       }
     }
   }
-  function createCardElement (imgUrl, currentCard) {
-    const cardImage = document.createElement('img');
-    cardImage.className = 'cards img-fluid';
-    cardImage.src = imgUrl;
-    cardImage.setAttribute('id', 'card' + currentCard);
-    document.getElementsByClassName('card-slot-div')[currentCard].appendChild(cardImage);
-    return cardImage;
-  }
   var currentHand = 0;
   const cardDealButton = document.getElementById('card-deal-button');
   const handRankingHeading = document.getElementById('hand-ranking-heading');
   cardDealButton.setAttribute('disabled', 'disabled');
   handRankingHeading.style.display = 'none';
-  const cardImages = document.getElementsByClassName('cards');
-  while (cardImages.length > 0) {
-    cardImages[0].parentNode.removeChild(cardImages[0]);
-  }
   if (handsDealt >= 3) {
     handsDealt = 0;
   }
@@ -76,8 +64,7 @@ function getPracticeCards () {
         }
       }
       cards.push(new Card(currentValues[0], currentValues[1], currentValues[2]));
-      const cardImage = createCardElement(cards[currentCard].imgSrc, currentCard);
-      cardImage.addEventListener('click', function () { toggleCardHold('hold' + currentCard); });
+      document.getElementsByClassName('cards')[currentCard].src = cards[currentCard].imgSrc;
       oddsDiv.style.display = 'none';
       showHideOddsButton.style.display = 'none';
     } else if (handsDealt === 1) {
@@ -99,7 +86,7 @@ function getPracticeCards () {
       } else {
         cards2.push(new Card(currentValues[0], currentValues[1], currentValues[2]));
       }
-      createCardElement(cards2[currentCard].imgSrc, currentCard);
+      document.getElementsByClassName('cards')[currentCard].src = cards2[currentCard].imgSrc;
       cardDealButton.innerText = 'Play Again';
       if (currentCard === 4) {
         cards = [];
@@ -109,7 +96,7 @@ function getPracticeCards () {
       }
     } else {
       holdCurrentCard.style.opacity = 0.0001;
-      createCardElement('../assets/images/cards/card_standard_blue_back.png', currentCard);
+      document.getElementsByClassName('cards')[currentCard].src = '../assets/images/cards/card_standard_blue_back.png';
       cardDealButton.innerText = 'Deal Cards';
       cardDealButton.removeAttribute('disabled');
       if (showHideOddsButton.innerText === 'Hide Odds') {
