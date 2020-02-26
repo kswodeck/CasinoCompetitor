@@ -7,7 +7,7 @@ const showHideOddsButton = document.getElementById('show-hide-odds-button');
 
 // eslint-disable-next-line no-unused-vars
 function getPracticeCards () {
-  function getRandomCardValues () { // for calculating the values of each card
+  function getRandomCardValues() { // for calculating the values of each card
     const currentValues = [Math.floor((Math.random() * 13) + 1), Math.floor((Math.random() * 4) + 1)];
     const numValue = currentValues[0]; // 13 card value options excluding jokers. 1=ace, 11=jack, 12=queen, 13=king
     const numSuit = currentValues[1]; // 4 card suit options excluding jokers. club,diamond,heart,spade
@@ -15,7 +15,7 @@ function getPracticeCards () {
     return currentValues;
   }
   class Card {
-    constructor (numValue, numSuit, identity) {
+    constructor(numValue, numSuit, identity) {
       this.numValue = numValue;
       this.numSuit = numSuit;
       this.identity = identity;
@@ -23,14 +23,16 @@ function getPracticeCards () {
       this.isRoyal = isRoyal(this.numValue);
       this.isJackOrBetter = isJackOrBetter(this.numValue);
       this.isHeld = false;
-      function isRoyal (value) {
+  
+      function isRoyal(value) {
         if (value === 1 || value === 10 || value === 11 || value === 12 || value === 13) {
           return true;
         } else {
           return false;
         }
       }
-      function isJackOrBetter (value) {
+  
+      function isJackOrBetter(value) {
         if (value === 1 || value === 11 || value === 12 || value === 13) {
           return true;
         } else {
