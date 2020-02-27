@@ -4,6 +4,7 @@ var cards = [];
 var cards2 = [];
 var totalCoins = 100;
 var currentBet = 1;
+var currentHand = 0;
 const totalCoinsSpan = document.getElementById('total-coins-span');
 const currentBetSpan = document.getElementById('current-bet-span');
 const oddsDiv = document.getElementById('hand-odds-div');
@@ -20,11 +21,10 @@ function getCards() {
     outOfCoinsDialog();
     handsDealt = 2;
   }
-  var currentHand = 0;
   const winButton = document.getElementById('win-button');
   const currentWinSpan = document.getElementById('current-win-span');
   const betButton = document.getElementById('bet-button');
-  cardDealButton.setAttribute('disabled', 'disabled');
+  cardDealButton.disabled = true;
   currentWinSpan.innerText = 0;
   handRankingHeading.style.display = 'none';
   winButton.style.backgroundColor = 'crimson';
@@ -37,7 +37,7 @@ function getCards() {
     if (handsDealt === 0) {
       currentHand = getFirstHand(currentCard,holdCurrentCard,currentValues);
       document.getElementsByClassName('cards')[currentCard].src = cards[currentCard].imgSrc;
-      betButton.setAttribute('disabled', 'disabled');
+      betButton.disabled = true;
     } else if (handsDealt === 1) {
       currentHand = getSecondHand(currentCard, holdCurrentCard, currentValues);
       if (currentCard === 4) {
@@ -47,14 +47,14 @@ function getCards() {
       }
     } else {
       lastHandTeardown(holdCurrentCard,currentCard,cardDealButton);
-      betButton.removeAttribute('disabled');
+      betButton.disabled = false;
     }
   }
   if (handsDealt === 0) {
     totalCoins = totalCoins - currentBet;
     totalCoinsSpan.innerText = totalCoins;
   }
-  getGameResults(handsDealt, handRankingHeading, cardDealButton, currentHand, collectCoins);
+  getGameResults(handsDealt, handRankingHeading, cardDealButton, collectCoins);
   handsDealt++;
   if (totalCoins - currentBet < 0 && handsDealt !== 1 && handsDealt !== 2) {
     while (totalCoins - currentBet < 0 && currentBet !== 1) {
@@ -96,8 +96,7 @@ function getCards() {
 }
 
 function getPracticeCards() {
-  var currentHand = 0;
-  cardDealButton.setAttribute('disabled', 'disabled');
+  cardDealButton.disabled = true;
   handRankingHeading.style.display = 'none';
   if (handsDealt >= 3) {
     handsDealt = 0;
@@ -124,7 +123,7 @@ function getPracticeCards() {
       showHideOddsButton.style.display = 'inline-block';
     }
   }
-  getGameResults(handsDealt, handRankingHeading, cardDealButton, currentHand, winHandDialog);
+  getGameResults(handsDealt, handRankingHeading, cardDealButton, winHandDialog);
   handsDealt++;
 }
 
@@ -144,7 +143,6 @@ class Card {
     this.isRoyal = isRoyal(this.numValue);
     this.isJackOrBetter = isJackOrBetter(this.numValue);
     this.isHeld = false;
-
     function isRoyal(value) {
       if (value === 1 || value === 10 || value === 11 || value === 12 || value === 13) {
         return true;
@@ -152,7 +150,6 @@ class Card {
         return false;
       }
     }
-
     function isJackOrBetter(value) {
       if (value === 1 || value === 11 || value === 12 || value === 13) {
         return true;
@@ -209,7 +206,7 @@ function lastHandTeardown(holdCurrentCard,currentCard,cardDealButton) {
   cardDealButton.innerText = 'Deal Cards';
 }
 
-function getGameResults(handsDealt, handRankingHeading, cardDealButton, currentHand, winFunction){
+function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunction){
   if (handsDealt < 2) {
     var resultText = getHandRanking(currentHand);
     handRankingHeading.innerText = resultText;
@@ -223,7 +220,7 @@ function getGameResults(handsDealt, handRankingHeading, cardDealButton, currentH
       }
     }
   }
-  cardDealButton.removeAttribute('disabled');
+  cardDealButton.disabled = false;
 }
 
 function getHandRanking(hand) {
@@ -256,7 +253,6 @@ function getHandRanking(hand) {
     }
   }
   return result;
-
   function isFlushHand(hand) {
     if (hand[0].numSuit === hand[1].numSuit && hand[1].numSuit === hand[2].numSuit &&
       hand[2].numSuit === hand[3].numSuit && hand[3].numSuit === hand[4].numSuit) {
@@ -264,7 +260,6 @@ function getHandRanking(hand) {
     }
     return false;
   }
-
   function isStraightHand(v0, v1, v2, v3, v4) {
     const compArray = [v0, v1, v2, v3, v4];
     const minNum = Math.min(v0, v1, v2, v3, v4);
@@ -275,7 +270,6 @@ function getHandRanking(hand) {
     }
     return false;
   }
-
   function isRoyalHand(hand) {
     if (hand[0].isRoyal === true && hand[1].isRoyal === true &&
       hand[2].isRoyal === true && hand[3].isRoyal === true && hand[4].isRoyal === true) {
@@ -283,7 +277,6 @@ function getHandRanking(hand) {
     }
     return false;
   }
-
   function classifySameKinds(hand) {
     for (var i = 0; i < 5; i++) {
       var currentKindCount = 1;
@@ -308,7 +301,6 @@ function getHandRanking(hand) {
     }
     return Math.max(hand[0].sameKindCount, hand[1].sameKindCount, hand[2].sameKindCount, hand[3].sameKindCount, hand[4].sameKindCount);
   }
-
   function pairExists(hand) {
     for (let i = 0; i < 5; i++) {
       if (hand[i].hasPair === true) {
@@ -317,7 +309,6 @@ function getHandRanking(hand) {
     }
     return false;
   }
-
   function isTwoPairHand(hand) {
     let numPairs = 0;
     for (let i = 0; i < 5; i++) {
@@ -330,7 +321,6 @@ function getHandRanking(hand) {
     }
     return false;
   }
-
   function isJackOrBetterHand(hand) {
     for (let i = 0; i < 5; i++) {
       if (hand[i].isJackOrBetterPair === true) {
@@ -340,7 +330,6 @@ function getHandRanking(hand) {
     return false;
   }
 }
-
 function toggleCardHold(currentHoldElement) {
   if (handsDealt === 1) {
     const holdElement = document.getElementById(currentHoldElement);
