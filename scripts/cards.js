@@ -161,7 +161,7 @@ class Card {
 }
 
 function getFirstHand(currentCard,holdCurrentCard,currentValues) {
-      holdCurrentCard.style.opacity = 0.0001;
+      holdCurrentCard.classList.add('text-opacity');
       var isSameIdentity = true;
       while (isSameIdentity === true) {
         if (currentCard === 0) {
@@ -178,7 +178,7 @@ function getFirstHand(currentCard,holdCurrentCard,currentValues) {
 }
 
 function getSecondHand(currentCard,holdCurrentCard,currentValues) {
-  holdCurrentCard.style.opacity = 0.0001;
+  holdCurrentCard.classList.add('text-opacity');
   let isSameIdentity = true;
   while (isSameIdentity === true) {
     currentValues = getRandomCardValues();
@@ -201,7 +201,7 @@ function getSecondHand(currentCard,holdCurrentCard,currentValues) {
 }
 
 function lastHandTeardown(holdCurrentCard,currentCard,cardDealButton) {
-  holdCurrentCard.style.opacity = 0.0001;
+  holdCurrentCard.classList.add('text-opacity');
   document.getElementsByClassName('cards')[currentCard].src = '../assets/images/cards/card_standard_blue_back.png';
   cardDealButton.innerText = 'Deal Cards';
 }
@@ -281,7 +281,7 @@ function getHandRanking(hand) {
     for (var i = 0; i < 5; i++) {
       var currentKindCount = 1;
       for (let j = 4; j >= 0; j--) {
-        if (hand[i] !== hand[j]) {
+        if (i !== j) {
           if (hand[i].numValue === hand[j].numValue) {
             currentKindCount++;
           }
@@ -333,7 +333,7 @@ function getHandRanking(hand) {
 function toggleCardHold(currentHoldElement) {
   if (handsDealt === 1) {
     const holdElement = document.getElementById(currentHoldElement);
-    holdElement.style.opacity != 1 ? holdElement.style.opacity = 1 : holdElement.style.opacity = 0.0001;
+    holdElement.classList.toggle('text-opacity');
     const cardNum = parseInt(currentHoldElement.replace(/hold/, ''));
     cards[cardNum].isHeld !== true ? cards[cardNum].isHeld = true : cards[cardNum].isHeld = false;
   }

@@ -190,6 +190,8 @@ body {
 
 .hold-card-text {
   margin: 2% 0;
+}
+.text-opacity {
   opacity: 0.0001;
 }
 
