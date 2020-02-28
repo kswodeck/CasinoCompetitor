@@ -2,7 +2,7 @@
 var handsDealt = 0;
 var cards = [];
 var cards2 = [];
-var totalCoins = 100;
+var totalCoins = 10;
 var currentBet = 1;
 var currentHand = 0;
 const totalCoinsSpan = document.getElementById('total-coins-span');
@@ -17,7 +17,7 @@ if (window.location.pathname.includes('practice-cards.html') == 'false') {
 
 // eslint-disable-next-line no-unused-vars
 function getCards() {
-  if (totalCoins <= 0 && handsDealt !== 1 && handsDealt !== 2) {
+  if (totalCoins <= 0 && handsDealt === 0) {
     outOfCoinsDialog();
     handsDealt = 2;
   }
@@ -28,9 +28,6 @@ function getCards() {
   currentWinSpan.innerText = 0;
   handRankingHeading.style.display = 'none';
   winButton.style.backgroundColor = 'crimson';
-  if (handsDealt >= 3) {
-    handsDealt = 0;
-  }
   for (let currentCard = 0; currentCard < 5; currentCard++) {
     let holdCurrentCard = document.getElementById('hold' + currentCard);
     var currentValues = [];
@@ -55,13 +52,27 @@ function getCards() {
     totalCoinsSpan.innerText = totalCoins;
   }
   getGameResults(handsDealt, handRankingHeading, cardDealButton, collectCoins);
-  handsDealt++;
-  if (totalCoins - currentBet < 0 && handsDealt !== 1 && handsDealt !== 2) {
+  if (handsDealt === 2) {
+    handsDealt = 0;
+  }
+  else {
+    handsDealt++;
+  }
+  if (totalCoins - currentBet < 0 && handsDealt === 0) {
     while (totalCoins - currentBet < 0 && currentBet !== 1) {
       currentBet--;
     }
+    if (currentBet == 1) {
+      betButton.disabled = true;
+    }
     currentBetSpan.innerText = currentBet;
   }
+  // if (totalCoins - currentBet < 0 && handsDealt !== 1 && handsDealt !== 2) {
+  //   while (totalCoins - currentBet < 0 && currentBet !== 1) {
+  //     currentBet--;
+  //   }
+  //   currentBetSpan.innerText = currentBet;
+  // }
   function collectCoins(result) {
     let currentWin = 0;
     if (result === 'Jacks or Better') {
@@ -98,9 +109,6 @@ function getCards() {
 function getPracticeCards() {
   cardDealButton.disabled = true;
   handRankingHeading.style.display = 'none';
-  if (handsDealt >= 3) {
-    handsDealt = 0;
-  }
   for (let currentCard = 0; currentCard < 5; currentCard++) {
     let holdCurrentCard = document.getElementById('hold' + currentCard);
     let currentValues = [];
@@ -124,7 +132,12 @@ function getPracticeCards() {
     }
   }
   getGameResults(handsDealt, handRankingHeading, cardDealButton, winHandDialog);
-  handsDealt++;
+  if (handsDealt === 2) {
+    handsDealt = 0;
+  }
+  else {
+    handsDealt++;
+  }
 }
 
 function getRandomCardValues() { //  for calculating the values of each card
@@ -162,13 +175,10 @@ class Card {
 
 function getFirstHand(currentCard,holdCurrentCard,currentValues) {
       holdCurrentCard.classList.add('text-opacity');
-      var isSameIdentity = true;
+      let isSameIdentity = true;
       while (isSameIdentity === true) {
-        if (currentCard === 0) {
-          isSameIdentity = false;
-        }
         currentValues = getRandomCardValues();
-        if (cards.filter(x => (x.identity === currentValues[2])).length === 0) {
+        if (cards.filter(x => (x.identity === currentValues[2])).length === 0 || currentCard === 0) {
           isSameIdentity = false;
         }
       }
