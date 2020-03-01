@@ -198,6 +198,10 @@ body, html {
   opacity: 0.0001;
 }
 
+#total-coins-span, #card-deal-button, #current-bet-span, #current-win-span {
+  visibility: hidden;
+}
+
 /* #cards-container {
   height: calc(60px + 30vw + 2vh);
   min-height: 220px;

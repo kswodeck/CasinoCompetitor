@@ -1,15 +1,9 @@
 /* eslint-disable semi */
-
 // eslint-disable no-unused-vars
 var handsDealt = 0;
 var cards = [];
 var cards2 = [];
 var currentHand = 0;
-// var mainContainer.totalCoins = 100;
-// var currentBet = 1;
-// var currentWin = 0;
-// var dealButtonText = "Deal Cards";
-// var resultText = "Game Over";
 var mainContainer = new Vue({
   el: '#main-container',
   data: {
@@ -20,14 +14,17 @@ var mainContainer = new Vue({
     resultText: 'Game Over',
   }
 })
+document.getElementById('card-deal-button').style.visibility = 'visible';
 // const totalCoinsSpan = document.getElementById('total-coins-span');
 const currentBetSpan = document.getElementById('current-bet-span');
 const oddsDiv = document.getElementById('hand-odds-div');
 const showHideOddsButton = document.getElementById('show-hide-odds-button');
 const cardDealButton = document.getElementById('card-deal-button');
 const handRankingHeading = document.getElementById('hand-ranking-heading');
-if (window.location.pathname.includes('practice-cards.html') == 'false') {
-  totalCoinsSpan.innerText = mainContainer.totalCoins;
+if (window.location.pathname === '/C:/Development/GameChanger/structure/cards.html') {
+  document.getElementById('total-coins-span').style.visibility = 'visible';
+  document.getElementById('current-bet-span').style.visibility = 'visible';
+  document.getElementById('current-win-span').style.visibility = 'visible';
 }
 
 function getCards() {
