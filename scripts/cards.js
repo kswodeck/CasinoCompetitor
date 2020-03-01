@@ -1,4 +1,6 @@
 /* eslint-disable semi */
+
+// eslint-disable no-unused-vars
 var handsDealt = 0;
 var cards = [];
 var cards2 = [];
@@ -28,7 +30,6 @@ if (window.location.pathname.includes('practice-cards.html') == 'false') {
   totalCoinsSpan.innerText = mainContainer.totalCoins;
 }
 
-// eslint-disable-next-line no-unused-vars
 function getCards() {
   if (mainContainer.totalCoins <= 0 && handsDealt === 0) {
     outOfCoinsDialog();
