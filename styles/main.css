@@ -276,6 +276,14 @@ body, html {
   margin-bottom: 2px;
 }
 
+#current-link {
+  color: crimson;
+}
+
+#current-link:hover {
+  color: gold;
+}
+
 #cardsDropdown {
   min-width: 130px;
   background-color: #343a40;
