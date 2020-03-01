@@ -2,30 +2,43 @@
 var handsDealt = 0;
 var cards = [];
 var cards2 = [];
-var totalCoins = 10;
-var currentBet = 1;
 var currentHand = 0;
-const totalCoinsSpan = document.getElementById('total-coins-span');
+// var mainContainer.totalCoins = 100;
+// var currentBet = 1;
+// var currentWin = 0;
+// var dealButtonText = "Deal Cards";
+// var resultText = "Game Over";
+var mainContainer = new Vue({
+  el: '#main-container',
+  data: {
+    totalCoins: 100,
+    currentBet: 1,
+    currentWin: 0,
+    dealButtonText: 'Deal Cards',
+    resultText: 'Game Over',
+  }
+})
+// const totalCoinsSpan = document.getElementById('total-coins-span');
 const currentBetSpan = document.getElementById('current-bet-span');
 const oddsDiv = document.getElementById('hand-odds-div');
 const showHideOddsButton = document.getElementById('show-hide-odds-button');
 const cardDealButton = document.getElementById('card-deal-button');
 const handRankingHeading = document.getElementById('hand-ranking-heading');
 if (window.location.pathname.includes('practice-cards.html') == 'false') {
-  totalCoinsSpan.innerText = totalCoins;
+  totalCoinsSpan.innerText = mainContainer.totalCoins;
 }
 
 // eslint-disable-next-line no-unused-vars
 function getCards() {
-  if (totalCoins <= 0 && handsDealt === 0) {
+  if (mainContainer.totalCoins <= 0 && handsDealt === 0) {
     outOfCoinsDialog();
     handsDealt = 2;
   }
   const winButton = document.getElementById('win-button');
-  const currentWinSpan = document.getElementById('current-win-span');
+  // const currentWinSpan = document.getElementById('current-win-span');
   const betButton = document.getElementById('bet-button');
   cardDealButton.disabled = true;
-  currentWinSpan.innerText = 0;
+  // currentWinSpan.innerText = 0;
   handRankingHeading.style.display = 'none';
   winButton.style.backgroundColor = 'crimson';
   for (let currentCard = 0; currentCard < 5; currentCard++) {
@@ -48,8 +61,8 @@ function getCards() {
     }
   }
   if (handsDealt === 0) {
-    totalCoins = totalCoins - currentBet;
-    totalCoinsSpan.innerText = totalCoins;
+    mainContainer.totalCoins = mainContainer.totalCoins - mainContainer.currentBet;
+    // totalCoinsSpan.innerText = totalCoins;
   }
   getGameResults(handsDealt, handRankingHeading, cardDealButton, collectCoins);
   if (handsDealt === 2) {
@@ -58,51 +71,49 @@ function getCards() {
   else {
     handsDealt++;
   }
-  if (totalCoins - currentBet < 0 && handsDealt === 0) {
-    while (totalCoins - currentBet < 0 && currentBet !== 1) {
-      currentBet--;
+  if (mainContainer.totalCoins - mainContainer.currentBet < 0 && handsDealt === 0) {
+    while (mainContainer.totalCoins - mainContainer.currentBet < 0 && mainContainer.currentBet !== 1) {
+      mainContainer.currentBet--;
     }
-    if (currentBet == 1) {
+    if (mainContainer.currentBet == 1) {
       betButton.disabled = true;
     }
-    currentBetSpan.innerText = currentBet;
+    // currentBetSpan.innerText = currentBet;
   }
-  // if (totalCoins - currentBet < 0 && handsDealt !== 1 && handsDealt !== 2) {
-  //   while (totalCoins - currentBet < 0 && currentBet !== 1) {
+  // if (mainContainer.mainContainer.totalCoins - currentBet < 0 && handsDealt !== 1 && handsDealt !== 2) {
+  //   while (mainContainer.mainContainer.totalCoins - currentBet < 0 && currentBet !== 1) {
   //     currentBet--;
   //   }
   //   currentBetSpan.innerText = currentBet;
   // }
-  function collectCoins(result) {
-    let currentWin = 0;
-    if (result === 'Jacks or Better') {
-      currentWin = currentBet;
-    } else if (result === 'Two Pair') {
-      currentWin = currentBet * 2;
-    } else if (result === '3 of a Kind') {
-      currentWin = currentBet * 3;
-    } else if (result === 'Straight') {
-      currentWin = currentBet * 4;
-    } else if (result === 'Flush') {
-      currentWin = currentBet * 6;
-    } else if (result === 'Full House') {
-      currentWin = currentBet * 9;
-    } else if (result === '4 of a Kind') {
-      currentWin = currentBet * 25;
-    } else if (result === 'Straight Flush') {
-      currentWin = currentBet * 50;
-    } else if (result === 'Royal Flush') {
-      if (currentBet < 5) {
-        currentWin = currentBet * 250;
+  function collectCoins() {
+    if (mainContainer.resultText === 'Jacks or Better') {
+      mainContainer.currentWin = mainContainer.currentBet;
+    } else if (mainContainer.resultText === 'Two Pair') {
+      mainContainer.currentWin = mainContainer.currentBet * 2;
+    } else if (mainContainer.resultText === '3 of a Kind') {
+      mainContainer.currentWin = mainContainer.currentBet * 3;
+    } else if (mainContainer.resultText === 'Straight') {
+      mainContainer.currentWin = mainContainer.currentBet * 4;
+    } else if (mainContainer.resultText === 'Flush') {
+      mainContainer.currentWin = mainContainer.currentBet * 6;
+    } else if (mainContainer.resultText === 'Full House') {
+      mainContainer.currentWin = mainContainer.currentBet * 9;
+    } else if (mainContainer.resultText === '4 of a Kind') {
+      mainContainer.currentWin = mainContainer.currentBet * 25;
+    } else if (mainContainer.resultText === 'Straight Flush') {
+      mainContainer.currentWin = mainContainer.currentBet * 50;
+    } else if (mainContainer.resultText === 'Royal Flush') {
+      if (mainContainer.currentBet < 5) {
+        mainContainer.currentWin = mainContainer.currentBet * 250;
       } else {
-        currentWin = 4000;
+        mainContainer.currentWin = 4000;
       }
     }
-    totalCoins = totalCoins + currentWin;
+    mainContainer.totalCoins = mainContainer.totalCoins + mainContainer.currentWin;
     winButton.style.backgroundColor = 'darkblue';
-    totalCoinsSpan.innerText = totalCoins;
-    currentWinSpan.innerText = currentWin;
-    winCoinsDialog(currentWin, result);
+    // totalCoinsSpan.innerText = totalCoins;
+    winCoinsDialog();
   }
 }
 
@@ -206,27 +217,29 @@ function getSecondHand(currentCard,holdCurrentCard,currentValues) {
     cards2.push(new Card(currentValues[0], currentValues[1], currentValues[2]));
   }
   document.getElementsByClassName('cards')[currentCard].src = cards2[currentCard].imgSrc;
-  cardDealButton.innerText = 'Play Again';
+  // cardDealButton.innerText = 'Play Again';
+  mainContainer.dealButtonText = 'Play Again';
   return cards2;
 }
 
-function lastHandTeardown(holdCurrentCard,currentCard,cardDealButton) {
+function lastHandTeardown(holdCurrentCard,currentCard) {
   holdCurrentCard.classList.add('text-opacity');
   document.getElementsByClassName('cards')[currentCard].src = '../assets/images/cards/card_standard_blue_back.png';
-  cardDealButton.innerText = 'Deal Cards';
+  // cardDealButton.innerText = 'Deal Cards';
+  mainContainer.dealButtonText = 'Deal Cards';
 }
 
 function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunction){
   if (handsDealt < 2) {
-    var resultText = getHandRanking(currentHand);
-    handRankingHeading.innerText = resultText;
-    if (resultText === 'Game Over') {
+    mainContainer.resultText = getHandRanking(currentHand);
+    // handRankingHeading.innerText = resultText;
+    if (mainContainer.resultText === 'Game Over') {
       handRankingHeading.style.color = 'crimson'; // if no hand category has been acheived, red text
     } else {
       handRankingHeading.style.display = 'block';
       handRankingHeading.style.color = 'darkblue'; // if a hand category has been acheived, blue text
       if (handsDealt === 1) {
-        winFunction(resultText);
+        winFunction();
       }
     }
   }
@@ -234,35 +247,36 @@ function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunct
 }
 
 function getHandRanking(hand) {
+  let resultText = 'Game Over';
   const highestSameKindCount = classifySameKinds(hand);
   const isFlush = isFlushHand(hand);
   const isRoyal = isRoyalHand(hand);
   const isStraight = isStraightHand(hand[0].numValue, hand[1].numValue, hand[2].numValue, hand[3].numValue, hand[4].numValue);
-  let result = 'Game Over';
+  // let result = 'Game Over';
   if (isTwoPairHand(hand) === true) {
-    result = 'Two Pair';
+    resultText = 'Two Pair';
   } else if (isJackOrBetterHand(hand) === true && highestSameKindCount === 2) {
-    result = 'Jacks or Better';
+    resultText = 'Jacks or Better';
   } else if (highestSameKindCount === 3) {
     if (pairExists(hand) === true) {
-      result = 'Full House';
+      resultText = 'Full House';
     } else {
-      result = '3 of a Kind';
+      resultText = '3 of a Kind';
     }
   } else if (isStraight === true && isFlush === false) { // normal straight, not a royal straight/flush
-    result = 'Straight';
+    resultText = 'Straight';
   } else if (highestSameKindCount === 4) {
-    result = '4 of a Kind';
+    resultText = '4 of a Kind';
   } else if (isFlush === true) { // determine if flush (royal, straight, normal)
     if (isRoyal === true) { // determine if royal flush
-      result = 'Royal Flush';
+      resultText = 'Royal Flush';
     } else if (isStraight === true) { // determine if straight flush, not royal. Need each card to be 1 apart //working
-      result = 'Straight Flush';
+      resultText = 'Straight Flush';
     } else { // hand is a normal flush
-      result = 'Flush';
+      resultText = 'Flush';
     }
   }
-  return result;
+  return resultText;
   function isFlushHand(hand) {
     if (hand[0].numSuit === hand[1].numSuit && hand[1].numSuit === hand[2].numSuit &&
       hand[2].numSuit === hand[3].numSuit && hand[3].numSuit === hand[4].numSuit) {
@@ -352,14 +366,14 @@ function toggleCardHold(currentHoldElement) {
 // eslint-disable-next-line no-unused-vars
 function toggleBet() {
   if (handsDealt === 0 || handsDealt === 3) {
-    if (totalCoins - currentBet <= 0) {
-      currentBet = 1;
-    } else if (currentBet < 5) {
-      currentBet++;
+    if (mainContainer.totalCoins - mainContainer.currentBet <= 0) {
+      mainContainer.currentBet = 1;
+    } else if (mainContainer.currentBet < 5) {
+      mainContainer.mainContainer.currentBet++;
     } else {
-      currentBet = 1;
+      mainContainer.currentBet = 1;
     }
-    currentBetSpan.innerText = currentBet;
+    // currentBetSpan.innerText = currentBet;
   } else {
 
   }
@@ -377,11 +391,11 @@ function outOfCoinsDialog() {
   }
 }
 
-function winCoinsDialog(currentWin, result) {
+function winCoinsDialog() {
   const coinsDialog = document.getElementById('winCoinsDialog');
   if (typeof coinsDialog.showModal === 'function') {
-    document.getElementById('coin-win-popup-span').innerText = result;
-    document.getElementById('number-coins-won').innerText = ' ' + currentWin + ' ';
+    // document.getElementById('coin-win-popup-span').innerText = result;
+    // document.getElementById('number-coins-won').innerText = ' ' + currentWin + ' ';
     coinsDialog.showModal();
     setTimeout(function() { coinsDialog.close() }, 2500);
   } else {
@@ -392,10 +406,10 @@ function winCoinsDialog(currentWin, result) {
   }
 }
 
-function winHandDialog(result) {
+function winHandDialog() {
   const winDialog = document.getElementById('winHandDialog');
   if (typeof winDialog.showModal === 'function') {
-    document.getElementById('hand-win-popup-span').innerText = result;
+    // document.getElementById('hand-win-popup-span').innerText = result;
     winDialog.showModal();
     setTimeout(function() { winDialog.close() }, 2000);
   } else {
