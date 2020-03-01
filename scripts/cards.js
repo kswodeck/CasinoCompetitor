@@ -21,6 +21,7 @@ const oddsDiv = document.getElementById('hand-odds-div');
 const showHideOddsButton = document.getElementById('show-hide-odds-button');
 const cardDealButton = document.getElementById('card-deal-button');
 const handRankingHeading = document.getElementById('hand-ranking-heading');
+// improve this
 if (window.location.pathname === '/C:/Development/GameChanger/structure/cards.html') {
   document.getElementById('total-coins-span').style.visibility = 'visible';
   document.getElementById('current-bet-span').style.visibility = 'visible';
