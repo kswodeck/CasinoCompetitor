@@ -7,7 +7,7 @@
     <meta name="keywords" content="virtual, cards, poker, dice, roll, coin, flip, luck, chance, percentages, gambling, casino">
     <meta name="author" content="Kristoffer Swodeck">
     <title>Dice</title>
-    <link rel="icon" href="..\assets\images\game-changer-favicon.jpg">
+    <link rel="icon" href="..\assets\images\pocket-poker-favicon.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="..\styles\main.css">
   </head>
@@ -16,25 +16,25 @@
       <header id="header" class="mb-md-4 mb-2">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark py-sm-1 py-0" id="main-navbar" role="navigation">
           <div class="row" id="main-links-row">
-            <div class="col-4 pl-lg-3 pl-md-1 px-0"><a id="main-head-link" class="secondary-link" href="home.html">Game Changer</a></div>
+            <div class="col-4 pl-lg-3 pl-md-1 px-0"><a id="main-head-link" class="secondary-link" href="home.html">Pocket Poker</a></div>
                 <div class="col-4 pt-md-1 p-0">
                   <div class="collapse navbar-collapse" id="navbar-content">
                     <ul class="navbar-nav text-center m-auto" id="main-links-list">
                       <div class="col-md-3 top-menu-div">
-                        <li class="nav-item"><a class="secondary-link nav-link p-0" role="button" href="home.html">Home</a></li>
+                        <li class="nav-item"><a class="secondary-link" role="button" href="home.html">Home</a></li>
                       </div>
                       <div class="col-md-3 top-menu-div cards-dropdown">
-                        <a class="secondary-link dropdown-toggle p-0 ml-md-0 ml-2" href="cards.html" role="button" id="dropdownCardsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Poker</a>
-                       <div class="dropdown-menu p-0" id="cardsDropdown" aria-labelledby="dropdownCardsLink">
+                        <a class="secondary-link dropdown-toggle ml-md-0 ml-2" href="cards.html" role="button" id="dropdownCardsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Poker</a>
+                       <div class="dropdown-menu" id="cardsDropdown" aria-labelledby="dropdownCardsLink">
                          <a class="secondary-link dropdown-item px-md-1 p-0" href="cards.html">Competitive</a>
                          <a class="secondary-link dropdown-item px-md-1 p-0" href="practice-cards.html">Practice</a>
                        </div>
                       </div>
                       <div class="col-md-3 top-menu-div">
-                        <li class="nav-item"><a id="current-link" class="nav-link p-0" href="dice.html">Dice</a></li>
+                        <li class="nav-item"><a id="current-link" href="dice.html">Dice</a></li>
                       </div>
                       <div class="col-md-3 top-menu-div">
-                        <li class="nav-item"><a class="secondary-link nav-link p-0" href="coin.html">Coin</a></li>
+                        <li class="nav-item"><a class="secondary-link" href="coin.html">Coin</a></li>
                       </div>
                   </ul>
                 </div>
@@ -51,18 +51,17 @@
    <form id="diceform" name="diceform" action="javascript:diceRoll()" method="get">
     <div id="dice-quantity-input-div" class="form-row justify-content-center m-auto">
      <label for="dicequantity" class="m-0">How many dice do you want to roll?</label>
-     <input type="number" id="dicequantity" class="dicequantity form-control mx-1 p-0 text-center" name="dicequantity" min="1" max="20" value="1" step="1">
+     <input type="number" id="dicequantity" class="dicequantity form-control text-center" name="dicequantity" min="1" max="20" value="1" step="1">
     </div>
     <div class="dice-roll-div text-center m-lg-3 m-2">
      <button type="submit" id="dice-roll-button" class="btn mb-lg-2 mb-sm-1 mb-0 dice-button">Roll Dice</button>
     </div>
    </form>
-   <div id="dice-roll-div" class="dice-roll-div text-center m-lg-3 m-sm-2 m-0 p-0"></div>
-   <div class="container-fluid p-0">
+   <div id="dice-roll-div" class="dice-roll-div text-center m-lg-3 m-sm-2 m-0"></div>
+   <div id="play-container" class="container-fluid">
     <div class="row justify-content-center mt-lg-0 mt-sm-2 mt-1">
-     <div class="col p-0 mx-0">
-       <!-- "col-xl-2 col-lg-2 col-md-3 col-sm-4 col-5 p-0 mx-0" -->
-      <div id="dice-roll-current-div" class="mr-0">
+     <div id="dice-col" class="col">
+      <div id="dice-roll-current-div">
        <span id="current-dice-heading" class="table-heading">Current Tally</span>
        <span id="current-ones-tally" class="result-tally">Ones: </span><span id="current_one_win" class="result-tally result current">0</span><br />
        <span id="current-twos-tally" class="result-tally">Twos: </span><span id="current_two_win" class="result-tally result current">0</span><br />
@@ -72,8 +71,8 @@
        <span id="current-sixes-tally" class="result-tally">Sixes: </span><span id="current_six_win" class="result-tally result current">0</span><br />
       </div>
      </div>
-     <div class="col p-0 mx-0">
-      <div id="dice-roll-tally-div" class="ml-0">
+     <div id="dice-current-col" class="col">
+      <div id="dice-roll-tally-div">
        <span id="dice-heading" class="table-heading">Total Tally</span>
        <span id="ones-tally" class="result-tally">Ones: </span><span id="one_win" class="result-tally result total">0</span><br />
        <span id="twos-tally" class="result-tally">Twos: </span><span id="two_win" class="result-tally result total">0</span><br />
@@ -93,10 +92,10 @@
    <footer id="footer" class="d-md-block d-none">
     <nav id="bottom-navbar" class="navbar-nav navbar-expand navbar-dark bg-dark m-auto">
      <ul class="navbar-nav navbar-center bottom-nav-list m-auto">
-      <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="cards.html">Cards<span class="sr-only"></span></a></li>
-      <li class="nav-item active"><a class="nav-link active" href="dice.html">Dice</a></li>
-      <li class="nav-item"><a class="nav-link" href="coin.html">Coin</a></li>
+      <li class="nav-item"><a class="" href="home.html">Home</a></li>
+      <li class="nav-item"><a class="" href="cards.html">Cards<span class="sr-only"></span></a></li>
+      <li class="nav-item active"><a class=" active" href="dice.html">Dice</a></li>
+      <li class="nav-item"><a class="" href="coin.html">Coin</a></li>
      </ul>
     </nav>
    </footer>

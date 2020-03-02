@@ -21,12 +21,11 @@ const oddsDiv = document.getElementById('hand-odds-div');
 const showHideOddsButton = document.getElementById('show-hide-odds-button');
 const cardDealButton = document.getElementById('card-deal-button');
 const handRankingHeading = document.getElementById('hand-ranking-heading');
-// improve this
-if (window.location.pathname === '/C:/Development/GameChanger/structure/cards.html') {
-  document.getElementById('total-coins-span').style.visibility = 'visible';
-  document.getElementById('current-bet-span').style.visibility = 'visible';
-  document.getElementById('current-win-span').style.visibility = 'visible';
-}
+if (document.getElementById("current-link").innerText === 'Competitive') {
+    document.getElementById('total-coins-span').style.visibility = 'visible';
+    document.getElementById('current-bet-span').style.visibility = 'visible';
+    document.getElementById('current-win-span').style.visibility = 'visible';
+  }
 
 function getCards() {
   if (mainContainer.totalCoins <= 0 && handsDealt === 0) {
@@ -364,17 +363,15 @@ function toggleCardHold(currentHoldElement) {
 
 // eslint-disable-next-line no-unused-vars
 function toggleBet() {
-  if (handsDealt === 0 || handsDealt === 3) {
+  if (handsDealt === 0) {
     if (mainContainer.totalCoins - mainContainer.currentBet <= 0) {
       mainContainer.currentBet = 1;
     } else if (mainContainer.currentBet < 5) {
-      mainContainer.mainContainer.currentBet++;
+      mainContainer.currentBet++;
     } else {
       mainContainer.currentBet = 1;
     }
     // currentBetSpan.innerText = currentBet;
-  } else {
-
   }
 }
 
@@ -421,7 +418,8 @@ function winHandDialog() {
 
 // eslint-disable-next-line no-unused-vars
 function toggleOddsTable() {
-  if (oddsDiv.style.display === 'none') {
+  alert(oddsDiv.style.display);
+  if (oddsDiv.style.display !== 'block') {
     oddsDiv.style.display = 'block';
     showHideOddsButton.innerText = 'Hide Odds';
   } else {

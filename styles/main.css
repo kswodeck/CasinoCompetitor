@@ -12,10 +12,6 @@ body, html {
   overflow-y: auto;
 }
 
-#main-container {
-  padding: 0;
-}
-
 #page-description-div, #dice-quantity-input-div, #dicequantity {
   font-size: calc(10px + 0.3vw);
 }
@@ -26,6 +22,8 @@ body, html {
   font-weight: bold;
   width: calc(28px + 0.5vw);
   height: calc(14px + 0.5vw);
+  padding: 0;
+  margin-left: 4px;
 }
 
 #dicequantity:hover {
@@ -41,12 +39,13 @@ body, html {
   text-align: center;
 }
 #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
-  width: 115px;
+  width: calc(90px + 4vw);
   max-width: 180px;
   display: none;
 }
 #hand-odds-div {
   max-width: 270px;
+  display: none;
 }
 
 #show-hide-odds-div {
@@ -58,7 +57,7 @@ body, html {
   color: gold;
   background-color: darkblue;
   border: solid 1px crimson;
-  padding: 0.2% 0.3%;
+  padding: 0.1% 0.3%;
   font-weight: bold;
   font-size: calc(11px + 0.3vw);
   transition: all 0.4s;
@@ -113,6 +112,17 @@ body, html {
   margin: 0 auto;
 }
 
+#dice-col, #dice-current-col {
+  margin-left: 0;
+  margin-right: 0;
+}
+#dice-roll-current-div {
+  margin-right: 0;
+}
+#dice-roll-tally-div {
+  margin-left: 0;
+}
+
 #coins-img {
   width: calc(22px + 1vw);
 }
@@ -147,7 +157,7 @@ body, html {
 }
 #coin-flip-button:disabled, #dice-roll-button:disabled, #card-deal-button:disabled, #clear-tally-button:disabled {
   opacity: 0.1;
-  cursor:default;
+  cursor: default;
 }
 
 #bet-button, #win-button {
@@ -243,7 +253,7 @@ body, html {
 }
 
 #home-logo {
-  width: calc(120px + 7vw);
+  width: calc(140px + 8vw);
   display: block;
 }
 
@@ -264,37 +274,41 @@ body, html {
   text-transform: uppercase;
   transition: all 0.4s;
 }
-#main-links-list a, #dropdownCardsLink {
-  color: gold;
+#main-head-link a, #main-links-list a{
   font-weight: bold;
   text-decoration: underline;
   text-transform: uppercase;
   transition: all 0.4s;
 }
+a.secondary-link {
+  color: gold;
+}
 #dropdownCardsLink {
   font-size: 100%;
   margin-bottom: 2px;
 }
-
 #current-link {
   color: crimson;
 }
-
-#current-link:hover {
-  color: gold;
-}
-
 #cardsDropdown {
   min-width: 130px;
   background-color: #343a40;
   text-align: center;
   border: none;
 }
-
 #cardsDropdown a {
   text-decoration: none;
   transition: all 0.4s;
 }
+#main-head-link a, #main-links-list a{
+  font-weight: bold;
+  text-decoration: underline;
+  text-transform: uppercase;
+  transition: all 0.4s;
+}
+#dropdownCardsLink, li a, #main-container, #play-container, #dice-col, #dice-current-col, #dice-roll-tally-div, #dice-roll-current-div {
+  padding: 0;
+} 
 
 .dropdown-toggle::after {
   margin-left: 0;
