@@ -291,7 +291,8 @@ a.secondary-link {
   color: crimson;
 }
 #cardsDropdown, #mainDropdown {
-  min-width: 135px;
+  max-width: 150px;
+  min-width: 100px;
   background-color: #343a40;
   text-align: center;
   border: none;
@@ -422,5 +423,10 @@ a.secondary-link {
 @media (max-width: 767px) {
   #mainDropdown {
     position: static;
+  }
+}
+@media (max-width: 767px) and (min-width: 575px) {
+  #cardsDropdown {
+    max-width: 195px;
   }
 }
