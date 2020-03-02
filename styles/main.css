@@ -264,7 +264,7 @@ body, html {
   color: crimson;
 }
 
-#main-head-link {
+#dropdownMainLink {
   font-size: 120%;
   font-style: italic;
   letter-spacing: -1.5px;
@@ -274,7 +274,7 @@ body, html {
   text-transform: uppercase;
   transition: all 0.4s;
 }
-#main-head-link a, #main-links-list a{
+#mainDropdown a, #main-links-list a{
   font-weight: bold;
   text-decoration: underline;
   text-transform: uppercase;
@@ -290,23 +290,15 @@ a.secondary-link {
 #current-link {
   color: crimson;
 }
-#cardsDropdown {
-  min-width: 130px;
+#cardsDropdown, #mainDropdown {
+  min-width: 135px;
   background-color: #343a40;
   text-align: center;
   border: none;
+  margin: 0;
+  padding: 0;
 }
-#cardsDropdown a {
-  text-decoration: none;
-  transition: all 0.4s;
-}
-#main-head-link a, #main-links-list a{
-  font-weight: bold;
-  text-decoration: underline;
-  text-transform: uppercase;
-  transition: all 0.4s;
-}
-#dropdownCardsLink, li a, #main-container, #play-container, #dice-col, #dice-current-col, #dice-roll-tally-div, #dice-roll-current-div {
+#dropdownCardsLink #dropdownMainLink, li a, #main-container, #play-container, #dice-col, #dice-current-col, #dice-roll-tally-div, #dice-roll-current-div {
   padding: 0;
 } 
 
@@ -402,13 +394,13 @@ a.secondary-link {
   margin-top: 5%;
 }
 
+/* small breakpoint */
 @media (max-width: 575px) {
-    #main-head-link, .navbar-toggler{
+    #dropdownMainLink, .navbar-toggler{
       font-size: calc(12px + 1vw);
     }
-    #main-links-list, #cardsDropdown a {
+    #main-links-list, #cardsDropdown a, #mainDropdown a {
       font-size: calc(8px + 1vw);
-      text-decoration: underline;
     }
     #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
       width: 105px;
@@ -418,16 +410,17 @@ a.secondary-link {
       width: 150px;
       line-height: 1;
     }
-    #dropdownCardsLink {
+    #dropdownCardsLink, #dropdownMainLink {
       margin-bottom: 0;
     }
-    #cardsDropdown {
-      margin: 0;
-      padding: 0;
-      min-width: 100px;
-    }
-    #cardsDropdown a:hover {
+    #cardsDropdown a:hover, #mainDropdown a:hover {
       color: crimson;
       background-color: #343a40;
     }
+}
+/* medium breakpoint */
+@media (max-width: 767px) {
+  #mainDropdown {
+    position: static;
+  }
 }

@@ -418,7 +418,6 @@ function winHandDialog() {
 
 // eslint-disable-next-line no-unused-vars
 function toggleOddsTable() {
-  alert(oddsDiv.style.display);
   if (oddsDiv.style.display !== 'block') {
     oddsDiv.style.display = 'block';
     showHideOddsButton.innerText = 'Hide Odds';
