@@ -52,10 +52,21 @@
         </div>
       </nav>
     </header>
-    <form action="POST">
-
-    </form>
-   <footer id="footer" class="d-md-block d-none">
+    <div id="create-account-form-div" class="container-fluid">
+      <h2 id="page-heading" class="create-account-heading">Create An Account</h2>
+      <form action="POST">
+        <label for="email" class="create-account-label">Email</label><br>
+        <input type="email" name="email" class="create-account-input" minlength="6" maxlength="30"><br>
+        <label for="username" class="create-account-label">Username</label><br>
+        <input type="text" name="username" class="create-account-input" minlength="5" maxlength="20"><br>
+        <label for="password" class="create-account-label">Password</label><br>
+        <input type="password" name="password" class="create-account-input" minlength="5" maxlength="20"><br>
+        <label for="repeat-password" class="create-account-label">Repeat Password</label><br>
+        <input type="password" name="repeat-password" class="create-account-input" minlength="5" maxlength="20"><br>
+        <input type="submit" name="create-account-submit" role="button" value="Create Account" class="btn" id="create-account-button">
+      </form>
+    </div>
+    <footer id="footer" class="d-md-block d-none">
      <nav id="bottom-navbar" class="navbar-nav navbar-expand navbar-dark bg-dark m-auto">
        <ul class="navbar-nav navbar-center m-auto text-center" id="bottom-nav-list">
          <li class="nav-item active"><a href="home.html">Home<span class="sr-only"></span></a></li>

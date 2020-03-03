@@ -52,7 +52,7 @@ body, html {
   text-align: center;
 }
 
-#show-hide-odds-button {
+#show-hide-odds-button, #create-account-button {
   cursor: pointer;
   color: gold;
   background-color: darkblue;
@@ -62,7 +62,7 @@ body, html {
   font-size: calc(11px + 0.3vw);
   transition: all 0.4s;
 }
-#show-hide-odds-button:hover {
+#show-hide-odds-button:hover, #create-account-button:hover {
   color: gold;
   background-color: crimson;
   border: solid 1px darkblue;
@@ -212,14 +212,6 @@ body, html {
   visibility: hidden;
 }
 
-/* #cards-container {
-  height: calc(60px + 30vw + 2vh);
-  min-height: 220px;
-  max-height: 400px;
-  background: no-repeat url("../assets/images/cards-background.jpg");
-  border-radius: 25px;
-} */
-
 #home-heading {
   font-size: calc(23px + 1vw);
   text-transform: uppercase;
@@ -332,6 +324,49 @@ a.secondary-link {
   display:block;
 }
 
+#create-account-form-div {
+  margin: 4% auto 0 auto;
+  max-width: 500px;
+  width: calc(80px + 50vw);
+  font-size: calc(13px + 0.3vw);
+  border: outset 2px gold;
+  border-radius: 30px;
+  background-color: rgba(139, 146, 155, 0.479);
+}
+
+.create-account-input {
+  border: solid 1px #343a40;
+  border-radius: 10px;
+  width: 70%;
+  text-align: center;
+}
+.create-account-label {
+  font-weight: bold;
+  color: #252b30;
+  margin: 5px auto 0 auto;
+}
+
+.create-account-heading {
+  margin: 5% auto 3% auto;
+}
+
+#create-account-button {
+  margin-top: 5%;
+  cursor: pointer;
+  color: gold;
+  background-color: darkblue;
+  border: outset 1.5px crimson;
+  padding: 0.4% 1%;
+  font-weight: bold;
+  font-size: calc(13px + 0.4vw);
+  transition: all 0.4s;
+}
+#create-account-button:hover {
+  color: gold;
+  background-color: crimson;
+  border: inset 1.5px darkblue;
+}
+
 #practice-mode-link{
   color: darkblue;
   transition: all 0.4s;
@@ -346,7 +381,7 @@ a.secondary-link {
   font-size:calc(14px + 0.6vw);
 }
 
-#dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv {
+#dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv, #create-account-form-div {
   text-align: center;
 }
 
