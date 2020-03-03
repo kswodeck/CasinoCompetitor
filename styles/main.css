@@ -291,7 +291,7 @@ a.secondary-link {
   color: crimson;
 }
 #cardsDropdown, #mainDropdown {
-  max-width: 150px;
+  max-width: 180px;
   min-width: 100px;
   background-color: #343a40;
   text-align: center;
