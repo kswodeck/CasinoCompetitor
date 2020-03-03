@@ -226,12 +226,12 @@ body, html {
 
 #page-heading, #hand-ranking-heading {
   text-transform: uppercase;
-  font-weight: bold;
   font-size: calc(18px + 0.9vw);
   text-shadow: 5px 10px 9px lightsteelblue;
 }
 
 #hand-ranking-heading {
+  font-weight: bold;
   color: crimson;
   text-align: center;
   display: none;
@@ -327,17 +327,25 @@ a.secondary-link {
 #create-account-form-div {
   margin: 4% auto 0 auto;
   max-width: 500px;
-  width: calc(80px + 50vw);
+  width: calc(130px + 50vw);
   font-size: calc(13px + 0.3vw);
-  border: outset 2px gold;
+  border: outset 2px lightsteelblue;
   border-radius: 30px;
   background-color: rgba(139, 146, 155, 0.479);
+}
+
+#form-heading {
+  font-weight: bold;
+  text-transform: capitalize;
+  color: darkblue;
+  text-shadow: 4px 8px 7px lightsteelblue;
+  font-size: calc(22px + 0.8vw)
 }
 
 .create-account-input {
   border: solid 1px #343a40;
   border-radius: 10px;
-  width: 70%;
+  width: 75%;
   text-align: center;
 }
 .create-account-label {
@@ -355,7 +363,7 @@ a.secondary-link {
   cursor: pointer;
   color: gold;
   background-color: darkblue;
-  border: outset 1.5px crimson;
+  border: outset 1.5px lightsteelblue;
   padding: 0.4% 1%;
   font-weight: bold;
   font-size: calc(13px + 0.4vw);
