@@ -272,7 +272,7 @@ body, html {
   text-transform: uppercase;
   transition: all 0.4s;
 }
-a.secondary-link {
+.secondary-link {
   color: gold;
 }
 #dropdownCardsLink {
@@ -479,6 +479,9 @@ a.secondary-link {
     #cardsDropdown a:hover, #mainDropdown a:hover {
       color: crimson;
       background-color: #343a40;
+    }
+    #newBirthday {
+      padding-left: calc(14px + 3%);
     }
 }
 /* medium breakpoint */
