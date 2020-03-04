@@ -345,7 +345,7 @@ a.secondary-link {
   font-size: calc(11px + 0.25vw);
   border: solid 1px #343a40;
   border-radius: 10px;
-  width: 75%;
+  max-width: 90%;
   text-align: center;
 }
 .create-account-label {

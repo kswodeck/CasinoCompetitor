@@ -56,7 +56,7 @@
       <h2 id="form-heading" class="create-account-heading">Create An Account</h2>
       <form action="POST">
         <label for="email" class="create-account-label">Email</label><br>
-        <input type="email" name="email" class="create-account-input" minlength="6" maxlength="30" placeholder="email@pocketpoker.com" size="30" autofocus autocomplete required><br>
+        <input type="email" name="email" class="create-account-input" minlength="6" maxlength="30" placeholder="email@domain.com" size="30" autofocus autocomplete required><br>
         <label for="username" class="create-account-label">Username</label><br>
         <input type="text" name="username" class="create-account-input" minlength="5" maxlength="20" placeholder="username" size="20" autocomplete required><br>
         <label for="password" class="create-account-label">Password</label><br>
@@ -64,9 +64,9 @@
         <label for="repeat-password" class="create-account-label">Repeat Password</label><br>
         <input type="password" name="repeat-password" class="create-account-input" minlength="5" maxlength="20" placeholder="password" size="20" autocomplete="new-password" required><br>
         <label for="phone-number" class="create-account-label">Phone Number</label><br>
-        <input type="tel" name="phone-number" class="create-account-input" minlength="10" maxlength="10" placeholder="(XXX) XXX-XXXX" size="10" autocomplete required><br>
+        <input type="tel" name="phone-number" class="create-account-input" minlength="10" maxlength="11" placeholder="(XXX) XXX-XXXX" size="15" inputmode="number" autocomplete required><br>
         <label for="birthday" class="create-account-label">Birthday</label><br>
-        <input type="date" name="birthday" class="create-account-input" size="10" autocomplete required><br>
+        <input type="date" name="birthday" class="create-account-input" size="10" min="1900-01-01" max="2020-01-01" autocomplete required><br>
         <input type="submit" name="create-account-submit" role="button" value="Create Account" class="btn" id="create-account-button">
       </form>
     </div>
