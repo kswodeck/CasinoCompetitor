@@ -326,13 +326,12 @@ a.secondary-link {
 
 #create-account-form-div {
   margin: 4% auto 0 auto;
-  max-width: 500px;
-  width: calc(130px + 50vw);
+  max-width: 700px;
+  width: calc(130px + 60vw);
   border: outset 2px lightsteelblue;
   border-radius: 30px;
   background-color: rgba(139, 146, 155, 0.479);
 }
-
 #form-heading {
   font-weight: bold;
   text-transform: capitalize;
@@ -340,27 +339,34 @@ a.secondary-link {
   text-shadow: 4px 8px 7px lightsteelblue;
   font-size: calc(22px + 0.8vw)
 }
-
-.create-account-input {
-  font-size: calc(11px + 0.25vw);
-  border: solid 1px #343a40;
-  border-radius: 10px;
-  max-width: 90%;
-  text-align: center;
-}
 .create-account-label {
   font-size: calc(13px + 0.3vw);
   font-weight: bold;
   color: #252b30;
   margin: 5px auto 0 auto;
 }
-
+.create-account-input {
+  margin-left: calc(5px + 0.5%);
+  font-size: calc(11px + 0.3vw);
+  border: solid 1px #343a40;
+  border-radius: 10px;
+  max-width: 90%;
+  min-width: 30%;
+  text-align: center;
+}
+.valid-content {
+  font-size: calc(12px + 0.25vw);
+  position: absolute;
+  padding-left: calc(3px + 0.1vw);
+  padding-top: calc(3px + 0.06vw);
+  color: crimson;
+  display: none;
+}
 .create-account-heading {
   margin: 5% auto 3% auto;
 }
-
 #create-account-button {
-  margin-top: 5%;
+  margin-top: 3%;
   cursor: pointer;
   color: gold;
   background-color: darkblue;
@@ -374,6 +380,18 @@ a.secondary-link {
   color: gold;
   background-color: crimson;
   border: inset 1.5px darkblue;
+}
+#invalid-fields-list {
+  margin: 2% auto 0 auto;
+  list-style-type: none;
+  text-align: center;
+  padding: 0;
+}
+.invalid-list {
+  color: crimson;
+}
+#newBirthday {
+  padding-left: calc(23px + 3%);
 }
 
 #practice-mode-link{
