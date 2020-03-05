@@ -33,7 +33,7 @@ body, html {
 
 #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div, #hand-odds-div {
   margin: 2% auto 2% auto;
-  border: solid calc(1px + 0.2vw) darkblue;
+  border: calc(1px + 0.2vw) solid darkblue;
   line-height: 1.25;
   padding: 0.2% 0.1%;
   text-align: center;
@@ -56,7 +56,7 @@ body, html {
   cursor: pointer;
   color: gold;
   background-color: darkblue;
-  border: solid 1px crimson;
+  border: 1px solid crimson;
   padding: 0.1% 0.3%;
   font-weight: bold;
   font-size: calc(11px + 0.3vw);
@@ -65,7 +65,7 @@ body, html {
 #show-hide-odds-button:hover, #create-account-button:hover {
   color: gold;
   background-color: crimson;
-  border: solid 1px darkblue;
+  border: 1px solid darkblue;
 }
 
 #dice-clear-tally-col {
@@ -140,7 +140,7 @@ body, html {
   color: crimson;
   font-weight: bold;
   padding: 0.1% 1%;
-  border: solid 2px crimson;
+  border: 2px solid crimson;
   white-space: nowrap;
   transition: all 0.4s;
 }
@@ -153,7 +153,7 @@ body, html {
 #coin-flip-button:hover, #dice-roll-button:hover, #card-deal-button:hover, #clear-tally-button:hover {
   background-color: darkblue;
   color: gold;
-  border: solid 2px gold;
+  border: 2px solid gold;
 }
 #coin-flip-button:disabled, #dice-roll-button:disabled, #card-deal-button:disabled, #clear-tally-button:disabled {
   opacity: 0.1;
@@ -165,7 +165,7 @@ body, html {
   color: gold;
   font-weight: bold;
   padding: 0.1% 1% 4% 1%;
-  border: solid 2px gold;
+  border: 2px solid gold;
   border-radius: 50px;
   white-space: nowrap;
   font-size:calc(12px + 0.5vw);
@@ -218,7 +218,7 @@ body, html {
   text-shadow: 7px 2px 7px lightsteelblue, 7px 6px 7px lightsteelblue, 7px 10px 7px lightsteelblue;
 }
 
-#home-heading, #page-heading, #leaderboard-heading {
+#home-heading, #page-heading, #leaderboard-head {
   color: darkblue;
   font-weight: bold;
   text-align: center
@@ -335,7 +335,7 @@ body, html {
   margin: 4% auto 0 auto;
   max-width: 700px;
   width: calc(130px + 60vw);
-  border: outset 2px lightsteelblue;
+  border: 2px outset lightsteelblue;
   border-radius: 30px;
   background-color: rgba(139, 146, 155, 0.479);
 }
@@ -355,7 +355,7 @@ body, html {
 .create-account-input {
   margin-left: calc(5px + 0.5%);
   font-size: calc(11px + 0.3vw);
-  border: solid 1px #343a40;
+  border: 1px solid #343a40;
   border-radius: 10px;
   max-width: 90%;
   min-width: 30%;
@@ -378,7 +378,7 @@ body, html {
   cursor: pointer;
   color: gold;
   background-color: darkblue;
-  border: outset 1.5px lightsteelblue;
+  border: 1.5px outset lightsteelblue;
   padding: 0.4% 1%;
   font-weight: bold;
   font-size: calc(13px + 0.4vw);
@@ -387,7 +387,7 @@ body, html {
 #create-account-button:hover {
   color: gold;
   background-color: crimson;
-  border: inset 1.5px darkblue;
+  border: 1.5px inset darkblue;
 }
 #invalid-fields-list {
   margin: 2% auto 0 auto;
@@ -413,6 +413,9 @@ body, html {
   width: 100%;
   font-size: calc(10px + 0.35vw);
 }
+.leaderboard-head, .leaderboard-cell {
+border: 1px solid black;
+}
 
 #practice-mode-link{
   color: darkblue;
@@ -437,7 +440,7 @@ body, html {
 }
 
 #outOfCoinsDialog, #winCoinsDialog, #winHandDialog {
-  border: solid 3px darkblue;
+  border: 3px solid darkblue;
   border-radius: 10px;
   transition: all 0.4s;
 }
@@ -447,7 +450,7 @@ body, html {
   color: gold;
   font-weight: bold;
   padding: 0.1% 1% 1% 1%;
-  border: solid 1px gold;
+  border: 1px solid gold;
   border-radius: 2px;
   white-space: nowrap;
   font-size: calc(12px + 0.4vw);
