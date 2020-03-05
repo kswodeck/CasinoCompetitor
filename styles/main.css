@@ -73,7 +73,7 @@ body, html {
 }
 
 .table-heading, .current-table-heading {
-  font-size: calc(11px + 0.5vw); /* 130% */
+  font-size: calc(11px + 0.5vw);
   font-weight: bold;
   display: block;
   text-decoration: underline;
@@ -415,6 +415,9 @@ body, html {
 }
 .leaderboard-head, .leaderboard-cell {
 border: 1px solid black;
+}
+.leaderboard-head {
+  background-color: rgba(139, 146, 155, 0.479);
 }
 
 #practice-mode-link{
