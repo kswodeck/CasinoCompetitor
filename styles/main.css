@@ -409,12 +409,39 @@ body, html {
   margin: 2% auto 0 auto;
   text-align: center;
 }
+#table-search-row {
+  text-align: right;
+}
+#table-search-cell {
+  background-color: darkblue;
+  padding: 0;
+}
+#search-button {
+  background-color: darkblue;
+  padding: 0;
+  border: none;
+  font-size: calc(11px + 0.4vw);
+  width: calc(20px + 0.8vw);
+}
+#table-search-icon {
+  color: white;
+  margin-right: calc(2px + 0.2%);
+}
+#table-search-icon:hover {
+  color: gold;
+}
+#tableSearch {
+  border: 1px solid lightsteelblue;
+  border-radius: 5px;
+  text-align: center;
+  padding: 0;
+}
 #leaderboard-table {
   width: 100%;
   font-size: calc(10px + 0.35vw);
 }
 .leaderboard-head, .leaderboard-cell {
-border: 1px solid black;
+  border: 1px solid black;
 }
 .leaderboard-head {
   background-color: rgba(139, 146, 155, 0.479);
