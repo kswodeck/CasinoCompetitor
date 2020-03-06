@@ -1,6 +1,7 @@
 :root {
   --dice-width: 9%;
   --card-width: 100%;
+  --bluish: rgba(140, 145, 155, 0.5);
 }
 
 body, html {
@@ -337,7 +338,7 @@ body, html {
   width: calc(130px + 60vw);
   border: 2px outset lightsteelblue;
   border-radius: 30px;
-  background-color: rgba(139, 146, 155, 0.479);
+  background-color: var(--bluish);
 }
 #form-heading {
   font-weight: bold;
@@ -444,7 +445,13 @@ body, html {
   border: 1px solid black;
 }
 .leaderboard-head {
-  background-color: rgba(139, 146, 155, 0.479);
+  background-color: var(--bluish);
+}
+#leaderboard-head-row {
+  font-weight: bold;
+}
+.leaderboard-row:nth-child(odd) {
+  background-color: rgba(210, 210, 200, 0.3);
 }
 
 #practice-mode-link{

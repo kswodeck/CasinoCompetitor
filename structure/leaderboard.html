@@ -59,7 +59,7 @@
     <div id="leaderboard-div" class="container-fluid">
       <table id ="leaderboard-table">
         <thead id ="leaderboard-heading"></thead>
-          <tr id="table-search-row" class ="leaderboard-row">
+          <tr id="table-search-row">
             <th id="table-search-cell" class ="leaderboard-cell" colspan="4" scope="colgroup">
               <form action="#" onsubmit="searchLeaderboard();return false">
                 <button id="search-button" class="btn" name="search-submit" type="submit" onclick="restoreLeaderboard()"><i id="table-search-icon" class="fas fa-search"></i></button>
@@ -67,14 +67,14 @@
               </form>
             </th>
           </tr>
-          <tr id="leaderboard-head-row" class ="leaderboard-row">
-            <th class="leaderboard-head">Rank</th>
-            <th class="leaderboard-head">Username</th>
-            <th class="leaderboard-head">Highest Win</th>
-            <th class="leaderboard-head">Total Coins</th>
-          </tr>
         </thead>
         <tbody id ="leaderboard-body">
+          <tr id="leaderboard-head-row">
+            <td class="leaderboard-head">Rank</td>
+            <td class="leaderboard-head">Username</td>
+            <td class="leaderboard-head">Highest Win</td>
+            <td class="leaderboard-head">Total Coins</td>
+          </tr>
           <tr class ="leaderboard-row normal-row">
             <td class ="leaderboard-cell leaderboard-rank">1</td>
             <td class ="leaderboard-cell leaderboard-username">kswodeck</td>
@@ -164,6 +164,36 @@
             <td class ="leaderboard-cell leaderboard-username">ashley</td>
             <td class ="leaderboard-cell leaderboard-highest">30</td>
             <td class ="leaderboard-cell leaderboard-coins">85</td>
+          </tr>
+          <tr class ="leaderboard-row normal-row">
+            <td class ="leaderboard-cell leaderboard-rank">16</td>
+            <td class ="leaderboard-cell leaderboard-username">kriswodeck</td>
+            <td class ="leaderboard-cell leaderboard-highest">50</td>
+            <td class ="leaderboard-cell leaderboard-coins">84</td>
+          </tr>
+          <tr class ="leaderboard-row normal-row">
+            <td class ="leaderboard-cell leaderboard-rank">17</td>
+            <td class ="leaderboard-cell leaderboard-username">smithenson</td>
+            <td class ="leaderboard-cell leaderboard-highest">28</td>
+            <td class ="leaderboard-cell leaderboard-coins">83</td>
+          </tr>
+          <tr class ="leaderboard-row normal-row">
+            <td class ="leaderboard-cell leaderboard-rank">18</td>
+            <td class ="leaderboard-cell leaderboard-username">jcarrey123</td>
+            <td class ="leaderboard-cell leaderboard-highest">25</td>
+            <td class ="leaderboard-cell leaderboard-coins">82</td>
+          </tr>
+          <tr class ="leaderboard-row normal-row">
+            <td class ="leaderboard-cell leaderboard-rank">19</td>
+            <td class ="leaderboard-cell leaderboard-username">wfernet</td>
+            <td class ="leaderboard-cell leaderboard-highest">45</td>
+            <td class ="leaderboard-cell leaderboard-coins">81</td>
+          </tr>
+          <tr class ="leaderboard-row normal-row">
+            <td class ="leaderboard-cell leaderboard-rank">20</td>
+            <td class ="leaderboard-cell leaderboard-username">lashley123</td>
+            <td class ="leaderboard-cell leaderboard-highest">55</td>
+            <td class ="leaderboard-cell leaderboard-coins">80</td>
           </tr>
         </tbody>
       </table>
