@@ -1,8 +1,8 @@
 {
-  "name": "gamechanger",
+  "name": "pocketpoker",
   "version": "1.0.0",
   "description": "Welcome to my project, currently called \"Game Changer\". This is a virtual casino type of web app where luck and chance is the calling card.\r Features include a virtual coin flipper, virtual dice rolling (up to 20 dice) as well as virtual 5 card poker",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/kswodeck/GameChanger.git"
   },
-  "author": "Kris Swodeck",
+  "author": "Kristoffer Swodeck",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kswodeck/GameChanger/issues"
