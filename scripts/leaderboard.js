@@ -14,7 +14,7 @@ function searchLeaderboard() {
 
 function restoreLeaderboard() {
     const searchValue = document.getElementById('tableSearch').value;
-    if (searchValue.length <= 2) {
+    if (searchValue.length <= 1) {
         let rows = document.getElementsByClassName('normal-row');
         for (let i = 0; i < rows.length; i++) {
             rows[i].style.display = 'table-row';
