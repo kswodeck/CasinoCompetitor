@@ -161,7 +161,7 @@ class Card {
     this.numValue = numValue;
     this.numSuit = numSuit;
     this.identity = identity;
-    this.imgSrc = '../images/cards/' + this.identity + '.png';
+    this.imgSrc = 'images/cards/' + this.identity + '.png';
     this.isRoyal = isRoyal(this.numValue);
     this.isJackOrBetter = isJackOrBetter(this.numValue);
     this.isHeld = false;
@@ -222,7 +222,7 @@ function getSecondHand(currentCard,holdCurrentCard,currentValues) {
 
 function lastHandTeardown(holdCurrentCard,currentCard) {
   holdCurrentCard.classList.add('text-opacity');
-  document.getElementsByClassName('cards')[currentCard].src = '../images/cards/card_standard_blue_back.png';
+  document.getElementsByClassName('cards')[currentCard].src = 'images/cards/card_standard_blue_back.png';
   // cardDealButton.innerText = 'Deal Cards';
   mainContainer.dealButtonText = 'Deal Cards';
 }

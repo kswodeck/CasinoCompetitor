@@ -64,7 +64,7 @@ function createCoin (coin) {
   const img = document.createElement('img');
   img.className = 'coin img-fluid';
   img.setAttribute('id', 'coin');
-  img.src = '../images/' + coin + '.png';
+  img.src = 'images/' + coin + '.png';
   coinFlipDiv.appendChild(img);
   coinGrow();
   return coin;

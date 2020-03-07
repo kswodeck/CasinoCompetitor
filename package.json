@@ -1,13 +1,16 @@
 {
   "name": "pocketpoker",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "This is a virtual arcade that includes the basic elements used in casino games including cards, dice, and coins",
   "scripts": {
-    "start": "node ./bin/www"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "Kris Swodeck",
+  "license": "ISC",
   "dependencies": {
     "cookie-parser": "^1.4.4",
     "debug": "~2.6.9",
+    "ejs": "^3.0.1",
     "express": "^4.16.4",
     "faker": "^4.1.0",
     "http-errors": "^1.6.3",
