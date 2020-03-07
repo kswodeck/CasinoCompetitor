@@ -8,8 +8,10 @@ var express = require('express');
 // var usersRouter = require('./routes/users');
 
 var app = express();
-var hostname = '127.0.0.1';
-var port = 3000;
+// var hostname = '127.0.0.1';
+// var port = 3000;
+var hostname = 'localhost';
+var port = 7700;
 
 app.use(express.urlencoded({extended: true}));
 
@@ -51,8 +53,8 @@ var posts = [
 app.use(express.static('public'));
 
 app.get('/', function(req, res){
-  // res.render('home.html');
-  res.render('home');
+  // res.render('home');
+  res.redirect('home.html');
 })
 
 app.get('/posts', function(req, res){
