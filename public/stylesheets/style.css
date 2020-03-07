@@ -1,0 +1,560 @@
+:root {
+  --dice-width: 9%;
+  --card-width: 100%;
+  --bluish: rgba(140, 145, 155, 0.5);
+}
+
+body, html {
+  font-family: "Georgia", "Verdana", "Times New Roman";
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#page-description-div, #dice-quantity-input-div, #dicequantity {
+  font-size: calc(10px + 0.3vw);
+}
+
+#dicequantity {
+  background-color: gold;
+  color: darkblue;
+  font-weight: bold;
+  width: calc(28px + 0.5vw);
+  height: calc(14px + 0.5vw);
+  padding: 0;
+  margin-left: 4px;
+}
+
+#dicequantity:hover {
+  background-color: darkblue;
+  color: gold;
+}
+
+#coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div, #hand-odds-div {
+  margin: 2% auto 2% auto;
+  border: calc(1px + 0.2vw) solid darkblue;
+  line-height: 1.25;
+  padding: 0.2% 0.1%;
+  text-align: center;
+}
+#coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
+  width: calc(90px + 4vw);
+  max-width: 180px;
+  display: none;
+}
+#hand-odds-div {
+  max-width: 270px;
+  display: none;
+}
+
+#show-hide-odds-div {
+  text-align: center;
+}
+
+#show-hide-odds-button, #create-account-button {
+  cursor: pointer;
+  color: gold;
+  background-color: darkblue;
+  border: 1px solid crimson;
+  padding: 0.1% 0.3%;
+  font-weight: bold;
+  font-size: calc(11px + 0.3vw);
+  transition: all 0.4s;
+}
+#show-hide-odds-button:hover, #create-account-button:hover {
+  color: gold;
+  background-color: crimson;
+  border: 1px solid darkblue;
+}
+
+#dice-clear-tally-col {
+  display: none;
+}
+
+.table-heading, .current-table-heading {
+  font-size: calc(11px + 0.5vw);
+  font-weight: bold;
+  display: block;
+  text-decoration: underline;
+}
+
+.result-tally, .odds-span, .result, .loss, .win {
+  font-size: calc(10px + 0.4vw);
+}
+
+.result {
+  font-weight: bold;
+  color: darkblue;
+}
+.loss {
+  font-weight: bold;
+  color: crimson;
+}
+.win {
+  font-weight: bold;
+  color: green;
+}
+
+.cards {
+  width: var(--card-width);
+  margin: auto;
+}
+
+.coin {
+  width: calc(100px + 4vw);
+  margin: 0.2% 0;
+}
+
+.dice {
+  width: var(--dice-width);
+  min-width: 28px;
+  margin: 0 auto;
+}
+
+#dice-col, #dice-current-col {
+  margin-left: 0;
+  margin-right: 0;
+}
+#dice-roll-current-div {
+  margin-right: 0;
+}
+#dice-roll-tally-div {
+  margin-left: 0;
+}
+
+#coins-img {
+  width: calc(22px + 1vw);
+}
+
+#total-coins-span {
+  font-size:calc(12px + 0.3vw);
+  color: gold;
+  font-weight: bold;
+  margin-right: 1.5%;
+  text-align: right;
+}
+
+#coin-flip-button, #dice-roll-button, #card-deal-button, #clear-tally-button {
+  background-color: gold;
+  color: crimson;
+  font-weight: bold;
+  padding: 0.1% 1%;
+  border: 2px solid crimson;
+  white-space: nowrap;
+  transition: all 0.4s;
+}
+#coin-flip-button, #dice-roll-button, #card-deal-button {
+  font-size:calc(16px + 1vw);
+}
+#clear-tally-button {
+  font-size:calc(11.5px + 0.3vw);
+}
+#coin-flip-button:hover, #dice-roll-button:hover, #card-deal-button:hover, #clear-tally-button:hover {
+  background-color: darkblue;
+  color: gold;
+  border: 2px solid gold;
+}
+#coin-flip-button:disabled, #dice-roll-button:disabled, #card-deal-button:disabled, #clear-tally-button:disabled {
+  opacity: 0.1;
+  cursor: default;
+}
+
+#bet-button, #win-button {
+  background-color: crimson;
+  color: gold;
+  font-weight: bold;
+  padding: 0.1% 1% 4% 1%;
+  border: 2px solid gold;
+  border-radius: 50px;
+  white-space: nowrap;
+  font-size:calc(12px + 0.5vw);
+  width: calc(38px + 2.3vw);
+  height: calc(30px + 1.4vw);
+  transition: all 0.4s;
+}
+#bet-button:hover {
+  background-color: darkblue;
+}
+#bet-button:disabled {
+  background-color: crimson;
+}
+
+#bet-button:disabled, #win-button:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+#current-win-span, #current-bet-span{
+  display: block;
+  line-height: 40%;
+  text-align: center;
+}
+
+.winner, #winner, #final_winner, .hold-card-text {
+  font-size: calc(9px + 0.6vw);
+  font-weight: bold;
+  color: darkblue;
+  text-shadow: 5px 10px 9px lightsteelblue;
+  display: block;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.hold-card-text {
+  margin: 2% 0;
+}
+.text-opacity {
+  opacity: 0.0001;
+}
+
+#total-coins-span, #card-deal-button, #current-bet-span, #current-win-span {
+  visibility: hidden;
+}
+
+#home-heading {
+  font-size: calc(23px + 1vw);
+  text-transform: uppercase;
+  text-shadow: 7px 2px 7px lightsteelblue, 7px 6px 7px lightsteelblue, 7px 10px 7px lightsteelblue;
+}
+
+#home-heading, #page-heading, #leaderboard-head {
+  color: darkblue;
+  font-weight: bold;
+  text-align: center
+}
+
+#page-heading, #hand-ranking-heading {
+  text-transform: uppercase;
+  font-size: calc(18px + 0.9vw);
+  text-shadow: 5px 10px 9px lightsteelblue;
+}
+
+#welcome-home {
+  font-size: 70%;
+  font-style: italic;
+  text-transform: none;
+  text-shadow: 5px 10px 9px lightsteelblue;
+}
+
+#leaderboard-span {
+  font-size: 80%;
+  font-style: italic;
+  text-transform: none;
+  text-shadow: 5px 10px 9px lightsteelblue;
+}
+
+#hand-ranking-heading {
+  font-weight: bold;
+  color: crimson;
+  text-align: center;
+  display: none;
+}
+
+#home-logo {
+  width: calc(140px + 8vw);
+  display: block;
+}
+
+#header {
+  z-index: 10;
+}
+#header a:hover {
+  color: crimson;
+}
+
+#dropdownMainLink {
+  font-size: 120%;
+  font-style: italic;
+  letter-spacing: -1.5px;
+  color: gold;
+  font-weight: bold;
+  text-decoration: underline;
+  text-transform: uppercase;
+  transition: all 0.4s;
+}
+#mainDropdown a, #main-links-list a{
+  font-weight: bold;
+  text-decoration: underline;
+  text-transform: uppercase;
+  transition: all 0.4s;
+}
+.secondary-link {
+  color: gold;
+}
+#dropdownCardsLink {
+  font-size: 100%;
+  margin-bottom: 2px;
+}
+#current-link {
+  color: crimson;
+}
+#cardsDropdown, #mainDropdown {
+  max-width: 180px;
+  min-width: 100px;
+  background-color: #343a40;
+  text-align: center;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+#dropdownCardsLink #dropdownMainLink, li a, #main-container, #play-container, #dice-col, #dice-current-col, #dice-roll-tally-div, #dice-roll-current-div {
+  padding: 0;
+} 
+
+.dropdown-toggle::after {
+  margin-left: 0;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 2;
+  padding: 30px 0 0 0;
+}
+#footer a {
+  color: crimson;
+  font-size: 90%;
+  font-weight: bold;
+  text-decoration: underline;
+  display: none;
+  transition: all 0.4s;
+}
+#footer a:hover {
+  color: gold;
+}
+
+#main-navbar {
+  display:block;
+}
+
+#create-account-form-div {
+  margin: 4% auto 0 auto;
+  max-width: 700px;
+  width: calc(130px + 60vw);
+  border: 2px outset lightsteelblue;
+  border-radius: 30px;
+  background-color: var(--bluish);
+}
+#form-heading {
+  font-weight: bold;
+  text-transform: capitalize;
+  color: darkblue;
+  text-shadow: 4px 8px 7px lightsteelblue;
+  font-size: calc(22px + 0.8vw)
+}
+.create-account-label {
+  font-size: calc(13px + 0.3vw);
+  font-weight: bold;
+  color: #252b30;
+  margin: 5px auto 0 auto;
+}
+.create-account-input {
+  margin-left: calc(5px + 0.5%);
+  font-size: calc(11px + 0.3vw);
+  border: 1px solid #343a40;
+  border-radius: 10px;
+  max-width: 90%;
+  min-width: 30%;
+  text-align: center;
+}
+.valid-content {
+  font-size: calc(12px + 0.25vw);
+  position: absolute;
+  padding-left: calc(3px + 0.1vw);
+  padding-top: calc(3px + 0.06vw);
+  color: crimson;
+  display: none;
+  transition: all 0.4s;
+}
+.create-account-heading {
+  margin: 5% auto 3% auto;
+}
+#create-account-button {
+  margin-top: 3%;
+  cursor: pointer;
+  color: gold;
+  background-color: darkblue;
+  border: 1.5px outset lightsteelblue;
+  padding: 0.4% 1%;
+  font-weight: bold;
+  font-size: calc(13px + 0.4vw);
+  transition: all 0.4s;
+}
+#create-account-button:hover {
+  color: gold;
+  background-color: crimson;
+  border: 1.5px inset darkblue;
+}
+#invalid-fields-list {
+  margin: 2% auto 0 auto;
+  list-style-type: none;
+  text-align: center;
+  padding: 0;
+}
+.invalid-list {
+  transition: all 0.4s;
+  color: crimson;
+}
+#newBirthday {
+  padding-left: calc(23px + 3%);
+}
+
+#leaderboard-div {
+  width: calc(80px + 80%);
+  padding: 0;
+  margin: 2% auto 0 auto;
+  text-align: center;
+}
+#table-search-row {
+  text-align: right;
+}
+#table-search-cell {
+  background-color: darkblue;
+  padding: 0;
+}
+#search-button {
+  background-color: darkblue;
+  padding: 0;
+  border: none;
+  font-size: calc(11px + 0.4vw);
+  width: calc(20px + 0.8vw);
+}
+#table-search-icon {
+  color: white;
+  margin-right: calc(2px + 0.2%);
+}
+#table-search-icon:hover {
+  color: gold;
+}
+#tableSearch {
+  border: 1px solid lightsteelblue;
+  border-radius: 5px;
+  text-align: center;
+  padding: 0;
+}
+#leaderboard-table {
+  width: 100%;
+  font-size: calc(10px + 0.35vw);
+}
+.leaderboard-head, .leaderboard-cell {
+  border: 1px solid black;
+}
+.leaderboard-head {
+  background-color: var(--bluish);
+}
+#leaderboard-head-row {
+  font-weight: bold;
+}
+.leaderboard-row:nth-child(odd) {
+  background-color: rgba(210, 210, 200, 0.3);
+}
+
+#practice-mode-link{
+  color: darkblue;
+  transition: all 0.4s;
+}
+#practice-mode-link:hover{
+  color: crimson;
+}
+
+#coin-win-popup-span, #number-coins-won, #hand-win-popup-span {
+  color: darkblue;
+  font-weight: bold;
+  font-size:calc(14px + 0.6vw);
+}
+
+#dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv, #create-account-form-div {
+  text-align: center;
+}
+
+#coins-popup-img {
+  width: calc(18px + 0.8vw)
+}
+
+#outOfCoinsDialog, #winCoinsDialog, #winHandDialog {
+  border: 3px solid darkblue;
+  border-radius: 10px;
+  transition: all 0.4s;
+}
+
+#winCoinsCancel, #confirmBtn, #outOfCoinsCancel, #winHandCancel {
+  background-color: crimson;
+  color: gold;
+  font-weight: bold;
+  padding: 0.1% 1% 1% 1%;
+  border: 1px solid gold;
+  border-radius: 2px;
+  white-space: nowrap;
+  font-size: calc(12px + 0.4vw);
+  width: calc(45px + 2.2vw);
+  height: calc(22px + 1vw);
+  margin: auto;
+}
+#confirmBtn, #winCoinsCancel:hover, #winHandCancel, #outOfCoinsCancel:hover {
+  background-color: darkblue;
+  transition: all 0.4s;
+}
+#confirmBtn:hover {
+  background-color: crimson;
+}
+#go-button-link{
+  transition: all 0.4s;
+  color: gold;
+}
+#go-button-link:hover{
+  text-decoration: none;
+}
+
+#dialogButtonDiv, #coinDialogDiv {
+  margin-top: 2%;
+}
+#coinDialogDiv {
+  margin-top: 5%;
+}
+
+/* small breakpoint */
+@media (max-width: 575px) {
+    #dropdownMainLink, .navbar-toggler{
+      font-size: calc(12px + 1vw);
+    }
+    #main-links-list, #cardsDropdown a, #mainDropdown a {
+      font-size: calc(8px + 1vw);
+    }
+    #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
+      width: 105px;
+      line-height: 1;
+    }
+    #hand-odds-div {
+      width: 150px;
+      line-height: 1;
+    }
+    #dropdownCardsLink, #dropdownMainLink {
+      margin-bottom: 0;
+    }
+    #cardsDropdown a:hover, #mainDropdown a:hover {
+      color: crimson;
+      background-color: #343a40;
+    }
+    #newBirthday {
+      padding-left: calc(14px + 3%);
+    }
+    #leaderboard-div {
+      width: 99%;
+    }
+}
+/* medium breakpoint */
+@media (max-width: 767px) {
+  #mainDropdown {
+    position: static;
+  }
+}
+@media (max-width: 767px) and (min-width: 575px) {
+  #cardsDropdown {
+    max-width: 195px;
+  }
+}

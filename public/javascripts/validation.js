@@ -1,4 +1,4 @@
-function validateAcccountCreate() {
+function validateAccountCreate() {
     const inputs = document.getElementsByClassName('create-account-input');
     const validitySpans = document.getElementsByClassName('valid-content');
     const invalidList = document.getElementById('invalid-fields-list');

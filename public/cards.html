@@ -7,9 +7,9 @@
     <meta name="keywords" content="virtual, cards, poker, dice, roll, coin, flip, luck, chance, percentages, gambling, casino">
     <meta name="author" content="Kristoffer Swodeck">
     <title>Competitive Poker</title>
-    <link rel="icon" href="..\assets\images\pocket-poker-favicon.png">
+    <link rel="icon" href="images\pocket-poker-favicon.png">
     <link rel="stylesheet" type="text/css"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="..\styles\main.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets\style.css">
   </head>
   <body class="m-auto">
     <div id ="main-container" class="container-fluid">
@@ -47,7 +47,7 @@
                 </div>
               </div>
           <div class="col-4 header-div text-right pr-1 p-0" id="collapse-button-div">
-            <span id="total-coins-span">{{ totalCoins }}</span><img class="mr-md-5 mr-sm-2 m-0" id="coins-img" src="../assets/images/coins.png">
+            <span id="total-coins-span">{{ totalCoins }}</span><img class="mr-md-5 mr-sm-2 m-0" id="coins-img" src="../images/coins.png">
               <button id="hamburger-button" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -72,23 +72,23 @@
         <div id="dealt-cards-div" class="card-play-div row justify-content-center m-lg-2 m-sm-1 my-1 mx-0">
           <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card-0-div">
             <figcaption class="hold-card-text text-opacity" id="hold0">HELD</figcaption>
-            <img class ="cards img-fluid" src="../assets/images/cards/card_standard_blue_back.png" id="card0" onclick="toggleCardHold('hold0')">
+            <img class ="cards img-fluid" src="../images/cards/card_standard_blue_back.png" id="card0" onclick="toggleCardHold('hold0')">
           </div>
           <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card-1-div">
             <figcaption class="hold-card-text text-opacity" id="hold1">HELD</figcaption>
-            <img class ="cards img-fluid" src="../assets/images/cards/card_standard_blue_back.png" id="card2" onclick="toggleCardHold('hold1')">
+            <img class ="cards img-fluid" src="../images/cards/card_standard_blue_back.png" id="card2" onclick="toggleCardHold('hold1')">
           </div>
           <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card-2-div">
             <figcaption class="hold-card-text text-opacity" id="hold2">HELD</figcaption>
-            <img class ="cards img-fluid" src="../assets/images/cards/card_standard_blue_back.png" id="card3" onclick="toggleCardHold('hold2')">
+            <img class ="cards img-fluid" src="../images/cards/card_standard_blue_back.png" id="card3" onclick="toggleCardHold('hold2')">
           </div>
           <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card-3-div">
             <figcaption class="hold-card-text text-opacity" id="hold3">HELD</figcaption>
-            <img class ="cards img-fluid" src="../assets/images/cards/card_standard_blue_back.png" id="card4" onclick="toggleCardHold('hold3')">
+            <img class ="cards img-fluid" src="../images/cards/card_standard_blue_back.png" id="card4" onclick="toggleCardHold('hold3')">
           </div>
           <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card-4-div">
             <figcaption class="hold-card-text text-opacity" id="hold4">HELD</figcaption>
-            <img class ="cards img-fluid" src="../assets/images/cards/card_standard_blue_back.png" id="card5" onclick="toggleCardHold('hold4')">
+            <img class ="cards img-fluid" src="../images/cards/card_standard_blue_back.png" id="card5" onclick="toggleCardHold('hold4')">
           </div>
         </div>
         <h3 id="hand-ranking-heading">{{ resultText }}</h3>
@@ -108,7 +108,7 @@
 </dialog>
 <dialog id="winCoinsDialog">
   <span id="coin-win-popup-span">{{ resultText }}</span><br />
-  <span id="coin-win-popup-text" class="dialog-popup-text">You win</span><span id="number-coins-won"> {{ currentWin }} </span><img id="coins-popup-img" src="../assets/images/coins.png">
+  <span id="coin-win-popup-text" class="dialog-popup-text">You win</span><span id="number-coins-won"> {{ currentWin }} </span><img id="coins-popup-img" src="../images/coins.png">
     <div id="coinDialogDiv" class="row justify-content-around">
       <div class = "col">
         <button id="winCoinsCancel" class="btn" value="cancel">OK</button>
@@ -127,7 +127,7 @@
     </footer>
    </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="..\scripts\cards.js" type="text/javascript" ></script>
+  <script src="javascripts\cards.js" type="text/javascript" ></script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
