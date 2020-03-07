@@ -6,14 +6,15 @@
     <meta name="description" content="This is a virtual arcade that includes the basic elements used in casino games including cards, dice, and coins">
     <meta name="keywords" content="virtual, cards, poker, dice, roll, coin, flip, luck, chance, percentages, gambling, casino">
     <meta name="author" content="Kristoffer Swodeck">
-    <title>Pocket Poker</title>
+    <title>Pocket Poker</title> <!-- This should be different depending on page -->
     <link rel="icon" href="images\pocket-poker-favicon.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="stylesheets\styles.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
+    <!-- only on leaderboard.html <script src="https://kit.fontawesome.com/3287f2c91c.js" crossorigin="anonymous"></script> -->
   </head>
   <body class="m-auto">
     <div id ="main-container" class="container-fluid">
-      <header id="header" class="mb-md-4 mb-sm-3 mb-2">
+      <header id="header" class="mb-md-4 mb-2">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark py-sm-1 py-0" id="main-navbar" role="navigation">
           <div class="row" id="main-links-row">
             <div class="col-4 pl-lg-3 pl-md-1 px-0 main-dropdown">
@@ -27,9 +28,9 @@
                   <div class="collapse navbar-collapse" id="navbar-content">
                     <ul class="navbar-nav text-center m-auto" id="main-links-list">
                       <div class="col-md-3 top-menu-div">
-                        <li class="nav-item"><a id="current-link" role="button" href="home.html">Home</a></li>
+                        <li class="nav-item"><a class="secondary-link" role="button" href="home.html">Home</a></li>
                       </div>
-                      <div class="col-md-3 top-menu-div cards-dropdown">
+                      <div class="col-md-3 top-menu-div cards-dropdown"> <!-- there should be coins on cards.html -->
                         <a class="secondary-link dropdown-toggle ml-md-0 ml-2" href="cards.html" role="button" id="dropdownCardsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Poker</a>
                         <div class="dropdown-menu" id="cardsDropdown" aria-labelledby="dropdownCardsLink">
                           <a class="secondary-link dropdown-item px-md-1 p-0" href="cards.html">Competitive</a>
@@ -38,7 +39,7 @@
                         </div>
                       </div>
                       <div class="col-md-3 top-menu-div">
-                        <li class="nav-item"><a class="secondary-link" href="dice.html">Dice</a></li>
+                        <li class="nav-item"><a class="secondary-link" href="dice.html">Dice</a></li> <!-- current link should depend on page -->
                       </div>
                       <div class="col-md-3 top-menu-div">
                         <li class="nav-item"><a class="secondary-link" href="coin.html">Coin</a></li>
@@ -54,21 +55,3 @@
         </div>
       </nav>
     </header>
-      <h1 id="home-heading" class="mb-md-3 mb-sm-2 mb-1"><span id="welcome-home">Welcome to</span><br />Pocket Poker</h1>
-      <img src="images\pocket-poker.png" alt="PocketPoker" id="home-logo" class="m-auto img-fluid">
-   <footer id="footer" class="d-md-block d-none">
-     <nav id="bottom-navbar" class="navbar-nav navbar-expand navbar-dark bg-dark m-auto">
-       <ul class="navbar-nav navbar-center m-auto text-center" id="bottom-nav-list">
-         <li class="nav-item active"><a class=" active" href="home.html">Home<span class="sr-only"></span></a></li>
-         <li class="nav-item"><a href="cards.html">Cards</a></li>
-         <li class="nav-item"><a href="dice.html">Dice</a></li>
-         <li class="nav-item"><a href="coin.html">Coin</a></li>
-       </ul>
-     </nav>
-    </footer>
-   </div>
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </body>
-</html>

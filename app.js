@@ -11,13 +11,21 @@ var app = express();
 var hostname = '127.0.0.1';
 var port = 3000;
 
+app.use(express.urlencoded({extended: true}));
+
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
+
+var posts = [
+  {title: 'Post 1', author: 'Kris'},
+  {title: 'Post 2', author: 'Michael'},
+  {title: 'Post 3', author: 'Swodeck'},
+];
 
 // app.use(logger('dev'));
 // app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({extended: false}));
 // app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
@@ -40,14 +48,26 @@ var port = 3000;
   // res.render('error');
 // });
 
+app.use(express.static('public'));
+
 app.get('/', function(req, res){
   // res.render('home.html');
-  let thingVar = req.params.thing;
-  res.render('home.ejs', {thingVar: 'App.js'});
+  res.render('home');
 })
 
+app.get('/posts', function(req, res){
+  res.render('posts', {posts: posts});
+})
+
+app.post('/addpost', function(req, res){
+  // let newPost = req.body.newposttitle;
+  // let newAuthor = req.body.newauthor;
+  posts.push({title: req.body.newposttitle, author: req.body.newauthor});
+  res.redirect('/posts');
+});
+
 app.listen(port, hostname, function(){
-  console.log("App running on " + hostname + ":" + port)
+  console.log('App running on ' + hostname + ':' + port)
 })
 
 module.exports = app;
