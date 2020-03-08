@@ -380,7 +380,7 @@ function outOfCoinsDialog() {
   if (typeof outOfCoinsDialog.showModal === 'function') {
     outOfCoinsDialog.showModal();
   } else {
-    alert('The <dialog> API is not supported by this browser');
+    console.log('The <dialog> API is not supported by this browser');
   }
   document.getElementById('outOfCoinsCancel').onclick = function() {
     outOfCoinsDialog.close();
@@ -395,7 +395,7 @@ function winCoinsDialog() {
     coinsDialog.showModal();
     setTimeout(function() { coinsDialog.close() }, 2500);
   } else {
-    alert('The <dialog> API is not supported by this browser');
+    console.log('The <dialog> API is not supported by this browser');
   }
   document.getElementById('winCoinsCancel').onclick = function() {
     coinsDialog.close();
@@ -409,7 +409,7 @@ function winHandDialog() {
     winDialog.showModal();
     setTimeout(function() { winDialog.close() }, 2000);
   } else {
-    alert('The <dialog> API is not supported by this browser');
+    console.log('The <dialog> API is not supported by this browser');
   }
   document.getElementById('winHandCancel').onclick = function() {
     winDialog.close();

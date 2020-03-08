@@ -51,3 +51,7 @@ function validateKeys(evt, type) {
       if(theEvent.preventDefault) theEvent.preventDefault();
     }
   }
+
+  function validateAccountLogin() {
+      return;
+  }

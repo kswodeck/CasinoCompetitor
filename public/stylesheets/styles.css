@@ -53,7 +53,7 @@ body, html {
   text-align: center;
 }
 
-#show-hide-odds-button, #create-account-button {
+#show-hide-odds-button {
   cursor: pointer;
   color: gold;
   background-color: darkblue;
@@ -63,7 +63,7 @@ body, html {
   font-size: calc(11px + 0.3vw);
   transition: all 0.4s;
 }
-#show-hide-odds-button:hover, #create-account-button:hover {
+#show-hide-odds-button:hover {
   color: gold;
   background-color: crimson;
   border: 1px solid darkblue;
@@ -332,7 +332,7 @@ body, html {
   display:block;
 }
 
-#create-account-form-div {
+.account-form-div {
   margin: 4% auto 0 auto;
   max-width: 700px;
   width: calc(130px + 60vw);
@@ -340,20 +340,19 @@ body, html {
   border-radius: 30px;
   background-color: var(--bluish);
 }
-#form-heading {
+#form-heading, .login-heading {
   font-weight: bold;
-  text-transform: capitalize;
   color: darkblue;
   text-shadow: 4px 8px 7px lightsteelblue;
   font-size: calc(22px + 0.8vw)
 }
-.create-account-label {
+.account-label {
   font-size: calc(13px + 0.3vw);
   font-weight: bold;
   color: #252b30;
   margin: 5px auto 0 auto;
 }
-.create-account-input {
+.account-input {
   margin-left: calc(5px + 0.5%);
   font-size: calc(11px + 0.3vw);
   border: 1px solid #343a40;
@@ -371,11 +370,11 @@ body, html {
   display: none;
   transition: all 0.4s;
 }
-.create-account-heading {
-  margin: 5% auto 3% auto;
+.account-heading {
+  margin: 3% auto 2% auto;
 }
-#create-account-button {
-  margin-top: 3%;
+#account-button, #login-button, #forgot-pw-button, #forgot-user-button {
+  margin: 2% auto;
   cursor: pointer;
   color: gold;
   background-color: darkblue;
@@ -385,10 +384,13 @@ body, html {
   font-size: calc(13px + 0.4vw);
   transition: all 0.4s;
 }
-#create-account-button:hover {
+#account-button:hover, #login-button:hover, #forgot-pw-button:hover, #forgot-user-button:hover {
   color: gold;
   background-color: crimson;
   border: 1.5px inset darkblue;
+}
+#forgot-pw-button, #forgot-user-button {
+  margin: 3% auto 0 auto;
 }
 #invalid-fields-list {
   margin: 2% auto 0 auto;
@@ -402,6 +404,66 @@ body, html {
 }
 #newBirthday {
   padding-left: calc(23px + 3%);
+}
+.account-already {
+  font-size: calc(11px + 0.3vw);
+  margin-bottom: 2%;
+}
+#account-login-link, #forgot-pw-link, #forgot-user-link {
+  color: darkblue;
+  text-decoration: underline;
+}
+#account-login-link:hover, #forgot-pw-link:hover, #forgot-user-link:hover {
+  color: crimson;
+  cursor: pointer;
+}
+
+#loginDialog, #forgotPWDialog, #forgotUserDialog {
+  padding: 0;
+  border-radius: 0;
+}
+.exit-button-div {
+  text-align: right;
+}
+.back-button-div {
+  text-align: left;
+}
+.back-button-label {
+  margin-left: 0;
+  font-size: calc(11px + 0.3vw);
+}
+.back-button-label:hover {
+  color: crimson;
+  cursor: pointer;
+}
+.login-heading {
+  margin: 0 auto 1.5% auto;
+}
+.exit-dialog-button {
+  font-size: calc(15px + 0.4vw);
+  background-color: var(--bluish);
+  font-weight: bold;
+  border: 1px inset lightsteelblue;
+  padding: 0.4% 2%;
+  margin-top: 0;
+}
+.exit-dialog-button:hover {
+  color: crimson;
+  border: 1px outset crimson;
+}
+#forgotUserBackButton, #forgotPWBackButton {
+  padding: 0;
+  border: none;
+  font-size: calc(20px + 1vw);
+  width: calc(20px + 1.2vw);
+  line-height: 1;
+}
+#forgotUserBackArrow, #forgotPWBackArrow {
+  color: darkblue;
+  margin-right: calc(2px + 0.2%);
+}
+#forgotUserBackArrow:hover, #forgotPWBackArrow:hover {
+  color: crimson;
 }
 
 #leaderboard-div {
@@ -468,7 +530,7 @@ body, html {
   font-size:calc(14px + 0.6vw);
 }
 
-#dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv, #create-account-form-div {
+#dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv, .account-form-div {
   text-align: center;
 }
 
