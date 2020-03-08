@@ -327,6 +327,9 @@ body, html {
 #footer a:hover {
   color: gold;
 }
+.nav-item {
+  padding: 0 5%;
+}
 
 #main-navbar {
   display:block;
