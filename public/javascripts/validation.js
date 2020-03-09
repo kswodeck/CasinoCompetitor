@@ -29,6 +29,7 @@ function validateAccountCreate() {
         addToInvalidList('* passwords must match', validitySpans[2]);
         validitySpans[3].innerText = '✖';
         validitySpans[3].style.color = 'crimson';
+        return false;
     }
 }
 
