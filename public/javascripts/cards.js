@@ -183,25 +183,26 @@ class Card {
 }
 
 function getFirstHand(currentCard,holdCurrentCard,currentValues) {
-      holdCurrentCard.classList.add('text-opacity');
-      // let currentCardNumber = 'card' + currentCard;
-      // alert(currentCardNumber);
-      // let currentCardElement = document.getElementById(currentCardNumber);
-      // currentCardElement.classList.add('interactive-card');
-      let isSameIdentity = true;
-      while (isSameIdentity === true) {
-        currentValues = getRandomCardValues();
-        if (cards.filter(x => (x.identity === currentValues[2])).length === 0 || currentCard === 0) {
-          isSameIdentity = false;
-        }
-      }
-      cards.push(new Card(currentValues[0], currentValues[1], currentValues[2]));
-      document.getElementsByClassName('cards')[currentCard].src = cards[currentCard].imgSrc;
-      return cards;
+  let currentCardElement = document.getElementsByClassName('cards')[currentCard];
+  console.log(currentCardElement);
+  currentCardElement.classList.add('interactive-card');
+  holdCurrentCard.classList.add('text-opacity');
+  let isSameIdentity = true;
+  while (isSameIdentity === true) {
+    currentValues = getRandomCardValues();
+    if (cards.filter(x => (x.identity === currentValues[2])).length === 0 || currentCard === 0) {
+      isSameIdentity = false;
+    }
+  }
+  cards.push(new Card(currentValues[0], currentValues[1], currentValues[2]));
+  document.getElementsByClassName('cards')[currentCard].src = cards[currentCard].imgSrc;
+  return cards;
 }
 
 function getSecondHand(currentCard,holdCurrentCard,currentValues) {
   holdCurrentCard.classList.add('text-opacity');
+  let currentCardElement = document.getElementsByClassName('cards')[currentCard];
+  currentCardElement.classList.remove('interactive-card');
   // let currentCardNumber = 'card' + currentCard;
   // let currentCardElement = document.getElementById(currentCardNumber);
   // currentCardElement.classList.remove('interactive-card');

@@ -98,12 +98,12 @@ body, html {
   margin: auto;
 }
 
-.interactive-card img:hover {
-  border: 1.5px solid lightsteelblue;
+.card-slot-div .interactive-card:hover {
+  border: 2px solid lightsteelblue;
   border-radius: 15px;
 }
-.interactive-card img:active {
-  border: 1.5px solid darkblue;
+.card-slot-div .interactive-card:active {
+  border: 2px solid darkblue;
   border-radius: 15px;
 }
 
