@@ -5,6 +5,9 @@
   --lightthemeblue: rgba(0, 0, 139, 0.7);
   --lightthemered: rgba(220, 20, 60, 0.7);
   --lightthemegold: rgba(255, 217, 0, 0.7);
+  --darkgold: rgb(210, 180, 20);
+  --darkcrimson: rgb(250, 10, 50);
+  --darkerblue: rgb(0, 0, 100);
 }
 
 body, html {
@@ -30,10 +33,17 @@ body, html {
   background-color: darkblue;
   transition: all 0.4s;
 }
+#bet-button:active, #dicequantity:active, #winCoinsCancel:active, #outOfCoinsCancel:active {
+  background-color: var(--darkerblue);
+  border: 1px solid crimson;
+}
 
 #dicequantity:hover, #go-button-link, #footer a:hover, .secondary-link, #table-search-icon:hover {
   color: gold;
   transition: all 0.4s;
+}
+#dicequantity:active {
+  border: 1px solid crimson;
 }
 
 #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
@@ -161,6 +171,9 @@ body, html {
   color: gold;
   border: 2px solid gold;
 }
+#coin-flip-button:active, #dice-roll-button:active, #card-deal-button:active, #clear-tally-button:active {
+  border: 2px solid crimson;
+}
 #coin-flip-button:disabled, #dice-roll-button:disabled, #card-deal-button:disabled, #clear-tally-button:disabled {
   opacity: 0.1;
   cursor: default;
@@ -267,6 +280,9 @@ body, html {
   color: crimson;
   cursor: pointer;
   transition: all 0.4s;
+}
+#header a:active, #account-login-link:active, #practice-mode-link:active, #forgot-pw-link:active, #forgot-user-link:active, .back-button-label:active, #forgotUserBackArrow:active, #forgotPWBackArrow:active {
+  color: var(--darkcrimson);
 }
 
 #dropdownMainLink {
@@ -378,16 +394,20 @@ body, html {
   cursor: pointer;
   color: gold;
   background-color: darkblue;
-  border: 1.5px outset lightsteelblue;
+  border: 1px outset lightsteelblue;
   padding: 0.4% 1%;
   font-weight: bold;
   font-size: calc(13px + 0.4vw);
-  transition: all 0.4s;
+  transition: all 0.3s;
 }
 #account-button:hover, #login-button:hover, #forgot-pw-button:hover, #forgot-user-button:hover, #show-hide-odds-button:hover {
   color: gold;
+  border: 1px inset var(--lightthemeblue);
   background-color: crimson;
-  border: 1px inset darkblue;
+}
+#account-button:active, #login-button:active, #forgot-pw-button:active, #forgot-user-button:active, #show-hide-odds-button:active {
+  border: 1.5px inset darkblue;
+  transition: all 0.1s;
 }
 
 #forgot-pw-button, #forgot-user-button {
@@ -442,8 +462,11 @@ body, html {
   margin-top: 0;
 }
 .exit-dialog-button:hover {
+  border: 1px outset lightsteelblue;
   color: crimson;
-  border: 1px outset crimson;
+}
+.exit-dialog-button:active {
+  border: 1px outset var(--darkcrimson);
 }
 #forgotUserBackButton, #forgotPWBackButton {
   padding: 0;
@@ -544,12 +567,18 @@ body, html {
 #confirmBtn:hover {
   background-color: crimson;
 }
+#confirmBtn:active {
+  border: 1px solid darkblue;
+}
 #go-button-link{
   transition: all 0.4s;
   color: gold;
 }
 #go-button-link:hover{
   text-decoration: none;
+}
+#go-button-link:active{
+  color: var(--darkgold);
 }
 
 #dialogButtonDiv, #coinDialogDiv {
