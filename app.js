@@ -1,4 +1,6 @@
 var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
 // var createError = require('http-errors');
 // var path = require('path');
 // var cookieParser = require('cookie-parser');
@@ -7,17 +9,16 @@ var express = require('express');
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 
-var app = express();
 var hostname = '127.0.0.1';
 var port = 3000;
 // var hostname = 'localhost';
 // var port = 7700;
 
-app.use(express.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
+app.set('view engine', 'ejs');
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
 
 var posts = [
   {title: 'Post 1', author: 'Kris'},
