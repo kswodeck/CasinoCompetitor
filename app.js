@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+// mongoose.connect("mongodb://localhost/")
 // var createError = require('http-errors');
 // var path = require('path');
 // var cookieParser = require('cookie-parser');
@@ -10,7 +12,7 @@ var bodyParser = require('body-parser');
 // var usersRouter = require('./routes/users');
 
 var hostname = '127.0.0.1';
-var port = 3000;
+var port = process.env.PORT || 3000;
 // var hostname = 'localhost';
 // var port = 7700;
 
@@ -72,5 +74,9 @@ app.post('/addpost', function(req, res){
 app.listen(port, hostname, function(){
   console.log('App running on ' + hostname + ':' + port)
 })
+
+// app.listen(port, function () {
+//   console.log("Server Has Started on PORT: " + port);
+// });
 
 module.exports = app;
