@@ -22,6 +22,23 @@ app.set('view engine', 'ejs');
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 
+var userSchema = new mongoose.Schema({
+  email: String,
+  username: String,
+  password: String,
+  firstName: String,
+  lastName: String,
+  phone: String,
+  birthday: String,
+  coins: Number,
+  registerDate: String,
+  firstLogin: String,
+  lastLogin: String,
+  loginStreak: Number
+});
+
+var User = mongoose.model("User", userSchema);
+
 var posts = [
   {title: 'Post 1', author: 'Kris'},
   {title: 'Post 2', author: 'Michael'},
