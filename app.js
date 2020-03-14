@@ -17,9 +17,10 @@ var port = process.env.PORT || 3000;
 // var port = 7700;
 
 app.use(bodyParser.urlencoded({extended: true}));
-app.set('view engine', 'ejs');
 
 // view engine setup
+app.set('view engine', 'ejs');
+
 // app.set('views', path.join(__dirname, 'views'));
 
 var userSchema = new mongoose.Schema({
