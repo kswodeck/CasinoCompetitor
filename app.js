@@ -53,7 +53,7 @@ var User = mongoose.model("User", userSchema);
 //   return currentMonth + '/'+ currentDate + '/' + today.getFullYear();
 // }
 
-// var kris = new User({
+// User.create({
 //   email: "kswodeck@yahoo.com",
 //   username: "kswodeck",
 //   password: "KrisUser",
@@ -66,16 +66,13 @@ var User = mongoose.model("User", userSchema);
 //   firstLogin: "03/14/2020",
 //   lastLogin: getCurrentDate(),
 //   loginStreak: 1
-// })
-
-// kris.save(function(err, user) {
-//   if (err) {
-//     console.log("Error saving user");
+// }, function(err, user) {
+//    if (err) {
+//      console.log(err);
 //   } else {
-//     console.log("Saved a user to DB: " + user);
-//   }
+//      console.log(user);
+// }
 // });
-
 
 // var posts = [
 //   {title: 'Post 1', author: 'Kris'},
