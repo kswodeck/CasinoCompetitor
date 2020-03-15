@@ -134,13 +134,13 @@ var User = mongoose.model("User", userSchema);
 app.use(express.static('public'));
 
 app.get('/', function(req, res){
-  res.render('home');
+  res.render('index');
   // res.redirect('home.html');
 });
 
 app.post('/register', function(req, res){
   // res.render('home');
-  res.redirect('home');
+  res.redirect('index');
 });
 
 // app.get('/posts', function(req, res){
