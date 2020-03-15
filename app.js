@@ -1,8 +1,8 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-// mongoose.connect("mongodb://localhost/")
+var express = require('express'),
+        app = express(),
+ bodyParser = require('body-parser'),
+   mongoose = require('mongoose');
+
 // var createError = require('http-errors');
 // var path = require('path');
 // var cookieParser = require('cookie-parser');
@@ -16,9 +16,8 @@ var port = process.env.PORT || 3000;
 // var hostname = 'localhost';
 // var port = 7700;
 
+// mongoose.connect("mongodb://localhost/");
 app.use(bodyParser.urlencoded({extended: true}));
-
-// view engine setup
 app.set('view engine', 'ejs');
 
 // app.set('views', path.join(__dirname, 'views'));
@@ -70,6 +69,7 @@ var User = mongoose.model("User", userSchema);
 //    if (err) {
 //      console.log(err);
 //   } else {
+//      console.log('Created User: ');
 //      console.log(user);
 // }
 // });
