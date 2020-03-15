@@ -7,18 +7,43 @@ var express = require('express'),
 // var path = require('path');
 // var cookieParser = require('cookie-parser');
 // var logger = require('morgan');
-
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 
-var hostname = '127.0.0.1';
-var port = process.env.PORT || 3000;
-// var hostname = 'localhost';
-// var port = 7700;
-
-// mongoose.connect("mongodb://localhost/");
+const connectionString = 'mongodb+srv://kswodeck:Kmswo123!@pocketpoker1-zl3ub.mongodb.net/pocketpoker?retryWrites=true&w=majority';
+const hostname = '127.0.0.1';
+const port = process.env.PORT || 3000;
+mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true});
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
+
+// async function createUser(username) {
+//   return new User({
+//     username,
+//     created: Date.now()
+//   }).save()
+// }
+
+// async function findUser(username) {
+//   return await User.findOne({ username })
+// }
+
+// ;(async () => {
+//   const connector = mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true});
+//   const username = process.argv[2].split('=')[1];
+
+//   let user = await connector.then(async () => {
+//     return findUser(username);
+//   })
+
+//   if (!user) {
+//     user = await createUser(username);
+//   }
+
+//   console.log(user);
+//   process.exit(0);
+// })();
 
 // app.set('views', path.join(__dirname, 'views'));
 
@@ -31,7 +56,7 @@ var userSchema = new mongoose.Schema({
   phone: String,
   birthday: Date,
   coins: Number,
-  registerDate: Date,
+  created: Date,
   firstLogin: Date,
   lastLogin: Date,
   loginStreak: Number
@@ -47,9 +72,10 @@ var User = mongoose.model("User", userSchema);
 //   }
 //   let currentDate = today.getDate();
 //   if (currentDate < 10) {
-// 	  currentDate = '0' + currentDate;
+//     currentDate = '0' + currentDate;
 //   }
-//   return currentMonth + '/'+ currentDate + '/' + today.getFullYear();
+//   let dateReturned = currentMonth + '/'+ currentDate + '/' + today.getFullYear();
+//   return dateReturned;
 // }
 
 // User.create({
@@ -114,19 +140,19 @@ app.get('/', function(req, res){
 
 app.post('/register', function(req, res){
   // res.render('home');
-  res.redirect('home.html');
+  res.redirect('home');
 });
 
-app.get('/posts', function(req, res){
-  res.render('posts', {posts: posts});
-});
+// app.get('/posts', function(req, res){
+//   res.render('posts', {posts: posts});
+// });
 
-app.post('/addpost', function(req, res){
-  // let newPost = req.body.newposttitle;
-  // let newAuthor = req.body.newauthor;
-  posts.push({title: req.body.newposttitle, author: req.body.newauthor});
-  res.redirect('/posts');
-});
+// app.post('/addpost', function(req, res){
+//   // let newPost = req.body.newposttitle;
+//   // let newAuthor = req.body.newauthor;
+//   posts.push({title: req.body.newposttitle, author: req.body.newauthor});
+//   res.redirect('/posts');
+// });
 
 app.listen(port, hostname, function(){
   console.log('App running on ' + hostname + ':' + port)
