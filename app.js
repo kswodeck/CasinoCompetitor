@@ -30,21 +30,58 @@ var userSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   phone: String,
-  birthday: String,
+  birthday: Date,
   coins: Number,
-  registerDate: String,
-  firstLogin: String,
-  lastLogin: String,
+  registerDate: Date,
+  firstLogin: Date,
+  lastLogin: Date,
   loginStreak: Number
 });
 
 var User = mongoose.model("User", userSchema);
 
-var posts = [
-  {title: 'Post 1', author: 'Kris'},
-  {title: 'Post 2', author: 'Michael'},
-  {title: 'Post 3', author: 'Swodeck'},
-];
+// function getCurrentDate() {
+//   let today = new Date();
+//   let currentMonth = today.getMonth()+1;
+//   if (currentMonth < 10) {
+//     currentMonth = '0' + currentMonth;
+//   }
+//   let currentDate = today.getDate();
+//   if (currentDate < 10) {
+// 	  currentDate = '0' + currentDate;
+//   }
+//   return currentMonth + '/'+ currentDate + '/' + today.getFullYear();
+// }
+
+// var kris = new User({
+//   email: "kswodeck@yahoo.com",
+//   username: "kswodeck",
+//   password: "KrisUser",
+//   firstName: "Kristoffer",
+//   lastName: "Swodeck",
+//   phone: "1234567890",
+//   birthday: "09/29/1995",
+//   coins: 100,
+//   registerDate: "03/14/2020",
+//   firstLogin: "03/14/2020",
+//   lastLogin: getCurrentDate(),
+//   loginStreak: 1
+// })
+
+// kris.save(function(err, user) {
+//   if (err) {
+//     console.log("Error saving user");
+//   } else {
+//     console.log("Saved a user to DB: " + user);
+//   }
+// });
+
+
+// var posts = [
+//   {title: 'Post 1', author: 'Kris'},
+//   {title: 'Post 2', author: 'Michael'},
+//   {title: 'Post 3', author: 'Swodeck'},
+// ];
 
 // app.use(logger('dev'));
 // app.use(express.json());
@@ -74,13 +111,18 @@ var posts = [
 app.use(express.static('public'));
 
 app.get('/', function(req, res){
+  res.render('home');
+  // res.redirect('home.html');
+});
+
+app.post('/register', function(req, res){
   // res.render('home');
   res.redirect('home.html');
-})
+});
 
 app.get('/posts', function(req, res){
   res.render('posts', {posts: posts});
-})
+});
 
 app.post('/addpost', function(req, res){
   // let newPost = req.body.newposttitle;
@@ -91,7 +133,7 @@ app.post('/addpost', function(req, res){
 
 app.listen(port, hostname, function(){
   console.log('App running on ' + hostname + ':' + port)
-})
+});
 
 // app.listen(port, function () {
 //   console.log("Server Has Started on PORT: " + port);

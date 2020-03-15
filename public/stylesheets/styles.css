@@ -2,7 +2,7 @@
   --dice-width: 9%;
   --card-width: 100%;
   --bluish: rgba(140, 145, 155, 0.5);
-  --lightthemeblue: rgba(0, 0, 139, 0.7);
+  --lightthemeblue: rgba(81, 101, 180, 0.7);
   --lightthemered: rgba(220, 20, 60, 0.7);
   --lightthemegold: rgba(255, 217, 0, 0.7);
   --darkgold: rgb(210, 180, 20);
@@ -17,6 +17,11 @@ body, html {
   margin: 0;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+body {
+background-color: rgba(255, 255, 255, 1.0);
+background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6EE, #DBDFEB, #D1D7E5);
 }
 
 #dicequantity {
@@ -352,9 +357,11 @@ body, html {
   margin: 4% auto 0 auto;
   max-width: 700px;
   width: calc(130px + 60vw);
-  border: 2px outset lightsteelblue;
+  border: 2px outset var(--lightthemeblue);
+  /* border: 2px outset lightsteelblue; */
   border-radius: 30px;
   background-color: var(--bluish);
+  background-image: radial-gradient(ellipse, var(--bluish) 30%, #979CA580, #9CA2AD80, #A5ABB680, #AEB3BD80);
 }
 #form-heading, .login-heading {
   font-weight: bold;
@@ -362,6 +369,19 @@ body, html {
   text-shadow: 4px 8px 7px lightsteelblue;
   font-size: calc(22px + 0.8vw)
 }
+.name-row {
+  max-width: 100%;
+  margin: 0 auto;
+}
+.name-col {
+ padding: 0;
+}
+#firstNameCol {
+  margin-left: 18%;
+ }
+#lastNameCol {
+  margin-right: 18%;
+ }
 .account-label {
   font-size: calc(13px + 0.3vw);
   font-weight: bold;
@@ -369,7 +389,6 @@ body, html {
   margin: 5px auto 0 auto;
 }
 .account-input {
-  margin-left: calc(5px + 0.5%);
   font-size: calc(11px + 0.3vw);
   border: 1px solid #343a40;
   border-radius: 10px;
@@ -617,6 +636,12 @@ body, html {
     #leaderboard-div {
       width: 99%;
     }
+    #firstNameCol {
+      margin-left: 5px;
+     }
+    #lastNameCol {
+      margin-right: 5px;
+     }
 }
 /* medium breakpoint */
 @media (max-width: 767px) {
@@ -628,4 +653,10 @@ body, html {
   #cardsDropdown {
     max-width: 195px;
   }
+  #firstNameCol {
+    margin-left: 15%;
+   }
+  #lastNameCol {
+    margin-right: 15%;
+   }
 }
