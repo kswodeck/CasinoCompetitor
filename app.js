@@ -59,7 +59,8 @@ var userSchema = new mongoose.Schema({
   created: Date,
   firstLogin: Date,
   lastLogin: Date,
-  loginStreak: Number
+  loginStreak: Number,
+  highestWin: Number
 });
 
 var User = mongoose.model("User", userSchema);
@@ -86,11 +87,12 @@ var User = mongoose.model("User", userSchema);
 //   lastName: "Swodeck",
 //   phone: "1234567890",
 //   birthday: "09/29/1995",
-//   coins: 100,
 //   registerDate: "03/14/2020",
 //   firstLogin: "03/14/2020",
 //   lastLogin: getCurrentDate(),
-//   loginStreak: 1
+//   loginStreak: 1,
+//   coins: 100,
+//   highestWin: 0
 // }, function(err, user) {
 //    if (err) {
 //      console.log(err);
