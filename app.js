@@ -47,6 +47,8 @@ app.set('view engine', 'ejs');
 
 // app.set('views', path.join(__dirname, 'views'));
 
+let curDate = getCurrentDate();
+
 var userSchema = new mongoose.Schema({
   email: String,
   username: String,
@@ -55,26 +57,20 @@ var userSchema = new mongoose.Schema({
   lastName: String,
   phone: String,
   birthday: Date,
-  coins: Number,
-  created: Date,
-  lastLogin: Date,
-  loginStreak: Number,
-  highestWin: Number
+  created: {type: Date, default: curDate},
+  lastLogin: {type: Date, default: curDate},
+  loginStreak: {type: Number, default: 1},
+  coins: {type: Number, default: 100},
+  highestWin: {type: Number, default: 0},
 });
 
 var User = mongoose.model("User", userSchema);
 
 function getCurrentDate() {
   let today = new Date();
-  let currentMonth = today.getMonth()+1;
-  if (currentMonth < 10) {
-    currentMonth = '0' + currentMonth;
-  }
-  let currentDate = today.getDate();
-  if (currentDate < 10) {
-    currentDate = '0' + currentDate;
-  }
-  let dateReturned = currentMonth + '/'+ currentDate + '/' + today.getFullYear();
+  // let currentMonth = today.getMonth()+1;
+  // let currentDate = today.getDate();
+  let dateReturned = (today.getMonth()+1) + '/'+ today.getDate() + '/' + today.getFullYear();
   return dateReturned;
 }
 
@@ -86,8 +82,8 @@ function getCurrentDate() {
 //   lastName: "Swodeck",
 //   phone: "1234567890",
 //   birthday: "09/29/1995",
-//   created: "03/14/2020",
-//   lastLogin: getCurrentDate(),
+//   created: curDate,
+//   lastLogin: curDate,
 //   loginStreak: 1,
 //   coins: 100,
 //   highestWin: 0
@@ -164,18 +160,16 @@ app.get('/register', function(req, res){
   res.render('register', {pageTitle: 'Create Account'});
 });
 app.post('/register', function(req, res){
-  let curDate = getCurrentDate();
-  let email = req.body.email, username = req.body.username, password = req.body.password;
-  let firstName = req.body.firstName, lastName = req.body.lastName;
-  let phone = req.body.phoneNumber, birthday = req.body.birthday;
+  let email = req.body.email, username = req.body.username, password = req.body.password,
+  firstName = req.body.firstName, lastName = req.body.lastName,
+  phone = req.body.phoneNumber, birthday = req.body.birthday;
   let newUser = {email: email, username: username, password: password,
-    firstName: firstName, lastName: lastName, phone: phone, birthday: birthday,
-    coins: 100, created: curDate, lastLogin: curDate, loginStreak: 1, highestWin: 0};
+    firstName: firstName, lastName: lastName, phone: phone, birthday: birthday};
     User.create(newUser, function(err, newlyCreated) {
       if (err) {
         console.log(err);
       } else {
-        res.redirect('index');
+        res.redirect('/');
       }
     });
 });
