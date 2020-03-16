@@ -145,7 +145,7 @@ app.get('/practice-cards', function(req, res){
   res.render('practice-cards', {pageTitle: 'Practice Poker'});
 });
 app.get('/leaderboard', function(req, res){
-  res.render('leaderboard', {pageTitle: 'Poker Leaderboard'});
+  res.render('leaderboard', {pageTitle: 'Leaderboard'});
 });
 app.get('/register', function(req, res){
   res.render('register', {pageTitle: 'Create Account'});
@@ -161,7 +161,7 @@ app.get('/dice', function(req, res){
   res.render('dice', {pageTitle: 'Dice'});
 });
 app.get('/coin', function(req, res){
-  res.render('coin', {pageTitle: 'MCoin'});
+  res.render('coin', {pageTitle: 'Coin'});
 });
 
 // app.get('/posts', function(req, res){
