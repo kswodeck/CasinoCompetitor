@@ -146,6 +146,7 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
 
 #coins-img {
   width: calc(22px + 1vw);
+  display: none;
 }
 
 #total-coins-span {
@@ -351,6 +352,8 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
 
 #main-navbar {
   display: block;
+  min-height: 40px;
+  max-height: 40px;
 }
 
 .account-form-div {
@@ -647,6 +650,10 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
 @media (max-width: 767px) {
   #mainDropdown {
     position: static;
+  }
+  #main-navbar {
+    min-height: none;
+    max-height: none;
   }
 }
 @media (max-width: 767px) and (min-width: 575px) {

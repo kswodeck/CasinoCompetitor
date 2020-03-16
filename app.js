@@ -133,14 +133,35 @@ var User = mongoose.model("User", userSchema);
 
 app.use(express.static('public'));
 
+// * APP ROUTES *
 app.get('/', function(req, res){
-  res.render('index');
+  res.render('index', {pageTitle: 'Pocket Poker'});
   // res.redirect('home.html');
 });
-
+app.get('/cards', function(req, res){
+  res.render('cards', {pageTitle: 'Competitive Poker'});
+});
+app.get('/practice-cards', function(req, res){
+  res.render('practice-cards', {pageTitle: 'Practice Poker'});
+});
+app.get('/leaderboard', function(req, res){
+  res.render('leaderboard', {pageTitle: 'Poker Leaderboard'});
+});
+app.get('/register', function(req, res){
+  res.render('register', {pageTitle: 'Create Account'});
+});
 app.post('/register', function(req, res){
   // res.render('home');
   res.redirect('index');
+});
+app.get('/account', function(req, res){
+  res.render('account', {pageTitle: 'My Account'});
+});
+app.get('/dice', function(req, res){
+  res.render('dice', {pageTitle: 'Dice'});
+});
+app.get('/coin', function(req, res){
+  res.render('coin', {pageTitle: 'MCoin'});
 });
 
 // app.get('/posts', function(req, res){

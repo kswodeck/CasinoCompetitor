@@ -13,7 +13,7 @@ var mainContainer = new Vue({
     dealButtonText: 'Deal Cards',
     resultText: 'Game Over',
   }
-})
+});
 document.getElementById('card-deal-button').style.visibility = 'visible';
 // const totalCoinsSpan = document.getElementById('total-coins-span');
 const currentBetSpan = document.getElementById('current-bet-span');
@@ -21,10 +21,11 @@ const oddsDiv = document.getElementById('hand-odds-div');
 const showHideOddsButton = document.getElementById('show-hide-odds-button');
 const cardDealButton = document.getElementById('card-deal-button');
 const handRankingHeading = document.getElementById('hand-ranking-heading');
-if (document.getElementById("current-link").innerText === 'Competitive') {
-    document.getElementById('total-coins-span').style.visibility = 'visible';
+if (document.getElementById('page-heading').innerText == 'COMPETITIVE POKER') {
     document.getElementById('current-bet-span').style.visibility = 'visible';
     document.getElementById('current-win-span').style.visibility = 'visible';
+    document.getElementById('total-coins-span').style.visibility = 'visible';
+    document.getElementById('coins-img').style.display = 'inline-block';
   }
 
 function getCards() {
