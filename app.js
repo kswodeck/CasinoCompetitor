@@ -57,7 +57,6 @@ var userSchema = new mongoose.Schema({
   birthday: Date,
   coins: Number,
   created: Date,
-  firstLogin: Date,
   lastLogin: Date,
   loginStreak: Number,
   highestWin: Number
