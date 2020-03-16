@@ -22,8 +22,8 @@
         <input type="password" name="password" id="newPassword" class="account-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><span class="valid-content"></span><br>
         <label for="repeat-password" class="account-label">Repeat Password</label><br>
         <input type="password" name="repeat-password" id="repeatPassword" class="account-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><span class="valid-content"></span><br>
-        <label for="phone-number" class="account-label">Phone Number</label><br> <!-- phone number validations aren't sufficient, complex -->
-        <input type="tel" name="phone-number" class="account-input" minlength="10" maxlength="16" placeholder="XXX-XXX-XXXX" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXX-XXX-XXXX" autocomplete required><span class="valid-content"></span><br>
+        <label for="phoneNumber" class="account-label">Phone Number</label><br> <!-- phone number validations aren't sufficient, complex -->
+        <input type="tel" name="phoneNumber" class="account-input" minlength="10" maxlength="16" placeholder="XXX-XXX-XXXX" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXX-XXX-XXXX" autocomplete required><span class="valid-content"></span><br>
         <label for="birthday" class="account-label">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
         <input type="date" name="birthday" id="newBirthday" class="account-input" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" autocomplete required><span class="valid-content"></span><br>
         <ul id="invalid-fields-list"> <!-- date validations are sufficient -->

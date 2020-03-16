@@ -64,19 +64,19 @@ var userSchema = new mongoose.Schema({
 
 var User = mongoose.model("User", userSchema);
 
-// function getCurrentDate() {
-//   let today = new Date();
-//   let currentMonth = today.getMonth()+1;
-//   if (currentMonth < 10) {
-//     currentMonth = '0' + currentMonth;
-//   }
-//   let currentDate = today.getDate();
-//   if (currentDate < 10) {
-//     currentDate = '0' + currentDate;
-//   }
-//   let dateReturned = currentMonth + '/'+ currentDate + '/' + today.getFullYear();
-//   return dateReturned;
-// }
+function getCurrentDate() {
+  let today = new Date();
+  let currentMonth = today.getMonth()+1;
+  if (currentMonth < 10) {
+    currentMonth = '0' + currentMonth;
+  }
+  let currentDate = today.getDate();
+  if (currentDate < 10) {
+    currentDate = '0' + currentDate;
+  }
+  let dateReturned = currentMonth + '/'+ currentDate + '/' + today.getFullYear();
+  return dateReturned;
+}
 
 // User.create({
 //   email: "kswodeck@yahoo.com",
@@ -86,8 +86,7 @@ var User = mongoose.model("User", userSchema);
 //   lastName: "Swodeck",
 //   phone: "1234567890",
 //   birthday: "09/29/1995",
-//   registerDate: "03/14/2020",
-//   firstLogin: "03/14/2020",
+//   created: "03/14/2020",
 //   lastLogin: getCurrentDate(),
 //   loginStreak: 1,
 //   coins: 100,
@@ -146,14 +145,32 @@ app.get('/practice-cards', function(req, res){
   res.render('practice-cards', {pageTitle: 'Practice Poker'});
 });
 app.get('/leaderboard', function(req, res){
-  res.render('leaderboard', {pageTitle: 'Leaderboard'});
+  User.find({}, function(err, allUsers) {
+    if (err) {
+      console.log(err);
+    } else {
+        res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers});
+    }
+  });
 });
 app.get('/register', function(req, res){
   res.render('register', {pageTitle: 'Create Account'});
 });
 app.post('/register', function(req, res){
-  // res.render('home');
-  res.redirect('index');
+  let curDate = getCurrentDate();
+  let email = req.body.email, username = req.body.username, password = req.body.password;
+  let firstName = req.body.firstName, lastName = req.body.lastName;
+  let phone = req.body.phoneNumber, birthday = req.body.birthday;
+  let newUser = {email: email, username: username, password: password,
+    firstName: firstName, lastName: lastName, phone: phone, birthday: birthday,
+    coins: 100, created: curDate, lastLogin: curDate, loginStreak: 1, highestWin: 0};
+    User.create(newUser, function(err, newlyCreated) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.redirect('index');
+      }
+    });
 });
 app.get('/account', function(req, res){
   res.render('account', {pageTitle: 'My Account'});
