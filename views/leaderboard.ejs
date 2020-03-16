@@ -21,13 +21,15 @@
             <td class="leaderboard-head">Highest Win</td>
             <td class="leaderboard-head">Total Coins</td>
           </tr>
+          <% let currentRank = 1;%>
           <% users.forEach(function(user){ %>
             <tr class ="leaderboard-row normal-row">
-              <td class ="leaderboard-cell leaderboard-rank">1</td>
+              <td class ="leaderboard-cell leaderboard-rank"><%= currentRank %></td>
               <td class ="leaderboard-cell leaderboard-username"><%= user.username %></td>
               <td class ="leaderboard-cell leaderboard-highest"><%= user.highestWin %></td>
               <td class ="leaderboard-cell leaderboard-coins"><%= user.coins %></td>
             </tr>
+            <% currentRank++;%>
         <% }); %>
           <tr class ="leaderboard-row normal-row">
             <td class ="leaderboard-cell leaderboard-rank">1</td>

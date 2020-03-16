@@ -145,13 +145,20 @@ app.get('/practice-cards', function(req, res){
   res.render('practice-cards', {pageTitle: 'Practice Poker'});
 });
 app.get('/leaderboard', function(req, res){
-  User.find({}, function(err, allUsers) {
+  User.find({}).sort({coins: -1}).exec(function(err, allUsers) {
     if (err) {
       console.log(err);
     } else {
-        res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers});
+      res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers});
     }
   });
+  // User.find({}, function(err, allUsers) {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //       res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers});
+  //   }
+  // });
 });
 app.get('/register', function(req, res){
   res.render('register', {pageTitle: 'Create Account'});
