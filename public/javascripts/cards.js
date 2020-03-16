@@ -234,6 +234,7 @@ function lastHandTeardown(holdCurrentCard,currentCard) {
   document.getElementsByClassName('cards')[currentCard].src = 'images/cards/card_standard_blue_back.png';
   // cardDealButton.innerText = 'Deal Cards';
   mainContainer.dealButtonText = 'Deal Cards';
+  mainContainer.currentWin = 0;
 }
 
 function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunction){
