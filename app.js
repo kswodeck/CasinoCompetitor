@@ -74,27 +74,27 @@ function getCurrentDate() {
   return dateReturned;
 }
 
-let currentCoins = 100;
-for (let i=0; i<101; i++) {
-User.create({
-  email: "kswodeck@yahoo.com",
-  username: "kswodeck",
-  password: "KrisUser",
-  firstName: "Kristoffer",
-  lastName: "Swodeck",
-  phone: "1234567890",
-  birthday: "09/29/1995",
-  coins: currentCoins
-}, function(err, user) {
-   if (err) {
-     console.log(err);
-  } else {
-     console.log('Created User: ');
-     console.log(user);
-}
-});
-currentCoins--;
-}
+// let currentCoins = 0;
+// for (let i=0; i<101; i++) {
+// User.create({
+//   email: "kswodeck@yahoo.com",
+//   username: "kswodeck",
+//   password: "KrisUser",
+//   firstName: "Kristoffer",
+//   lastName: "Swodeck",
+//   phone: "1234567890",
+//   birthday: "09/29/1995",
+//   coins: currentCoins
+// }, function(err, user) {
+//    if (err) {
+//      console.log(err);
+//   } else {
+//      console.log('Created User: ');
+//      console.log(user);
+// }
+// });
+// currentCoins++;
+// }
 
 // User.create({
 //   email: "kswodeck@yahoo.com",
