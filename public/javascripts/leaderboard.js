@@ -1,3 +1,18 @@
+var rowsPerPage = 50;
+var rowsOfData = 50; // total number of rows of data. Get from db
+var totalPages = rowsOfData/rowsPerPage; // total number of pages variable. Based on rowsOfData & rowsPerPage
+
+var midContainer = new Vue({
+    el: '#mid-container',
+    data: {
+      prevPrevPage: -1,
+      prevPage: 0,
+      currentPage: 1,
+      nextPage: 2,
+      nextNextPage: 3,
+    }
+  });
+
 function searchLeaderboard() {
     const searchValue = document.getElementById('tableSearch').value;
     const searchUsernames = document.getElementsByClassName('leaderboard-username');
