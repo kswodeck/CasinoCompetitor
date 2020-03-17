@@ -68,8 +68,6 @@ var User = mongoose.model("User", userSchema);
 
 function getCurrentDate() {
   let today = new Date();
-  // let currentMonth = today.getMonth()+1;
-  // let currentDate = today.getDate();
   let dateReturned = (today.getMonth()+1) + '/'+ today.getDate() + '/' + today.getFullYear();
   return dateReturned;
 }
@@ -170,13 +168,6 @@ app.get('/leaderboard', function(req, res){
       res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers});
     }
   });
-  // User.find({}, function(err, allUsers) {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //       res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers});
-  //   }
-  // });
 });
 app.get('/register', function(req, res){
   res.render('register', {pageTitle: 'Create Account'});
