@@ -505,7 +505,7 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
 #leaderboard-div {
   width: calc(80px + 80%);
   padding: 0;
-  margin: 2% auto 0 auto;
+  margin: 2% auto;
   text-align: center;
 }
 #table-search-row {
@@ -540,16 +540,23 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
 .leaderboard-head {
   background-color: var(--bluish);
 }
-#leaderboard-head-row {
-  font-weight: bold;
-}
 .leaderboard-row:nth-child(odd) {
   background-color: rgba(210, 210, 200, 0.3);
 }
+.page-link {
 
-#practice-mode-link{
+}
+#leaderboard-pagination {
+  margin: 2% auto;
+}
+#pagination-list {
+  justify-content: flex-end!important;
+}
+
+#practice-mode-link, .page-link {
   color: darkblue;
   transition: all 0.4s;
+  font-size: calc(10px + 0.35vw);
 }
 
 #coin-win-popup-span, #number-coins-won, #hand-win-popup-span {
