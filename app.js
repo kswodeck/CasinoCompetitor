@@ -1,8 +1,8 @@
-var express    = require('express'),
-    bodyParser = require('body-parser'),
-    mongoose   = require('mongoose'),
-methodOverride = require('method-override'),
-    app        = express();
+var express        = require('express'),
+    bodyParser     = require('body-parser'),
+    mongoose       = require('mongoose'),
+    methodOverride = require('method-override'),
+    app            = express();
 
 // var createError = require('http-errors');
 // var path = require('path');
@@ -154,7 +154,6 @@ app.use(express.static('public'));
 // * APP ROUTES *
 app.get('/', function(req, res){
   res.render('index', {pageTitle: 'Pocket Poker'});
-  // res.redirect('home.html');
 });
 app.get('/cards', function(req, res){
   res.render('cards', {pageTitle: 'Competitive Poker'});
@@ -174,26 +173,12 @@ app.get('/leaderboard', function(req, res){
 app.get('/register', function(req, res){
   res.render('register', {pageTitle: 'Create Account'});
 });
-// app.post('/register', function(req, res){
-//   let email = req.body.email, username = req.body.username, password = req.body.password,
-//   firstName = req.body.firstName, lastName = req.body.lastName,
-//   phone = req.body.phoneNumber, birthday = req.body.birthday;
-//   let newUser = {email: email, username: username, password: password,
-//     firstName: firstName, lastName: lastName, phone: phone, birthday: birthday};
-//     User.create(newUser, function(err, newlyCreated) {
-//       if (err) {
-//         console.log(err);
-//       } else {
-//         res.redirect('/');
-//       }
-//     });
-// });
 app.post('/register', function(req, res){
     console.log(req.body.createUser);
     User.create(req.body.createUser, function(err, newlyCreated) {
       if (err) {
         console.log(err);
-        res.render('/register');
+        res.redirect('/register');
       } else {
         res.redirect('/');
       }
@@ -223,9 +208,5 @@ app.get('/coin', function(req, res){
 app.listen(port, hostname, function(){
   console.log('App running on ' + hostname + ':' + port)
 });
-
-// app.listen(port, function () {
-//   console.log("Server Has Started on PORT: " + port);
-// });
 
 module.exports = app;
