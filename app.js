@@ -1,7 +1,8 @@
-var express = require('express'),
-        app = express(),
- bodyParser = require('body-parser'),
-   mongoose = require('mongoose');
+var express    = require('express'),
+    bodyParser = require('body-parser'),
+    mongoose   = require('mongoose'),
+methodOverride = require('method-override'),
+    app        = express();
 
 // var createError = require('http-errors');
 // var path = require('path');
@@ -14,9 +15,10 @@ const connectionString = 'mongodb+srv://kswodeck:Kmswo123!@pocketpoker1-zl3ub.mo
 const hostname = '127.0.0.1';
 const port = process.env.PORT || 3000;
 mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true});
+app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.set('view engine', 'ejs');
+app.use(methodOverride('_method'));
 
 // async function createUser(username) {
 //   return new User({
