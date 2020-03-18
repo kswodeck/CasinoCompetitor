@@ -3,6 +3,7 @@ var express        = require('express'),
     mongoose       = require('mongoose'),
     methodOverride = require('method-override'),
     app            = express();
+    User           = require('./models/user');
 
 // var createError = require('http-errors');
 // var path = require('path');
@@ -49,31 +50,6 @@ app.use(methodOverride('_method'));
 
 // app.set('views', path.join(__dirname, 'views'));
 
-let curDate = getCurrentDate();
-
-var userSchema = new mongoose.Schema({
-  email: String,
-  username: String,
-  password: String,
-  firstName: String,
-  lastName: String,
-  phone: String,
-  birthday: Date,
-  created: {type: Date, default: curDate},
-  lastLogin: {type: Date, default: curDate},
-  loginStreak: {type: Number, default: 1},
-  coins: {type: Number, default: 100},
-  highestWin: {type: Number, default: 0},
-});
-
-var User = mongoose.model("User", userSchema);
-
-function getCurrentDate() {
-  let today = new Date();
-  let dateReturned = (today.getMonth()+1) + '/'+ today.getDate() + '/' + today.getFullYear();
-  return dateReturned;
-}
-
 // let currentCoins = 0;
 // for (let i=0; i<101; i++) {
 // User.create({
@@ -97,18 +73,13 @@ function getCurrentDate() {
 // }
 
 // User.create({
-//   email: "kswodeck@yahoo.com",
+//   email: "kmswodeck@gmail.com",
 //   username: "kswodeck",
 //   password: "KrisUser",
 //   firstName: "Kristoffer",
 //   lastName: "Swodeck",
 //   phone: "1234567890",
-//   birthday: "09/29/1995",
-//   created: curDate,
-//   lastLogin: curDate,
-//   loginStreak: 1,
-//   coins: 100,
-//   highestWin: 0
+//   birthday: "09/29/1995"
 // }, function(err, user) {
 //    if (err) {
 //      console.log(err);
@@ -193,17 +164,6 @@ app.get('/dice', function(req, res){
 app.get('/coin', function(req, res){
   res.render('coin', {pageTitle: 'Coin'});
 });
-
-// app.get('/posts', function(req, res){
-//   res.render('posts', {posts: posts});
-// });
-
-// app.post('/addpost', function(req, res){
-//   // let newPost = req.body.newposttitle;
-//   // let newAuthor = req.body.newauthor;
-//   posts.push({title: req.body.newposttitle, author: req.body.newauthor});
-//   res.redirect('/posts');
-// });
 
 app.listen(port, hostname, function(){
   console.log('App running on ' + hostname + ':' + port)
