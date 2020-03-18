@@ -172,15 +172,26 @@ app.get('/leaderboard', function(req, res){
 app.get('/register', function(req, res){
   res.render('register', {pageTitle: 'Create Account'});
 });
+// app.post('/register', function(req, res){
+//   let email = req.body.email, username = req.body.username, password = req.body.password,
+//   firstName = req.body.firstName, lastName = req.body.lastName,
+//   phone = req.body.phoneNumber, birthday = req.body.birthday;
+//   let newUser = {email: email, username: username, password: password,
+//     firstName: firstName, lastName: lastName, phone: phone, birthday: birthday};
+//     User.create(newUser, function(err, newlyCreated) {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         res.redirect('/');
+//       }
+//     });
+// });
 app.post('/register', function(req, res){
-  let email = req.body.email, username = req.body.username, password = req.body.password,
-  firstName = req.body.firstName, lastName = req.body.lastName,
-  phone = req.body.phoneNumber, birthday = req.body.birthday;
-  let newUser = {email: email, username: username, password: password,
-    firstName: firstName, lastName: lastName, phone: phone, birthday: birthday};
-    User.create(newUser, function(err, newlyCreated) {
+    console.log(req.body.createUser);
+    User.create(req.body.createUser, function(err, newlyCreated) {
       if (err) {
         console.log(err);
+        res.render('/register');
       } else {
         res.redirect('/');
       }

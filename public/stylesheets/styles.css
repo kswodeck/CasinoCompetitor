@@ -431,7 +431,22 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   border: 1.5px inset darkblue;
   transition: all 0.1s;
 }
-
+.show-hide {
+  cursor: pointer;
+  color: darkblue;
+  margin-left: -25px;
+  z-index: 2;
+  font-size: calc(11px + 0.3vw);
+}
+.show-hide:hover {
+  color: crimson;
+}
+.show-hide:hover:active {
+  color: var(--darkcrimson);
+}
+#newPassword, #repeatPassword, #forgottenPassword, #loginPassword {
+  margin-left: -8px;
+}
 #forgot-pw-button, #forgot-user-button {
   margin: 3% auto 0 auto;
 }
@@ -543,9 +558,7 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
 .leaderboard-row:nth-child(odd) {
   background-color: rgba(210, 210, 200, 0.3);
 }
-.page-link {
 
-}
 #leaderboard-pagination {
   margin: 2% auto;
 }
