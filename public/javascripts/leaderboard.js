@@ -1,7 +1,6 @@
 var rowsPerPage = 50;
 var rowsOfData = 0; // total number of rows of data. Get from db
 var totalPages = rowsOfData/rowsPerPage; // total number of pages variable. Based on rowsOfData & rowsPerPage
-const leaderboardBody = document.getElementById('leaderboard-body');
 
 // var midContainer = new Vue({
 //     el: '#mid-container',
@@ -25,6 +24,7 @@ function loadInitialLeaderboard(users) {
 }
 
 function createRowOfLeaderboard(user, rank) {
+    const leaderboardBody = document.getElementById('leaderboard-body');
     console.log("creating a row");
     const newRow = document.createElement('tr');
     newRow.className = 'leaderboard-row normal-row';

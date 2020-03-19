@@ -2,11 +2,11 @@ var express           = require('express'),
     bodyParser        = require('body-parser'),
     mongoose          = require('mongoose'),
     methodOverride    = require('method-override'),
-    passport          = require('passport');
+    passport          = require('passport'),
     passportLocal     = require('passport-local'),
     passportMongoose  = require('passport-local-mongoose'),
     session           = require('express-session'),
-    app               = express();
+    app               = express(),
     User              = require('./models/user');
 
 // var createError = require('http-errors');
