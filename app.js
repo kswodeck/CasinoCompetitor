@@ -1,9 +1,13 @@
-var express        = require('express'),
-    bodyParser     = require('body-parser'),
-    mongoose       = require('mongoose'),
-    methodOverride = require('method-override'),
-    app            = express();
-    User           = require('./models/user');
+var express           = require('express'),
+    bodyParser        = require('body-parser'),
+    mongoose          = require('mongoose'),
+    methodOverride    = require('method-override'),
+    passport          = require('passport');
+    passportLocal     = require('passport-local'),
+    passportMongoose  = require('passport-local-mongoose'),
+    session           = require('express-session'),
+    app               = express();
+    User              = require('./models/user');
 
 // var createError = require('http-errors');
 // var path = require('path');
@@ -120,7 +124,7 @@ app.use(methodOverride('_method'));
 //   res.render('error');
 // });
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 // * APP ROUTES *
 app.get('/', function(req, res){
