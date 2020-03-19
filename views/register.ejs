@@ -19,16 +19,16 @@
         <label for="username" class="account-label">Username</label><br> <!-- username validations are sufficient -->
         <input type="text" name="createUser[username]" class="account-input" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete required><span class="valid-content"></span><br>
         <label for="password" class="account-label">Password</label><br> <!-- password validations aren't fully sufficient -->
-        <input type="password" name="createUser[password]" id="newPassword" class="account-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="newPassIcon" onclick="togglePasswordVisibility('newPassword', 'newPassIcon')" class="show-hide fas fa-eye"></i><span class="valid-content"></span><br>
+        <input type="password" name="createUser[password]" id="newPassword" class="account-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="newPassIcon" onclick="togglePasswordVisibility('newPassword', 'newPassIcon')" class="show-hide fas fa-eye"></i><span class="valid-content"></span><br>
         <label for="repeatPassword" class="account-label">Repeat Password</label><br>
-        <input type="password" name="repeatPassword" id="repeatPassword" class="account-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="repeatPassIcon" onclick="togglePasswordVisibility('repeatPassword', 'repeatPassIcon')" class="show-hide fas fa-eye"></i><span class="valid-content"></span><br>
+        <input type="password" name="repeatPassword" id="repeatPassword" class="account-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="repeatPassIcon" onclick="togglePasswordVisibility('repeatPassword', 'repeatPassIcon')" class="show-hide fas fa-eye"></i><span class="valid-content"></span><br>
         <label for="phone" class="account-label">Phone Number</label><br> <!-- phone number validations aren't sufficient, complex -->
         <input type="tel" name="createUser[phone]" class="account-input" minlength="10" maxlength="16" placeholder="XXX-XXX-XXXX" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXX-XXX-XXXX" autocomplete required><span class="valid-content"></span><br>
         <label for="birthday" class="account-label">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
-        <input type="date" name="createUser[birthday]" id="newBirthday" class="account-input" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" autocomplete required><span class="valid-content"></span><br>
+        <input type="date" name="createUser[birthday]" id="newBirthday" class="account-input birthday" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" autocomplete required><span class="valid-content"></span><br>
         <ul id="invalid-fields-list"> <!-- date validations are sufficient -->
         </ul>
-        <input type="submit" name="account-submit" onclick="return validateAccountCreate()" role="button" value="Create Account" class="btn" id="account-button">
+        <input type="submit" name="account-submit" onclick="return validateAccountCreate()" role="button" value="Create Account" class="btn account-button" id="accountCreate">
       </form>
       <div class="account-already">Already have an account? <a id="account-login-link" onclick="displayLoginDialog()">Login</a></div>
     </div>

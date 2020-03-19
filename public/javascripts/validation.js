@@ -56,3 +56,7 @@ function validateKeys(evt, type) {
   function validateAccountLogin() {
       return;
   }
+
+  function validateAccountUpdate() { //can share some functions with AccountCreate
+      return;
+  }

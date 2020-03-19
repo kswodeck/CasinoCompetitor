@@ -158,6 +158,9 @@ app.post('/register', function(req, res){
 app.get('/account', function(req, res){
   res.render('account', {pageTitle: 'My Account'});
 });
+app.put('/account', function(req, res){
+  res.redirect('/account');
+});
 app.get('/dice', function(req, res){
   res.render('dice', {pageTitle: 'Dice'});
 });
