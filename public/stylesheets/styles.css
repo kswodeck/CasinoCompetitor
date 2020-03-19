@@ -328,6 +328,9 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
 .dropdown-toggle::after {
   margin-left: 0;
 }
+#collapse-button-div {
+  text-align: right;
+}
 
 #footer {
   position: fixed;
@@ -665,6 +668,12 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
     #lastNameCol {
       margin-right: 5px;
      }
+     #collapse-button-div {
+      padding: 0;
+    }
+    #hamburger-button {
+      margin-right: 12px;
+    }
 }
 /* medium breakpoint */
 @media (max-width: 767px) {
@@ -674,6 +683,7 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   #main-navbar {
     min-height: none;
     max-height: none;
+    padding: 0.5%;
   }
 }
 @media (max-width: 767px) and (min-width: 575px) {
