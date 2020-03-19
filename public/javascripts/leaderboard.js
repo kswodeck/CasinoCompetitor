@@ -1,3 +1,7 @@
+// var app = require('../../app');
+// var allUsers = app.users;
+// console.log(allUsers.length);
+
 var rowsPerPage = 50;
 var rowsOfData = 0; // total number of rows of data. Get from db
 var totalPages = rowsOfData/rowsPerPage; // total number of pages variable. Based on rowsOfData & rowsPerPage

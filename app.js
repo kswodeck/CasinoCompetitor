@@ -141,6 +141,7 @@ app.get('/leaderboard', function(req, res){
     if (err) {
       console.log(err);
     } else {
+      // module.exports.users = allUsers;
       res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers});
     }
   });
@@ -149,12 +150,12 @@ app.get('/register', function(req, res){
   res.render('register', {pageTitle: 'Create Account'});
 });
 app.post('/register', function(req, res){
-    console.log(req.body.createUser);
     User.create(req.body.createUser, function(err, newlyCreated) {
       if (err) {
         console.log(err);
         res.redirect('/register');
       } else {
+        console.log(newlyCreated);
         res.redirect('/');
       }
     });
