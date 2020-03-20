@@ -141,13 +141,13 @@ app.use(express.static(__dirname + '/public'));
 
 // * APP ROUTES *
 app.get('/', function(req, res){
-  res.render('index', {pageTitle: 'Pocket Poker'});
+  res.render('index', {pageTitle: 'Pocket Poker', isLoggedIn: req.isAuthenticated()});
 });
 app.get('/cards', isLoggedIn, function(req, res){
-  res.render('cards', {pageTitle: 'Competitive Poker'});
+  res.render('cards', {pageTitle: 'Competitive Poker', isLoggedIn: req.isAuthenticated()});
 });
 app.get('/practice-cards', function(req, res){
-  res.render('practice-cards', {pageTitle: 'Practice Poker'});
+  res.render('practice-cards', {pageTitle: 'Practice Poker', isLoggedIn: req.isAuthenticated()});
 });
 app.get('/leaderboard', isLoggedIn, function(req, res){
   User.find({}).sort({coins: -1}).exec(function(err, allUsers) {
@@ -155,12 +155,12 @@ app.get('/leaderboard', isLoggedIn, function(req, res){
       console.log(err);
     } else {
       // module.exports.users = allUsers;
-      res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers});
+      res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers, isLoggedIn: req.isAuthenticated()});
     }
   });
 });
-app.get('/register', function(req, res){
-  res.render('register', {pageTitle: 'Create Account'});
+app.get('/register', isLoggedOut, function(req, res){
+  res.render('register', {pageTitle: 'Create Account', isLoggedIn: req.isAuthenticated()});
 });
 
 // email: String,
@@ -177,7 +177,7 @@ app.post('/register', function(req, res){
     phone: req.body.createUser.phone, birthday: req.body.createUser.birthday}), req.body.password, function(err, user){
       if(err){
           console.log(err);
-          return res.render('register', {pageTitle: 'Create Account'});
+          return res.redirect('/register');
       }
       passport.authenticate('local')(req, res, function(){
         console.log('confirmed authentication');
@@ -187,8 +187,8 @@ app.post('/register', function(req, res){
   });
 });
 
-app.get('/login', function(req, res){
-  res.render('login', {pageTitle: 'Login'});
+app.get('/login', isLoggedOut, function(req, res){
+  res.render('login', {pageTitle: 'Login', isLoggedIn: req.isAuthenticated()});
 });
 app.post('/login', passport.authenticate('local', {
   successRedirect: '/account',
@@ -196,7 +196,7 @@ app.post('/login', passport.authenticate('local', {
 }), function(req, res){
 });
 app.get('/account', isLoggedIn, function(req, res){
-  res.render('account', {pageTitle: 'My Account'});
+  res.render('account', {pageTitle: 'My Account', isLoggedIn: req.isAuthenticated()});
 });
 app.put('/account', function(req, res){
   res.redirect('/account');
@@ -207,10 +207,10 @@ app.get('/logout', isLoggedIn, function(req, res){
   res.redirect("/");
 });
 app.get('/dice', function(req, res){
-  res.render('dice', {pageTitle: 'Dice'});
+  res.render('dice', {pageTitle: 'Dice', isLoggedIn: req.isAuthenticated()});
 });
 app.get('/coin', function(req, res){
-  res.render('coin', {pageTitle: 'Coin'});
+  res.render('coin', {pageTitle: 'Coin', isLoggedIn: req.isAuthenticated()});
 });
 
 function isLoggedIn(req, res, next){
@@ -218,6 +218,12 @@ function isLoggedIn(req, res, next){
       return next();
   }
   res.redirect('/login');
+}
+function isLoggedOut(req, res, next){
+  if(req.isAuthenticated()===false){
+      return next();
+  }
+  res.redirect('/');
 }
 
 app.listen(port, hostname, function(){
