@@ -1,4 +1,5 @@
-var mongoose = require('mongoose');
+var      mongoose = require('mongoose'),
+passportMongoose  = require('passport-local-mongoose');
 
 let curDate = getCurrentDate();
 
@@ -22,5 +23,7 @@ var userSchema = new mongoose.Schema({
   coins: {type: Number, default: 100},
   highestWin: {type: Number, default: 0},
 });
+
+UserSchema.plugin(passportMongoose);
 
 module.exports = mongoose.model("User", userSchema);

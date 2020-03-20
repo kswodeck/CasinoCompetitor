@@ -1,13 +1,12 @@
-var express           = require('express'),
-    bodyParser        = require('body-parser'),
-    mongoose          = require('mongoose'),
-    methodOverride    = require('method-override'),
-    passport          = require('passport'),
-    passportLocal     = require('passport-local'),
-    passportMongoose  = require('passport-local-mongoose'),
-    session           = require('express-session'),
-    app               = express(),
-    User              = require('./models/user');
+var express = require('express'),
+  bodyParser = require('body-parser'),
+  mongoose = require('mongoose'),
+  methodOverride = require('method-override'),
+  passport = require('passport');
+localStrategy = require('passport-local'),
+  passportMongoose = require('passport-local-mongoose'),
+  session = require('express-session'),
+  User = require('./models/user');
 
 // var createError = require('http-errors');
 // var path = require('path');
@@ -19,11 +18,23 @@ var express           = require('express'),
 const connectionString = 'mongodb+srv://kswodeck:Kmswo123!@pocketpoker1-zl3ub.mongodb.net/pocketpoker?retryWrites=true&w=majority';
 const hostname = '127.0.0.1';
 const port = process.env.PORT || 3000;
-mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+var app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(require('express-session')({
+  secret: 'This is a secret',
+  resave: false,
+  saveUninitialized: false
+}));
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // async function createUser(username) {
 //   return new User({
@@ -150,15 +161,25 @@ app.get('/register', function(req, res){
   res.render('register', {pageTitle: 'Create Account'});
 });
 app.post('/register', function(req, res){
-    User.create(req.body.createUser, function(err, newlyCreated) {
+    User.register(new User(req.body.createUser), req.body.password, function(err, newlyCreated) {
       if (err) {
         console.log(err);
-        res.redirect('/register');
-      } else {
+        return res.render('/register');
+      }
+        passport.authenticate('local')(req, res, function(){
+          res.redirect('/secret');
+        });
         console.log(newlyCreated);
         res.redirect('/');
-      }
     });
+});
+app.get('/login', function(req, res){
+  res.render('/login');
+});
+app.post('/login', password.authenticate('local', {
+  successRedirect: '/secret',
+  failureRedirect: '/login'
+}), function(req, res){
 });
 app.get('/account', function(req, res){
   res.render('account', {pageTitle: 'My Account'});

@@ -3,7 +3,7 @@
       <button id="loginDialogExit" class="exit-dialog-button" onclick="exitDialog('loginDialog')" >✖</button>
     </div>
     <h2 id="loginHeading" class="account-heading login-heading">Login to Pocket Poker</h2>
-    <form method="GET">
+    <form action="/login" method="POST">
       <label for="username" class="account-label">Username</label><br>
       <input type="text" name="username" class="account-input" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete required><span class="valid-content"></span><br>
       <label for="password" class="account-label">Password</label><br>
