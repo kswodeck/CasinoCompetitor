@@ -485,12 +485,16 @@ input.account-input:disabled {
   color: black;
 }
 
-#loginDialog, #forgotPWDialog, #forgotUserDialog {
+#loginDialog, #forgotPWDialog, #forgotUserDialog, #logoutDialog {
   border-radius: 0;
   top: calc(10vh + 10%);
   padding: 0;
 }
-#outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #loginDialog, #forgotPWDialog, #forgotUserDialog {
+#logoutDialog {
+  margin-top: 20px;
+  width: calc(80px + 30%);
+}
+#outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #loginDialog, #forgotPWDialog, #forgotUserDialog, #logoutDialog {
   margin: 0 auto;
   transition: all 0.4s;
 }

@@ -5,7 +5,8 @@ var express             = require('express'),
   User                  = require('./models/user'),
   LocalStrategy         = require('passport-local'),
   passportLocalMongoose = require('passport-local-mongoose'),
-  session               = require('express-session');
+  session               = require('express-session'),
+  timeout               = require('connect-timeout');
   // methodOverride        = require('method-override');
 
 // var createError = require('http-errors');
@@ -37,6 +38,10 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+function haltOnTimedout(req, res, next){
+  if (!req.timedout) next();
+}
 
 // async function createUser(username) {
 //   return new User({
@@ -202,6 +207,13 @@ app.put('/account', function(req, res){
   res.redirect('/account');
 });
 app.get('/logout', isLoggedIn, function(req, res){
+//   res.render('logout');
+//   app.use(function(req, res, next){
+//     res.setTimeout(500, function(){
+//     });
+//     next();
+// });
+  // call back function is called when request timed out.
   req.logout();
   //show logout popup for about 10 seconds or until "OK" is pressed
   res.redirect("/");
@@ -226,7 +238,7 @@ function isLoggedOut(req, res, next){
   res.redirect('/');
 }
 
-app.listen(port, hostname, function(){
+var server = app.listen(port, hostname, function(){
   console.log('App running on ' + hostname + ':' + port)
 });
 

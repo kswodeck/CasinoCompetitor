@@ -20,8 +20,13 @@
             <div class="col-4 main-dropdown header-div">
               <a class="secondary-link dropdown-toggle" href="/" role="button" id="dropdownMainLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pocket Poker</a>
               <div class="dropdown-menu" id="mainDropdown" aria-labelledby="dropdownMainLink">
+                <% if (isLoggedIn===false){ %>
                 <a class="secondary-link dropdown-item px-md-1 p-0" href="register">Sign Up</a>
                 <a class="secondary-link dropdown-item px-md-1 p-0" onclick="displayLoginDialog()" href="#">Log In</a>
+                <% } else { %>
+                <a class="secondary-link dropdown-item px-md-1 p-0" href="account">My Account</a>
+                <a class="secondary-link dropdown-item px-md-1 p-0" href="/logout">Log Out</a>
+                <% } %>
               </div>
             </div>
                 <div id="linksDropdown" class="col-4 header-div">
