@@ -1,12 +1,12 @@
-var express = require('express'),
-  bodyParser = require('body-parser'),
-  mongoose = require('mongoose'),
-  methodOverride = require('method-override'),
-  passport = require('passport');
-localStrategy = require('passport-local'),
-  passportMongoose = require('passport-local-mongoose'),
-  session = require('express-session'),
-  User = require('./models/user');
+var express             = require('express'),
+  mongoose              = require('mongoose'),
+  passport              = require('passport'),
+  bodyParser            = require('body-parser'),
+  User                  = require('./models/user'),
+  LocalStrategy         = require('passport-local'),
+  passportLocalMongoose = require('passport-local-mongoose'),
+  session               = require('express-session');
+  // methodOverride        = require('method-override');
 
 // var createError = require('http-errors');
 // var path = require('path');
@@ -18,12 +18,12 @@ localStrategy = require('passport-local'),
 const connectionString = 'mongodb+srv://kswodeck:Kmswo123!@pocketpoker1-zl3ub.mongodb.net/pocketpoker?retryWrites=true&w=majority';
 const hostname = '127.0.0.1';
 const port = process.env.PORT || 3000;
-mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true});
 var app = express();
 app.set('view engine', 'ejs');
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(methodOverride('_method'));
+// app.use(methodOverride('_method'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(require('express-session')({
@@ -32,6 +32,8 @@ app.use(require('express-session')({
   saveUninitialized: false
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -160,32 +162,48 @@ app.get('/leaderboard', function(req, res){
 app.get('/register', function(req, res){
   res.render('register', {pageTitle: 'Create Account'});
 });
+
+// email: String,
+// username: String,
+// password: String,
+// firstName: String,
+// lastName: String,
+// phone: String,
+// birthday: Date,
+
 app.post('/register', function(req, res){
-    User.register(new User(req.body.createUser), req.body.password, function(err, newlyCreated) {
-      if (err) {
-        console.log(err);
-        return res.render('/register');
+  User.register(new User({email: req.body.createUser.email, username: req.body.username,
+    firstName: req.body.createUser.firstName, lastName: req.body.createUser.lastName,
+    phone: req.body.createUser.phone, birthday: req.body.createUser.birthday}), req.body.password, function(err, user){
+      if(err){
+          console.log(err);
+          return res.render('register', {pageTitle: 'Create Account'});
       }
-        passport.authenticate('local')(req, res, function(){
-          res.redirect('/secret');
-        });
-        console.log(newlyCreated);
-        res.redirect('/');
-    });
+      passport.authenticate('local')(req, res, function(){
+        console.log('confirmed authentication');
+         res.redirect('/account');
+      });
+      console.log(user);
+  });
 });
+
 app.get('/login', function(req, res){
-  res.render('/login');
+  res.render('login', {pageTitle: 'Login'});
 });
-app.post('/login', password.authenticate('local', {
-  successRedirect: '/secret',
+app.post('/login', passport.authenticate('local', {
+  successRedirect: '/account',
   failureRedirect: '/login'
 }), function(req, res){
 });
-app.get('/account', function(req, res){
+app.get('/account', isLoggedIn, function(req, res){
   res.render('account', {pageTitle: 'My Account'});
 });
 app.put('/account', function(req, res){
   res.redirect('/account');
+});
+app.get("/logout", function(req, res){
+  req.logout();
+  res.redirect("/");
 });
 app.get('/dice', function(req, res){
   res.render('dice', {pageTitle: 'Dice'});
@@ -193,6 +211,13 @@ app.get('/dice', function(req, res){
 app.get('/coin', function(req, res){
   res.render('coin', {pageTitle: 'Coin'});
 });
+
+function isLoggedIn(req, res, next){
+  if(req.isAuthenticated()){
+      return next();
+  }
+  res.redirect('/login');
+}
 
 app.listen(port, hostname, function(){
   console.log('App running on ' + hostname + ':' + port)

@@ -1,5 +1,5 @@
-var      mongoose = require('mongoose'),
-passportMongoose  = require('passport-local-mongoose');
+var          mongoose = require('mongoose'),
+passportLocalMongoose = require('passport-local-mongoose');
 
 let curDate = getCurrentDate();
 
@@ -9,7 +9,7 @@ function getCurrentDate() {
   return dateReturned;
 }
 
-var userSchema = new mongoose.Schema({
+var UserSchema = new mongoose.Schema({
   email: String,
   username: String,
   password: String,
@@ -24,6 +24,6 @@ var userSchema = new mongoose.Schema({
   highestWin: {type: Number, default: 0},
 });
 
-UserSchema.plugin(passportMongoose);
+UserSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", UserSchema);
