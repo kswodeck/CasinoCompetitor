@@ -143,13 +143,13 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', function(req, res){
   res.render('index', {pageTitle: 'Pocket Poker'});
 });
-app.get('/cards', function(req, res){
+app.get('/cards', isLoggedIn, function(req, res){
   res.render('cards', {pageTitle: 'Competitive Poker'});
 });
 app.get('/practice-cards', function(req, res){
   res.render('practice-cards', {pageTitle: 'Practice Poker'});
 });
-app.get('/leaderboard', function(req, res){
+app.get('/leaderboard', isLoggedIn, function(req, res){
   User.find({}).sort({coins: -1}).exec(function(err, allUsers) {
     if (err) {
       console.log(err);
@@ -201,8 +201,9 @@ app.get('/account', isLoggedIn, function(req, res){
 app.put('/account', function(req, res){
   res.redirect('/account');
 });
-app.get("/logout", function(req, res){
+app.get('/logout', isLoggedIn, function(req, res){
   req.logout();
+  //show logout popup for about 10 seconds or until "OK" is pressed
   res.redirect("/");
 });
 app.get('/dice', function(req, res){

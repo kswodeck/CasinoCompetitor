@@ -480,8 +480,9 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   text-decoration: underline;
 }
 input.account-input:disabled {
-  background-color: silver;
-  color: rgb(50,50,50);
+  background-color: aliceblue;
+  opacity: 0.9;
+  color: black;
 }
 
 #loginDialog, #forgotPWDialog, #forgotUserDialog {
