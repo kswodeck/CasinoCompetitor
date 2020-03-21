@@ -6,8 +6,7 @@ var express             = require('express'),
   LocalStrategy         = require('passport-local'),
   passportLocalMongoose = require('passport-local-mongoose'),
   session               = require('express-session'),
-  timeout               = require('connect-timeout');
-  // methodOverride        = require('method-override');
+  methodOverride        = require('method-override');
 
 // var createError = require('http-errors');
 // var path = require('path');
@@ -22,9 +21,9 @@ const port = process.env.PORT || 3000;
 mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true});
 var app = express();
 app.set('view engine', 'ejs');
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(methodOverride('_method'));
+app.use(methodOverride('_method'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(require('express-session')({
@@ -146,7 +145,11 @@ app.use(express.static(__dirname + '/public'));
 
 // * APP ROUTES *
 app.get('/', function(req, res){
-  res.render('index', {pageTitle: 'Pocket Poker', isLoggedIn: req.isAuthenticated()});
+  let loggedUser = '';
+  if (req.isAuthenticated() === true) {
+    loggedUser = req.user.username;
+  }
+  res.render('index', {pageTitle: 'Pocket Poker', isLoggedIn: req.isAuthenticated(), fromLogout: false, welcomeUser: loggedUser});
 });
 app.get('/cards', isLoggedIn, function(req, res){
   res.render('cards', {pageTitle: 'Competitive Poker', isLoggedIn: req.isAuthenticated()});
@@ -168,14 +171,6 @@ app.get('/register', isLoggedOut, function(req, res){
   res.render('register', {pageTitle: 'Create Account', isLoggedIn: req.isAuthenticated()});
 });
 
-// email: String,
-// username: String,
-// password: String,
-// firstName: String,
-// lastName: String,
-// phone: String,
-// birthday: Date,
-
 app.post('/register', function(req, res){
   User.register(new User({email: req.body.createUser.email, username: req.body.username,
     firstName: req.body.createUser.firstName, lastName: req.body.createUser.lastName,
@@ -196,7 +191,7 @@ app.get('/login', isLoggedOut, function(req, res){
   res.render('login', {pageTitle: 'Login', isLoggedIn: req.isAuthenticated()});
 });
 app.post('/login', passport.authenticate('local', {
-  successRedirect: '/account',
+  successRedirect: '/',
   failureRedirect: '/login'
 }), function(req, res){
 });
@@ -207,16 +202,8 @@ app.put('/account', function(req, res){
   res.redirect('/account');
 });
 app.get('/logout', isLoggedIn, function(req, res){
-//   res.render('logout');
-//   app.use(function(req, res, next){
-//     res.setTimeout(500, function(){
-//     });
-//     next();
-// });
-  // call back function is called when request timed out.
   req.logout();
-  //show logout popup for about 10 seconds or until "OK" is pressed
-  res.redirect("/");
+  res.render('index', {pageTitle: 'Pocket Poker', isLoggedIn: req.isAuthenticated(), fromLogout: true});
 });
 app.get('/dice', function(req, res){
   res.render('dice', {pageTitle: 'Dice', isLoggedIn: req.isAuthenticated()});

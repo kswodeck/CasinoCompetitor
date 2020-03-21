@@ -3,7 +3,32 @@
 <div id="mid-container">
   <h1 id="home-heading" class="mb-md-3 mb-sm-2 mb-1"><span id="welcome-home">Welcome to</span><br />Pocket Poker</h1>
   <img src="images\pocket-poker.png" alt="PocketPoker" id="home-logo" class="m-auto img-fluid">
+  <% if (isLoggedIn === true){ %>
+  <h3 id="usernameHome" class="username-welcome"><%= welcomeUser %></h3>
+  <% } %>
 </div>
+<dialog id="logoutDialog" class="container-fluid account-form-div">
+  <div class ="exit-button-div">
+    <button id="logoutDialogExit" class="exit-dialog-button" onclick="exitDialog('logoutDialog')" >✖</button>
+  </div>
+  <h2 id="logoutHeading" class="account-heading login-heading">You've been logged out</h2>
+    <div id="logoutDialogDiv" class="row justify-content-around">
+      <div class="col">
+        <button id="logoutLoginButton" class="btn cancelbutton" onclick="location.href='/login'">Log In</button>
+      </div>
+      <div class="col">
+        <button id="logoutRegisterButton" class="btn cancelbutton" onclick="location.href='/register'">Sign Up</button>
+      </div>
+    </div>
+  </dialog>
+
+<% if (fromLogout === true){ %>
+<script>
+  window.onload = function() {
+    displayLogoutDialog();
+  };
+</script>
+<% } %>
 
 <%- include('partials/logindialogs') %>
 <%- include('partials/footer') %>

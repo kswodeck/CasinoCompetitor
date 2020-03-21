@@ -1,23 +1,13 @@
 <%- include('partials/header') %>
 
-<div id="loginDialog" class="container-fluid account-form-div">
-    <div class ="exit-button-div">
-      <button id="loginDialogExit" class="exit-dialog-button" onclick="exitDialog('loginDialog')" >✖</button>
-    </div>
-    <h2 id="loginHeading" class="account-heading login-heading">Login to Pocket Poker</h2>
-    <form action="/login" method="POST">
-      <label for="username" class="account-label">Username</label><br>
-      <input type="text" name="username" class="account-input" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete required><span class="valid-content"></span><br>
-      <label for="password" class="account-label">Password</label><br>
-      <input type="password" name="password" id="loginPassword" class="account-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="loginPassIcon" onclick="togglePasswordVisibility('loginPassword', 'loginPassIcon')" class="show-hide fas fa-eye"></i><span class="valid-content"></span><br>
-      <span class="invalid-account-message"></span>
-      <input type="submit" name="login-submit" onclick="validateAccountLogin()" role="button" value="Log In" class="btn" id="login-button">
-    </form>
-    <div class="account-already">
-      <a id="forgot-user-link" onclick="displayForgotDialog('forgotUserDialog')">Recover Username</a> |
-      <a id="forgot-pw-link" onclick="displayForgotDialog('forgotPWDialog')">Recover Password</a>
-    </div>
-  </div>
+<div id="mid-container">
+</div>
+
+<script>
+  window.onload = function() {
+    displayLoginDialog(true);
+  };
+</script>
   
 <%- include('partials/logindialogs') %>
 <%- include('partials/footer') %>

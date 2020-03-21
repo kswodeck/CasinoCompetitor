@@ -1,13 +1,33 @@
 var isLoggedIn = false;
 
-function displayLoginDialog(){
+function displayLoginDialog(loginPage){
     const loginDialog = document.getElementById('loginDialog');
+    if (loginPage === true) {
+      const exitButton = document.getElementById('loginDialogExit')
+      exitButton.setAttribute('onclick', "location.href='/'");
+      // exitButton.setAttribute('href', '/coin');
+    }
     if (typeof loginDialog.showModal === 'function') {
       loginDialog.showModal();
       document.getElementById('mid-container').style.display = 'none';
     } else {
       console.log('The <dialog> API is not supported by this browser');
     }
+}
+
+function displayLogoutDialog(){
+  const logoutDialog = document.getElementById('logoutDialog');
+  const container = document.getElementById('mid-container');
+  if (typeof logoutDialog.showModal === 'function') {
+    logoutDialog.showModal();
+    container.style.display = 'none';
+    setTimeout(function() {
+      logoutDialog.close();
+      container.style.display = 'block';
+    }, 80000);
+  } else {
+    console.log('The <dialog> API is not supported by this browser');
+  }
 }
 
 function displayForgotDialog(newDialog){
