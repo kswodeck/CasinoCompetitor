@@ -45,7 +45,7 @@ function exitDialog(currentDialog){
     document.getElementById('mid-container').style.display = 'block';
 }
 
-function backToLoginDialog(currentDialog){
+function backFromDialog(currentDialog){
     document.getElementById(currentDialog).close();
     document.getElementById('loginDialog').showModal();
 }
@@ -61,5 +61,17 @@ function togglePasswordVisibility(passwordId, iconId){
     passwordInput.type = 'password';
     passwordIcon.classList.remove('fa-eye-slash');
     passwordIcon.classList.add('fa-eye');
+  }
+}
+
+function displayEditPassword(updateDialog){
+  const editDialog = document.getElementById(updateDialog);
+  // const updatePassword = document.getElementById('updatePassword');
+  if (typeof editDialog.showModal == 'function') {
+    console.log(editDialog);
+    editDialog.showModal();
+    document.getElementById('mid-container').style.display = 'none';
+  } else {
+    console.log('The <dialog> API is not supported by this browser');
   }
 }

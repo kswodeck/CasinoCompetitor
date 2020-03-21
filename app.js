@@ -195,7 +195,7 @@ app.post('/login', passport.authenticate('local', {
   failureRedirect: '/login'
 }), function(req, res){
 });
-app.get('/account', isLoggedIn, function(req, res){
+app.get('/account', function(req, res){
   res.render('account', {pageTitle: 'My Account', isLoggedIn: req.isAuthenticated()});
 });
 app.put('/account', function(req, res){
