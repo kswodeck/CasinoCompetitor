@@ -2,11 +2,9 @@ var express             = require('express'),
   mongoose              = require('mongoose'),
   passport              = require('passport'),
   bodyParser            = require('body-parser'),
-  User                  = require('./models/user'),
   LocalStrategy         = require('passport-local'),
-  passportLocalMongoose = require('passport-local-mongoose'),
-  session               = require('express-session'),
-  methodOverride        = require('method-override');
+  methodOverride        = require('method-override'),
+  User                  = require('./models/user');
 
 // var createError = require('http-errors');
 // var path = require('path');
@@ -20,23 +18,28 @@ const hostname = '127.0.0.1';
 const port = process.env.PORT || 3000;
 mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true});
 var app = express();
-app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-app.use(passport.initialize());
-app.use(passport.session());
+app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/public'));
+
+// Passport configuration
 app.use(require('express-session')({
   secret: 'This is a secret',
   resave: false,
   saveUninitialized: false
 }));
-
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.use(function(req, res, next){
+  res.locals.currentUser = req.user;
+  next();
+});
 
 // async function createUser(username) {
 //   return new User({
@@ -137,8 +140,6 @@ passport.deserializeUser(User.deserializeUser());
 //   res.render('error');
 // });
 
-app.use(express.static(__dirname + '/public'));
-
 // * APP ROUTES *
 app.get('/', function(req, res){
   let loggedUser = '';
@@ -169,20 +170,17 @@ app.get('/register', isLoggedOut, function(req, res){
   res.render('register', {pageTitle: 'Create Account', isLoggedIn: false, error: false});
 });
 app.post('/register', function(req, res){
-  // var newUser = new User({email: req.body.createUser.email, username: req.body.createUser.username, firstName: req.body.createUser.firstName, lastName: req.body.createUser.lastName, phone: req.body.createUser.phone, birthday: req.body.createUser.birthday});
-  //try refactor to req.body.createUser
-  //no curly braces
-  var newUser = new User(req.body.createUser);
+  var newUser = new User({email: req.body.createUser.email, username: req.body.username, firstName: req.body.createUser.firstName, lastName: req.body.createUser.lastName, phone: req.body.createUser.phone, birthday: req.body.createUser.birthday});
+  // try refactor to req.body.createUser, no curly braces
+  // var newUser = new User({username: req.body.username}, req.body.createUser);
   User.register(newUser, req.body.password, function(err, user){
       if(err){
         console.log("Error: " + err);
         return res.render('register', {pageTitle: 'Create Account', isLoggedIn: false, error: true, message: err.message});
       }
-      // console.log(user);
+      console.log(user);
       passport.authenticate('local')(req, res, function(){
-        //This is failing
-        console.log('Made it just before redirect');
-         res.redirect('/account');
+        res.redirect('/account');
       });
   });
 });
@@ -195,17 +193,16 @@ app.post('/login', passport.authenticate('local', {
   failureRedirect: '/login'
 }), function(req, res){
 });
+app.get('/logout', isLoggedIn, function(req, res){
+  req.logout();
+  res.render('index', {pageTitle: 'Pocket Poker', isLoggedIn: false, fromLogout: true});
+});
 
 app.get('/account', isLoggedIn, function(req, res){
   res.render('account', {pageTitle: 'My Account', isLoggedIn: true});
 });
 app.put('/account', function(req, res){
   res.redirect('/account');
-});
-
-app.get('/logout', isLoggedIn, function(req, res){
-  req.logout();
-  res.render('index', {pageTitle: 'Pocket Poker', isLoggedIn: false, fromLogout: true});
 });
 
 app.get('/dice', function(req, res){

@@ -286,10 +286,13 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   z-index: 10;
 }
 
-#header a:hover, .invalid-list, #account-login-link:hover, #current-link, #practice-mode-link:hover, #forgot-pw-link:hover, #forgot-user-link:hover, .back-button-label:hover, #forgotUserBackArrow:hover, #forgotPWBackArrow:hover, #updatePWBackArrow:hover {
+#header a:hover, #account-login-link:hover, #current-link, #practice-mode-link:hover, #forgot-pw-link:hover, #forgot-user-link:hover, .back-button-label:hover, #forgotUserBackArrow:hover, #forgotPWBackArrow:hover, #updatePWBackArrow:hover {
   color: crimson;
   cursor: pointer;
   transition: all 0.4s;
+}
+.invalid-list {
+  color: crimson;
 }
 #header a:active, #account-login-link:active, #practice-mode-link:active, #forgot-pw-link:active, #forgot-user-link:active, .back-button-label:active, #forgotUserBackArrow:active, #forgotPWBackArrow:active, #updatePWBackArrow:active {
   color: var(--darkcrimson);

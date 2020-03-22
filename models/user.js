@@ -10,8 +10,8 @@ function getCurrentDate() {
 }
 
 var UserSchema = new mongoose.Schema({
-  email: String,
-  username: String,
+  email: String, //try to make unique
+  username: String, //try to make unique
   password: String,
   firstName: String,
   lastName: String,
