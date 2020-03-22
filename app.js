@@ -157,7 +157,7 @@ app.get('/practice-cards', function(req, res){
 app.get('/leaderboard', isLoggedIn, function(req, res){
   User.find({}).sort({coins: -1}).exec(function(err, allUsers) {
     if (err) {
-      console.log(err);
+      return console.log(err);
     } else {
       // module.exports.users = allUsers;
       res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers, isLoggedIn: true});
@@ -169,16 +169,19 @@ app.get('/register', isLoggedOut, function(req, res){
   res.render('register', {pageTitle: 'Create Account', isLoggedIn: false, error: false});
 });
 app.post('/register', function(req, res){
-  let newUser = new User({email: req.body.createUser.email, username: req.body.username, firstName: req.body.createUser.firstName, lastName: req.body.createUser.lastName, phone: req.body.createUser.phone, birthday: req.body.createUser.birthday});
+  // var newUser = new User({email: req.body.createUser.email, username: req.body.createUser.username, firstName: req.body.createUser.firstName, lastName: req.body.createUser.lastName, phone: req.body.createUser.phone, birthday: req.body.createUser.birthday});
   //try refactor to req.body.createUser
   //no curly braces
+  var newUser = new User(req.body.createUser);
   User.register(newUser, req.body.password, function(err, user){
       if(err){
-        console.log(err);
+        console.log("Error: " + err);
         return res.render('register', {pageTitle: 'Create Account', isLoggedIn: false, error: true, message: err.message});
       }
-      console.log(user);
+      // console.log(user);
       passport.authenticate('local')(req, res, function(){
+        //This is failing
+        console.log('Made it just before redirect');
          res.redirect('/account');
       });
   });
@@ -193,7 +196,7 @@ app.post('/login', passport.authenticate('local', {
 }), function(req, res){
 });
 
-app.get('/account', function(req, res){
+app.get('/account', isLoggedIn, function(req, res){
   res.render('account', {pageTitle: 'My Account', isLoggedIn: true});
 });
 app.put('/account', function(req, res){

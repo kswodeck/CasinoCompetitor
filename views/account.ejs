@@ -7,23 +7,23 @@
           <div class="name-row row">
             <div id="firstNameCol" class="name-col col">
               <label for="firstName" class="account-label account-name-label">First Name</label><br>
-              <input type="text" name="updateUser[firstName]" id="firstName" class="account-input account-name-input" minlength="1" maxlength="30" value="first" size="20" autofocus autocomplete disabled><i class="fas fa-pencil-alt edit-icon input-icon"></i><span class="valid-content"></span>
+              <input type="text" name="updateUser[firstName]" id="firstName" class="account-input account-name-input my-account" minlength="1" maxlength="30" value="first" size="20" autofocus autocomplete disabled><i class="fas fa-pencil-alt edit-icon input-icon"></i><span class="valid-content"></span>
             </div>
             <div id="lastNameCol" class="name-col col">
               <label for="lastName" class="account-label account-name-label">Last Name</label><br>
-              <input type="text" name="updateUser[lastName]" id="lastName" class="account-input account-name-input" minlength="1" maxlength="40" value="last" size="20" autocomplete disabled><i class="fas fa-pencil-alt edit-icon input-icon"></i><span class="valid-content"></span>
+              <input type="text" name="updateUser[lastName]" id="lastName" class="account-input account-name-input my-account" minlength="1" maxlength="40" value="last" size="20" autocomplete disabled><i class="fas fa-pencil-alt edit-icon input-icon"></i><span class="valid-content"></span>
             </div>
           </div>
           <label for="email" class="account-label">Email</label><br> <!-- email validations aren't fully sufficient -->
-          <input type="email" name="updateUser[email]" id="updateEmail" class="account-input" minlength="8" maxlength="60" value="username@domain.com" size="40" autocomplete disabled><i class="fas fa-pencil-alt edit-icon input-icon"></i><span class="valid-content"></span><br>
+          <input type="email" name="updateUser[email]" id="updateEmail" class="account-input my-account" minlength="8" maxlength="60" value="username@domain.com" size="40" autocomplete disabled><i class="fas fa-pencil-alt edit-icon input-icon"></i><span class="valid-content"></span><br>
           <label for="username" class="account-label">Username</label><br> <!-- username validations are sufficient -->
-          <input type="text" name="updateUser[username]" class="account-input" minlength="5" maxlength="20" value="username" size="25" autocomplete disabled><i class="fas fa-pencil-alt edit-icon input-icon"></i><span class="valid-content"></span><br>
+          <input type="text" name="updateUser[username]" class="account-input my-account" minlength="5" maxlength="20" value="username" size="25" autocomplete disabled><i class="fas fa-pencil-alt edit-icon input-icon"></i><span class="valid-content"></span><br>
           <label for="accountPassword" class="account-label">Password</label><br> <!-- password validations aren't fully sufficient -->
-          <input type="password" name="updateUser[password]" id="accountPassword" class="account-input" minlength="5" maxlength="20" value="password" size="25" autocomplete disabled><i class="fas fa-pencil-alt edit-icon input-icon" onclick="displayEditPassword('updatePWDialog')"></i><span class="valid-content"></span><br>
+          <input type="password" name="updateUser[password]" id="accountPassword" class="account-input my-account" minlength="5" maxlength="20" value="password" size="25" autocomplete disabled><i class="fas fa-pencil-alt edit-icon input-icon" onclick="displayEditPassword('updatePWDialog')"></i><span class="valid-content"></span><br>
           <label for="phone" class="account-label">Phone Number</label><br> <!-- phone number validations aren't sufficient, complex -->
-          <input type="tel" name="updateUser[phone]" class="account-input" minlength="10" maxlength="16" value="XXX-XXX-XXXX" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXX-XXX-XXXX" autocomplete disabled><i class="fas fa-pencil-alt edit-icon input-icon"></i><span class="valid-content"></span><br>
+          <input type="tel" name="updateUser[phone]" class="account-input my-account" minlength="10" maxlength="16" value="XXX-XXX-XXXX" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXX-XXX-XXXX" autocomplete disabled><i class="fas fa-pencil-alt edit-icon input-icon"></i><span class="valid-content"></span><br>
           <label for="birthday" class="account-label">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
-          <input type="date" name="updateUser[birthday]" id="updateBirthday" class="account-input birthday" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" autocomplete disabled><i class="fas fa-pencil-alt edit-icon input-icon"></i><span class="valid-content"></span><br>
+          <input type="date" name="updateUser[birthday]" id="updateBirthday" class="account-input birthday my-account" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" autocomplete disabled><i class="fas fa-pencil-alt edit-icon input-icon"></i><span class="valid-content"></span><br>
           <ul id="invalid-fields-list"> <!-- date validations are sufficient -->
           </ul>
           <input type="submit" name="account-update" onclick="return validateAccountUpdate()" role="button" value="Update Account" class="btn account-button" id="accountUpdate" disabled>
