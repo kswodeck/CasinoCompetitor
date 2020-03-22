@@ -38,10 +38,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-function haltOnTimedout(req, res, next){
-  if (!req.timedout) next();
-}
-
 // async function createUser(username) {
 //   return new User({
 //     username,
@@ -151,8 +147,9 @@ app.get('/', function(req, res){
   }
   res.render('index', {pageTitle: 'Pocket Poker', isLoggedIn: req.isAuthenticated(), fromLogout: false, welcomeUser: loggedUser});
 });
+
 app.get('/cards', isLoggedIn, function(req, res){
-  res.render('cards', {pageTitle: 'Competitive Poker', isLoggedIn: req.isAuthenticated()});
+  res.render('cards', {pageTitle: 'Competitive Poker', isLoggedIn: true});
 });
 app.get('/practice-cards', function(req, res){
   res.render('practice-cards', {pageTitle: 'Practice Poker', isLoggedIn: req.isAuthenticated()});
@@ -163,48 +160,51 @@ app.get('/leaderboard', isLoggedIn, function(req, res){
       console.log(err);
     } else {
       // module.exports.users = allUsers;
-      res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers, isLoggedIn: req.isAuthenticated()});
+      res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers, isLoggedIn: true});
     }
   });
 });
-app.get('/register', isLoggedOut, function(req, res){
-  res.render('register', {pageTitle: 'Create Account', isLoggedIn: req.isAuthenticated()});
-});
 
+app.get('/register', isLoggedOut, function(req, res){
+  res.render('register', {pageTitle: 'Create Account', isLoggedIn: false, error: false});
+});
 app.post('/register', function(req, res){
-  User.register(new User({email: req.body.createUser.email, username: req.body.username,
-    firstName: req.body.createUser.firstName, lastName: req.body.createUser.lastName,
-    phone: req.body.createUser.phone, birthday: req.body.createUser.birthday}), req.body.password, function(err, user){
+  let newUser = new User({email: req.body.createUser.email, username: req.body.username, firstName: req.body.createUser.firstName, lastName: req.body.createUser.lastName, phone: req.body.createUser.phone, birthday: req.body.createUser.birthday});
+  //try refactor to req.body.createUser
+  //no curly braces
+  User.register(newUser, req.body.password, function(err, user){
       if(err){
-          console.log(err);
-          return res.redirect('/register');
+        console.log(err);
+        return res.render('register', {pageTitle: 'Create Account', isLoggedIn: false, error: true, message: err.message});
       }
+      console.log(user);
       passport.authenticate('local')(req, res, function(){
-        console.log('confirmed authentication');
          res.redirect('/account');
       });
-      console.log(user);
   });
 });
 
 app.get('/login', isLoggedOut, function(req, res){
-  res.render('login', {pageTitle: 'Login', isLoggedIn: req.isAuthenticated()});
+  res.render('login', {pageTitle: 'Login', isLoggedIn: false});
 });
 app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login'
 }), function(req, res){
 });
+
 app.get('/account', function(req, res){
-  res.render('account', {pageTitle: 'My Account', isLoggedIn: req.isAuthenticated()});
+  res.render('account', {pageTitle: 'My Account', isLoggedIn: true});
 });
 app.put('/account', function(req, res){
   res.redirect('/account');
 });
+
 app.get('/logout', isLoggedIn, function(req, res){
   req.logout();
-  res.render('index', {pageTitle: 'Pocket Poker', isLoggedIn: req.isAuthenticated(), fromLogout: true});
+  res.render('index', {pageTitle: 'Pocket Poker', isLoggedIn: false, fromLogout: true});
 });
+
 app.get('/dice', function(req, res){
   res.render('dice', {pageTitle: 'Dice', isLoggedIn: req.isAuthenticated()});
 });

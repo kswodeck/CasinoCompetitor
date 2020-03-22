@@ -17,7 +17,7 @@
         <label for="email" class="account-label">Email</label><br> <!-- email validations aren't fully sufficient -->
         <input type="email" name="createUser[email]" id="newEmail" class="account-input" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autocomplete required><span class="valid-content"></span><br>
         <label for="username" class="account-label">Username</label><br> <!-- username validations are sufficient -->
-        <input type="text" name="username" class="account-input" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete required><span class="valid-content"></span><br>
+        <input type="text" name="createUser[username]" class="account-input" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete required><span class="valid-content"></span><br>
         <label for="password" class="account-label">Password</label><br> <!-- password validations aren't fully sufficient -->
         <input type="password" name="password" id="newPassword" class="account-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="newPassIcon" onclick="togglePasswordVisibility('newPassword', 'newPassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="valid-content"></span><br>
         <label for="repeatPassword" class="account-label">Repeat Password</label><br>
