@@ -10,13 +10,13 @@ function getCurrentDate() {
 }
 
 var UserSchema = new mongoose.Schema({
-  email: String, //try to make unique
-  username: String, //try to make unique
-  password: String,
-  firstName: String,
-  lastName: String,
-  phone: String,
-  birthday: Date,
+  email: {type: String, minlength: 18, maxlength: 65}, //try to make unique, "unique :true" doesn't work
+  username: {type: String, minlength: 5, maxlength: 20}, //try to make unique, "unique :true" doesn't work
+  password: {type: String, minlength: 5, maxlength: 20},
+  firstName: {type: String, minlength: 1, maxlength: 30},
+  lastName: {type: String, minlength: 1, maxlength: 50},
+  phone: {type: String, minlength: 10, maxlength: 20},
+  birthday: {type: Date, min: "1920-01-01", max: "2019-12-31"},
   created: {type: Date, default: curDate},
   lastLogin: {type: Date, default: curDate},
   loginStreak: {type: Number, default: 1},

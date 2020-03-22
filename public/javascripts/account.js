@@ -24,7 +24,7 @@ function displayLogoutDialog(){
     setTimeout(function() {
       logoutDialog.close();
       container.style.display = 'block';
-    }, 80000);
+    }, 8000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
@@ -74,4 +74,9 @@ function displayEditPassword(updateDialog){
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
+}
+
+function convertDateToNoon(dateInput){
+  const date = document.getElementById(dateInput);
+  date.value = date.value + 'T12:00:00';
 }

@@ -3,6 +3,7 @@ var express             = require('express'),
   passport              = require('passport'),
   bodyParser            = require('body-parser'),
   LocalStrategy         = require('passport-local'),
+  moment                = require('moment'),
   methodOverride        = require('method-override'),
   User                  = require('./models/user');
 
@@ -180,7 +181,7 @@ app.post('/register', function(req, res){
       }
       console.log(user);
       passport.authenticate('local')(req, res, function(){
-        res.redirect('/account');
+        res.redirect('/');
       });
   });
 });
@@ -199,7 +200,13 @@ app.get('/logout', isLoggedIn, function(req, res){
 });
 
 app.get('/account', isLoggedIn, function(req, res){
-  res.render('account', {pageTitle: 'My Account', isLoggedIn: true});
+  console.log('Logged in User: ' + req.user);
+  if (req.isAuthenticated() === true) {
+  let formattedBirthday = formatDate(req.user.birthday);
+  //continue work on formatting dates (use moment.js). Try to have birthday submit at hour of 12
+  return res.render('account', {pageTitle: 'My Account', isLoggedIn: true, loggedUser: req.user, birthday: formattedBirthday});
+  }
+  return res.redirect('/login');
 });
 app.put('/account', function(req, res){
   res.redirect('/account');
@@ -223,6 +230,21 @@ function isLoggedOut(req, res, next){
       return next();
   }
   res.redirect('/');
+}
+
+function formatDate(date) {
+  console.log('Date before string: ' + date);
+  let unformattedDate = date.toString();
+  console.log('value of unformmatted birthday: ' + unformattedDate);
+  let formattedYear = unformattedDate.slice(11, 15);
+  console.log('Year: '+ formattedYear);
+  let formattedMonth = unformattedDate.slice(4, 7);
+  console.log('Month: '+ formattedMonth);
+  let formattedDay = unformattedDate.slice(8, 10);
+  console.log('Day: '+ formattedDay);
+  let formattedDate = formattedMonth + '/' + formattedDay + '/' + formattedYear;
+  console.log('Formatted Date: '+ formattedDate);
+  return formattedDate;
 }
 
 var server = app.listen(port, hostname, function(){

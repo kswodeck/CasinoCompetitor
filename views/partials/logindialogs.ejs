@@ -7,7 +7,7 @@
       <label for="username" class="account-label">Username</label><br>
       <input type="text" name="username" class="account-input" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete required><span class="valid-content"></span><br>
       <label for="password" class="account-label">Password</label><br>
-      <input type="password" name="password" id="loginPassword" class="account-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="loginPassIcon" onclick="togglePasswordVisibility('loginPassword', 'loginPassIcon')" class="show-hide fas fa-eye"></i><span class="valid-content"></span><br>
+      <input type="password" name="password" id="loginPassword" class="account-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="loginPassIcon" onclick="togglePasswordVisibility('loginPassword', 'loginPassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="valid-content"></span><br>
       <span class="invalid-account-message"></span>
       <input type="submit" name="login-submit" onclick="validateAccountLogin()" role="button" value="Log In" class="btn" id="login-button">
     </form>
@@ -25,7 +25,7 @@
       <label for="email" class="account-label">Email</label><br>
       <input type="email" name="email" id="forgotUserEmail" class="account-input" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autofocus autocomplete required><span class="valid-content"></span><br>
       <label for="password" class="account-label">Password</label><br>
-      <input type="password" name="password" id="forgottenPassword" class="account-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="forgottenPassIcon" onclick="togglePasswordVisibility('forgottenPassword', 'forgottenPassIcon')" class="show-hide fas fa-eye"></i><span class="valid-content"></span><br>
+      <input type="password" name="password" id="forgottenPassword" class="account-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="forgottenPassIcon" onclick="togglePasswordVisibility('forgottenPassword', 'forgottenPassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="valid-content"></span><br>
       <span class="invalid-account-message"></span>
       <input type="submit" name="forgot-pw-submit" onclick="validateAccountLogin()" role="button" value="Recover Password" class="btn" id="forgot-pw-button">
     </form>

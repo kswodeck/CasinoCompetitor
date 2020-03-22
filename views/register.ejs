@@ -7,11 +7,11 @@
         <div class="name-row row">
           <div id="firstNameCol" class="name-col col">
             <label for="firstName" class="account-label account-name-label">First Name</label><br>
-            <input type="text" name="createUser[firstName]" id="firstName" class="account-input account-name-input" minlength="1" maxlength="30" placeholder="first" size="20" autofocus autocomplete required><span class="valid-content"></span>
+            <input type="text" name="createUser[firstName]" id="firstName" class="account-input account-name-input" minlength="1" maxlength="40" placeholder="first" size="20" autofocus autocomplete required><span class="valid-content"></span>
           </div>
           <div id="lastNameCol" class="name-col col">
             <label for="lastName" class="account-label account-name-label">Last Name</label><br>
-            <input type="text" name="createUser[lastName]" id="lastName" class="account-input account-name-input" minlength="1" maxlength="40" placeholder="last" size="20" autocomplete required><span class="valid-content"></span>
+            <input type="text" name="createUser[lastName]" id="lastName" class="account-input account-name-input" minlength="1" maxlength="50" placeholder="last" size="20" autocomplete required><span class="valid-content"></span>
           </div>
         </div>
         <label for="email" class="account-label">Email</label><br> <!-- email validations aren't fully sufficient -->
@@ -31,7 +31,7 @@
           <li class="invalid-list"><%= message %></li>
           <% } %>
         </ul>
-        <input type="submit" name="account-submit" onclick="return validateAccountCreate()" role="button" value="Create Account" class="btn account-button" id="accountCreate">
+        <input type="submit" name="account-submit" onclick="convertDateToNoon(newBirthday); return validateAccountCreate()" role="button" value="Create Account" class="btn account-button" id="accountCreate">
       </form>
       <div class="account-already">Already have an account? <a id="account-login-link" onclick="displayLoginDialog()">Login</a></div>
     </div>
