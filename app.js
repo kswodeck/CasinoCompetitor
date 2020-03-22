@@ -171,7 +171,9 @@ app.get('/register', isLoggedOut, function(req, res){
   res.render('register', {pageTitle: 'Create Account', isLoggedIn: false, error: false});
 });
 app.post('/register', function(req, res){
-  var newUser = new User({email: req.body.createUser.email, username: req.body.username, firstName: req.body.createUser.firstName, lastName: req.body.createUser.lastName, phone: req.body.createUser.phone, birthday: req.body.createUser.birthday});
+  let inputBirthday = req.body.createUser.birthday + ' ' + '12:00';
+  let momentBirthday = moment().format(inputBirthday);
+  var newUser = new User({email: req.body.createUser.email, username: req.body.username, firstName: req.body.createUser.firstName, lastName: req.body.createUser.lastName, phone: req.body.createUser.phone, birthday: momentBirthday});
   // try refactor to req.body.createUser, no curly braces
   // var newUser = new User({username: req.body.username}, req.body.createUser);
   User.register(newUser, req.body.password, function(err, user){

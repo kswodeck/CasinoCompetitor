@@ -1,12 +1,13 @@
 var          mongoose = require('mongoose'),
-passportLocalMongoose = require('passport-local-mongoose');
+passportLocalMongoose = require('passport-local-mongoose'),
+moment                = require('moment');
 
 let curDate = getCurrentDate();
 
 function getCurrentDate() {
-  let today = new Date();
-  let dateReturned = (today.getMonth()+1) + '/'+ today.getDate() + '/' + today.getFullYear();
-  return dateReturned;
+  let dateReturned = moment().year() + '-'+ (moment().month()+1) + '-' + moment().date()
+  + ' ' + moment().hour() + ':' + moment().minutes() + ':' + moment().seconds() + '.' + moment().milliseconds();
+  return moment().format(dateReturned);
 }
 
 var UserSchema = new mongoose.Schema({
