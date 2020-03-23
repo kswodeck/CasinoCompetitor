@@ -1,4 +1,5 @@
 var isLoggedIn = false;
+const accountUpdateButton = document.getElementById('accountUpdateButton');
 
 function displayLoginDialog(loginPage){
     const loginDialog = document.getElementById('loginDialog');
@@ -76,7 +77,14 @@ function displayEditPassword(updateDialog){
   }
 }
 
-function convertDateToNoon(dateInput){
-  const date = document.getElementById(dateInput);
-  date.value = date.value + 'T12:00:00';
+function toggleInputDisable(input) {
+  const editInput = document.getElementById(input);
+  if (editInput.hasAttribute('disabled')) {      
+    editInput.removeAttribute('disabled');
+    if (accountUpdateButton.hasAttribute('disabled')) {
+      accountUpdateButton.removeAttribute('disabled');
+    }
+  } else {
+    editInput.setAttribute('disabled', '');
+  }
 }

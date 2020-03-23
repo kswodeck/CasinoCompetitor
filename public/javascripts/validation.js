@@ -1,36 +1,20 @@
 function validateAccountCreate() {
-    const inputs = document.getElementsByClassName('create-account-input');
+    const inputs = document.getElementsByClassName('account-input');
     const validitySpans = document.getElementsByClassName('valid-content');
     const invalidList = document.getElementById('invalid-fields-list');
     const newPassword = document.getElementById('newPassword');
     const repeatPassword = document.getElementById('repeatPassword');
-    function addToInvalidList(str, el) {
-        const item = document.createElement('li');
-        item.className = 'invalid-list';
-        item.innerText = str;
-        invalidList.appendChild(item);
-        el.innerText = '✖';
-        el.style.color = 'crimson';
-    }
-    while (invalidList.hasChildNodes()) {
-        invalidList.removeChild(invalidList.lastChild);
-      }
-    for (var i = 0; i < inputs.length; i++) {
-        if (!inputs[i].checkValidity()) {
-            validitySpans[i].innerText = '✖';
-            validitySpans[i].style.color = 'crimson';
-        } else {
-            validitySpans[i].innerText = '✓';
-            validitySpans[i].style.color = 'green';
-        }
-        validitySpans[i].style.display = 'inline-block';
-    }
-    if (newPassword.value != repeatPassword.value) {
-        addToInvalidList('* passwords must match', validitySpans[2]);
-        validitySpans[3].innerText = '✖';
-        validitySpans[3].style.color = 'crimson';
-        return false;
-    }
+    validateInputs(invalidList, inputs, validitySpans)
+    validatePassMatch(newPassword, repeatPassword, validitySpans[4], validitySpans[5], invalidList)
+}
+
+function addToInvalidList(str, el, invalidList) {
+    const item = document.createElement('li');
+    item.className = 'invalid-list';
+    item.innerText = str;
+    invalidList.appendChild(item);
+    el.innerText = '✖';
+    el.style.color = 'crimson';
 }
 
 function validateKeys(evt, type) {
@@ -53,10 +37,46 @@ function validateKeys(evt, type) {
     }
   }
 
-  function validateAccountLogin() {
-      return;
+  function validateAccountUpdate() { //can share some functions with AccountCreate
+    const inputs = document.getElementsByClassName('my-account');
+    const validitySpans = document.getElementsByClassName('valid-content');
+    const invalidList = document.getElementById('invalid-fields-list');
+    validateInputs(invalidList, inputs, validitySpans);
+    return;
   }
 
-  function validateAccountUpdate() { //can share some functions with AccountCreate
-      return;
+  function validatePasswordUpdate() { //can share some functions with AccountCreate
+    const inputs = document.getElementsByClassName('password');
+    const validitySpans = document.getElementsByClassName('update-password-content');
+    const invalidList = document.getElementById('invalid-update-password');
+    const password = document.getElementById('updatePassword');
+    const repeatPassword = document.getElementById('repeatUpdatePassword');
+    validateInputs(invalidList, inputs, validitySpans);
+    validatePassMatch(password, repeatPassword, validitySpans[1], validitySpans[2], invalidList)
+    return;
+  }
+
+function validateInputs(invalidList, inputs, validitySpans) {
+    while (invalidList.hasChildNodes()) {
+        invalidList.removeChild(invalidList.lastChild);
+      }
+    for (var i = 0; i < inputs.length; i++) {
+        if (!inputs[i].checkValidity()) {
+            validitySpans[i].innerText = '✖';
+            validitySpans[i].style.color = 'crimson';
+        } else {
+            validitySpans[i].innerText = '✓';
+            validitySpans[i].style.color = 'green';
+        }
+        validitySpans[i].style.display = 'inline-block';
+    }
+}
+
+  function validatePassMatch(password, repeatPassword, passEl, repeatPassEl, invalidList) {
+    if (password.value != repeatPassword.value) {
+        addToInvalidList('* passwords must match', passEl, invalidList);
+        repeatPassEl.innerText = '✖';
+        repeatPassEl.style.color = 'crimson';
+        return false;
+    }
   }

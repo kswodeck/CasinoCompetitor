@@ -194,6 +194,7 @@ app.get('/login', isLoggedOut, function(req, res){
 app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login'
+  // try implementing error message on failed loggin
 }), function(req, res){
 });
 app.get('/logout', isLoggedIn, function(req, res){
@@ -235,18 +236,20 @@ function isLoggedOut(req, res, next){
 }
 
 function formatDate(date) {
-  console.log('Date before string: ' + date);
   let unformattedDate = date.toString();
-  console.log('value of unformmatted birthday: ' + unformattedDate);
   let formattedYear = unformattedDate.slice(11, 15);
-  console.log('Year: '+ formattedYear);
   let formattedMonth = unformattedDate.slice(4, 7);
-  console.log('Month: '+ formattedMonth);
+  formattedMonth = getMonthNum(formattedMonth);
   let formattedDay = unformattedDate.slice(8, 10);
-  console.log('Day: '+ formattedDay);
-  let formattedDate = formattedMonth + '/' + formattedDay + '/' + formattedYear;
-  console.log('Formatted Date: '+ formattedDate);
+  let formattedDate = formattedYear + '-' + formattedMonth + '-' + formattedDay;
   return formattedDate;
+}
+
+function getMonthNum(month) {
+  month === 'Jan' ? month = '01' : month === 'Feb' ? month = '02' : month === 'Mar' ? month = '03' : month === 'Apr' ? month = '04' :
+  month === 'May' ? month = '05' : month === 'Jun' ? month = '06' : month === 'Jul' ? month = '07' :  month === 'Aug' ? month = '08' :
+  month === 'Sep' ? month = '09' : month === 'Oct' ? month = '10' : month === 'Nov' ? month = '11' : month = '12';
+  return month;
 }
 
 var server = app.listen(port, hostname, function(){

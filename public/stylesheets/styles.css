@@ -424,7 +424,7 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   min-width: 30%;
   text-align: center;
 }
-.valid-content {
+.valid-content, .update-password-content {
   font-size: calc(12px + 0.25vw);
   position: absolute;
   padding-left: calc(3px + 0.1vw);
@@ -432,6 +432,9 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   color: crimson;
   display: none;
   transition: all 0.4s;
+}
+.password-valid-check {
+  margin-left: calc(2px + 0.1vw);
 }
 .account-heading {
   margin: 3% auto 2% auto;
@@ -480,7 +483,7 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
 #forgot-pw-button, #forgot-user-button {
   margin: 3% auto 0 auto;
 }
-#invalid-fields-list {
+.invalid-fields-list {
   margin: 2% auto 0 auto;
   list-style-type: none;
   text-align: center;

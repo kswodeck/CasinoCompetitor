@@ -56,6 +56,8 @@
       </nav>
     </header>
     <div id="mid-container">
+      <label for="birthday" class="account-label">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
+        <input type="date" name="updateUser[birthday]" id="updateBirthday" class="account-input birthday my-account" size="8" min="1920-01-01" max="2019-12-31" value="1990-01-01" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" autocomplete disabled><i class="fas fa-pencil-alt edit-icon input-icon"></i><span class="valid-content"></span><br> 
     </div>
     <dialog id="loginDialog" class="container-fluid account-form-div">
       <div class ="exit-button-div">
