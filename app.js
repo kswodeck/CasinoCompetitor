@@ -206,7 +206,6 @@ app.get('/account', isLoggedIn, function(req, res){
   console.log('Logged in User: ' + req.user);
   if (req.isAuthenticated() === true) {
   let formattedBirthday = formatDate(req.user.birthday);
-  //continue work on formatting dates (use moment.js). Try to have birthday submit at hour of 12
   return res.render('account', {pageTitle: 'My Account', isLoggedIn: true, loggedUser: req.user, birthday: formattedBirthday});
   }
   return res.redirect('/login');
@@ -214,12 +213,12 @@ app.get('/account', isLoggedIn, function(req, res){
 app.put('/account', function(req, res){
   const curUser = req.user;
   if (!req.body.updatePassword) {
-  compareEachAccountInput(curUser, req.body.updateUser.firstName, curUser.firstName, 'firstName'); //compare working
-  compareEachAccountInput(curUser, req.body.updateUser.lastName, curUser.lastName, 'lastName'); //compare working
-  compareEachAccountInput(curUser, req.body.updateUser.email, curUser.email, 'email'); //compare working
-  compareEachAccountInput(curUser, req.body.updateUser.username, curUser.username, 'username'); //compare working
-  compareEachAccountInput(curUser, req.body.updateUser.phone, curUser.phone, 'phone'); //compare working
-  compareEachAccountInput(curUser, req.body.updateUser.birthday, curUser.birthday, 'birthday'); //convert date to same format
+  compareEachAccountInput(curUser, req.body.updateUser.firstName, curUser.firstName, 'firstName');
+  compareEachAccountInput(curUser, req.body.updateUser.lastName, curUser.lastName, 'lastName');
+  compareEachAccountInput(curUser, req.body.updateUser.email, curUser.email, 'email');
+  compareEachAccountInput(curUser, req.body.updateUser.username, curUser.username, 'username');
+  compareEachAccountInput(curUser, req.body.updateUser.phone, curUser.phone, 'phone');
+  compareEachAccountInput(curUser, req.body.updateUser.birthday, formatDate(curUser.birthday), 'birthday');
 } else {
   compareEachAccountInput(curUser, req.body.updatePassword, curUser.password, 'password');
 }
@@ -229,8 +228,26 @@ function compareEachAccountInput(user, formValue, storedValue, valueName){
   console.log('Form Value: ' + formValue + '. Stored Value: ' + storedValue);
   if (formValue != storedValue) {
     console.log('values are not equal');
-  //   User.findOneAndUpdate({username: user.username}, {$set: {valueName: formValue}}, {runValidators: true}, function(req, res){
-  //   });
+    if (valueName == 'firstName') {
+      User.findOneAndUpdate({username: user.username}, {$set: {firstName: formValue}}, {runValidators: true, useFindAndModify: false}, function(req, res){
+      });
+    } else if (valueName == 'lastName') {
+      User.findOneAndUpdate({username: user.username}, {$set: {lastName: formValue}}, {runValidators: true, useFindAndModify: false}, function(req, res){
+      });
+    } else if (valueName == 'email') {
+      User.findOneAndUpdate({username: user.username}, {$set: {email: formValue}}, {runValidators: true, useFindAndModify: false}, function(req, res){
+      });
+    } else if (valueName == 'username') {
+      User.findOneAndUpdate({username: user.username}, {$set: {username: formValue}}, {runValidators: true, useFindAndModify: false}, function(req, res){
+      });
+    } else if (valueName == 'phone') {
+      User.findOneAndUpdate({username: user.username}, {$set: {phone: formValue}}, {runValidators: true, useFindAndModify: false}, function(req, res){
+      });
+    } else if (valueName == 'birthday') {
+      User.findOneAndUpdate({username: user.username}, {$set: {birthday: formValue}}, {runValidators: true, useFindAndModify: false}, function(req, res){
+      });
+    }
+    console.log('Updated ' + valueName + ' to ' + formValue);
   } else {
     console.log('values are equal');
   }

@@ -84,7 +84,5 @@ function toggleInputDisable(input) {
     if (accountUpdateButton.hasAttribute('disabled')) {
       accountUpdateButton.removeAttribute('disabled');
     }
-  } else {
-    editInput.setAttribute('disabled', '');
   }
 }
