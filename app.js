@@ -144,7 +144,7 @@ app.use(function(req, res, next){
 // * APP ROUTES *
 app.get('/', function(req, res){
   let loggedUser = '';
-  if (req.isAuthenticated() === true) {
+  if (req.isAuthenticated()) {
     loggedUser = req.user.username;
   }
   res.render('index', {pageTitle: 'Pocket Poker', isLoggedIn: req.isAuthenticated(), fromLogout: false, welcomeUser: loggedUser});
@@ -204,7 +204,7 @@ app.get('/logout', isLoggedIn, function(req, res){
 
 app.get('/account', isLoggedIn, function(req, res){
   console.log('Logged in User: ' + req.user);
-  if (req.isAuthenticated() === true) {
+  if (req.isAuthenticated()) {
   let formattedBirthday = formatDate(req.user.birthday);
   return res.render('account', {pageTitle: 'My Account', isLoggedIn: true, loggedUser: req.user, birthday: formattedBirthday});
   }
@@ -269,7 +269,7 @@ function isLoggedIn(req, res, next){
   res.redirect('/login');
 }
 function isLoggedOut(req, res, next){
-  if(req.isAuthenticated()===false){
+  if(!req.isAuthenticated()){
       return next();
   }
   res.redirect('/');
