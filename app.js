@@ -212,42 +212,43 @@ app.get('/account', isLoggedIn, function(req, res){
 });
 app.put('/account', function(req, res){
   const curUser = req.user;
+  const updated = req.body.updateUser;
   if (!req.body.updatePassword) {
-  compareEachAccountInput(curUser, req.body.updateUser.firstName, curUser.firstName, 'firstName');
-  compareEachAccountInput(curUser, req.body.updateUser.lastName, curUser.lastName, 'lastName');
-  compareEachAccountInput(curUser, req.body.updateUser.email, curUser.email, 'email');
-  compareEachAccountInput(curUser, req.body.updateUser.username, curUser.username, 'username');
-  compareEachAccountInput(curUser, req.body.updateUser.phone, curUser.phone, 'phone');
-  compareEachAccountInput(curUser, req.body.updateUser.birthday, formatDate(curUser.birthday), 'birthday');
+  compareEachAccountInput(curUser, updated.firstName, curUser.firstName, 'firstName');
+  compareEachAccountInput(curUser, updated.lastName, curUser.lastName, 'lastName');
+  compareEachAccountInput(curUser, updated.email, curUser.email, 'email');
+  compareEachAccountInput(curUser, updated.username, curUser.username, 'username');
+  compareEachAccountInput(curUser, updated.phone, curUser.phone, 'phone');
+  compareEachAccountInput(curUser, updated.birthday, formatDate(curUser.birthday), 'birthday');
 } else {
-  compareEachAccountInput(curUser, req.body.updatePassword, curUser.password, 'password');
+  compareEachAccountInput(curUser, req.body.updatePassword, curUser.password, 'password'); //work on password update
 }
   res.redirect('/account');
 });
 function compareEachAccountInput(user, formValue, storedValue, valueName){
-  console.log('Form Value: ' + formValue + '. Stored Value: ' + storedValue);
   if (formValue != storedValue) {
-    console.log('values are not equal');
     if (valueName == 'firstName') {
-      User.findOneAndUpdate({username: user.username}, {$set: {firstName: formValue}}, {runValidators: true, useFindAndModify: false}, function(req, res){
+      User.findOneAndUpdate({username: user.username}, {$set: {firstName: formValue}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){
       });
     } else if (valueName == 'lastName') {
-      User.findOneAndUpdate({username: user.username}, {$set: {lastName: formValue}}, {runValidators: true, useFindAndModify: false}, function(req, res){
+      User.findOneAndUpdate({username: user.username}, {$set: {lastName: formValue}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){
       });
     } else if (valueName == 'email') {
-      User.findOneAndUpdate({username: user.username}, {$set: {email: formValue}}, {runValidators: true, useFindAndModify: false}, function(req, res){
+      User.findOneAndUpdate({username: user.username}, {$set: {email: formValue}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){
       });
     } else if (valueName == 'username') {
-      User.findOneAndUpdate({username: user.username}, {$set: {username: formValue}}, {runValidators: true, useFindAndModify: false}, function(req, res){
+      User.findOneAndUpdate({username: user.username}, {$set: {username: formValue}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){
       });
     } else if (valueName == 'phone') {
-      User.findOneAndUpdate({username: user.username}, {$set: {phone: formValue}}, {runValidators: true, useFindAndModify: false}, function(req, res){
+      User.findOneAndUpdate({username: user.username}, {$set: {phone: formValue}}, {useFindAndModify: false, rawResult: true}, function(req, res){
       });
     } else if (valueName == 'birthday') {
-      User.findOneAndUpdate({username: user.username}, {$set: {birthday: formValue}}, {runValidators: true, useFindAndModify: false}, function(req, res){
+      let inputBirthday = formValue + ' ' + '12:00';
+      let momentBirthday = moment().format(inputBirthday);
+      User.findOneAndUpdate({username: user.username}, {$set: {birthday: momentBirthday}}, {useFindAndModify: false, rawResult: true}, function(req, res){
       });
     }
-    console.log('Updated ' + valueName + ' to ' + formValue);
+    console.log('Updated ' + valueName + ': ' + storedValue + ' to ' + formValue);
   } else {
     console.log('values are equal');
   }
