@@ -212,8 +212,30 @@ app.get('/account', isLoggedIn, function(req, res){
   return res.redirect('/login');
 });
 app.put('/account', function(req, res){
+  const curUser = req.user;
+  if (!req.body.updatePassword) {
+  compareEachAccountInput(curUser, req.body.updateUser.firstName, curUser.firstName, 'firstName'); //compare working
+  compareEachAccountInput(curUser, req.body.updateUser.lastName, curUser.lastName, 'lastName'); //compare working
+  compareEachAccountInput(curUser, req.body.updateUser.email, curUser.email, 'email'); //compare working
+  compareEachAccountInput(curUser, req.body.updateUser.username, curUser.username, 'username'); //compare working
+  compareEachAccountInput(curUser, req.body.updateUser.phone, curUser.phone, 'phone'); //compare working
+  compareEachAccountInput(curUser, req.body.updateUser.birthday, curUser.birthday, 'birthday'); //convert date to same format
+} else {
+  compareEachAccountInput(curUser, req.body.updatePassword, curUser.password, 'password');
+}
   res.redirect('/account');
 });
+function compareEachAccountInput(user, formValue, storedValue, valueName){
+  console.log('Form Value: ' + formValue + '. Stored Value: ' + storedValue);
+  if (formValue != storedValue) {
+    console.log('values are not equal');
+  //   User.findOneAndUpdate({username: user.username}, {$set: {valueName: formValue}}, {runValidators: true}, function(req, res){
+  //   });
+  } else {
+    console.log('values are equal');
+  }
+  return;
+}
 
 app.get('/dice', function(req, res){
   res.render('dice', {pageTitle: 'Dice', isLoggedIn: req.isAuthenticated()});

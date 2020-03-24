@@ -42,6 +42,7 @@ function validateKeys(evt, type) {
     const validitySpans = document.getElementsByClassName('valid-content');
     const invalidList = document.getElementById('invalid-fields-list');
     validateInputs(invalidList, inputs, validitySpans);
+    enableAllInputs(inputs);
     return;
   }
 
@@ -80,3 +81,11 @@ function validateInputs(invalidList, inputs, validitySpans) {
         return false;
     }
   }
+
+function enableAllInputs(inputs) {
+  for (let i=0; i< inputs.length; i++) {
+    if (inputs[i].hasAttribute('disabled')) {      
+      inputs[i].removeAttribute('disabled');
+    }
+  }
+}

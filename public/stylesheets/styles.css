@@ -413,7 +413,7 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   color: #252b30;
   margin: 5px auto 0 auto;
 }
-.my-account {
+.my-account, .placeholderPassword {
   margin-left: calc(10px + 0.5vw);
 }
 .account-input {
