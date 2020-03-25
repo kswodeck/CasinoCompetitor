@@ -5,9 +5,10 @@ moment                = require('moment');
 let curDate = getCurrentDate();
 
 function getCurrentDate() {
+  let adjustedTime = moment().hour()+(moment().utcOffset()/60);
   let dateReturned = moment().year() + '-'+ (moment().month()+1) + '-' + moment().date()
-  + ' ' + moment().hour() + ':' + moment().minutes() + ':' + moment().seconds() + '.' + moment().milliseconds();
-  return moment().format(dateReturned);
+  + ' ' + adjustedTime + ':' + moment().minutes() + ':' + moment().seconds() + '.' + moment().milliseconds();
+  return dateReturned;
 }
 
 var UserSchema = new mongoose.Schema({

@@ -151,7 +151,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/cards', isLoggedIn, function(req, res){
-  res.render('cards', {pageTitle: 'Competitive Poker', isLoggedIn: true});
+  res.render('cards', {pageTitle: 'Competitive Poker', isLoggedIn: true, });
 });
 app.get('/practice-cards', function(req, res){
   res.render('practice-cards', {pageTitle: 'Practice Poker', isLoggedIn: req.isAuthenticated()});
@@ -171,7 +171,8 @@ app.get('/register', isLoggedOut, function(req, res){
   res.render('register', {pageTitle: 'Create Account', isLoggedIn: false, error: false});
 });
 app.post('/register', function(req, res){
-  let inputBirthday = req.body.createUser.birthday + ' ' + '12:00';
+  let adjustedTime = 12 + (moment().utcOffset()/60);
+  let inputBirthday = req.body.createUser.birthday + ' ' + adjustedTime + ':00';
   let momentBirthday = moment().format(inputBirthday);
   var newUser = new User({email: req.body.createUser.email, username: req.body.username, firstName: req.body.createUser.firstName, lastName: req.body.createUser.lastName, phone: req.body.createUser.phone, birthday: momentBirthday});
   // try refactor to req.body.createUser, no curly braces
@@ -190,6 +191,7 @@ app.post('/register', function(req, res){
 
 app.get('/login', isLoggedOut, function(req, res){
   res.render('login', {pageTitle: 'Login', isLoggedIn: false});
+  console.log('Logged in User: ' + res.user);
 });
 app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
@@ -203,7 +205,6 @@ app.get('/logout', isLoggedIn, function(req, res){
 });
 
 app.get('/account', isLoggedIn, function(req, res){
-  console.log('Logged in User: ' + req.user);
   if (req.isAuthenticated() === true) {
   let formattedBirthday = formatDate(req.user.birthday);
   return res.render('account', {pageTitle: 'My Account', isLoggedIn: true, loggedUser: req.user, birthday: formattedBirthday});

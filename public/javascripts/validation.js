@@ -1,3 +1,11 @@
+const accountInputs = document.getElementsByClassName('my-account');
+const firstNameValue = accountInputs[0].value;
+const lastNameValue = accountInputs[1].value;
+const emailValue = accountInputs[2].value;
+const usernameValue = accountInputs[3].value;
+const phoneValue = accountInputs[4].value;
+const birthdayValue = accountInputs[5].value;
+
 function validateAccountCreate() {
     const inputs = document.getElementsByClassName('account-input');
     const validitySpans = document.getElementsByClassName('valid-content');
@@ -41,9 +49,17 @@ function validateKeys(evt, type) {
     const inputs = document.getElementsByClassName('my-account');
     const validitySpans = document.getElementsByClassName('valid-content');
     const invalidList = document.getElementById('invalid-fields-list');
+    const accountInputs = document.getElementsByClassName('my-account');
     validateInputs(invalidList, inputs, validitySpans);
+    if (accountInputs[0].value == firstNameValue && accountInputs[1].value == lastNameValue && accountInputs[2].value == emailValue &&
+      accountInputs[3].value == usernameValue && accountInputs[4].value == phoneValue && accountInputs[5].value == birthdayValue) {
+        const item = document.createElement('li');
+        item.className = 'invalid-list';
+        item.innerText = 'You must make changes before trying to update info';
+        invalidList.appendChild(item); 
+        return false;
+      }
     enableAllInputs(inputs);
-    return;
   }
 
   function validatePasswordUpdate() { //can share some functions with AccountCreate
