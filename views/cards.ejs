@@ -7,7 +7,11 @@
         <button id="bet-button" class="btn pb-4" type="button" name="bet-button" onclick="toggleBet()">bet<span id ="current-bet-span">{{ currentBet }}</span></button>
       </div>
       <div id="card-play-div" class="card-play-div text-center col">
-        <button id="card-deal-button" class="btn" type="button" name="deal-button" onclick="getCards()">{{ dealButtonText }}</button>
+        <form action="/cards/?_method=PUT" method="POST">
+          <input value="<%= storedCoins %>" name="userCoins" id="coinsInput" class="card-coins-input">
+          <input value="false" name="redirect" id="redirectInput" class="card-coins-input">
+          <button id="card-deal-button" class="btn" type="submit" name="deal-button" onclick="getCards(); return storeAdjustedCoins()">{{ dealButtonText }}</button>
+        </form>
       </div>
       <div id="current-win-div" class="text-left col">
         <button id="win-button" class="btn pb-4" type="button" name="win-button" disabled>win<span id="current-win-span">{{ currentWin }}</span></button>
@@ -56,7 +60,7 @@
 <span id="coin-win-popup-text" class="dialog-popup-text">You win</span><span id="number-coins-won"> {{ currentWin }} </span><img id="coins-popup-img" src="images/coins.png">
   <div id="coinDialogDiv" class="row justify-content-around">
     <div class = "col">
-      <button id="winCoinsCancel" class="btn" value="cancel">OK</button>
+      <button id="winCoinsCancel" class="btn cancelbutton" value="cancel">OK</button>
     </div>
   </div>
 </dialog>

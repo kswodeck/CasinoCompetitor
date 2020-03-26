@@ -25,8 +25,7 @@ app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
-// Passport configuration
-app.use(require('express-session')({
+app.use(require('express-session')({ // Passport configuration
   secret: 'This is a secret',
   resave: false,
   saveUninitialized: false
@@ -71,51 +70,6 @@ app.use(function(req, res, next){
 
 // app.set('views', path.join(__dirname, 'views'));
 
-// let currentCoins = 0;
-// for (let i=0; i<101; i++) {
-// User.create({
-//   email: "kswodeck@yahoo.com",
-//   username: "kswodeck",
-//   password: "KrisUser",
-//   firstName: "Kristoffer",
-//   lastName: "Swodeck",
-//   phone: "1234567890",
-//   birthday: "09/29/1995",
-//   coins: currentCoins
-// }, function(err, user) {
-//    if (err) {
-//      console.log(err);
-//   } else {
-//      console.log('Created User: ');
-//      console.log(user);
-// }
-// });
-// currentCoins++;
-// }
-
-// User.create({
-//   email: "kmswodeck@gmail.com",
-//   username: "kswodeck",
-//   password: "KrisUser",
-//   firstName: "Kristoffer",
-//   lastName: "Swodeck",
-//   phone: "1234567890",
-//   birthday: "09/29/1995"
-// }, function(err, user) {
-//    if (err) {
-//      console.log(err);
-//   } else {
-//      console.log('Created User: ');
-//      console.log(user);
-// }
-// });
-
-// var posts = [
-//   {title: 'Post 1', author: 'Kris'},
-//   {title: 'Post 2', author: 'Michael'},
-//   {title: 'Post 3', author: 'Swodeck'},
-// ];
-
 // app.use(logger('dev'));
 // app.use(express.json());
 // app.use(express.urlencoded({extended: false}));
@@ -151,7 +105,18 @@ app.get('/', function(req, res){
 });
 
 app.get('/cards', isLoggedIn, function(req, res){
-  res.render('cards', {pageTitle: 'Competitive Poker', isLoggedIn: true, });
+  res.render('cards', {pageTitle: 'Competitive Poker', isLoggedIn: true, storedCoins: req.user.coins});
+});
+app.put('/cards', function(req, res){ //update coins
+  var isRedirect = req.body.redirect;
+  if (isRedirect == 'true') {
+    return res.redirect('/cards');
+  } else {
+  console.log('updating coins: ' + req.user.coins + ' to ' + req.body.userCoins);
+  User.findOneAndUpdate({username: req.user.username}, {$set: {coins: req.body.userCoins}}, {useFindAndModify: false, rawResult: true}, function(req, res){
+  });
+  return;
+  }
 });
 app.get('/practice-cards', function(req, res){
   res.render('practice-cards', {pageTitle: 'Practice Poker', isLoggedIn: req.isAuthenticated()});
@@ -191,7 +156,6 @@ app.post('/register', function(req, res){
 
 app.get('/login', isLoggedOut, function(req, res){
   res.render('login', {pageTitle: 'Login', isLoggedIn: false});
-  console.log('Logged in User: ' + res.user);
 });
 app.post('/login', passport.authenticate('local', {
   successRedirect: '/',

@@ -125,6 +125,11 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   border: 2px solid darkblue;
   border-radius: 15px;
 }
+.card-coins-input {
+  display: none;
+  padding: 0;
+  border: 0;
+}
 
 .coin {
   width: calc(100px + 4vw);

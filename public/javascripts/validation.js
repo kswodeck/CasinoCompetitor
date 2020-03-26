@@ -1,10 +1,4 @@
-const accountInputs = document.getElementsByClassName('my-account');
-const firstNameValue = accountInputs[0].value;
-const lastNameValue = accountInputs[1].value;
-const emailValue = accountInputs[2].value;
-const usernameValue = accountInputs[3].value;
-const phoneValue = accountInputs[4].value;
-const birthdayValue = accountInputs[5].value;
+const titleTag = document.getElementsByTagName('title');
 
 function validateAccountCreate() {
     const inputs = document.getElementsByClassName('account-input');
@@ -50,6 +44,12 @@ function validateKeys(evt, type) {
     const validitySpans = document.getElementsByClassName('valid-content');
     const invalidList = document.getElementById('invalid-fields-list');
     const accountInputs = document.getElementsByClassName('my-account');
+    const firstNameValue = accountInputs[0].value;
+    const lastNameValue = accountInputs[1].value;
+    const emailValue = accountInputs[2].value;
+    const usernameValue = accountInputs[3].value;
+    const phoneValue = accountInputs[4].value;
+    const birthdayValue = accountInputs[5].value;
     validateInputs(invalidList, inputs, validitySpans);
     if (accountInputs[0].value == firstNameValue && accountInputs[1].value == lastNameValue && accountInputs[2].value == emailValue &&
       accountInputs[3].value == usernameValue && accountInputs[4].value == phoneValue && accountInputs[5].value == birthdayValue) {

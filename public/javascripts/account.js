@@ -1,5 +1,7 @@
-var isLoggedIn = false;
-const accountUpdateButton = document.getElementById('accountUpdateButton');
+const title = document.getElementsByTagName('title');
+if (title == 'My Account') {
+  const accountUpdateButton = document.getElementById('accountUpdateButton');
+}
 
 function displayLoginDialog(loginPage){
     const loginDialog = document.getElementById('loginDialog');
