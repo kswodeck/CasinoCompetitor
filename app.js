@@ -97,15 +97,11 @@ app.use(function(req, res, next){
 
 // * APP ROUTES *
 app.get('/', function(req, res){
-  let loggedUser = '';
-  if (req.isAuthenticated()) {
-    loggedUser = req.user.username;
-  }
-  res.render('index', {pageTitle: 'Pocket Poker', isLoggedIn: req.isAuthenticated(), fromLogout: false, welcomeUser: loggedUser});
+  res.render('index', {pageTitle: 'Pocket Poker', fromLogout: false});
 });
 
 app.get('/cards', isLoggedIn, function(req, res){
-  res.render('cards', {pageTitle: 'Competitive Poker', isLoggedIn: true, storedCoins: req.user.coins});
+  res.render('cards', {pageTitle: 'Competitive Poker', storedCoins: req.user.coins});
 });
 app.put('/cards', function(req, res){ //update coins
   var isRedirect = req.body.redirect;
@@ -119,7 +115,7 @@ app.put('/cards', function(req, res){ //update coins
   }
 });
 app.get('/practice-cards', function(req, res){
-  res.render('practice-cards', {pageTitle: 'Practice Poker', isLoggedIn: req.isAuthenticated()});
+  res.render('practice-cards', {pageTitle: 'Practice Poker'});
 });
 app.get('/leaderboard', isLoggedIn, function(req, res){
   User.find({}).sort({coins: -1}).exec(function(err, allUsers) {
@@ -127,13 +123,13 @@ app.get('/leaderboard', isLoggedIn, function(req, res){
       return console.log(err);
     } else {
       // module.exports.users = allUsers;
-      res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers, isLoggedIn: true});
+      res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers});
     }
   });
 });
 
 app.get('/register', isLoggedOut, function(req, res){
-  res.render('register', {pageTitle: 'Create Account', isLoggedIn: false, error: false});
+  res.render('register', {pageTitle: 'Create Account', error: false});
 });
 app.post('/register', function(req, res){
   let adjustedTime = 12 + (moment().utcOffset()/60);
@@ -155,7 +151,7 @@ app.post('/register', function(req, res){
 });
 
 app.get('/login', isLoggedOut, function(req, res){
-  res.render('login', {pageTitle: 'Login', isLoggedIn: false});
+  res.render('login', {pageTitle: 'Login'});
 });
 app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
@@ -165,13 +161,13 @@ app.post('/login', passport.authenticate('local', {
 });
 app.get('/logout', isLoggedIn, function(req, res){
   req.logout();
-  res.render('index', {pageTitle: 'Pocket Poker', isLoggedIn: false, fromLogout: true});
+  res.render('index', {pageTitle: 'Pocket Poker', fromLogout: true});
 });
 
 app.get('/account', isLoggedIn, function(req, res){
-  if (req.isAuthenticated()) {
+  if (req.user) {
   let formattedBirthday = formatDate(req.user.birthday);
-  return res.render('account', {pageTitle: 'My Account', isLoggedIn: true, loggedUser: req.user, birthday: formattedBirthday});
+  return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday});
   }
   return res.redirect('/login');
 });
@@ -221,10 +217,10 @@ function compareEachAccountInput(user, formValue, storedValue, valueName){
 }
 
 app.get('/dice', function(req, res){
-  res.render('dice', {pageTitle: 'Dice', isLoggedIn: req.isAuthenticated()});
+  res.render('dice', {pageTitle: 'Dice'});
 });
 app.get('/coin', function(req, res){
-  res.render('coin', {pageTitle: 'Coin', isLoggedIn: req.isAuthenticated()});
+  res.render('coin', {pageTitle: 'Coin'});
 });
 
 function isLoggedIn(req, res, next){
@@ -239,6 +235,11 @@ function isLoggedOut(req, res, next){
   }
   res.redirect('/');
 }
+
+app.use(function(res, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+})
 
 function formatDate(date) {
   let unformattedDate = date.toString();
