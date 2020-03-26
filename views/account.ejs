@@ -14,7 +14,7 @@
               <input type="text" name="updateUser[lastName]" id="updateLastName" class="account-input account-name-input my-account" minlength="1" maxlength="40" value="<%= currentUser.lastName %>" size="20" autocomplete disabled required><i class="fas fa-pencil-alt edit-icon input-icon" onclick="toggleInputDisable('updateLastName')"></i><span class="valid-content"></span>
             </div>
           </div>
-          <label for="email" class="account-label">Email</label><br> <!-- email validations aren't fully sufficient -->
+          <label for="email" class="account-label">Email</label><br> <!-- email validations aren't fully sufficient. Make sure "." included with at least 1 character after -->
           <input type="email" name="updateUser[email]" id="updateEmail" class="account-input my-account" minlength="8" maxlength="60" value="<%= currentUser.email %>" size="40" autocomplete disabled required><i class="fas fa-pencil-alt edit-icon input-icon" onclick="toggleInputDisable('updateEmail')"></i><span class="valid-content"></span><br>
           <label for="username" class="account-label">Username</label><br> <!-- username validations are sufficient -->
           <input type="text" name="updateUser[username]" id="updateUsername" class="account-input my-account" minlength="5" maxlength="20" value="<%= currentUser.username %>" size="25" autocomplete disabled required><i class="fas fa-pencil-alt edit-icon input-icon" onclick="toggleInputDisable('updateUsername')"></i><span class="valid-content"></span><br>

@@ -489,8 +489,13 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   margin: 2% auto 0 auto;
   list-style-type: none;
   text-align: center;
-  color: var(--darkcrimson);
   padding: 0;
+}
+.invalid-list {
+  color: var(--darkcrimson);
+}
+.valid-list {
+  color: green;
 }
 .birthday {
   padding-left: calc(23px + 3%);

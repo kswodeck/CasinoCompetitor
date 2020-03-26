@@ -1,4 +1,13 @@
-const titleTag = document.getElementsByTagName('title');
+const titleTag = document.getElementsByTagName('title')[0];
+if (titleTag.innerText == 'My Account') {
+  var accountInputs = document.getElementsByClassName('my-account');
+  var firstNameValue = accountInputs[0].value;
+  var lastNameValue = accountInputs[1].value;
+  var emailValue = accountInputs[2].value;
+  var usernameValue = accountInputs[3].value;
+  var phoneValue = accountInputs[4].value;
+  var birthdayValue = accountInputs[5].value;
+}
 
 function validateAccountCreate() {
     const inputs = document.getElementsByClassName('account-input');
@@ -40,26 +49,21 @@ function validateKeys(evt, type) {
   }
 
   function validateAccountUpdate() { //can share some functions with AccountCreate
-    const inputs = document.getElementsByClassName('my-account');
     const validitySpans = document.getElementsByClassName('valid-content');
     const invalidList = document.getElementById('invalid-fields-list');
-    const accountInputs = document.getElementsByClassName('my-account');
-    const firstNameValue = accountInputs[0].value;
-    const lastNameValue = accountInputs[1].value;
-    const emailValue = accountInputs[2].value;
-    const usernameValue = accountInputs[3].value;
-    const phoneValue = accountInputs[4].value;
-    const birthdayValue = accountInputs[5].value;
-    validateInputs(invalidList, inputs, validitySpans);
+    enableAllInputs(accountInputs);
+    const item = document.createElement('li');
     if (accountInputs[0].value == firstNameValue && accountInputs[1].value == lastNameValue && accountInputs[2].value == emailValue &&
       accountInputs[3].value == usernameValue && accountInputs[4].value == phoneValue && accountInputs[5].value == birthdayValue) {
-        const item = document.createElement('li');
         item.className = 'invalid-list';
-        item.innerText = 'You must make changes before trying to update info';
-        invalidList.appendChild(item); 
+        item.innerText = 'Please make changes before trying to update info'; //this should not display multiple times
+        invalidList.appendChild(item);
         return false;
+      } else {
+        item.className = 'valid-list';
+        item.innerText = 'Account has been updated';
       }
-    enableAllInputs(inputs);
+      return validateInputs(invalidList, accountInputs, validitySpans);
   }
 
   function validatePasswordUpdate() { //can share some functions with AccountCreate
@@ -74,11 +78,13 @@ function validateKeys(evt, type) {
   }
 
 function validateInputs(invalidList, inputs, validitySpans) {
+  let validity = true;
     while (invalidList.hasChildNodes()) {
         invalidList.removeChild(invalidList.lastChild);
       }
     for (var i = 0; i < inputs.length; i++) {
         if (!inputs[i].checkValidity()) {
+            validity = false;
             validitySpans[i].innerText = '✖';
             validitySpans[i].style.color = 'crimson';
         } else {
@@ -87,6 +93,7 @@ function validateInputs(invalidList, inputs, validitySpans) {
         }
         validitySpans[i].style.display = 'inline-block';
     }
+    return validity;
 }
 
   function validatePassMatch(password, repeatPassword, passEl, repeatPassEl, invalidList) {

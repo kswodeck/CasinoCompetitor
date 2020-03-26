@@ -165,26 +165,34 @@ app.get('/logout', isLoggedIn, function(req, res){
 });
 
 app.get('/account', isLoggedIn, function(req, res){
+  // let fromAccount = false;
+  // let message = '';
+  // if (req.session.fromAccount) {
+  //   fromAccount = req.session.fromAccount;
+  //   message = 'Account has been updated';
+  // }
   if (req.user) {
   let formattedBirthday = formatDate(req.user.birthday);
-  return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday});
+  return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, fromAccount: false});
   }
   return res.redirect('/login');
 });
 app.put('/account', function(req, res){
   const curUser = req.user;
   const updated = req.body.updateUser;
+  const formattedBirthday = formatDate(curUser.birthday);
   if (!req.body.updatePassword) {
   compareEachAccountInput(curUser, updated.firstName, curUser.firstName, 'firstName');
   compareEachAccountInput(curUser, updated.lastName, curUser.lastName, 'lastName');
   compareEachAccountInput(curUser, updated.email, curUser.email, 'email');
   compareEachAccountInput(curUser, updated.username, curUser.username, 'username');
   compareEachAccountInput(curUser, updated.phone, curUser.phone, 'phone');
-  compareEachAccountInput(curUser, updated.birthday, formatDate(curUser.birthday), 'birthday');
+  compareEachAccountInput(curUser, updated.birthday, formattedBirthday, 'birthday');
 } else {
   compareEachAccountInput(curUser, req.body.updatePassword, curUser.password, 'password'); //work on password update
 }
-  res.redirect('/account');
+  // req.session.fromAccount = true;
+  return res.redirect('/account'); //try to implement a message that tells user that account was updated
 });
 function compareEachAccountInput(user, formValue, storedValue, valueName){
   if (formValue != storedValue) {
@@ -209,11 +217,10 @@ function compareEachAccountInput(user, formValue, storedValue, valueName){
       User.findOneAndUpdate({username: user.username}, {$set: {birthday: momentBirthday}}, {useFindAndModify: false, rawResult: true}, function(req, res){
       });
     }
-    console.log('Updated ' + valueName + ': ' + storedValue + ' to ' + formValue);
+    return console.log('Updated ' + valueName + ': ' + storedValue + ' to ' + formValue);
   } else {
-    console.log('values are equal');
+    return console.log('values are equal');
   }
-  return;
 }
 
 app.get('/dice', function(req, res){
@@ -235,11 +242,6 @@ function isLoggedOut(req, res, next){
   }
   res.redirect('/');
 }
-
-app.use(function(res, res, next) {
-  res.locals.currentUser = req.user;
-  next();
-})
 
 function formatDate(date) {
   let unformattedDate = date.toString();
