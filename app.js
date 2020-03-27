@@ -156,7 +156,7 @@ app.get('/login', isLoggedOut, function(req, res){
 app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login'
-  // try implementing error message on failed loggin
+  // try implementing error message on failed login
 }), function(req, res){
 });
 app.get('/logout', isLoggedIn, function(req, res){
@@ -165,12 +165,6 @@ app.get('/logout', isLoggedIn, function(req, res){
 });
 
 app.get('/account', isLoggedIn, function(req, res){
-  // let fromAccount = false;
-  // let message = '';
-  // if (req.session.fromAccount) {
-  //   fromAccount = req.session.fromAccount;
-  //   message = 'Account has been updated';
-  // }
   if (req.user) {
   let formattedBirthday = formatDate(req.user.birthday);
   return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, fromAccount: false});
@@ -181,17 +175,20 @@ app.put('/account', function(req, res){
   const curUser = req.user;
   const updated = req.body.updateUser;
   const formattedBirthday = formatDate(curUser.birthday);
-  if (!req.body.updatePassword) {
+  if (req.body.updatePassword) {
+    curUser.changePassword(req.body.oldPassword, req.body.updatePassword, function(err) {
+    console.log('Password: ' + req.body.oldPassword + ' changed to ' + req.body.updatePassword);
+    // make it so password can't be updated if the oldPassword doesn't match password in db
+  });
+} else {
   compareEachAccountInput(curUser, updated.firstName, curUser.firstName, 'firstName');
   compareEachAccountInput(curUser, updated.lastName, curUser.lastName, 'lastName');
   compareEachAccountInput(curUser, updated.email, curUser.email, 'email');
   compareEachAccountInput(curUser, updated.username, curUser.username, 'username');
   compareEachAccountInput(curUser, updated.phone, curUser.phone, 'phone');
   compareEachAccountInput(curUser, updated.birthday, formattedBirthday, 'birthday');
-} else {
-  compareEachAccountInput(curUser, req.body.updatePassword, curUser.password, 'password'); //work on password update
+  // try implementing 'Account has been updated' message
 }
-  // req.session.fromAccount = true;
   return res.redirect('/account'); //try to implement a message that tells user that account was updated
 });
 function compareEachAccountInput(user, formValue, storedValue, valueName){

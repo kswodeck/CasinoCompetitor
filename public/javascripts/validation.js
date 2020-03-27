@@ -30,12 +30,10 @@ function addToInvalidList(str, el, invalidList) {
 
 function validateKeys(evt, type) {
     var theEvent = evt || window.event;
-    // Handle paste
-    if (theEvent.type === 'paste') {
+    if (theEvent.type === 'paste') {     // Handle paste
         key = event.clipboardData.getData('text/plain');
     } else {
-    // Handle key press
-        var key = theEvent.keyCode || theEvent.which;
+        var key = theEvent.keyCode || theEvent.which; // Handle key press
         key = String.fromCharCode(key);
     }
     var regex = /[0-9]|\./;
@@ -48,15 +46,18 @@ function validateKeys(evt, type) {
     }
   }
 
-  function validateAccountUpdate() { //can share some functions with AccountCreate
+  function validateAccountUpdate() {
     const validitySpans = document.getElementsByClassName('valid-content');
     const invalidList = document.getElementById('invalid-fields-list');
     enableAllInputs(accountInputs);
+    while (invalidList.hasChildNodes()) {
+      invalidList.removeChild(invalidList.lastChild);
+    }
     const item = document.createElement('li');
     if (accountInputs[0].value == firstNameValue && accountInputs[1].value == lastNameValue && accountInputs[2].value == emailValue &&
       accountInputs[3].value == usernameValue && accountInputs[4].value == phoneValue && accountInputs[5].value == birthdayValue) {
         item.className = 'invalid-list';
-        item.innerText = 'Please make changes before trying to update info'; //this should not display multiple times
+        item.innerText = 'Please make changes before trying to update info';
         invalidList.appendChild(item);
         return false;
       } else {
@@ -67,14 +68,31 @@ function validateKeys(evt, type) {
   }
 
   function validatePasswordUpdate() { //can share some functions with AccountCreate
-    const inputs = document.getElementsByClassName('password');
-    const validitySpans = document.getElementsByClassName('update-password-content');
-    const invalidList = document.getElementById('invalid-update-password');
-    const password = document.getElementById('updatePassword');
-    const repeatPassword = document.getElementById('repeatUpdatePassword');
-    validateInputs(invalidList, inputs, validitySpans);
-    validatePassMatch(password, repeatPassword, validitySpans[1], validitySpans[2], invalidList)
-    return;
+    let inputs = document.getElementsByClassName('password');
+    let validitySpans = document.getElementsByClassName('update-password-content');
+    let invalidList = document.getElementById('invalid-update-password');
+    let oldPassword = document.getElementById('oldPassword');
+    let updatePassword = document.getElementById('updatePassword');
+    let repeatPassword = document.getElementById('repeatNewPassword');
+    while (invalidList.hasChildNodes()) {
+      invalidList.removeChild(invalidList.lastChild);
+    }
+    let match = true;
+    let oldNewMatch = false;
+    match = validatePassMatch(updatePassword, repeatPassword, validitySpans[1], validitySpans[2], invalidList);
+    if (oldPassword.value == updatePassword.value || oldPassword.value == repeatPassword.value) {
+      addToInvalidList('* old and new passwords must be different', validitySpans[0], invalidList);
+      validitySpans[0].innerText = '✖';
+      validitySpans[0].style.color = 'crimson';
+      oldNewMatch = true;
+    }
+    if (match == false) {
+      return false;
+    } else if (oldNewMatch == true) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
 function validateInputs(invalidList, inputs, validitySpans) {
