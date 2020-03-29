@@ -176,9 +176,12 @@ app.put('/account', function(req, res){
   const updated = req.body.updateUser;
   const formattedBirthday = formatDate(curUser.birthday);
   if (req.body.updatePassword) {
-    curUser.changePassword(req.body.oldPassword, req.body.updatePassword, function(err) {
-    console.log('Password: ' + req.body.oldPassword + ' changed to ' + req.body.updatePassword);
-    // make it so password can't be updated if the oldPassword doesn't match password in db
+    curUser.setPassword(req.body.updatePassword, function(err, user) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('Password: ' + req.body.oldPassword + ' changed to ' + req.body.updatePassword); // will use email instead
+      }
   });
 } else {
   compareEachAccountInput(curUser, updated.firstName, curUser.firstName, 'firstName');
@@ -189,7 +192,7 @@ app.put('/account', function(req, res){
   compareEachAccountInput(curUser, updated.birthday, formattedBirthday, 'birthday');
   // try implementing 'Account has been updated' message
 }
-  return res.redirect('/account'); //try to implement a message that tells user that account was updated
+  return res.redirect('/account');
 });
 function compareEachAccountInput(user, formValue, storedValue, valueName){
   if (formValue != storedValue) {

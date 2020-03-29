@@ -31,28 +31,6 @@
       </div>
     </div>
 </div>
-<dialog id="updatePWDialog" class="container-fluid account-form-div">
-  <div class ="exit-button-div">
-    <button id="updatePWDialogExit" class="exit-dialog-button" onclick="exitDialog('updatePWDialog')" >✖</button>
-  </div>
-  <h2 id="updatePWHeading" class="account-heading login-heading">Update Password</h2>
-  <form action="/account/?_method=PUT" method="POST">
-    <label for="oldPassword" class="account-label">Current Password</label><br> <!-- password validations aren't fully sufficient -->
-    <input type="password" name="oldPassword" id="oldPassword" class="account-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete required><i id="oldPassIcon" onclick="togglePasswordVisibility('oldPassword', 'oldPassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="update-password-content password-valid-check"></span><br>
-    <label for="updatePassword" class="account-label">New Password</label><br> <!-- password validations aren't fully sufficient -->
-    <input type="password" name="updatePassword" id="updatePassword" class="account-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="updatePassIcon" onclick="togglePasswordVisibility('updatePassword', 'updatePassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="update-password-content password-valid-check"></span><br>
-    <label for="repeatNewPassword" class="account-label">Repeat Password</label><br>
-    <input type="password" name="repeatNewPassword" id="repeatNewPassword" class="account-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="repeatNewPassIcon" onclick="togglePasswordVisibility('repeatNewPassword', 'repeatNewPassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="update-password-content password-valid-check"></span><br>
-    <ul id="invalid-update-password" class="invalid-fields-list"> <!-- date validations are sufficient -->
-    </ul>
-    <input type="submit" name="password-update" onclick="return validatePasswordUpdate()" role="button" value="Update Password" class="btn account-button" id="passwordUpdateButton">
-  </form>
-    <span class="invalid-account-message"></span>
-  <div class ="back-button-div">
-    <button id="updatePWBackButton" class="back-arrow btn" name="back-arrow" onclick="exitDialog('updatePWDialog')"><i id="updatePWBackArrow" class="fas fa-long-arrow-alt-left"></i></button>
-    <span class="back-button-label" onclick="exitDialog('updatePWDialog')">Back to Account</span>
-  </div>
-</dialog>
 
 <%- include('partials/logindialogs') %>
 <%- include('partials/footer') %>
