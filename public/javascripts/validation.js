@@ -67,28 +67,17 @@ function validateKeys(evt, type) {
       return validateInputs(invalidList, accountInputs, validitySpans);
   }
 
-  function validatePasswordUpdate() { //can share some functions with AccountCreate
-    let inputs = document.getElementsByClassName('password');
+  function validatePasswordUpdate() {
     let validitySpans = document.getElementsByClassName('update-password-content');
     let invalidList = document.getElementById('invalid-update-password');
-    let oldPassword = document.getElementById('oldPassword');
     let updatePassword = document.getElementById('updatePassword');
     let repeatPassword = document.getElementById('repeatNewPassword');
     while (invalidList.hasChildNodes()) {
       invalidList.removeChild(invalidList.lastChild);
     }
     let match = true;
-    let oldNewMatch = false;
     match = validatePassMatch(updatePassword, repeatPassword, validitySpans[1], validitySpans[2], invalidList);
-    if (oldPassword.value == updatePassword.value || oldPassword.value == repeatPassword.value) {
-      addToInvalidList('* old and new passwords must be different', validitySpans[0], invalidList);
-      validitySpans[0].innerText = '✖';
-      validitySpans[0].style.color = 'crimson';
-      oldNewMatch = true;
-    }
     if (match == false) {
-      return false;
-    } else if (oldNewMatch == true) {
       return false;
     } else {
       return true;
