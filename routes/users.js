@@ -7,12 +7,12 @@ var passport = require('passport'),
 router.get('/cards', isLoggedIn, function(req, res){
   res.render('cards', {pageTitle: 'Competitive Poker', storedCoins: req.user.coins});
 });
-router.put('/cards', isLoggedIn, function(req, res){ //update coins
-    if (req.body.userCoins != req.user.coins) {
+router.put('/cards', isLoggedIn, function(req, res){
+    if (req.body.userCoins != req.user.coins) { //update coins
     console.log('updating coins: ' + req.user.coins + ' to ' + req.body.userCoins);
     User.findOneAndUpdate({username: req.user.username}, {$set: {coins: req.body.userCoins}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
     }
-    if (req.body.currentWin > req.user.highestWin) {
+    if (req.body.currentWin > req.user.highestWin) { //update highestWin
       console.log('updating highestWin: ' + req.user.highestWin + ' to ' + req.body.currentWin);
       User.findOneAndUpdate({username: req.user.username}, {$set: {highestWin: req.body.currentWin}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
     }
@@ -34,6 +34,7 @@ router.get('/register', isLoggedOut, function(req, res){
 });
 router.post('/register', isLoggedOut, function(req, res){
   let momentBirthday =  getLocalNoonDate(req.body.createUser.birthday);
+  //don't allow already existing usernames or emails
   var newUser = new User({email: req.body.createUser.email, username: req.body.username, firstName: req.body.createUser.firstName, lastName: req.body.createUser.lastName, phone: req.body.createUser.phone, birthday: momentBirthday});
   // try refactor to req.body.createUser, no curly braces
   // var newUser = new User({username: req.body.username}, req.body.createUser);
@@ -84,7 +85,6 @@ router.put('/account', isLoggedIn, function(req, res){
         res.status(204).send(); //this works in ending the request
       } else {
         console.log('Password changed to: ' + req.body.updatePassword);
-        console.log(user);
         // res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, fromAccount: false, error: true, message: 'Account has been updated'});
         return res.redirect('/account'); // implement 'Account has been updated' message
       }
@@ -112,7 +112,7 @@ function compareEachAccountInput(req, res, formattedBirthday, user, formValue, s
           let errMsg = valueName + ' already exists';
           console.log('Num Results: ' + result.length + ', Error: ' + err);
           // return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, fromAccount: false, error: true, message: errMsg});
-          return res.redirect('/account'); // implement error message
+          // return res.redirect('/account'); // implement error message
         } else {
           User.findOneAndUpdate({username: user.username}, {$set: {email: formValue}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
         }
@@ -123,7 +123,7 @@ function compareEachAccountInput(req, res, formattedBirthday, user, formValue, s
           let errMsg = valueName + ' already exists';
           console.log('Num Results: ' + result.length + ', Error: ' + err);
           // return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, fromAccount: false, error: true, message: errMsg});
-          return res.redirect('/account'); // implement error message
+          // return res.redirect('/account'); // implement error message
         } else {
           User.findOneAndUpdate({username: user.username}, {$set: {username: formValue}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
         }
