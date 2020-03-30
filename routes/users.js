@@ -67,8 +67,7 @@ router.get('/logout', isLoggedIn, function(req, res){
 router.get('/account', isLoggedIn, function(req, res){
   if (req.user) {
   let formattedBirthday = formatDate(req.user.birthday);
-  res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, error: false});
-  return;
+  return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, error: false});
   }
   return res.redirect('/login');
 });
