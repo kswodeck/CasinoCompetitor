@@ -9,7 +9,7 @@
       <div id="card-play-div" class="card-play-div text-center col">
         <form action="/cards/?_method=PUT" method="POST">
           <input value="<%= storedCoins %>" name="userCoins" id="coinsInput" class="card-coins-input">
-          <input value="false" name="redirect" id="redirectInput" class="card-coins-input">
+          <input value="0" name="currentWin" id="currentWinInput" class="card-coins-input">
           <button id="card-deal-button" class="btn" type="submit" name="deal-button" onclick="getCards(); return storeAdjustedCoins()">{{ dealButtonText }}</button>
         </form>
       </div>

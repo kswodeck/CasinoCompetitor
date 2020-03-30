@@ -19,32 +19,16 @@ function validateAccountCreate() {
     validatePassMatch(newPassword, repeatPassword, validitySpans[4], validitySpans[5], invalidList)
 }
 
-function addToInvalidList(str, el, invalidList) {
-    const item = document.createElement('li');
-    item.className = 'invalid-list';
-    item.innerText = str;
-    invalidList.appendChild(item);
-    el.innerText = '✖';
-    el.style.color = 'crimson';
+function validateAccountLogin() {
+  // const inputs = document.getElementsByClassName('account-input');
+  // const validitySpans = document.getElementsByClassName('valid-content');
+  // const invalidList = document.getElementById('invalid-fields-list');
+  // const newPassword = document.getElementById('newPassword');
+  // const repeatPassword = document.getElementById('repeatPassword');
+  // validateInputs(invalidList, inputs, validitySpans)
+  // validatePassMatch(newPassword, repeatPassword, validitySpans[4], validitySpans[5], invalidList)
+  return;
 }
-
-function validateKeys(evt, type) {
-    var theEvent = evt || window.event;
-    if (theEvent.type === 'paste') {     // Handle paste
-        key = event.clipboardData.getData('text/plain');
-    } else {
-        var key = theEvent.keyCode || theEvent.which; // Handle key press
-        key = String.fromCharCode(key);
-    }
-    var regex = /[0-9]|\./;
-    if (type == 'tel') {
-        regex = /[0-9]|[-]|[+]|[(]|[)]|[ ]/;
-    }
-    if(!regex.test(key) ) {
-      theEvent.returnValue = false;
-      if(theEvent.preventDefault) theEvent.preventDefault();
-    }
-  }
 
   function validateAccountUpdate() {
     const validitySpans = document.getElementsByClassName('valid-content');
@@ -68,6 +52,7 @@ function validateKeys(evt, type) {
   }
 
   function validatePasswordUpdate() {
+    let inputs = document.getElementsByClassName('updatePassInput');
     let validitySpans = document.getElementsByClassName('update-password-content');
     let invalidList = document.getElementById('invalid-update-password');
     let oldPassword = document.getElementById('oldPassword');
@@ -78,11 +63,13 @@ function validateKeys(evt, type) {
     }
     let match = true;
     let oldNewMatch = false;
+    let isValid = true;
+    isValid = validateInputs(invalidList, inputs, validitySpans);
     match = validatePassMatch(updatePassword, repeatPassword, validitySpans[1], validitySpans[2], invalidList);
     if (oldPassword.value == updatePassword.value || oldPassword.value == repeatPassword.value) {
       addToInvalidList('* old and new passwords must be different', validitySpans[0], invalidList);
-      validitySpans[0].innerText = '✖';
-      validitySpans[0].style.color = 'crimson';
+      // validitySpans[0].innerText = '✖';
+      // validitySpans[0].style.color = 'crimson';
       oldNewMatch = true;
     }
     if (match == false) {
@@ -90,6 +77,9 @@ function validateKeys(evt, type) {
     } else if (oldNewMatch == true) {
       return false;
     } else {
+      setTimeout(function() { // good way of setting error message if there's only 1 more possible error
+        addToInvalidList('* Current Password is incorrect', validitySpans[0], invalidList);
+      }, 1500);
       return true;
     }
   }
@@ -99,7 +89,7 @@ function validateInputs(invalidList, inputs, validitySpans) {
     while (invalidList.hasChildNodes()) {
         invalidList.removeChild(invalidList.lastChild);
       }
-    for (var i = 0; i < inputs.length; i++) {
+    for (var i = 0; i < validitySpans.length; i++) {
         if (!inputs[i].checkValidity()) {
             validity = false;
             validitySpans[i].innerText = '✖';
@@ -111,6 +101,34 @@ function validateInputs(invalidList, inputs, validitySpans) {
         validitySpans[i].style.display = 'inline-block';
     }
     return validity;
+}
+
+function addToInvalidList(str, el, invalidList) {
+  const item = document.createElement('li');
+  item.className = 'invalid-list';
+  item.innerText = str;
+  invalidList.appendChild(item);
+  el.innerText = '✖';
+  el.style.color = 'crimson';
+  el.style.display = "inline-block";
+}
+
+function validateKeys(evt, type) {
+  var theEvent = evt || window.event;
+  if (theEvent.type === 'paste') {     // Handle paste
+      key = event.clipboardData.getData('text/plain');
+  } else {
+      var key = theEvent.keyCode || theEvent.which; // Handle key press
+      key = String.fromCharCode(key);
+  }
+  var regex = /[0-9]|\./;
+  if (type == 'tel') {
+      regex = /[0-9]|[-]|[+]|[(]|[)]|[ ]/;
+  }
+  if(!regex.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
 }
 
   function validatePassMatch(password, repeatPassword, passEl, repeatPassEl, invalidList) {

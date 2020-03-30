@@ -420,7 +420,7 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
 .my-account, .placeholderPassword {
   margin-left: calc(10px + 0.5vw);
 }
-.account-input {
+.account-input, .login-input, .forgotUserInput, .forgotPassInput, .updatePassInput {
   font-size: calc(11px + 0.3vw);
   border: 1px solid #343a40;
   border-radius: 10px;
@@ -428,7 +428,7 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   min-width: 30%;
   text-align: center;
 }
-.valid-content, .update-password-content {
+.valid-content, .update-password-content, .login-valid-content, .forgotUserValid, .forgotPassValid  {
   font-size: calc(12px + 0.25vw);
   position: absolute;
   padding-left: calc(3px + 0.1vw);
@@ -438,7 +438,7 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   transition: all 0.4s;
 }
 .password-valid-check {
-  margin-left: calc(2px + 0.1vw);
+  margin-left: calc(10px + 0.002vw);
 }
 .account-heading {
   margin: 3% auto 2% auto;
@@ -510,7 +510,7 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   color: darkblue;
   text-decoration: underline;
 }
-input.account-input:disabled {
+input:disabled {
   background-color: aliceblue;
   opacity: 0.9;
   color: black;

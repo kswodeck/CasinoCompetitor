@@ -8,15 +8,15 @@ router.get('/cards', isLoggedIn, function(req, res){
   res.render('cards', {pageTitle: 'Competitive Poker', storedCoins: req.user.coins});
 });
 router.put('/cards', isLoggedIn, function(req, res){ //update coins
-  var isRedirect = req.body.redirect;
-  if (isRedirect == 'true') {
-    return res.redirect('/cards');
-  } else {
-  console.log('updating coins: ' + req.user.coins + ' to ' + req.body.userCoins);
-  User.findOneAndUpdate({username: req.user.username}, {$set: {coins: req.body.userCoins}}, {useFindAndModify: false, rawResult: true}, function(req, res){
-  });
-  return;
-  }
+    if (req.body.userCoins != req.user.coins) {
+    console.log('updating coins: ' + req.user.coins + ' to ' + req.body.userCoins);
+    User.findOneAndUpdate({username: req.user.username}, {$set: {coins: req.body.userCoins}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
+    }
+    if (req.body.currentWin > req.user.highestWin) {
+      console.log('updating highestWin: ' + req.user.highestWin + ' to ' + req.body.currentWin);
+      User.findOneAndUpdate({username: req.user.username}, {$set: {highestWin: req.body.currentWin}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
+    }
+  return res.status(204).send(); //this works in ending the request
 });
 
 router.get('/leaderboard', isLoggedIn, function(req, res){
@@ -40,13 +40,14 @@ router.post('/register', isLoggedOut, function(req, res){
   User.register(newUser, req.body.password, function(err, user){
       if(err){
         console.log("Error: " + err);
-        return res.render('register', {pageTitle: 'Create Account', isLoggedIn: false, error: true, message: err.message});
+        res.render('register', {pageTitle: 'Create Account', isLoggedIn: false, error: true, message: err.message});
       }
       console.log(user);
       passport.authenticate('local')(req, res, function(){
         return res.redirect('/');
       });
   });
+  return res.status(204).send(); //this works in ending the request
 });
 
 router.get('/login', isLoggedOut, function(req, res){
@@ -77,19 +78,16 @@ router.put('/account', isLoggedIn, function(req, res){
   if (req.body.updatePassword) {
     curUser.changePassword(req.body.oldPassword, req.body.updatePassword, function(err, user) { // will use email instead
       if(err){
-        let errStr = err.message.toString();
-        let errStr1 = errStr.slice(0, 8);
-        let message = errStr1 + ' is incorrect';
-        console.log(message);
-        // res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, error: true, message: message});
-        res.redirect('/account'); //implement error message
-        return;
+        // let errStr = err.message.toString();
+        // let errStr1 = errStr.slice(0, 8);
+        // let message = errStr1 + ' is incorrect';
+        // console.log(message);
+        res.status(204).send(); //this works in ending the request
       } else {
         console.log('Password changed to: ' + req.body.updatePassword);
         console.log(user);
         // res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, fromAccount: false, error: true, message: 'Account has been updated'});
-        res.redirect('/account'); // implement 'Account has been updated' message
-        return;
+        return res.redirect('/account'); // implement 'Account has been updated' message
       }
   });
 } else {
@@ -101,6 +99,7 @@ router.put('/account', isLoggedIn, function(req, res){
   compareEachAccountInput(req, res, formattedBirthday, curUser, updated.birthday, formattedBirthday, 'birthday');
   return res.redirect('/account'); // implement 'Account has been updated' message
 }
+// return res.status(204).send(); //this works in ending the request
 });
 function compareEachAccountInput(req, res, formattedBirthday, user, formValue, storedValue, valueName){
   if (formValue != storedValue) {

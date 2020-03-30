@@ -17,4 +17,9 @@ router.get('/coin', function(req, res){
     res.render('coin', {pageTitle: 'Coin'});
 });
 
+// router.get("*", function (req, res, next) {
+//     console.log(req); // do anything you want here
+//     next();
+//  });
+
 module.exports = router;
