@@ -24,7 +24,7 @@ router.get('/leaderboard', isLoggedIn, function(req, res){
     if (err) {
       return console.log(err);
     } else {
-      res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers});
+      return res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers});
     }
   });
 });
@@ -44,11 +44,10 @@ router.post('/register', function(req, res){
       }
       console.log(user);
       passport.authenticate('local')(req, res, function(){
-        res.redirect('/');
+        return res.redirect('/');
       });
   });
 });
-
 
 router.get('/login', isLoggedOut, function(req, res){
   res.render('login', {pageTitle: 'Login'});
@@ -57,6 +56,7 @@ router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login'
 }), function(req, res){ // try implementing error message on failed login
+  return;
 });
 router.get('/logout', isLoggedIn, function(req, res){
   req.logout();
@@ -66,7 +66,8 @@ router.get('/logout', isLoggedIn, function(req, res){
 router.get('/account', isLoggedIn, function(req, res){
   if (req.user) {
   let formattedBirthday = formatDate(req.user.birthday);
-  return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, fromAccount: false});
+  res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, error: false});
+  return;
   }
   return res.redirect('/login');
 });
@@ -75,50 +76,98 @@ router.put('/account', function(req, res){
   const formattedBirthday = formatDate(curUser.birthday);
   if (req.body.updatePassword) {
     curUser.changePassword(req.body.oldPassword, req.body.updatePassword, function(err, user) { // will use email instead
-      if (err) {
-        console.log(err);
+      if(err){
+        let errStr = err.message.toString();
+        let errStr1 = errStr.slice(0, 8);
+        let message = errStr1 + ' is incorrect';
+        console.log(message);
+        // res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, error: true, message: message});
+        res.redirect('/account'); //implement error message
+        return;
       } else {
         console.log('Password changed to: ' + req.body.updatePassword);
         console.log(user);
+        // res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, fromAccount: false, error: true, message: 'Account has been updated'});
+        res.redirect('/account'); // implement 'Account has been updated' message
+        return;
       }
   });
 } else {
-  compareEachAccountInput(curUser, updated.firstName, curUser.firstName, 'firstName');
-  compareEachAccountInput(curUser, updated.lastName, curUser.lastName, 'lastName');
-  compareEachAccountInput(curUser, updated.email, curUser.email, 'email');
-  compareEachAccountInput(curUser, updated.username, curUser.username, 'username');
-  compareEachAccountInput(curUser, updated.phone, curUser.phone, 'phone');
-  compareEachAccountInput(curUser, updated.birthday, formattedBirthday, 'birthday');
-}
+  compareEachAccountInput(req, res, formattedBirthday, curUser, updated.firstName, curUser.firstName, 'firstName');
+  compareEachAccountInput(req, res, formattedBirthday, curUser, updated.lastName, curUser.lastName, 'lastName');
+  compareEachAccountInput(req, res, formattedBirthday, curUser, updated.email, curUser.email, 'email');
+  compareEachAccountInput(req, res, formattedBirthday, curUser, updated.username, curUser.username, 'username');
+  compareEachAccountInput(req, res, formattedBirthday, curUser, updated.phone, curUser.phone, 'phone');
+  compareEachAccountInput(req, res, formattedBirthday, curUser, updated.birthday, formattedBirthday, 'birthday');
   return res.redirect('/account'); // implement 'Account has been updated' message
+}
 });
-function compareEachAccountInput(user, formValue, storedValue, valueName){
+function compareEachAccountInput(req, res, formattedBirthday, user, formValue, storedValue, valueName){
   if (formValue != storedValue) {
     if (valueName == 'firstName') {
-      User.findOneAndUpdate({username: user.username}, {$set: {firstName: formValue}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){
-      });
+      User.findOneAndUpdate({username: user.username}, {$set: {firstName: formValue}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
     } else if (valueName == 'lastName') {
-      User.findOneAndUpdate({username: user.username}, {$set: {lastName: formValue}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){
-      });
+      User.findOneAndUpdate({username: user.username}, {$set: {lastName: formValue}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
     } else if (valueName == 'email') {
-      User.findOneAndUpdate({username: user.username}, {$set: {email: formValue}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){
+      User.find({email: formValue}, function(err, result) {
+        if (err || result.length > 0) {
+          let errMsg = valueName + ' already exists';
+          console.log('Num Results: ' + result.length + ', Error: ' + err);
+          // return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, fromAccount: false, error: true, message: errMsg});
+          return res.redirect('/account'); // implement error message
+        } else {
+          User.findOneAndUpdate({username: user.username}, {$set: {email: formValue}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
+        }
       });
     } else if (valueName == 'username') {
-      User.findOneAndUpdate({username: user.username}, {$set: {username: formValue}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){
+      User.find({username: formValue}, function(err, result) {
+        if (err || result.length > 0) {
+          let errMsg = valueName + ' already exists';
+          console.log('Num Results: ' + result.length + ', Error: ' + err);
+          // return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, fromAccount: false, error: true, message: errMsg});
+          return res.redirect('/account'); // implement error message
+        } else {
+          User.findOneAndUpdate({username: user.username}, {$set: {username: formValue}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
+        }
       });
     } else if (valueName == 'phone') {
-      User.findOneAndUpdate({username: user.username}, {$set: {phone: formValue}}, {useFindAndModify: false, rawResult: true}, function(req, res){
-      });
+      User.findOneAndUpdate({username: user.username}, {$set: {phone: formValue}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
     } else if (valueName == 'birthday') {
       let momentBirthday =  getLocalNoonDate(formValue);
-      User.findOneAndUpdate({username: user.username}, {$set: {birthday: momentBirthday}}, {useFindAndModify: false, rawResult: true}, function(req, res){
-      });
+      User.findOneAndUpdate({username: user.username}, {$set: {birthday: momentBirthday}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
     }
-    return console.log('Updated ' + valueName + ': ' + storedValue + ' to ' + formValue);
+      return console.log('Update attempt, ' + valueName + ': ' + storedValue + ' to ' + formValue);
   } else {
     return console.log('values are equal');
   }
 }
+
+router.get('/forgotuser', isLoggedOut, function(req, res){ // try implementing error message on failure
+  return;
+});
+router.post('/forgotuser', function(req, res){ // try implementing error message on failure
+  let userBirthday = req.body.forgotUser.birthday;
+  console.log('email: ' + req.body.forgotUser.email + ', birthday: ' + userBirthday);
+  // /req.body.forgotUser.birthday/i
+  User.find({email: req.body.forgotUser.email, birthday: {"$regex": userBirthday, "$options": "i" }}, function(err, user) {
+    if (err || result.length < 1) {
+      let errMsg = "email and birthday combination doesn't exist";
+      console.log(errMsg);
+      return res.redirect('/forgotuser');
+    } else {
+      console.log('match found');
+      return res.redirect('/forgotuser');
+    }
+  });
+  return;
+});
+
+router.get('/forgotpass', isLoggedOut, function(req, res){ // try implementing error message on failure
+  return;
+});
+router.post('/forgotpass', function(req, res){ // try implementing error message on failure
+  return;
+});
 
 function isLoggedIn(req, res, next){
   if(req.isAuthenticated()){

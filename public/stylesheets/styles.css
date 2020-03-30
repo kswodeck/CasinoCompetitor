@@ -90,6 +90,8 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   display: none;
 }
 
+/* , #oldPassword, #oldPassLabel, #oldPassIcon, #oldPassCheck */
+
 .table-heading, .current-table-heading {
   font-size: calc(11px + 0.5vw);
   font-weight: bold;
@@ -679,7 +681,7 @@ input.account-input:disabled {
 }
 
 #dialogButtonDiv, #logoutDialogDiv {
-  margin-top: 2%;
+  margin: 4% auto 2.5% auto;
 }
 #coinDialogDiv {
   margin-top: 5%;

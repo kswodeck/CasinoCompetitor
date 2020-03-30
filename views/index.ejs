@@ -12,15 +12,15 @@
     <button id="logoutDialogExit" class="exit-dialog-button" onclick="exitDialog('logoutDialog')" >✖</button>
   </div>
   <h2 id="logoutHeading" class="account-heading login-heading">You've been logged out</h2>
-    <div id="logoutDialogDiv" class="row justify-content-around">
-      <div class="col">
-        <button id="logoutLoginButton" class="btn cancelbutton" onclick="location.href='/login'">Log In</button>
-      </div>
-      <div class="col">
-        <button id="logoutRegisterButton" class="btn cancelbutton" onclick="location.href='/register'">Sign Up</button>
-      </div>
+  <div id="logoutDialogDiv" class="row justify-content-around">
+    <div class="col">
+      <button id="logoutLoginButton" class="btn cancelbutton" onclick="location.href='/login'">Log In</button>
     </div>
-  </dialog>
+    <div class="col">
+      <button id="logoutRegisterButton" class="btn cancelbutton" onclick="location.href='/register'">Sign Up</button>
+    </div>
+  </div>
+</dialog>
 
 <% if (fromLogout === true){ %>
 <script>

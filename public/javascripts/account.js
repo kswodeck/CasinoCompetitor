@@ -25,8 +25,7 @@ function displayLogoutDialog(){
     logoutDialog.showModal();
     container.style.display = 'none';
     setTimeout(function() {
-      logoutDialog.close();
-      container.style.display = 'block';
+      window.location.href = '/';
     }, 8000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
