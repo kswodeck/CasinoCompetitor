@@ -7,7 +7,7 @@ var passport = require('passport'),
 router.get('/cards', isLoggedIn, function(req, res){
   res.render('cards', {pageTitle: 'Competitive Poker', storedCoins: req.user.coins});
 });
-router.put('/cards', function(req, res){ //update coins
+router.put('/cards', isLoggedIn, function(req, res){ //update coins
   var isRedirect = req.body.redirect;
   if (isRedirect == 'true') {
     return res.redirect('/cards');
@@ -32,7 +32,7 @@ router.get('/leaderboard', isLoggedIn, function(req, res){
 router.get('/register', isLoggedOut, function(req, res){
   res.render('register', {pageTitle: 'Create Account', error: false});
 });
-router.post('/register', function(req, res){
+router.post('/register', isLoggedOut, function(req, res){
   let momentBirthday =  getLocalNoonDate(req.body.createUser.birthday);
   var newUser = new User({email: req.body.createUser.email, username: req.body.username, firstName: req.body.createUser.firstName, lastName: req.body.createUser.lastName, phone: req.body.createUser.phone, birthday: momentBirthday});
   // try refactor to req.body.createUser, no curly braces
@@ -71,7 +71,7 @@ router.get('/account', isLoggedIn, function(req, res){
   }
   return res.redirect('/login');
 });
-router.put('/account', function(req, res){
+router.put('/account', isLoggedIn, function(req, res){
   const curUser = req.user, updated = req.body.updateUser;
   const formattedBirthday = formatDate(curUser.birthday);
   if (req.body.updatePassword) {
