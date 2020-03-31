@@ -32,13 +32,20 @@ function displayLogoutDialog(){
   }
 }
 
-function displayForgotDialog(newDialog){
+function displayForgotDialog(newDialog, message){
     const loginDialog = document.getElementById(newDialog);
     if (typeof loginDialog.showModal === 'function') {
       loginDialog.showModal();
       document.getElementById('loginDialog').close();
     } else {
       console.log('The <dialog> API is not supported by this browser');
+    }
+
+    if (message != 'false' && message != undefined) {
+      const item = document.createElement('li');
+      item.className = 'invalid-list';
+      item.innerText = 'Your username is "' + message + '"';
+      document.getElementById('invalid-forgot-username').appendChild(item);
     }
 }
 

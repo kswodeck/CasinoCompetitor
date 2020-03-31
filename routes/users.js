@@ -141,20 +141,30 @@ function compareEachAccountInput(req, res, formattedBirthday, user, formValue, s
 }
 
 router.get('/forgotuser', isLoggedOut, function(req, res){ // try implementing error message on failure
-  return;
+  return res.render('forgotuser', {pageTitle: 'Forgot Username', message: false});
 });
 router.post('/forgotuser', function(req, res){ // try implementing error message on failure
   let userBirthday = req.body.forgotUser.birthday;
   console.log('email: ' + req.body.forgotUser.email + ', birthday: ' + userBirthday);
-  // /req.body.forgotUser.birthday/i
-  User.find({email: req.body.forgotUser.email, birthday: {"$regex": userBirthday, "$options": "i" }}, function(err, user) {
-    if (err || result.length < 1) {
-      let errMsg = "email and birthday combination doesn't exist";
-      console.log(errMsg);
+  User.find({email: req.body.forgotUser.email}, function(err, users) {
+    if (err || users.length < 1) {
+      console.log("email doesn't exist");
       return res.redirect('/forgotuser');
     } else {
-      console.log('match found');
-      return res.redirect('/forgotuser');
+      console.log('NumUsers: ' + users.length);
+      for (let i = 0; i < users.length; i++) {
+        console.log('user ' + i + ' birthday: ' + users[0].birthday);
+        let storedBirthday = formatDate(users[0].birthday);
+        console.log('storedBirthday: ' + storedBirthday + ', userBirthday: ' + userBirthday);
+        if (storedBirthday.includes(userBirthday)) {
+          console.log('match found');
+          res.render('forgotuser', {pageTitle: 'Forgot Username', message: users[i].username});
+          // cannpt set headers error
+        } else {
+          console.log('not a match');
+        }
+      }
+      // return res.redirect('/forgotuser');
     }
   });
   return;
