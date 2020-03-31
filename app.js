@@ -3,12 +3,13 @@ var express      = require('express'),
   passport       = require('passport'),
   bodyParser     = require('body-parser'),
   LocalStrategy  = require('passport-local'),
+  flash          = require('connect-flash'),
   app            = express(),
   methodOverride = require('method-override'),
   User           = require('./models/user'),
   userRoutes     = require('./routes/users'),
   featureRoutes  = require('./routes/features');
-
+  
 // var createError = require('http-errors');
 // var path = require('path');
 // var cookieParser = require('cookie-parser');
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
+app.use(flash());
 
 app.use(require('express-session')({ // Passport configuration
   secret: 'secret',
