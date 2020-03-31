@@ -63,7 +63,7 @@ router.post('/register', isLoggedOut, function(req, res){
 });
 
 router.get('/login', isLoggedOut, function(req, res){
-  res.render('login', {pageTitle: 'Login'});
+  res.render('login', {pageTitle: 'Login', message: req.flash('error')});
 });
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
@@ -190,6 +190,7 @@ function isLoggedIn(req, res, next){
   if(req.isAuthenticated()){
       return next();
   }
+  req.flash('error', 'Please login to access this feature');
   res.redirect('/login');
 }
 function isLoggedOut(req, res, next){

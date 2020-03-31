@@ -3,12 +3,18 @@ if (title == 'My Account') {
   const accountUpdateButton = document.getElementById('accountUpdateButton');
 }
 
-function displayLoginDialog(){
+function displayLoginDialog(message){
     const loginDialog = document.getElementById('loginDialog');
     const pageTitle = document.getElementsByTagName('title')[0];
     if (pageTitle.innerText == 'Login' || pageTitle.innerText == 'Forgot Username' || pageTitle.innerText == 'Forgot Password') {
       const exitButton = document.getElementById('loginDialogExit');
       exitButton.setAttribute('onclick', "location.href='/'");
+    }
+    if (message != 'false' && message != undefined) {
+      const item = document.createElement('li');
+      item.className = 'invalid-list';
+      item.innerText = message;
+      document.getElementById('invalid-login').appendChild(item);
     }
     if (typeof loginDialog.showModal === 'function') {
       loginDialog.showModal();
@@ -51,13 +57,17 @@ function displayForgotDialog(newDialog, message){
       item.innerText = message;
       document.getElementById('invalid-forgot-username').appendChild(item);
     }
+    const forgotPassExit = document.getElementById('forgotPWDialogExit');
+    const forgotUserExit = document.getElementById('forgotUserDialogExit');
     if (pageTitle.innerText == 'Forgot Username' || pageTitle.innerText == 'Forgot Password') {
-      const forgotUserExit = document.getElementById('forgotUserDialogExit')
-      forgotUserExit.setAttribute('onclick', "location.href='/login'");
-      const forgotPassExit = document.getElementById('forgotPWDialogExit')
-      forgotPassExit.setAttribute('onclick', "location.href='/login'");
       const exitButton = document.getElementById('loginDialogExit');
+      forgotUserExit.setAttribute('onclick', "location.href='/login'");
+      forgotPassExit.setAttribute('onclick', "location.href='/login'");
       exitButton.setAttribute('onclick', "location.href='/'");
+    }
+    if (pageTitle.innerText == 'Login') {
+      forgotUserExit.setAttribute('onclick', "location.href='/'");
+      forgotPassExit.setAttribute('onclick', "location.href='/'");
     }
 }
 
@@ -70,7 +80,7 @@ function exitDialog(currentDialog){
   }
   document.getElementById(currentDialog).close();
   document.getElementById('mid-container').style.display = 'block';
-  enableAllInputs(accountInputs);
+  // enableAllInputs(accountInputs);
 }
 
 function backFromDialog(currentDialog){
