@@ -6,7 +6,7 @@ var cards2 = [];
 var currentHand = 0;
 var startCoins;
 var newRound;
-if (document.getElementsByTagName('title')[0] == 'Competitive Poker' || document.getElementById('page-heading').innerText == 'COMPETITIVE POKER') {
+if (document.getElementsByTagName('title')[0].innerText == 'Competitive Poker' || document.getElementById('page-heading').innerText == 'COMPETITIVE POKER') {
   const coinsInput = document.getElementById('coinsInput');
   const currentWinInput = document.getElementById('currentWinInput');
   startCoins = coinsInput.value;

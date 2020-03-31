@@ -5,6 +5,8 @@
   <img src="images\pocket-poker.png" alt="PocketPoker" id="home-logo" class="m-auto img-fluid">
   <% if (currentUser){ %>
   <h3 id="usernameHome" class="username-welcome"><%= currentUser.username %></h3>
+  <span id="total-coins-welcome">You have <%= currentUser.coins %></span><img id="welcome-coins-img" src="images/coins.png"><br>
+  <button id="homeButton" onclick="location.href='/cards'">Test your luck</button>
   <% } %>
 </div>
 <dialog id="logoutDialog" class="container-fluid account-form-div">

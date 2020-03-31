@@ -159,6 +159,9 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   width: calc(22px + 1vw);
   display: none;
 }
+#welcome-coins-img {
+  width: calc(26px + 1.2vw);
+}
 
 #total-coins-span {
   font-size:calc(12px + 0.3vw);
@@ -167,8 +170,16 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   margin-right: 1.5%;
   text-align: right;
 }
+#total-coins-welcome {
+  font-size:calc(15px + 0.4vw);
+  color: crimson;
+  font-weight: bolder;
+}
+#total-coins-welcome, #welcome-coins-img {
+  margin: 0.8% 0.3%;
+}
 
-#coin-flip-button, #dice-roll-button, #card-deal-button, #clear-tally-button {
+#coin-flip-button, #dice-roll-button, #card-deal-button, #clear-tally-button, #homeButton {
   background-color: gold;
   color: crimson;
   font-weight: bold;
@@ -177,21 +188,21 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   white-space: nowrap;
   transition: all 0.4s;
 }
-#coin-flip-button, #dice-roll-button, #card-deal-button {
+#coin-flip-button, #dice-roll-button, #card-deal-button, #homeButton {
   font-size:calc(16px + 1vw);
 }
 #clear-tally-button {
   font-size:calc(11.5px + 0.3vw);
 }
-#coin-flip-button:hover, #dice-roll-button:hover, #card-deal-button:hover, #clear-tally-button:hover {
+#coin-flip-button:hover, #dice-roll-button:hover, #card-deal-button:hover, #clear-tally-button:hover, #homeButton:hover {
   background-color: darkblue;
   color: gold;
   border: 2px solid gold;
 }
-#coin-flip-button:active, #dice-roll-button:active, #card-deal-button:active, #clear-tally-button:active {
+#coin-flip-button:active, #dice-roll-button:active, #card-deal-button:active, #clear-tally-button:active, #homeButton:active {
   border: 2px solid crimson;
 }
-#coin-flip-button:disabled, #dice-roll-button:disabled, #card-deal-button:disabled, #clear-tally-button:disabled {
+#coin-flip-button:disabled, #dice-roll-button:disabled, #card-deal-button:disabled, #clear-tally-button:disabled, #homeButton:disabled {
   opacity: 0.1;
   cursor: default;
 }
@@ -396,7 +407,7 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
   font-size: calc(20px + 0.85vw)
 }
 .username-welcome {
-  margin: 1.5% auto;
+  margin: 1.5% auto 0 auto;
 }
 .name-row {
   max-width: 100%;
@@ -495,6 +506,8 @@ background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6E
 }
 .invalid-list {
   color: var(--darkcrimson);
+  font-weight: bolder;
+  font-size: calc(11px + 0.3vw);
 }
 .valid-list {
   color: green;

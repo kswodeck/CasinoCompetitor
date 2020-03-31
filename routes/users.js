@@ -149,23 +149,23 @@ router.post('/forgotuser', function(req, res){ // try implementing error message
   User.find({email: req.body.forgotUser.email}, function(err, users) {
     if (err || users.length < 1) {
       console.log("email doesn't exist");
-      return res.redirect('/forgotuser');
     } else {
       console.log('NumUsers: ' + users.length);
       for (let i = 0; i < users.length; i++) {
-        console.log('user ' + i + ' birthday: ' + users[0].birthday);
-        let storedBirthday = formatDate(users[0].birthday);
+        console.log('user ' + i + ' birthday: ' + users[i].birthday);
+        let storedBirthday = formatDate(users[i].birthday);
         console.log('storedBirthday: ' + storedBirthday + ', userBirthday: ' + userBirthday);
         if (storedBirthday.includes(userBirthday)) {
           console.log('match found');
-          res.render('forgotuser', {pageTitle: 'Forgot Username', message: users[i].username});
-          // cannpt set headers error
+          let msg = 'Username: ' + users[i].username;
+          return res.render('forgotuser', {pageTitle: 'Forgot Username', message: msg});
         } else {
           console.log('not a match');
         }
       }
       // return res.redirect('/forgotuser');
     }
+    return res.render('forgotuser', {pageTitle: 'Forgot Username', message: 'No match found'});
   });
   return;
 });

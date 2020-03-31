@@ -3,12 +3,12 @@ if (title == 'My Account') {
   const accountUpdateButton = document.getElementById('accountUpdateButton');
 }
 
-function displayLoginDialog(loginPage){
+function displayLoginDialog(){
     const loginDialog = document.getElementById('loginDialog');
-    if (loginPage === true) {
-      const exitButton = document.getElementById('loginDialogExit')
+    const pageTitle = document.getElementsByTagName('title')[0];
+    if (pageTitle.innerText == 'Login' || pageTitle.innerText == 'Forgot Username' || pageTitle.innerText == 'Forgot Password') {
+      const exitButton = document.getElementById('loginDialogExit');
       exitButton.setAttribute('onclick', "location.href='/'");
-      // exitButton.setAttribute('href', '/coin');
     }
     if (typeof loginDialog.showModal === 'function') {
       loginDialog.showModal();
@@ -34,18 +34,26 @@ function displayLogoutDialog(){
 
 function displayForgotDialog(newDialog, message){
     const loginDialog = document.getElementById(newDialog);
+    const pageTitle = document.getElementsByTagName('title')[0];
     if (typeof loginDialog.showModal === 'function') {
       loginDialog.showModal();
       document.getElementById('loginDialog').close();
     } else {
       console.log('The <dialog> API is not supported by this browser');
     }
-
     if (message != 'false' && message != undefined) {
       const item = document.createElement('li');
       item.className = 'invalid-list';
-      item.innerText = 'Your username is "' + message + '"';
+      item.innerText = message;
       document.getElementById('invalid-forgot-username').appendChild(item);
+    }
+    if (pageTitle.innerText == 'Forgot Username' || pageTitle.innerText == 'Forgot Password') {
+      const forgotUserExit = document.getElementById('forgotUserDialogExit')
+      forgotUserExit.setAttribute('onclick', "location.href='/login'");
+      const forgotPassExit = document.getElementById('forgotPWDialogExit')
+      forgotPassExit.setAttribute('onclick', "location.href='/login'");
+      const exitButton = document.getElementById('loginDialogExit');
+      exitButton.setAttribute('onclick', "location.href='/'");
     }
 }
 
