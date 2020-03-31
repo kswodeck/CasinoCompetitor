@@ -26,7 +26,11 @@
           <input type="date" name="updateUser[birthday]" id="updateBirthday" class="account-input birthday my-account" size="8" min="1920-01-01" max="2019-12-31" value="<%= birthday %>" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" disabled required><i class="fas fa-pencil-alt edit-icon input-icon" onclick="toggleInputDisable('updateBirthday')"></i><span class="valid-content"></span><br>
           <ul id="invalid-fields-list" class="invalid-fields-list"> <!-- date validations are sufficient -->
           <% if(error) { %>
-            <li class="invalid-list"><%= message %></li>
+            <% if(message == 'Account has been updated') { %>
+              <li class="valid-list"><%= message %></li>
+            <% } else { %>
+              <li class="invalid-list"><%= message %></li>
+            <% } %>
           <% } %>
           </ul>
           <input type="submit" name="account-update" onclick="return validateAccountUpdate()" role="button" value="Update Account" class="btn account-button" id="accountUpdateButton" disabled>

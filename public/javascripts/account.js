@@ -43,7 +43,11 @@ function displayForgotDialog(newDialog, message){
     }
     if (message != 'false' && message != undefined) {
       const item = document.createElement('li');
-      item.className = 'invalid-list';
+      if (!message.includes('Username')) {
+        item.className = 'invalid-list';
+      } else {
+        item.className = 'valid-list';
+      }
       item.innerText = message;
       document.getElementById('invalid-forgot-username').appendChild(item);
     }
@@ -58,8 +62,15 @@ function displayForgotDialog(newDialog, message){
 }
 
 function exitDialog(currentDialog){
-    document.getElementById(currentDialog).close();
-    document.getElementById('mid-container').style.display = 'block';
+  const invalidList = document.getElementsByClassName('invalid-fields-list');
+  for (let i = 0; i < invalidList.length; i++) {
+    while (invalidList[i].hasChildNodes()) {
+      invalidList[i].removeChild(invalidList[i].lastChild);
+    }
+  }
+  document.getElementById(currentDialog).close();
+  document.getElementById('mid-container').style.display = 'block';
+  enableAllInputs(accountInputs);
 }
 
 function backFromDialog(currentDialog){
