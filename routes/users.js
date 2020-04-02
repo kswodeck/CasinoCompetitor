@@ -135,11 +135,13 @@ router.put('/account', isLoggedIn, function(req, res){
               res.redirect('/account');
             } else {
               User.findOneAndUpdate({username: curUser.username}, {$set: {email: updated.email}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
-              return res.status(204).send();
+              req.flash('success', 'Account has been updated');
+              res.redirect('/account');
             }
           });
         } else {
-          return res.status(204).send();
+          req.flash('success', 'Account has been updated');
+          res.redirect('/account');
         }
         // req.flash('success', 'Account has been updated');
         // res.redirect('/account');
