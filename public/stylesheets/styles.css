@@ -304,12 +304,12 @@ body {
   z-index: 10;
 }
 
-#header a:hover, #account-login-link:hover, #current-link, #practice-mode-link:hover, #forgot-pw-link:hover, #forgot-user-link:hover, .back-button-label:hover, #forgotUserBackArrow:hover, #forgotPWBackArrow:hover, #updatePWBackArrow:hover {
+#header a:hover, #account-login-link:hover, #current-link, #practice-mode-link:hover, #forgot-pw-link:hover, #forgot-user-link:hover, #account-signup-link:hover, .back-button-label:hover, #forgotUserBackArrow:hover, #forgotPWBackArrow:hover, #updatePWBackArrow:hover {
   color: crimson;
   cursor: pointer;
   transition: all 0.4s;
 }
-#header a:active, #account-login-link:active, #practice-mode-link:active, #forgot-pw-link:active, #forgot-user-link:active, .back-button-label:active, #forgotUserBackArrow:active, #forgotPWBackArrow:active, #updatePWBackArrow:active {
+#header a:active, #account-login-link:active, #practice-mode-link:active, #forgot-pw-link:active, #forgot-user-link:active, #account-signup-link:active, .back-button-label:active, #forgotUserBackArrow:active, #forgotPWBackArrow:active, #updatePWBackArrow:active {
   color: var(--darkcrimson);
 }
 
@@ -525,7 +525,7 @@ body {
   font-size: calc(11px + 0.3vw);
   margin-bottom: 2%;
 }
-#account-login-link, #forgot-pw-link, #forgot-user-link {
+#account-login-link, #forgot-pw-link, #forgot-user-link, #account-signup-link {
   color: darkblue;
   text-decoration: underline;
 }

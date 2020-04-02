@@ -24,13 +24,11 @@
           <input type="tel" name="updateUser[phone]" id="updatePhone" class="account-input my-account" minlength="10" maxlength="16" value="<%= currentUser.phone %>" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXX-XXX-XXXX" disabled required><i class="fas fa-pencil-alt edit-icon input-icon" onclick="toggleInputDisable('updatePhone')"></i><span class="valid-content"></span><br>
           <label for="birthday" class="account-label">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
           <input type="date" name="updateUser[birthday]" id="updateBirthday" class="account-input birthday my-account" size="8" min="1920-01-01" max="2019-12-31" value="<%= birthday %>" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" disabled required><i class="fas fa-pencil-alt edit-icon input-icon" onclick="toggleInputDisable('updateBirthday')"></i><span class="valid-content"></span><br>
-          <ul id="invalid-fields-list" class="invalid-fields-list"> <!-- date validations are sufficient -->
-          <% if(error) { %>
-            <% if(message == 'Account has been updated') { %>
-              <li class="valid-list"><%= message %></li>
-            <% } else { %>
-              <li class="invalid-list"><%= message %></li>
-            <% } %>
+          <ul id="invalid-fields-list" class="invalid-fields-list">
+          <% if (error && error.length > 0) { %>
+            <li class="invalid-list"><%= error %></li>
+          <% } else if (success && success.length > 0) { %>
+            <li class="valid-list"><%= success %></li>
           <% } %>
           </ul>
           <input type="submit" name="account-update" onclick="return validateAccountUpdate()" role="button" value="Update Account" class="btn account-button" id="accountUpdateButton" disabled>

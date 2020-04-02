@@ -22,7 +22,7 @@
               <div class="dropdown-menu" id="mainDropdown" aria-labelledby="dropdownMainLink">
                 <% if (!currentUser){ %>
                 <a class="secondary-link dropdown-item px-md-1 p-0" href="register">Sign Up</a>
-                <a class="secondary-link dropdown-item px-md-1 p-0" onclick="displayLoginDialog('false')" href="#">Log In</a>
+                <a class="secondary-link dropdown-item px-md-1 p-0" onclick="displayLoginDialog('<%= error %>')" href="#">Log In</a>
                 <% } else { %>
                 <a class="secondary-link dropdown-item px-md-1 p-0" href="account">My Account</a>
                 <a class="secondary-link dropdown-item px-md-1 p-0" href="/logout">Log Out</a>

@@ -6,7 +6,12 @@ let curDate = getCurrentDate();
 
 function getCurrentDate() {
   let adjustedTime = moment().hour()+(moment().utcOffset()/60);
-  let dateReturned = moment().year() + '-'+ (moment().month()+1) + '-' + moment().date()
+  let todayDate = moment().date();
+  if (adjustedTime < 0) {
+    todayDate = (moment().date()-1);
+    adjustedTime = (24 + adjustedTime);
+  }
+  let dateReturned = moment().year() + '-'+ (moment().month()+1) + '-' + todayDate
   + ' ' + adjustedTime + ':' + moment().minutes() + ':' + moment().seconds() + '.' + moment().milliseconds();
   return dateReturned;
 }
