@@ -19,14 +19,14 @@
           <label for="username" class="account-label">Username</label><br> <!-- username validations are sufficient -->
           <input type="text" name="updateUser[username]" id="updateUsername" class="account-input my-account" minlength="5" maxlength="20" value="<%= currentUser.username %>" size="25" disabled required><i class="fas fa-pencil-alt edit-icon input-icon" onclick="toggleInputDisable('updateUsername')"></i><span class="valid-content"></span><br>
           <label for="accountPassword" class="account-label">Password</label><br> <!-- password validations aren't fully sufficient -->
-          <input type="password" name="placeholderPassword" id="accountPassword" class="account-input placeholderPassword" minlength="5" maxlength="20" value="password" size="25" disabled required><i class="fas fa-pencil-alt edit-icon input-icon" onclick="displayEditPassword('updatePWDialog')"></i><br>
+          <input type="password" id="accountPassword" class="account-input placeholderPassword" placeholder="password" size="25" disabled><i class="fas fa-pencil-alt edit-icon input-icon" onclick="displayEditPassword('updatePWDialog')"></i><br>
           <label for="phone" class="account-label">Phone Number</label><br> <!-- phone number validations aren't sufficient, complex -->
           <input type="tel" name="updateUser[phone]" id="updatePhone" class="account-input my-account" minlength="10" maxlength="16" value="<%= currentUser.phone %>" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXX-XXX-XXXX" disabled required><i class="fas fa-pencil-alt edit-icon input-icon" onclick="toggleInputDisable('updatePhone')"></i><span class="valid-content"></span><br>
           <label for="birthday" class="account-label">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
           <input type="date" name="updateUser[birthday]" id="updateBirthday" class="account-input birthday my-account" size="8" min="1920-01-01" max="2019-12-31" value="<%= birthday %>" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" disabled required><i class="fas fa-pencil-alt edit-icon input-icon" onclick="toggleInputDisable('updateBirthday')"></i><span class="valid-content"></span><br>
           <ul id="invalid-fields-list" class="invalid-fields-list">
-          <% if (error && error.length > 0) { %>
-            <li class="invalid-list"><%= error %></li>
+          <% if (invalid && invalid.length > 0) { %>
+            <li class="invalid-list"><%= invalid %></li>
           <% } else if (success && success.length > 0) { %>
             <li class="valid-list"><%= success %></li>
           <% } %>
