@@ -33,7 +33,6 @@ function validateAccountLogin() {
   function validateAccountUpdate() {
     const validitySpans = document.getElementsByClassName('valid-content');
     const invalidList = document.getElementById('invalid-fields-list');
-    enableAllInputs(accountInputs);
     while (invalidList.hasChildNodes()) {
       invalidList.removeChild(invalidList.lastChild);
     }
@@ -139,11 +138,3 @@ function validateKeys(evt, type) {
         return false;
     }
   }
-
-function enableAllInputs(inputs) {
-  for (let i=0; i< inputs.length; i++) {
-    if (inputs[i].hasAttribute('disabled')) {      
-      inputs[i].removeAttribute('disabled');
-    }
-  }
-}

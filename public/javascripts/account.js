@@ -113,13 +113,3 @@ function displayEditPassword(updateDialog){
     console.log('The <dialog> API is not supported by this browser');
   }
 }
-
-function toggleInputDisable(input) {
-  const editInput = document.getElementById(input);
-  if (editInput.hasAttribute('disabled')) {      
-    editInput.removeAttribute('disabled');
-    if (accountUpdateButton.hasAttribute('disabled')) {
-      accountUpdateButton.removeAttribute('disabled');
-    }
-  }
-}

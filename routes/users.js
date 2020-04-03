@@ -103,49 +103,65 @@ router.put('/account', isLoggedIn, function(req, res){
       }
     });
   } else { //figure out how to handle errors here.. may need chains of if elses so that only one redirect/flash is done
-      if (updated.firstName != curUser.firstName) {
-        User.findOneAndUpdate({username: curUser.username}, {$set: {firstName: updated.firstName}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
-      }
-      if (updated.lastName != curUser.lastName) {
-        User.findOneAndUpdate({username: curUser.username}, {$set: {lastName: updated.lastName}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
-      }
-      if (updated.phone != curUser.phone) {
-        User.findOneAndUpdate({username: curUser.username}, {$set: {phone: updated.phone}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
-      }
-      if (updated.birthday != formattedBirthday) {
-        let momentBirthday =  getLocalNoonDate(updated.birthday);
-        User.findOneAndUpdate({username: curUser.username}, {$set: {birthday: momentBirthday}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
-      }
-      if (updated.username != curUser.username) {
-        User.find({username: updated.username}, function(err, result) {
-          if (err || result.length > 0) {
-            console.log('Username Num Results: ' + result.length + ', Error: ' + err);
-            // req.flash('invalid', 'Username already exists');
-            // res.redirect('/account');
-          } else {
-            User.findOneAndUpdate({username: curUser.username}, {$set: {username: updated.username}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
-          }
-        });
+    if (updated.firstName != curUser.firstName) {
+      User.findOneAndUpdate({username: curUser.username}, {$set: {firstName: updated.firstName}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
+    } 
+    if (updated.lastName != curUser.lastName) {
+      User.findOneAndUpdate({username: curUser.username}, {$set: {lastName: updated.lastName}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
+    }
+    if (updated.phone != curUser.phone) {
+      User.findOneAndUpdate({username: curUser.username}, {$set: {phone: updated.phone}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
+    }
+    if (updated.birthday != formattedBirthday) {
+      let momentBirthday =  getLocalNoonDate(updated.birthday);
+      User.findOneAndUpdate({username: curUser.username}, {$set: {birthday: momentBirthday}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
+    }
+    if (updated.email != curUser.email) {
+      User.find({email: updated.email}, function(err, result) {
+        if (err || result.length > 0) {
+          console.log('Email Num Results: ' + result.length + ', Error: ' + err);
+            req.flash('invalidEmail', 'Email already exists');
+            res.redirect('/account');
+        } else {
+          User.findOneAndUpdate({username: curUser.username}, {$set: {email: updated.email}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
         }
-        if (updated.email != curUser.email) {
-          sameEmails = User.find({email: updated.email}, function(err, result) {
-            if (err || result.length > 0) {
-              console.log('Email Num Results: ' + result.length + ', Error: ' + err);
-              req.flash('invalid', 'Email already exists');
-              res.redirect('/account');
-            } else {
-              User.findOneAndUpdate({username: curUser.username}, {$set: {email: updated.email}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
-              req.flash('success', 'Account has been updated');
+      });
+    } 
+    if (updated.username != curUser.username) {
+      User.find({username: updated.username}, function(err, result) {
+        if (err || result.length > 0) {
+          console.log('Username Num Results: ' + result.length + ', Error: ' + err);
+          res.setTimeout(500, function(){
+            console.log('Headers sent: ' + res.headersSent);
+            if (res.headersSent == false) {
+              console.log('IN FALSE: Headers sent: ' + res.headersSent);
+              req.flash('invalidUser', 'Username already exists');
               res.redirect('/account');
             }
           });
         } else {
+          User.findOneAndUpdate({username: curUser.username}, {$set: {username: updated.username}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
+          res.setTimeout(400, function(){
+            console.log('Headers sent: ' + res.headersSent);
+            if (res.headersSent == false) {
+              console.log('IN FALSE: Headers sent: ' + res.headersSent);
+              req.flash('success', 'Account has been updated');
+              res.redirect('/account');
+            }
+          });
+        }
+      });
+    } else {
+      res.setTimeout(300, function(){
+        console.log('Headers sent: ' + res.headersSent);
+        if (res.headersSent == false) {
+          console.log('IN FALSE: Headers sent: ' + res.headersSent);
           req.flash('success', 'Account has been updated');
           res.redirect('/account');
         }
-        // req.flash('success', 'Account has been updated');
-        // res.redirect('/account');
+      });
     }
+  }
 });
 
 router.get('/forgotuser', isLoggedOut, function(req, res){

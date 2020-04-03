@@ -428,7 +428,7 @@ body {
   color: #252b30;
   margin: 5px auto 0 auto;
 }
-.my-account, .placeholderPassword {
+.placeholderPassword {
   margin-left: calc(10px + 0.5vw);
 }
 .account-input, .login-input, .forgotUserInput, .forgotPassInput, .updatePassInput {

@@ -7,31 +7,33 @@
           <div class="name-row row">
             <div id="firstNameCol" class="name-col col">
               <label for="firstName" class="account-label account-name-label">First Name</label><br>
-              <input type="text" name="updateUser[firstName]" id="updateFirstName" class="account-input account-name-input my-account" minlength="1" maxlength="30" value="<%= currentUser.firstName %>" size="20" autofocus disabled required><i class="fas fa-pencil-alt edit-icon input-icon" onclick="toggleInputDisable('updateFirstName')"></i><span class="valid-content"></span>
+              <input type="text" name="updateUser[firstName]" id="updateFirstName" class="account-input account-name-input my-account" minlength="1" maxlength="30" value="<%= currentUser.firstName %>" size="20" required><span class="valid-content"></span>
             </div>
             <div id="lastNameCol" class="name-col col">
               <label for="lastName" class="account-label account-name-label">Last Name</label><br>
-              <input type="text" name="updateUser[lastName]" id="updateLastName" class="account-input account-name-input my-account" minlength="1" maxlength="40" value="<%= currentUser.lastName %>" size="20" disabled required><i class="fas fa-pencil-alt edit-icon input-icon" onclick="toggleInputDisable('updateLastName')"></i><span class="valid-content"></span>
+              <input type="text" name="updateUser[lastName]" id="updateLastName" class="account-input account-name-input my-account" minlength="1" maxlength="40" value="<%= currentUser.lastName %>" size="20" required><span class="valid-content"></span>
             </div>
           </div>
           <label for="email" class="account-label">Email</label><br> <!-- email validations aren't fully sufficient. Make sure "." included with at least 1 character after -->
-          <input type="email" name="updateUser[email]" id="updateEmail" class="account-input my-account" minlength="8" maxlength="60" value="<%= currentUser.email %>" size="40" disabled required><i class="fas fa-pencil-alt edit-icon input-icon" onclick="toggleInputDisable('updateEmail')"></i><span class="valid-content"></span><br>
+          <input type="email" name="updateUser[email]" id="updateEmail" class="account-input my-account" minlength="8" maxlength="60" value="<%= currentUser.email %>" size="40" required><span class="valid-content"></span><br>
           <label for="username" class="account-label">Username</label><br> <!-- username validations are sufficient -->
-          <input type="text" name="updateUser[username]" id="updateUsername" class="account-input my-account" minlength="5" maxlength="20" value="<%= currentUser.username %>" size="25" disabled required><i class="fas fa-pencil-alt edit-icon input-icon" onclick="toggleInputDisable('updateUsername')"></i><span class="valid-content"></span><br>
+          <input type="text" name="updateUser[username]" id="updateUsername" class="account-input my-account" minlength="5" maxlength="20" value="<%= currentUser.username %>" size="25" required><span class="valid-content"></span><br>
           <label for="accountPassword" class="account-label">Password</label><br> <!-- password validations aren't fully sufficient -->
-          <input type="password" id="accountPassword" class="account-input placeholderPassword" placeholder="password" size="25" disabled><i class="fas fa-pencil-alt edit-icon input-icon" onclick="displayEditPassword('updatePWDialog')"></i><br>
+          <input type="password" id="accountPassword" class="account-input placeholderPassword" value="password" size="25" disabled><i class="fas fa-pencil-alt edit-icon input-icon" onclick="displayEditPassword('updatePWDialog')"></i><br>
           <label for="phone" class="account-label">Phone Number</label><br> <!-- phone number validations aren't sufficient, complex -->
-          <input type="tel" name="updateUser[phone]" id="updatePhone" class="account-input my-account" minlength="10" maxlength="16" value="<%= currentUser.phone %>" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXX-XXX-XXXX" disabled required><i class="fas fa-pencil-alt edit-icon input-icon" onclick="toggleInputDisable('updatePhone')"></i><span class="valid-content"></span><br>
+          <input type="tel" name="updateUser[phone]" id="updatePhone" class="account-input my-account" minlength="10" maxlength="16" value="<%= currentUser.phone %>" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXX-XXX-XXXX" required><span class="valid-content"></span><br>
           <label for="birthday" class="account-label">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
-          <input type="date" name="updateUser[birthday]" id="updateBirthday" class="account-input birthday my-account" size="8" min="1920-01-01" max="2019-12-31" value="<%= birthday %>" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" disabled required><i class="fas fa-pencil-alt edit-icon input-icon" onclick="toggleInputDisable('updateBirthday')"></i><span class="valid-content"></span><br>
+          <input type="date" name="updateUser[birthday]" id="updateBirthday" class="account-input birthday my-account" size="8" min="1920-01-01" max="2019-12-31" value="<%= birthday %>" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" required><span class="valid-content"></span><br>
           <ul id="invalid-fields-list" class="invalid-fields-list">
-          <% if (invalid && invalid.length > 0) { %>
-            <li class="invalid-list"><%= invalid %></li>
+          <% if (invalidUser && invalidUser.length > 0) { %>
+            <li class="invalid-list"><%= invalidUser %></li>
+          <% } else if (invalidEmail && invalidEmail.length > 0) { %>
+            <li class="invalid-list"><%= invalidEmail %></li>
           <% } else if (success && success.length > 0) { %>
             <li class="valid-list"><%= success %></li>
           <% } %>
           </ul>
-          <input type="submit" name="account-update" onclick="return validateAccountUpdate()" role="button" value="Update Account" class="btn account-button" id="accountUpdateButton" disabled>
+          <input type="submit" name="account-update" onclick="return validateAccountUpdate()" role="button" value="Update Account" class="btn account-button" id="accountUpdateButton">
         </form>
       </div>
     </div>

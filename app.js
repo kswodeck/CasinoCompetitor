@@ -41,7 +41,8 @@ app.use(function(req, res, next){
   res.locals.currentUser = req.user; //set currentUser as a local variable
   res.locals.error = req.flash('error');
   res.locals.success = req.flash('success');
-  res.locals.invalid = req.flash('invalid');
+  res.locals.invalidUser = req.flash('invalidUser');
+  res.locals.invalidEmail = req.flash('invalidEmail');
   res.locals.popup = req.flash('popup');
   next();
 });
