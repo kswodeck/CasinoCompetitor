@@ -1,11 +1,9 @@
 <%- include('partials/header') %>
-
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<p><%= error.stack %></p>
-
-<h1 id="home-heading" class="mb-md-3 mb-sm-2 mb-1">Page Not Found: 404</h1>
-      <img src="images\pocket-poker.png" alt="PocketPoker" id="home-logo" class="m-auto img-fluid">
+<div id="mid-container">
+  <h1 id="page-heading" class="main-heading"><%= status %></h1>
+  <div id="page-description-div" class="main-description"><%= message %></div>
+  <img src="images\pocket-poker.png" alt="PocketPoker" id="home-logo" class="m-auto img-fluid">
+</div>
 
 <%- include('partials/logindialogs') %>
 <%- include('partials/footer') %>

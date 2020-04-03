@@ -10,11 +10,15 @@ function displayLoginDialog(message){
       const exitButton = document.getElementById('loginDialogExit');
       exitButton.setAttribute('onclick', "location.href='/'");
     }
-    if (message != 'false' && message != undefined) {
+    if (message && message != 'false' && message != undefined) {
       const item = document.createElement('li');
-      item.className = 'invalid-list';
       item.innerText = message;
       document.getElementById('invalid-login').appendChild(item);
+      if (message.includes('new')) {
+        item.className = 'valid-list';
+      } else {
+        item.className = 'invalid-list';
+      }
     }
     if (typeof loginDialog.showModal === 'function') {
       loginDialog.showModal();

@@ -50,6 +50,13 @@ app.use(function(req, res, next){
 app.use('/', featureRoutes);
 app.use('/', userRoutes);
 
+app.use(function(req, res, next) {
+  return res.status(404).render('error', {pageTitle: 'Page Not Found', message: 'Route '+req.url+' does not exist', status: 'Page Not Found: 404'});
+});
+app.use(function(err, req, res, next) {
+  return res.status(500).render('error', {pageTitle: 'Server Error', message: err, status: 'Server Error: 500'});
+});
+
 // async function createUser(username) {
 //   return new User({
 //     username,

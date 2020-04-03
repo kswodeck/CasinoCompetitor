@@ -381,6 +381,15 @@ body {
   max-height: 40px;
 }
 
+.main-heading {
+  margin: 2% auto 0.5% auto;
+}
+.main-description {
+  margin: 0 auto 0.5% auto;
+  font-weight: bold;
+  color: crimson;
+}
+
 .account-form-div {
   margin: 4% auto 0 auto;
   max-width: 700px;
@@ -454,6 +463,7 @@ body {
 .account-heading {
   margin: 3% auto 2% auto;
 }
+
 .account-button, #login-button, #forgot-pw-button, #forgot-user-button {
   margin: 2% auto;
   cursor: pointer;
