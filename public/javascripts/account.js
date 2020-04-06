@@ -51,7 +51,7 @@ function displayForgotDialog(newDialog, message){
     } else {
       console.log('The <dialog> API is not supported by this browser');
     }
-    if (message != 'false' && message != undefined) {
+    if (message && message != false && message != undefined) {
       const item = document.createElement('li');
       if (!message.includes('Username')) {
         item.className = 'invalid-list';

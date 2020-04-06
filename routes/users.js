@@ -141,7 +141,7 @@ router.put('/account', isLoggedIn, function(req, res){
         } else {
           User.findOneAndUpdate({username: curUser.username}, {$set: {username: updated.username}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
           console.log('username updated from: ' + curUser.username + ' to ' + updated.username);
-          res.setTimeout(400, function(){
+          res.setTimeout(300, function(){
             if (!res.headersSent) {
               req.flash('error', 'Please login with your new username');
               res.redirect('/login');
@@ -161,7 +161,7 @@ router.put('/account', isLoggedIn, function(req, res){
 });
 
 router.get('/forgotuser', isLoggedOut, function(req, res){
-  res.render('forgotuser', {pageTitle: 'Forgot Username', message: false});
+  res.render('forgotuser', {pageTitle: 'Forgot Username'});
 });
 router.post('/forgotuser', function(req, res){
   var userBirthday = req.body.forgotUser.birthday;
@@ -171,19 +171,18 @@ router.post('/forgotuser', function(req, res){
       console.log("email doesn't exist");
     } else {
       for (let i = 0; i < users.length; i++) {
-        console.log('user ' + i + ' birthday: ' + users[i].birthday);
         let storedBirthday = formatDate(users[i].birthday);
         console.log('storedBirthday: ' + storedBirthday + ', userBirthday: ' + userBirthday);
         if (storedBirthday.includes(userBirthday)) {
           msg = 'Username: ' + users[i].username;
-          console.log('birthday match found');
           break;
         } else {
           console.log('birthday not a match');
         }
       }
     }
-    return res.render('forgotuser', {pageTitle: 'Forgot Username', message: msg});
+    req.flash('error', msg);
+    return res.redirect('/forgotuser');
   });
 });
 
