@@ -83,6 +83,26 @@ function validateAccountLogin() {
     }
   }
 
+  function validatePasswordUpdate() {
+    let inputs = document.getElementsByClassName('changePassInput');
+    let validitySpans = document.getElementsByClassName('change-password-content');
+    let invalidList = document.getElementById('invalid-change-password');
+    let updatePassword = document.getElementById('changePassword');
+    let repeatPassword = document.getElementById('repeatChangePassword');
+    while (invalidList.hasChildNodes()) {
+      invalidList.removeChild(invalidList.lastChild);
+    }
+    let match = true;
+    let isValid = true;
+    isValid = validateInputs(invalidList, inputs, validitySpans);
+    match = validatePassMatch(updatePassword, repeatPassword, validitySpans[0], validitySpans[1], invalidList);
+    if (match == false) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
 function validateInputs(invalidList, inputs, validitySpans) {
   let validity = true;
     while (invalidList.hasChildNodes()) {

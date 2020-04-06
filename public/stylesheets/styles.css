@@ -127,7 +127,7 @@ body {
   border: 2px solid darkblue;
   border-radius: 15px;
 }
-.card-coins-input {
+.card-coins-input, #userIdInput {
   display: none;
   padding: 0;
   border: 0;

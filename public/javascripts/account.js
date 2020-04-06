@@ -1,4 +1,4 @@
-const title = document.getElementsByTagName('title');
+const title = document.getElementsByTagName('title')[0];
 if (title == 'My Account') {
   const accountUpdateButton = document.getElementById('accountUpdateButton');
 }
@@ -14,7 +14,7 @@ function displayLoginDialog(message){
       const item = document.createElement('li');
       item.innerText = message;
       document.getElementById('invalid-login').appendChild(item);
-      if (message.includes('new')) {
+      if (message.includes('new') || message.includes('updated')) {
         item.className = 'valid-list';
       } else {
         item.className = 'invalid-list';
@@ -45,11 +45,15 @@ function displayLogoutDialog(){
 function displayForgotDialog(newDialog, message){
     const loginDialog = document.getElementById(newDialog);
     const pageTitle = document.getElementsByTagName('title')[0];
+    let invalidList = document.getElementById('invalid-forgot-username');
     if (typeof loginDialog.showModal === 'function') {
       loginDialog.showModal();
       document.getElementById('loginDialog').close();
     } else {
       console.log('The <dialog> API is not supported by this browser');
+    }
+    if (pageTitle.innerText == 'Forgot Password') {
+      invalidList = document.getElementById('invalid-forgot-password');
     }
     if (message && message != false && message != undefined) {
       const item = document.createElement('li');
@@ -59,7 +63,7 @@ function displayForgotDialog(newDialog, message){
         item.className = 'valid-list';
       }
       item.innerText = message;
-      document.getElementById('invalid-forgot-username').appendChild(item);
+      invalidList.appendChild(item);
     }
     const forgotPassExit = document.getElementById('forgotPWDialogExit');
     const forgotUserExit = document.getElementById('forgotUserDialogExit');
@@ -106,13 +110,26 @@ function togglePasswordVisibility(passwordId, iconId){
   }
 }
 
-function displayEditPassword(updateDialog){
+function displayEditPassword(updateDialog, userId){
   const editDialog = document.getElementById(updateDialog);
   // const updatePassword = document.getElementById('updatePassword');
   if (typeof editDialog.showModal == 'function') {
-    console.log(editDialog);
     editDialog.showModal();
     document.getElementById('mid-container').style.display = 'none';
+  } else {
+    console.log('The <dialog> API is not supported by this browser');
+  }
+}
+
+function displayChangePassword(updateDialog, userId){
+  const editDialog = document.getElementById(updateDialog);
+  const pageTitle = document.getElementsByTagName('title')[0];
+  if (typeof editDialog.showModal == 'function') {
+    editDialog.showModal();
+    document.getElementById('mid-container').style.display = 'none';
+    if (userId != 'none') {
+      document.getElementById('userIdInput').value = userId;
+    }
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }

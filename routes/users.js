@@ -85,20 +85,21 @@ router.get('/account', isLoggedIn, function(req, res){
   }
   res.redirect('/login');
 });
-router.put('/account', isLoggedIn, function(req, res){
+router.put('/account', function(req, res){
   var curUser = req.user, updated = req.body.updateUser;
-  var formattedBirthday = formatDate(curUser.birthday);
   if (req.body.updatePassword) {
-    curUser.changePassword(req.body.oldPassword, req.body.updatePassword, function(err, user) { // will use email instead
-      if(err){
-        return res.status(204).send();
-      } else {
-        console.log('Password changed to: ' + req.body.updatePassword);
-        req.flash('success', 'Account has been updated');
-        res.redirect('/account');
-      }
-    });
+      curUser.changePassword(req.body.oldPassword, req.body.updatePassword, function(err, user) { // will use email instead
+        if (err){
+          console.log(err);
+          return res.status(204).send();
+        } else {
+          console.log('Password changed to: ' + req.body.updatePassword);
+          req.flash('success', 'Account has been updated');
+          res.redirect('/account');
+        }
+      });
   } else { //figure out how to handle errors here.. may need chains of if elses so that only one redirect/flash is done
+    var formattedBirthday = formatDate(curUser.birthday);
     if (updated.firstName != curUser.firstName) {
       User.findOneAndUpdate({username: curUser.username}, {$set: {firstName: updated.firstName}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
       console.log('firstName updated from: ' + curUser.firstName + ' to ' + updated.firstName);
@@ -186,11 +187,56 @@ router.post('/forgotuser', function(req, res){
   });
 });
 
-router.get('/forgotpass', isLoggedOut, function(req, res){ // try implementing error message on failure
-  return;
+router.get('/forgotpass', isLoggedOut, function(req, res){
+  res.render('forgotpass', {pageTitle: 'Forgot Password', changePassword: 'no', userId: 'none'});
 });
-router.post('/forgotpass', function(req, res){ // try implementing error message on failure
-  return;
+router.post('/forgotpass', function(req, res){
+  var userBirthday = req.body.forgotPW.birthday;
+  User.find({email: req.body.forgotPW.email, username: req.body.forgotPW.username}, function(err, users) {
+    if (err || users.length < 1) {
+      console.log("Could not find user with given details");
+      req.flash('error', 'No match found');
+      return res.redirect('/forgotpass');
+    } else {
+      for (let i = 0; i < users.length; i++) {
+        let storedBirthday = formatDate(users[i].birthday);
+        console.log('storedBirthday: ' + storedBirthday + ', userBirthday: ' + userBirthday);
+        if (storedBirthday.includes(userBirthday)) {
+          console.log('Match found');
+          let userId = users[i].id;
+          console.log(userId);
+          // req.flash('changePassword', 'yes');
+          // return res.redirect('/forgotpass');
+          res.render('forgotpass', {pageTitle: 'Forgot Password', changePassword: 'yes', userId: userId});
+          break;
+        } else {
+          console.log('birthday not a match');
+          req.flash('error', 'No match found');
+          return res.redirect('/forgotpass');
+        }
+      }
+    }
+  });
+});
+
+router.put('/forgotpass', isLoggedOut, function(req, res){ //both change and set don't work.. might need emails
+  User.findById(req.body.userId, function (err, foundUser) {
+    if (err) {
+      console.log(err);
+      return res.status(204).send();
+    } else {
+      console.log(foundUser);
+      // foundUser.setPassword(req.body.changePassword, function(err, user) {
+      //   if(err){
+      //     console.log(err);
+      //   } else {
+      //     console.log('Password changed to: ' + req.body.changePassword);
+      //     req.flash('error', 'Password has been updated');
+      //     res.redirect('/login');
+      //   }
+      // });
+    }
+  });
 });
 
 function isLoggedIn(req, res, next){

@@ -9,11 +9,11 @@
       <label for="password" class="account-label">Password</label><br>
       <input type="password" name="password" id="loginPassword" class="login-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="loginPassIcon" onclick="togglePasswordVisibility('loginPassword', 'loginPassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="login-valid-content"></span><br>
       <ul id="invalid-login" class="invalid-fields-list"></ul>
-      <input type="submit" name="login-submit" role="button" onclick="validateAccountLogin()" value="Log In" class="btn" id="login-button">
+      <input type="submit" name="login-submit" role="button" value="Log In" class="btn" id="login-button">
     </form>
     <div class="account-already">
       <a id="forgot-user-link" onclick="displayForgotDialog('forgotUserDialog', false)">Forgot Username</a> |
-      <a id="forgot-pw-link" onclick="displayForgotDialog('forgotPWDialog', false)">Forgot Password</a> |
+      <!-- <a id="forgot-pw-link" onclick="displayForgotDialog('forgotPWDialog', false)">Forgot Password</a> | -->
       <a id="account-signup-link" onclick="location.href='/register'">Sign Up</a>
     </div>
 </dialog>
@@ -24,11 +24,11 @@
     <h2 id="forgotUserHeading" class="account-heading login-heading">Forgotten Username</h2>
     <form action="/forgotuser" method="POST">
       <label for="email" class="account-label">Email</label><br>
-      <input type="email" name="forgotUser[email]" id="forgotUserEmail" class="forgotUserInput" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autofocus autocomplete="email" required><span class="forgotUserValid"></span><br>
+      <input type="email" name="forgotUser[email]" id="forgotUserEmail" class="forgotUserInput" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autofocus required><span class="forgotUserValid"></span><br>
       <label for="birthday" class="account-label">Birthday</label><br>
-      <input type="date" name="forgotUser[birthday]" id="forgotUserBirthday" class="forgotUserInput birthday" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" autocomplete="bday" required><span class="forgotUserValid"></span><br>
+      <input type="date" name="forgotUser[birthday]" id="forgotUserBirthday" class="forgotUserInput birthday" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" required><span class="forgotUserValid"></span><br>
       <ul id="invalid-forgot-username" class="invalid-fields-list"></ul>
-      <input type="submit" name="forgot-pw-submit" onclick="validateAccountLogin()" role="button" value="Recover Username" class="btn" id="forgot-pw-button">
+      <input type="submit" name="forgot-pw-submit" role="button" value="Recover Username" class="btn" id="forgot-pw-button">
     </form>
     <div class ="back-button-div">
       <button id="forgotUserBackButton"  class="back-arrow btn" name="back-arrow" onclick="backFromDialog('forgotUserDialog')"><i id="forgotUserBackArrow" class="fas fa-long-arrow-alt-left"></i></button>
@@ -42,13 +42,13 @@
     <h2 id="forgotPWHeading" class="account-heading login-heading">Forgotten Password</h2>
     <form action="/forgotpass" method="POST">
       <label for="email" class="account-label">Email</label><br>
-      <input type="email" name="forgotPW[email]" id="forgotPWEmail" class="forgotPassInput" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autofocus autocomplete="email" required><span class="forgotPassValid"></span><br>
+      <input type="email" name="forgotPW[email]" id="forgotPWEmail" class="forgotPassInput" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autofocus required><span class="forgotPassValid"></span><br>
       <label for="username" class="account-label">Username</label><br>
-      <input type="text" name="forgotPW[username]" class="forgotPassInput" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete="username" required><span class="forgotPassValid"></span><br>
+      <input type="text" name="forgotPW[username]" class="forgotPassInput" minlength="5" maxlength="20" placeholder="username" size="25" required><span class="forgotPassValid"></span><br>
       <label for="birthday" class="account-label">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
-      <input type="date" name="forgotPW[birthday]" id="forgotPWBirthday" class="forgotPassInput birthday" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" autocomplete="bday" required><span class="forgotPassValid"></span><br>
+      <input type="date" name="forgotPW[birthday]" id="forgotPWBirthday" class="forgotPassInput birthday" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" required><span class="forgotPassValid"></span><br>
       <ul id="invalid-forgot-password" class="invalid-fields-list"></ul>
-      <input type="submit" name="forgot-user-submit" onclick="validateAccountLogin()" role="button" value="Recover Password" class="btn" id="forgot-user-button">
+      <input type="submit" name="forgot-user-submit" role="button" value="Recover Password" class="btn" id="forgot-user-button">
     </form>
     <div class ="back-button-div">
       <button id="forgotPWBackButton" class="back-arrow btn" name="back-arrow" onclick="backFromDialog('forgotPWDialog')"><i id="forgotPWBackArrow" class="fas fa-long-arrow-alt-left"></i></button>
@@ -57,7 +57,7 @@
 </dialog>
 <dialog id="updatePWDialog" class="container-fluid account-form-div">
   <div class ="exit-button-div">
-    <button id="updatePWDialogExit" class="exit-dialog-button" onclick="exitDialog('updatePWDialog')" >✖</button>
+    <button id="updatePWDialogExit" class="exit-dialog-button" onclick="exitDialog('updatePWDialog')">✖</button>
   </div>
   <h2 id="updatePWHeading" class="login-heading">Update Password</h2>
   <form action="/account/?_method=PUT" method="POST">
@@ -72,6 +72,6 @@
   </form>
   <div class ="back-button-div">
     <button id="updatePWBackButton" class="back-arrow btn" name="back-arrow" onclick="exitDialog('updatePWDialog')"><i id="updatePWBackArrow" class="fas fa-long-arrow-alt-left"></i></button>
-    <span class="back-button-label" onclick="exitDialog('updatePWDialog')">Back</span>
+    <span id="updatePWBackSpan" class="back-button-label" onclick="exitDialog('updatePWDialog')">Back</span>
   </div>
 </dialog>
