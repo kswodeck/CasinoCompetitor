@@ -90,8 +90,6 @@ body {
   display: none;
 }
 
-/* , #oldPassword, #oldPassLabel, #oldPassIcon, #oldPassCheck */
-
 .table-heading, .current-table-heading {
   font-size: calc(11px + 0.5vw);
   font-weight: bold;
@@ -440,7 +438,7 @@ body {
 .placeholderPassword {
   margin-left: calc(10px + 0.5vw);
 }
-.account-input, .login-input, .forgotUserInput, .forgotPassInput, .updatePassInput {
+.account-input, .login-input, .forgotUserInput, .forgotPassInput, .updatePassInput, .changePassInput {
   font-size: calc(11px + 0.3vw);
   border: 1px solid #343a40;
   border-radius: 10px;
@@ -550,6 +548,10 @@ input:disabled {
   top: calc(10vh + 10%);
   padding: 0;
 }
+#changePWDialog {
+  top: calc(10vh + 10%);
+  padding: 1% 0;
+}
 #logoutDialog {
   margin-top: 20px;
   width: calc(250px + 15vw);
@@ -562,7 +564,7 @@ input:disabled {
   background-color: darkblue;
   color: gold;
 }
-#outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #loginDialog, #forgotPWDialog, #forgotUserDialog, #logoutDialog, #updatePWDialog {
+#outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #loginDialog, #forgotPWDialog, #forgotUserDialog, #logoutDialog, #updatePWDialog, #changePWDialog {
   margin: 0 auto;
   transition: all 0.4s;
 }

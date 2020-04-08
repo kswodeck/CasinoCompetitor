@@ -110,7 +110,7 @@ function togglePasswordVisibility(passwordId, iconId){
   }
 }
 
-function displayEditPassword(updateDialog, userId){
+function displayEditPassword(updateDialog){
   const editDialog = document.getElementById(updateDialog);
   // const updatePassword = document.getElementById('updatePassword');
   if (typeof editDialog.showModal == 'function') {
@@ -121,15 +121,11 @@ function displayEditPassword(updateDialog, userId){
   }
 }
 
-function displayChangePassword(updateDialog, userId){
-  const editDialog = document.getElementById(updateDialog);
-  const pageTitle = document.getElementsByTagName('title')[0];
+function displayChangePassword(){
+  const editDialog = document.getElementById('changePWDialog');
   if (typeof editDialog.showModal == 'function') {
     editDialog.showModal();
     document.getElementById('mid-container').style.display = 'none';
-    if (userId != 'none') {
-      document.getElementById('userIdInput').value = userId;
-    }
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }

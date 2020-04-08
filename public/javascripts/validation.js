@@ -83,7 +83,7 @@ function validateAccountLogin() {
     }
   }
 
-  function validatePasswordUpdate() {
+  function validatePasswordChange() {
     let inputs = document.getElementsByClassName('changePassInput');
     let validitySpans = document.getElementsByClassName('change-password-content');
     let invalidList = document.getElementById('invalid-change-password');

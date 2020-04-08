@@ -5,35 +5,23 @@
 
 <script>
   window.onload = function() {
-    const pass = '<%= changePassword %>';
-    if (pass == 'yes') {
-      displayChangePassword('changePWDialog', '<%= userId %>');
-    } else {
-      displayForgotDialog('forgotPWDialog', '<%= error %>');
-    }
+    displayChangePassword();
   };
 </script>
 
 <!-- won't care about all this after emails are implemented -->
 <dialog id="changePWDialog" class="container-fluid account-form-div">
-  <div class ="exit-button-div">
-    <button id="changePWDialogExit" class="exit-dialog-button" onclick="location.href='/login'">✖</button>
-  </div>
   <h2 id="changePWHeading" class="login-heading">Update Password</h2>
   <form action="/forgotpass/?_method=PUT" method="POST">
-    <label for="changePassword" class="account-label">New Password</label><br> <!-- password validations aren't fully sufficient -->
-    <input type="password" name="changePassword" id="changePassword" class="changePassInput password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="changePassIcon" onclick="togglePasswordVisibility('changePassword', 'changePassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="change-password-content password-valid-check"></span><br>
+    <label for="password" class="account-label">New Password</label><br> <!-- password validations aren't fully sufficient -->
+    <input type="password" name="password" id="changePassword" class="changePassInput password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="changePassIcon" onclick="togglePasswordVisibility('changePassword', 'changePassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="change-password-content password-valid-check"></span><br>
     <label for="repeatChangePassword" class="account-label">Repeat Password</label><br>
     <input type="password" name="repeatChangePassword" id="repeatChangePassword" class="changePassInput password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="repeatChangePassIcon" onclick="togglePasswordVisibility('repeatChangePassword', 'repeatChangePassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="change-password-content password-valid-check"></span><br>
-    <input value="none" name="userId" id="userIdInput">
     <ul id="invalid-change-password" class="invalid-fields-list"></ul>
-    <input type="submit" name="password-change" onclick="return validatePasswordUpdate()" role="button" value="Create New Password" class="btn account-button" id="passwordChangeButton">
+    <input type="submit" name="password-change" onclick="return validatePasswordChange()" role="button" value="Create New Password" class="btn account-button" id="passwordChangeButton">
   </form>
-  <div class ="back-button-div">
-    <button id="changePWBackButton" class="back-arrow btn" name="back-arrow" onclick="location.href='/login'"><i id="changePWBackArrow" class="fas fa-long-arrow-alt-left"></i></button>
-    <span id="changePWBackSpan" class="back-button-label" onclick="location.href='/login'">Back</span>
-  </div>
 </dialog>
+
 <%- include('partials/logindialogs') %>
 <%- include('partials/footer') %>
 <%- include('partials/javascripts') %>

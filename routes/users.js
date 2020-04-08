@@ -70,7 +70,6 @@ router.post('/login', passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: 'Incorrect username or password'
 }), function(req, res){
-  return;
 });
 router.get('/logout', isLoggedIn, function(req, res){
   req.logout();
@@ -187,8 +186,8 @@ router.post('/forgotuser', function(req, res){
   });
 });
 
-router.get('/forgotpass', isLoggedOut, function(req, res){
-  res.render('forgotpass', {pageTitle: 'Forgot Password', changePassword: 'no', userId: 'none'});
+router.get('/forgotpass', isLoggedIn, function(req, res){
+  res.render('forgotpass', {pageTitle: 'Forgot Password'});
 });
 router.post('/forgotpass', function(req, res){
   var userBirthday = req.body.forgotPW.birthday;
@@ -202,12 +201,17 @@ router.post('/forgotpass', function(req, res){
         let storedBirthday = formatDate(users[i].birthday);
         console.log('storedBirthday: ' + storedBirthday + ', userBirthday: ' + userBirthday);
         if (storedBirthday.includes(userBirthday)) {
-          console.log('Match found');
-          let userId = users[i].id;
-          console.log(userId);
+          let curUser = users[i];
+          console.log('Match found, logging in');
           // req.flash('changePassword', 'yes');
           // return res.redirect('/forgotpass');
-          res.render('forgotpass', {pageTitle: 'Forgot Password', changePassword: 'yes', userId: userId});
+          // res.render('forgotpass', {pageTitle: 'Forgot Password', changePassword: 'yes', userId: userId});
+          req.login(curUser, function(err) {
+            if (err) {
+              return next(err);
+            }
+            return res.redirect('/forgotpass');
+          });
           break;
         } else {
           console.log('birthday not a match');
@@ -219,22 +223,17 @@ router.post('/forgotpass', function(req, res){
   });
 });
 
-router.put('/forgotpass', isLoggedOut, function(req, res){ //both change and set don't work.. might need emails
-  User.findById(req.body.userId, function (err, foundUser) {
-    if (err) {
+router.put('/forgotpass', isLoggedIn, function(req, res){ //both change and set don't work.. might need emails
+  req.user.setPassword(req.body.password, function(err, user) {
+    if(err){
       console.log(err);
-      return res.status(204).send();
     } else {
-      console.log(foundUser);
-      // foundUser.setPassword(req.body.changePassword, function(err, user) {
-      //   if(err){
-      //     console.log(err);
-      //   } else {
-      //     console.log('Password changed to: ' + req.body.changePassword);
-      //     req.flash('error', 'Password has been updated');
-      //     res.redirect('/login');
-      //   }
-      // });
+      console.log(user);
+      console.log('Password changed to: ' + req.body.password);
+      req.user.save();
+      req.logout();
+      req.flash('error', 'Password has been updated');
+      res.redirect('/login');
     }
   });
 });
