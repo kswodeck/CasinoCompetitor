@@ -223,14 +223,14 @@ router.post('/forgotpass', function(req, res){
   });
 });
 
-router.put('/forgotpass', isLoggedIn, function(req, res){ //both change and set don't work.. might need emails
+router.put('/forgotpass', isLoggedIn, function(req, res){
   req.user.setPassword(req.body.password, function(err, user) {
     if(err){
       console.log(err);
     } else {
       console.log(user);
       console.log('Password changed to: ' + req.body.password);
-      req.user.save();
+      req.user.save(); //have to use .save on the user when using .setPassword
       req.logout();
       req.flash('error', 'Password has been updated');
       res.redirect('/login');
