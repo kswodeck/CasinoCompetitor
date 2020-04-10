@@ -41,6 +41,7 @@ app.use(function(req, res, next){
   res.locals.popup = req.flash('popup');
   next();
 });
+// app.set('changedLastLogin', false);
 
 app.use('/', featureRoutes);
 app.use('/', userRoutes);

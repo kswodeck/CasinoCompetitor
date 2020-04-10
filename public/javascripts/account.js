@@ -130,3 +130,27 @@ function displayChangePassword(){
     console.log('The <dialog> API is not supported by this browser');
   }
 }
+
+function displayStreakDialog(streak){
+  const dialog = document.getElementById('loginStreakDialog');
+  const streakHeading = document.getElementById('streakHeading');
+  const loginCoinSpan = document.getElementById('login-streak-win');
+  if (typeof dialog.showModal == 'function') {
+    dialog.showModal();
+    document.getElementById('mid-container').style.display = 'none';
+    setTimeout(function() {
+      document.getElementById('mid-container').style.display = 'block';
+      dialog.close();
+      window.location.href = '/';
+    }, 10000);
+  } else {
+    console.log('The <dialog> API is not supported by this browser');
+  }
+  if (streak == '1' || streak == 1) {
+    streakHeading.innerText = "You've visited us " + streak + " day in a row!"
+  } else {
+    streakHeading.innerText = "You've visited us " + streak + " days in a row!"
+  }
+  let coinsEarned = streak*10;
+  loginCoinSpan.innerText = "You earned " + coinsEarned + " ";
+}

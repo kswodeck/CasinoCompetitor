@@ -2,7 +2,46 @@ var express = require('express');
 var passport = require('passport'),
     router   = express.Router({mergeParams: true}),
     moment   = require('moment'),
-    User     = require('../models/user');
+    User     = require('../models/user'),
+    app      = express();
+
+var changedLastLogin = false;
+
+// User and authentication related routes
+router.get('/', function(req, res){ //try out authtest // authtest to see if loginStreak goes to 2, lastLogin changes, 20 gains earned
+  if (req.user && !changedLastLogin) {
+    var current = new Date(User.getCurrentDate());
+    let adjYesDate = moment().subtract(1, 'days').format();
+    let strYesDate = adjYesDate.toString();
+    let yesterday = strYesDate.slice(0, 10);
+    let curDate = moment().format();
+    let strCurDate = curDate.toString();
+    let today = strCurDate.slice(0, 10);
+    console.log('Today: ' + today);
+    console.log('Yesterday: ' + yesterday);
+    let last = new Date(req.user.lastLogin);
+    let lastLoginDate = formatDate(last);
+    console.log('Last: ' + lastLoginDate); 
+    var newStreak = 1;
+    var newCoins = req.user.coins;
+    if (yesterday == lastLoginDate) {
+      newStreak = req.user.loginStreak + 1;
+    } else if (today == lastLoginDate) {
+      newStreak = req.user.loginStreak;
+      changedLastLogin = true;
+    }
+
+    if (!changedLastLogin) {
+      let addCoins = newStreak*10;
+      var newCoins = req.user.coins + addCoins;
+    }
+    User.findOneAndUpdate({username: req.user.username}, {$set: {loginStreak: newStreak, lastLogin: current, coins: newCoins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
+      console.log('updated loginStreak to ' + newStreak);
+      req.app.set('changedLastLogin', true);
+      changedLastLogin = true;
+  }
+  res.render('index', {pageTitle: 'Pocket Poker', fromLogout: false, loggedInToday: changedLastLogin});
+});
 
 router.get('/cards', isLoggedIn, function(req, res){
   res.render('cards', {pageTitle: 'Competitive Poker', storedCoins: req.user.coins});
@@ -68,7 +107,8 @@ router.get('/login', isLoggedOut, function(req, res){
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login',
-  failureFlash: 'Incorrect username or password'
+  failureFlash: 'Incorrect username or password',
+  successFlash: true
 }), function(req, res){
 });
 router.get('/logout', isLoggedIn, function(req, res){
@@ -203,9 +243,6 @@ router.post('/forgotpass', function(req, res){
         if (storedBirthday.includes(userBirthday)) {
           let curUser = users[i];
           console.log('Match found, logging in');
-          // req.flash('changePassword', 'yes');
-          // return res.redirect('/forgotpass');
-          // res.render('forgotpass', {pageTitle: 'Forgot Password', changePassword: 'yes', userId: userId});
           req.login(curUser, function(err) {
             if (err) {
               return next(err);
@@ -267,6 +304,12 @@ function formatDate(date) {
   let formattedDate = formattedYear + '-' + formattedMonth + '-' + formattedDay;
   return formattedDate;
 }
+
+// function getDateWithoutTime(date) {
+//   let strDate = date.toString();
+//   let newDate = strDate.slice(0, 16);
+//   return newDate;
+// }
 
 function getMonthNum(month) {
   month === 'Jan' ? month = '01' : month === 'Feb' ? month = '02' : month === 'Mar' ? month = '03' : month === 'Apr' ? month = '04' :

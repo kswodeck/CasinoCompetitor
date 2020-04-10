@@ -10,7 +10,7 @@
         <form action="/cards/?_method=PUT" method="POST">
           <input value="<%= storedCoins %>" name="userCoins" id="coinsInput" class="card-coins-input">
           <input value="0" name="currentWin" id="currentWinInput" class="card-coins-input">
-          <button id="card-deal-button" class="btn" type="submit" name="deal-button" onclick="getCards(); return storeAdjustedCoins()">{{ dealButtonText }}</button>
+          <button id="card-deal-button" class="btn" type="submit" name="deal-button" onclick="getCards()">{{ dealButtonText }}</button>
         </form>
       </div>
       <div id="current-win-div" class="text-left col">
@@ -25,19 +25,19 @@
         </div>
         <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card-1-div">
           <figcaption class="hold-card-text text-opacity" id="hold1">HELD</figcaption>
-          <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card2" onclick="toggleCardHold('hold1')">
+          <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card1" onclick="toggleCardHold('hold1')">
         </div>
         <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card-2-div">
           <figcaption class="hold-card-text text-opacity" id="hold2">HELD</figcaption>
-          <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card3" onclick="toggleCardHold('hold2')">
+          <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card2" onclick="toggleCardHold('hold2')">
         </div>
         <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card-3-div">
           <figcaption class="hold-card-text text-opacity" id="hold3">HELD</figcaption>
-          <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card4" onclick="toggleCardHold('hold3')">
+          <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card3" onclick="toggleCardHold('hold3')">
         </div>
         <div class="card-slot-div col-md-2 col p-lg-2 p-sm-1 p-0" id="card-4-div">
           <figcaption class="hold-card-text text-opacity" id="hold4">HELD</figcaption>
-          <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card5" onclick="toggleCardHold('hold4')">
+          <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card4" onclick="toggleCardHold('hold4')">
         </div>
       </div>
       <h3 id="hand-ranking-heading">{{ resultText }}</h3>
@@ -60,7 +60,7 @@
 <span id="coin-win-popup-text" class="dialog-popup-text">You win</span><span id="number-coins-won"> {{ currentWin }} </span><img id="coins-popup-img" src="images/coins.png">
   <div id="coinDialogDiv" class="row justify-content-around">
     <div class = "col">
-      <button id="winCoinsCancel" class="btn cancelbutton" value="cancel">OK</button>
+      <button id="winCoinsCancel" class="btn cancelbutton">OK</button>
     </div>
   </div>
 </dialog>

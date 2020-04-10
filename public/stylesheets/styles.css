@@ -120,6 +120,7 @@ body {
 .card-slot-div .interactive-card:hover {
   border: 2px solid lightsteelblue;
   border-radius: 15px;
+  cursor: pointer;
 }
 .card-slot-div .interactive-card:active {
   border: 2px solid darkblue;
@@ -157,7 +158,7 @@ body {
   width: calc(22px + 1vw);
   display: none;
 }
-#welcome-coins-img {
+.home-coins {
   width: calc(26px + 1.2vw);
 }
 
@@ -168,13 +169,22 @@ body {
   margin-right: 1.5%;
   text-align: right;
 }
-#total-coins-welcome {
+.coins-welcome {
   font-size:calc(15px + 0.4vw);
   color: crimson;
   font-weight: bolder;
 }
-#total-coins-welcome, #welcome-coins-img {
+#total-coins-welcome, .home-coins {
   margin: 0.8% 0.3%;
+}
+.coins-streak-image {
+  margin: 0.2% 0.3%;
+  width: calc(24px + 1vw);
+}
+.coins-streak {
+  font-size:calc(15px + 0.4vw);
+  color: crimson;
+  font-weight: bold;
 }
 
 #coin-flip-button, #dice-roll-button, #card-deal-button, #clear-tally-button, #homeButton {
@@ -547,6 +557,11 @@ input:disabled {
   border-radius: 0;
   top: calc(10vh + 10%);
   padding: 0;
+}
+#loginStreakDialog {
+  border-radius: 0;
+  top: calc(10vh + 10%);
+  padding: 0 0 1.5% 0;
 }
 #changePWDialog {
   top: calc(10vh + 10%);

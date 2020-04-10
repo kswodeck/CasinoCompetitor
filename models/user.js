@@ -2,8 +2,6 @@ var          mongoose = require('mongoose'),
 passportLocalMongoose = require('passport-local-mongoose'),
 moment                = require('moment');
 
-let curDate = getCurrentDate();
-
 function getCurrentDate() {
   let adjustedTime = moment().hour()+(moment().utcOffset()/60);
   let todayDate = moment().date();
@@ -15,6 +13,8 @@ function getCurrentDate() {
   + ' ' + adjustedTime + ':' + moment().minutes() + ':' + moment().seconds() + '.' + moment().milliseconds();
   return dateReturned;
 }
+
+let curDate = getCurrentDate();
 
 var UserSchema = new mongoose.Schema({
   email: {type: String, minlength: 8, maxlength: 60}, //try to make unique, "unique :true" doesn't work
@@ -34,3 +34,4 @@ var UserSchema = new mongoose.Schema({
 UserSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model("User", UserSchema);
+module.exports.getCurrentDate = getCurrentDate;

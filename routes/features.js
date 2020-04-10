@@ -1,10 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res){
-    res.render('index', {pageTitle: 'Pocket Poker', fromLogout: false});
-});
-
 router.get('/practice-cards', function(req, res){
     res.render('practice-cards', {pageTitle: 'Practice Poker'});
 });

@@ -5,8 +5,8 @@
   <img src="images\pocket-poker.png" alt="PocketPoker" id="home-logo" class="m-auto img-fluid">
   <% if (currentUser){ %>
   <h3 id="usernameHome" class="username-welcome"><%= currentUser.username %></h3>
-  <span id="total-coins-welcome">You have <%= currentUser.coins %></span><img id="welcome-coins-img" src="images/coins.png"><br>
-  <button id="homeButton" onclick="location.href='/cards'">Test your luck</button>
+  <span id="total-coins-welcome" class="coins-welcome">You have <%= currentUser.coins %></span><img id="welcome-coins-img" class="home-coins" src="images/coins.png"><br>
+  <button id="homeButton" onclick="location.href='/cards'">Test your luck</button><br>
   <% } %>
 </div>
 <dialog id="logoutDialog" class="container-fluid account-form-div">
@@ -23,6 +23,18 @@
     </div>
   </div>
 </dialog>
+<% if (currentUser){ %>
+<dialog id="loginStreakDialog" class="container-fluid account-form-div">
+  <div class ="exit-button-div">
+    <button id="streakDialogExit" class="exit-dialog-button" onclick="window.location.href = '/'" >✖</button>
+  </div>
+  <h2 id="streakHeading" class="account-heading login-heading">You've visited us <%= currentUser.loginStreak %> days in a row!</h2>
+  <span id="login-streak-win" class="coins-streak"></span><img id="loginStreakCoinImg" class="coins-streak-image"  src="images/coins.png"><br>
+  <span class="coins-streak">Keep up the streak!</span>
+  <div id="streakDialogDiv" class="row justify-content-around">
+  </div>
+</dialog>
+<% } %>
 
 <% if (popup && popup.length > 0){ %>
 <script>
@@ -30,7 +42,13 @@
     displayLogoutDialog();
   };
 </script>
-<% } %>
+<% } else if (currentUser && !loggedInToday) { %>
+  <script>
+    window.onload = function() {
+      displayStreakDialog('<%= currentUser.loginStreak %>');
+    };
+  </script>
+  <% } %>
 
 <%- include('partials/logindialogs') %>
 <%- include('partials/footer') %>
