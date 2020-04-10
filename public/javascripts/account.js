@@ -155,3 +155,10 @@ function displayStreakDialog(streak){
   let coinsEarned = streak*10;
   loginCoinSpan.innerText = "You earned " + coinsEarned + " ";
 }
+
+function closeDialog(dialog) {
+  let curDialog = document.getElementById(dialog);
+  if (curDialog.showModal) {
+    curDialog.close();
+  }
+}

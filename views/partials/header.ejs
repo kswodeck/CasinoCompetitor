@@ -32,10 +32,10 @@
                 <div id="linksDropdown" class="col-4 header-div">
                   <div class="collapse navbar-collapse" id="navbar-content">
                     <ul class="navbar-nav text-center m-auto" id="main-links-list">
-                      <div class="col-md-3 top-menu-div">
+                      <div class="col-md-6 top-menu-div">
                         <li class="nav-item"><a class="secondary-link" role="button" href="/">Home</a></li>
                       </div>
-                      <div class="col-md-3 top-menu-div cards-dropdown"> <!-- there should be coins on cards.html -->
+                      <div class="col-md-6 top-menu-div cards-dropdown"> <!-- there should be coins on cards.html -->
                         <a class="secondary-link dropdown-toggle ml-md-0 ml-2" href="cards" role="button" id="dropdownCardsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Poker</a>
                         <div class="dropdown-menu" id="cardsDropdown" aria-labelledby="dropdownCardsLink">
                           <a class="secondary-link dropdown-item px-md-1 p-0" href="cards">Competitive</a>
@@ -43,17 +43,13 @@
                           <a class="secondary-link dropdown-item px-md-1 p-0" href="leaderboard">Leaderboard</a>
                         </div>
                       </div>
-                      <div class="col-md-3 top-menu-div">
-                        <li class="nav-item"><a class="secondary-link" href="dice">Dice</a></li> <!-- current link should depend on page -->
-                      </div>
-                      <div class="col-md-3 top-menu-div">
-                        <li class="nav-item"><a class="secondary-link" href="coin">Coin</a></li>
-                      </div>
                   </ul>
                 </div>
               </div>
           <div class="col-4 header-div" id="collapse-button-div">
-            <span id="total-coins-span">{{ totalCoins }}</span><img class="mr-md-5 mr-sm-2 m-0" id="coins-img" src="/images/coins.png">
+            <% if (currentUser){ %>
+            <span id="total-coins-span"><%= currentUser.coins %></span><img class="mr-md-5 mr-sm-2 m-0" id="coins-img" src="/images/coins.png">
+            <% } %>
             <button id="hamburger-button" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>

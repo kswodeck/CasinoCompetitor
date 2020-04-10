@@ -58,7 +58,7 @@ router.get('/', function(req, res){
 });
 
 router.get('/cards', isLoggedIn, function(req, res){
-  res.render('cards', {pageTitle: 'Competitive Poker', storedCoins: req.user.coins});
+  res.render('cards', {pageTitle: 'Competitive Poker', currentCoins: req.user.coins});
 });
 router.put('/cards', isLoggedIn, function(req, res){
   if (req.body.userCoins != req.user.coins) { //update coins

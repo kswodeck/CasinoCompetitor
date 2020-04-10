@@ -7,17 +7,16 @@ var currentHand = 0;
 var startCoins;
 var pageTitle = document.getElementsByTagName('title')[0];
 if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-heading').innerText == 'COMPETITIVE POKER') {
-  var coinsInput = document.getElementById('coinsInput');
+  let coinsInput = document.getElementById('coinsInput');
   var currentBetSpan = document.getElementById('current-bet-span');
-  var currentWinInput = document.getElementById('currentWinInput');
   document.getElementById('current-bet-span').style.visibility = 'visible';
   document.getElementById('current-win-span').style.visibility = 'visible';
-  document.getElementById('total-coins-span').style.visibility = 'visible';
-  document.getElementById('coins-img').style.display = 'inline-block';
+  document.getElementById('total-coins-span').innerText = '{{totalCoins}}';
   startCoins = coinsInput.value;
-} else if (document.getElementsByTagName('title')[0].innerText == 'Practice Poker' || document.getElementById('page-heading').innerText == 'PRACTICE POKER') {
-  var oddsDiv = document.getElementById('hand-odds-div');
-  var showHideOddsButton = document.getElementById('show-hide-odds-button');
+  if (coinsInput.value < 1 || coinsInput.value == null) {
+    outOfCoinsDialog();
+  }
+} else if (pageTitle.innerText == 'Practice Poker' || document.getElementById('page-heading').innerText == 'PRACTICE POKER') {
   startCoins = 100;
 }
 
@@ -69,7 +68,6 @@ function getCards() {
   }
   if (handsDealt === 0) {
     mainContainer.totalCoins = mainContainer.totalCoins - mainContainer.currentBet;
-    coinsInput.value = mainContainer.totalCoins;
     // totalCoinsSpan.innerText = totalCoins;
   }
   getGameResults(handsDealt, handRankingHeading, cardDealButton, collectCoins);
@@ -119,8 +117,6 @@ function getCards() {
       }
     }
     mainContainer.totalCoins = mainContainer.totalCoins + mainContainer.currentWin;
-    coinsInput.value = mainContainer.totalCoins;
-    currentWinInput.value = mainContainer.currentWin;
     winButton.style.backgroundColor = 'darkblue';
     // totalCoinsSpan.innerText = totalCoins;
     winCoinsDialog();
@@ -130,6 +126,8 @@ function getCards() {
 function getPracticeCards() {
   cardDealButton.disabled = true;
   handRankingHeading.style.display = 'none';
+  var oddsDiv = document.getElementById('hand-odds-div');
+  var showHideOddsButton = document.getElementById('show-hide-odds-button');
   for (let currentCard = 0; currentCard < 5; currentCard++) {
     let holdCurrentCard = document.getElementById('hold' + currentCard);
     let currentValues = [];
@@ -246,9 +244,6 @@ function lastHandTeardown(holdCurrentCard,currentCard) {
   // cardDealButton.innerText = 'Deal Cards';
   mainContainer.dealButtonText = 'Deal Cards';
   mainContainer.currentWin = 0;
-  if (pageTitle.innerText == 'Competitive Poker') {
-    currentWinInput.value = mainContainer.currentWin;
-  }
 }
 
 function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunction){
@@ -442,6 +437,8 @@ function winHandDialog() {
 
 // eslint-disable-next-line no-unused-vars
 function toggleOddsTable() {
+  let oddsDiv = document.getElementById('hand-odds-div');
+  let showHideOddsButton = document.getElementById('show-hide-odds-button');
   if (oddsDiv.style.display !== 'block') {
     oddsDiv.style.display = 'block';
     showHideOddsButton.innerText = 'Hide Odds';
@@ -449,4 +446,17 @@ function toggleOddsTable() {
     oddsDiv.style.display = 'none';
     showHideOddsButton.innerText = 'Show Odds';
   }
+}
+
+function updateStoredCoins() {
+  let coinsInput = document.getElementById('coinsInput');
+  let currentWinInput = document.getElementById('currentWinInput');
+  if (handsDealt == 2) {
+    currentWinInput.value = mainContainer.currentWin;
+  }
+  if (mainContainer.totalCoins != coinsInput.value) {
+    coinsInput.value = mainContainer.totalCoins;
+    return true;
+  }
+  return false;
 }

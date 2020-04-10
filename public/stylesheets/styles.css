@@ -39,6 +39,7 @@ body {
 }
 
 #bet-button:hover, #dicequantity:hover, #table-search-cell, #confirmBtn, .cancelbutton:hover {
+  color: gold;
   background-color: darkblue;
   transition: all 0.4s;
 }
@@ -156,7 +157,6 @@ body {
 
 #coins-img {
   width: calc(22px + 1vw);
-  display: none;
 }
 .home-coins {
   width: calc(26px + 1.2vw);
@@ -260,7 +260,7 @@ body {
   opacity: 0.0001;
 }
 
-#total-coins-span, #card-deal-button, #current-bet-span, #current-win-span {
+#card-deal-button, #current-bet-span, #current-win-span {
   visibility: hidden;
 }
 
@@ -672,7 +672,7 @@ input:disabled {
 #practice-mode-link, .page-link {
   color: darkblue;
   transition: all 0.4s;
-  font-size: calc(10px + 0.35vw);
+  font-size: calc(12px + 0.35vw);
 }
 
 #coin-win-popup-span, #number-coins-won, #hand-win-popup-span {
@@ -696,7 +696,6 @@ input:disabled {
 }
 
 .cancelbutton, #confirmBtn {
-  background-color: crimson;
   color: gold;
   font-weight: bold;
   padding: 0.1% 1% 1% 1%;
@@ -708,7 +707,13 @@ input:disabled {
   height: calc(22px + 1vw);
   margin: auto;
 }
+.cancelbutton {
+  background-color: crimson;
+}
 
+#confirmBtn {
+  background-color: darkblue;
+}
 #confirmBtn:hover {
   background-color: crimson;
 }

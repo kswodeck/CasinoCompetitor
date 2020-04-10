@@ -8,9 +8,9 @@
       </div>
       <div id="card-play-div" class="card-play-div text-center col">
         <form action="/cards/?_method=PUT" method="POST">
-          <input value="<%= storedCoins %>" name="userCoins" id="coinsInput" class="card-coins-input">
+          <input value="<%= currentCoins %>" name="userCoins" id="coinsInput" class="card-coins-input">
           <input value="0" name="currentWin" id="currentWinInput" class="card-coins-input">
-          <button id="card-deal-button" class="btn" type="submit" name="deal-button" onclick="getCards()">{{ dealButtonText }}</button>
+          <button id="card-deal-button" class="btn" type="submit" name="deal-button" onclick="getCards(); updateStoredCoins()">{{ dealButtonText }}</button>
         </form>
       </div>
       <div id="current-win-div" class="text-left col">
@@ -48,10 +48,10 @@
   Play <a id="practice-mode-link" href="practice-cards.html">Practice Mode</a></p>
   <div id="dialogButtonDiv" class = "row justify-content-around">
     <div class = "col">
-      <button id="outOfCoinsCancel" class="btn" value="cancel">Cancel</button>
+      <button id="outOfCoinsCancel" class="btn cancelbutton" value="cancel" onclick="closeDialog('outOfCoinsDialog')">Cancel</button>
     </div>
     <div class = "col">
-     <button id="confirmBtn" class="btn"><a id="go-button-link" role="button" href="practice-cards.html">Go</a></button>
+     <button id="confirmBtn" class="btn"><a id="go-button-link" role="button" href="/practice-cards">Go</a></button>
     </div>
   </div>
 </dialog>

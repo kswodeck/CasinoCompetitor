@@ -23,31 +23,12 @@ N = 47, n = 5-cardsHeld, K = 4, k = 5
 
 
 3 cards will be gone forever.. and a random card will be taken out of 47, then out of 46, then out of 45
-	
-	function getRoyalFlushOdds(){
 
-    }
-    function getStraightFlushOdds(){
+removed headers
 
-    }
-    function getFourOfAKindOdds(){
-
-    }
-    function getFullHouseOdds(){
-
-    }
-    function getFlushOdds(){
-
-    }
-    function getStraightOdds(){
-
-    }
-    function getThreeOfAKindOdds(){
-
-    }
-    function getTwoPairOdds(){
-
-    }
-    function getJacksOrBetterOdds(){
-
-    }
+                          <div class="col-md-3 top-menu-div">
+                        <li class="nav-item"><a class="secondary-link" href="dice">Dice</a></li> <!-- current link should depend on page -->
+                      </div>
+                      <div class="col-md-3 top-menu-div">
+                        <li class="nav-item"><a class="secondary-link" href="coin">Coin</a></li>
+                      </div>
