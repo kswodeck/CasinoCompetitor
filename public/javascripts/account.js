@@ -132,6 +132,7 @@ function displayChangePassword(){
 }
 
 function displayStreakDialog(streak){
+  console.log('showing login streak modal');
   const dialog = document.getElementById('loginStreakDialog');
   const streakHeading = document.getElementById('streakHeading');
   const loginCoinSpan = document.getElementById('login-streak-win');

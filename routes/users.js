@@ -5,11 +5,16 @@ var passport = require('passport'),
     User     = require('../models/user'),
     app      = express();
 
-var changedLastLogin = false;
-
 // User and authentication related routes
-router.get('/', function(req, res){ //try out authtest // authtest to see if loginStreak goes to 2, lastLogin changes, 20 gains earned
-  if (req.user && !changedLastLogin) {
+router.get('/', function(req, res){
+  var afterLogin, changedLastLogin;
+  if (req.query.afterLogin) {
+    afterLogin = req.query.afterLogin;
+  } else {
+    afterLogin = false;
+  }
+  if (req.user && afterLogin) {
+    console.log(afterLogin);
     var current = new Date(User.getCurrentDate());
     let adjYesDate = moment().subtract(1, 'days').format();
     let strYesDate = adjYesDate.toString();
@@ -23,24 +28,33 @@ router.get('/', function(req, res){ //try out authtest // authtest to see if log
     let lastLoginDate = formatDate(last);
     console.log('Last: ' + lastLoginDate); 
     var newStreak = 1;
-    var newCoins = req.user.coins;
+    let addCoins = newStreak*10;
+    var newCoins = req.user.coins + addCoins;
     if (yesterday == lastLoginDate) {
       newStreak = req.user.loginStreak + 1;
+      addCoins = newStreak*10;
+      newCoins = req.user.coins + addCoins;
+      changedLastLogin = false;
     } else if (today == lastLoginDate) {
-      newStreak = req.user.loginStreak;
       changedLastLogin = true;
+    } else {
+      changedLastLogin = false;
     }
-
-    if (!changedLastLogin) {
-      let addCoins = newStreak*10;
-      var newCoins = req.user.coins + addCoins;
-    }
-    User.findOneAndUpdate({username: req.user.username}, {$set: {loginStreak: newStreak, lastLogin: current, coins: newCoins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
+    if (changedLastLogin && afterLogin) {
+      User.findOneAndUpdate({username: req.user.username}, {$set: {lastLogin: current}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
+      console.log('updated lastLogin to ' + current);
+    } else if (afterLogin){
+      User.findOneAndUpdate({username: req.user.username}, {$set: {loginStreak: newStreak, lastLogin: current, coins: newCoins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
       console.log('updated loginStreak to ' + newStreak);
-      req.app.set('changedLastLogin', true);
+      console.log('updated coins to ' + newCoins);
+      console.log('updated lastLogin to ' + current);
+    } else {
       changedLastLogin = true;
+    }
+    res.render('index', {pageTitle: 'Pocket Poker', fromLogout: false, loggedInToday: changedLastLogin});
+  } else {
+    res.render('index', {pageTitle: 'Pocket Poker', fromLogout: false, loggedInToday: true});
   }
-  res.render('index', {pageTitle: 'Pocket Poker', fromLogout: false, loggedInToday: changedLastLogin});
 });
 
 router.get('/cards', isLoggedIn, function(req, res){
@@ -91,7 +105,7 @@ router.post('/register', isLoggedOut, function(req, res){
               } else {
                 console.log(user);
                 passport.authenticate('local')(req, res, function(){
-                res.redirect('/');
+                  res.redirect('/?firstLogin=' + true);
               });
             }
           });
@@ -105,11 +119,10 @@ router.get('/login', isLoggedOut, function(req, res){
   res.render('login', {pageTitle: 'Login'});
 });
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
   failureRedirect: '/login',
   failureFlash: 'Incorrect username or password',
-  successFlash: true
 }), function(req, res){
+  res.redirect('/?afterLogin=' + true);
 });
 router.get('/logout', isLoggedIn, function(req, res){
   req.logout();
@@ -137,7 +150,7 @@ router.put('/account', function(req, res){
           res.redirect('/account');
         }
       });
-  } else { //figure out how to handle errors here.. may need chains of if elses so that only one redirect/flash is done
+  } else {
     var formattedBirthday = formatDate(curUser.birthday);
     if (updated.firstName != curUser.firstName) {
       User.findOneAndUpdate({username: curUser.username}, {$set: {firstName: updated.firstName}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
