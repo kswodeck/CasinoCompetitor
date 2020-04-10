@@ -318,12 +318,6 @@ function formatDate(date) {
   return formattedDate;
 }
 
-// function getDateWithoutTime(date) {
-//   let strDate = date.toString();
-//   let newDate = strDate.slice(0, 16);
-//   return newDate;
-// }
-
 function getMonthNum(month) {
   month === 'Jan' ? month = '01' : month === 'Feb' ? month = '02' : month === 'Mar' ? month = '03' : month === 'Apr' ? month = '04' :
   month === 'May' ? month = '05' : month === 'Jun' ? month = '06' : month === 'Jul' ? month = '07' :  month === 'Aug' ? month = '08' :
