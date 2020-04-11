@@ -1,21 +1,6 @@
-// var app = require('../../app');
-// var allUsers = app.users;
-// console.log(allUsers.length);
-
 var rowsPerPage = 50;
 var rowsOfData = 0; // total number of rows of data. Get from db
 var totalPages = rowsOfData/rowsPerPage; // total number of pages variable. Based on rowsOfData & rowsPerPage
-
-// var midContainer = new Vue({
-//     el: '#mid-container',
-//     data: {
-//       prevPrevPage: -1,
-//       prevPage: 0,
-//       currentPage: 1,
-//       nextPage: 2,
-//       nextNextPage: 3,
-//     }
-//   });
 
 function loadInitialLeaderboard(users) {
     console.log("loading initial leaderboard");

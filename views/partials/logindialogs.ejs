@@ -5,11 +5,11 @@
     <h2 id="loginHeading" class="account-heading login-heading">Login to Pocket Poker</h2>
     <form action="/login" method="POST">
       <label for="username" class="account-label">Username</label><br>
-      <input type="text" name="username" class="login-input" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete="username" required><span class="login-valid-content"></span><br>
+      <input type="text" name="username" id="loginUsername" class="login-input" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete="username" required><span class="login-valid-content"></span><br>
       <label for="password" class="account-label">Password</label><br>
-      <input type="password" name="password" id="loginPassword" class="login-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="loginPassIcon" onclick="togglePasswordVisibility('loginPassword', 'loginPassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="login-valid-content"></span><br>
+      <input type="password" name="password" id="loginPassword" class="login-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="loginPassIcon" onclick="togglePasswordVisibility('loginPassword', 'loginPassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="password-valid-check login-valid-content"></span><br>
       <ul id="invalid-login" class="invalid-fields-list"></ul>
-      <input type="submit" name="login-submit" role="button" value="Log In" class="btn" id="login-button">
+      <input type="submit" name="login-submit" role="button" value="Log In" onclick="return validateAccountLogin()" class="btn" id="login-button">
     </form>
     <div class="account-already">
       <a id="forgot-user-link" onclick="displayForgotDialog('forgotUserDialog', false)">Forgot Username</a> |

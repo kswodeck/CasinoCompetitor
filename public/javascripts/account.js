@@ -1,8 +1,3 @@
-const title = document.getElementsByTagName('title')[0];
-if (title == 'My Account') {
-  const accountUpdateButton = document.getElementById('accountUpdateButton');
-}
-
 function displayLoginDialog(message){
     const loginDialog = document.getElementById('loginDialog');
     const pageTitle = document.getElementsByTagName('title')[0];

@@ -198,7 +198,7 @@ function getFirstHand(currentCard, holdCurrentCard, currentValues) {
   currentCardElement.classList.add('interactive-card');
   holdCurrentCard.classList.add('text-opacity');
   let isSameIdentity = true;
-  while (isSameIdentity === true) {
+  while (isSameIdentity) {
     currentValues = getRandomCardValues();
     if (cards.filter(x => (x.identity === currentValues[2])).length === 0 || currentCard === 0) {
       isSameIdentity = false;
@@ -217,7 +217,7 @@ function getSecondHand(currentCard,holdCurrentCard,currentValues) {
   // let currentCardElement = document.getElementById(currentCardNumber);
   // currentCardElement.classList.remove('interactive-card');
   let isSameIdentity = true;
-  while (isSameIdentity === true) {
+  while (isSameIdentity) {
     currentValues = getRandomCardValues();
     if (cards.filter(x => (x.identity === currentValues[2])).length === 0) {
       if (currentCard === 0) {
@@ -227,7 +227,7 @@ function getSecondHand(currentCard,holdCurrentCard,currentValues) {
       }
     }
   }
-  if (cards[currentCard].isHeld === true) {
+  if (cards[currentCard].isHeld) {
     cards2.push(new Card(cards[currentCard].numValue, cards[currentCard].numSuit, cards[currentCard].identity));
   } else {
     cards2.push(new Card(currentValues[0], currentValues[1], currentValues[2]));
@@ -270,24 +270,24 @@ function getHandRanking(hand) {
   const isRoyal = isRoyalHand(hand);
   const isStraight = isStraightHand(hand[0].numValue, hand[1].numValue, hand[2].numValue, hand[3].numValue, hand[4].numValue);
   // let result = 'Game Over';
-  if (isTwoPairHand(hand) === true) {
+  if (isTwoPairHand(hand)) {
     resultText = 'Two Pair';
-  } else if (isJackOrBetterHand(hand) === true && highestSameKindCount === 2) {
+  } else if (isJackOrBetterHand(hand) && highestSameKindCount === 2) {
     resultText = 'Jacks or Better';
   } else if (highestSameKindCount === 3) {
-    if (pairExists(hand) === true) {
+    if (pairExists(hand)) {
       resultText = 'Full House';
     } else {
       resultText = '3 of a Kind';
     }
-  } else if (isStraight === true && isFlush === false) { // normal straight, not a royal straight/flush
+  } else if (isStraight && !isFlush) { // normal straight, not a royal straight/flush
     resultText = 'Straight';
   } else if (highestSameKindCount === 4) {
     resultText = '4 of a Kind';
-  } else if (isFlush === true) { // determine if flush (royal, straight, normal)
-    if (isRoyal === true) { // determine if royal flush
+  } else if (isFlush) { // determine if flush (royal, straight, normal)
+    if (isRoyal) { // determine if royal flush
       resultText = 'Royal Flush';
-    } else if (isStraight === true) { // determine if straight flush, not royal. Need each card to be 1 apart //working
+    } else if (isStraight) { // determine if straight flush, not royal. Need each card to be 1 apart //working
       resultText = 'Straight Flush';
     } else { // hand is a normal flush
       resultText = 'Flush';
@@ -312,8 +312,8 @@ function getHandRanking(hand) {
     return false;
   }
   function isRoyalHand(hand) {
-    if (hand[0].isRoyal === true && hand[1].isRoyal === true &&
-      hand[2].isRoyal === true && hand[3].isRoyal === true && hand[4].isRoyal === true) {
+    if (hand[0].isRoyal && hand[1].isRoyal &&
+      hand[2].isRoyal && hand[3].isRoyal && hand[4].isRoyal) {
       return true;
     }
     return false;
@@ -331,7 +331,7 @@ function getHandRanking(hand) {
       hand[i].sameKindCount = currentKindCount;
       if (currentKindCount === 2) {
         hand[i].hasPair = true;
-        if (hand[i].isJackOrBetter === true) {
+        if (hand[i].isJackOrBetter) {
           hand[i].isJackOrBetterPair = true;
         } else {
           hand[i].isJackOrBetterPair = false;
@@ -344,7 +344,7 @@ function getHandRanking(hand) {
   }
   function pairExists(hand) {
     for (let i = 0; i < 5; i++) {
-      if (hand[i].hasPair === true) {
+      if (hand[i].hasPair) {
         return true;
       }
     }
@@ -353,7 +353,7 @@ function getHandRanking(hand) {
   function isTwoPairHand(hand) {
     let numPairs = 0;
     for (let i = 0; i < 5; i++) {
-      if (hand[i].hasPair === true) {
+      if (hand[i].hasPair) {
         numPairs++;
       }
     }
@@ -364,7 +364,7 @@ function getHandRanking(hand) {
   }
   function isJackOrBetterHand(hand) {
     for (let i = 0; i < 5; i++) {
-      if (hand[i].isJackOrBetterPair === true) {
+      if (hand[i].isJackOrBetterPair) {
         return true;
       }
     }
@@ -376,7 +376,7 @@ function toggleCardHold(currentHoldElement) {
     const holdElement = document.getElementById(currentHoldElement);
     holdElement.classList.toggle('text-opacity');
     const cardNum = parseInt(currentHoldElement.replace(/hold/, ''));
-    cards[cardNum].isHeld !== true ? cards[cardNum].isHeld = true : cards[cardNum].isHeld = false;
+    !cards[cardNum].isHeld ? cards[cardNum].isHeld = true : cards[cardNum].isHeld = false;
   }
 }
 

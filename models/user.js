@@ -23,7 +23,7 @@ var UserSchema = new mongoose.Schema({
   firstName: {type: String, minlength: 1, maxlength: 30},
   lastName: {type: String, minlength: 1, maxlength: 50},
   phone: {type: String, minlength: 10, maxlength: 20},
-  birthday: {type: Date, min: "1920-01-01", max: "2019-12-31"},
+  birthday: {type: Date, min: "1900-01-01", max: "2019-12-31"},
   created: {type: Date, default: curDate},
   lastLogin: {type: Date, default: curDate},
   loginStreak: {type: Number, default: 1},

@@ -20,14 +20,10 @@ function validateAccountCreate() {
 }
 
 function validateAccountLogin() {
-  // const inputs = document.getElementsByClassName('account-input');
-  // const validitySpans = document.getElementsByClassName('valid-content');
-  // const invalidList = document.getElementById('invalid-fields-list');
-  // const newPassword = document.getElementById('newPassword');
-  // const repeatPassword = document.getElementById('repeatPassword');
-  // validateInputs(invalidList, inputs, validitySpans)
-  // validatePassMatch(newPassword, repeatPassword, validitySpans[4], validitySpans[5], invalidList)
-  return;
+  const inputs = document.getElementsByClassName('login-input');
+  const validitySpans = document.getElementsByClassName('login-valid-content');
+  const invalidList = document.getElementById('invalid-login');
+  return validateInputs(invalidList, inputs, validitySpans);
 }
 
   function validateAccountUpdate() {
@@ -67,13 +63,11 @@ function validateAccountLogin() {
     match = validatePassMatch(updatePassword, repeatPassword, validitySpans[1], validitySpans[2], invalidList);
     if (oldPassword.value == updatePassword.value || oldPassword.value == repeatPassword.value) {
       addToInvalidList('* old and new passwords must be different', validitySpans[0], invalidList);
-      // validitySpans[0].innerText = '✖';
-      // validitySpans[0].style.color = 'crimson';
       oldNewMatch = true;
     }
-    if (match == false) {
+    if (!match) {
       return false;
-    } else if (oldNewMatch == true) {
+    } else if (oldNewMatch) {
       return false;
     } else {
       setTimeout(function() { // good way of setting error message if there's only 1 more possible error
@@ -96,7 +90,7 @@ function validateAccountLogin() {
     let isValid = true;
     isValid = validateInputs(invalidList, inputs, validitySpans);
     match = validatePassMatch(updatePassword, repeatPassword, validitySpans[0], validitySpans[1], invalidList);
-    if (match == false) {
+    if (!match) {
       return false;
     } else {
       return true;
