@@ -8,9 +8,9 @@
     <meta name="author" content="Kristoffer Swodeck">
     <title><%=pageTitle%></title>
     <link rel="icon" href="\images\pocket-poker-favicon.jpg">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css">
-    <script src="https://kit.fontawesome.com/3287f2c91c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="\javascripts\bootstrap\dist\css\bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="\stylesheets\styles.css">
+    <script src="\javascripts\fontawesome\js\all.min.js" crossorigin="anonymous"></script>
   </head>
   <body class="m-auto">
     <div id ="main-container" class="container-fluid">
@@ -35,7 +35,7 @@
                       <div class="col-md-6 top-menu-div">
                         <li class="nav-item"><a class="secondary-link" role="button" href="/">Home</a></li>
                       </div>
-                      <div class="col-md-6 top-menu-div cards-dropdown"> <!-- there should be coins on cards.html -->
+                      <div class="col-md-6 top-menu-div cards-dropdown">
                         <a class="secondary-link dropdown-toggle ml-md-0 ml-2" href="cards" role="button" id="dropdownCardsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Poker</a>
                         <div class="dropdown-menu" id="cardsDropdown" aria-labelledby="dropdownCardsLink">
                           <a class="secondary-link dropdown-item px-md-1 p-0" href="cards">Competitive</a>
@@ -48,7 +48,7 @@
               </div>
           <div class="col-4 header-div" id="collapse-button-div">
             <% if (currentUser){ %>
-            <span id="total-coins-span"><%= currentUser.coins %></span><img class="mr-md-5 mr-sm-2 m-0" id="coins-img" src="/images/coins.png">
+            <span id="total-coins-span"><%= currentUser.coins %></span><img class="mr-md-5 mr-sm-2 m-0" id="coins-img" src="\images\coins.png">
             <% } %>
             <button id="hamburger-button" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>

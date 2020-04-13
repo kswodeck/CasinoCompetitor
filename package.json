@@ -8,7 +8,10 @@
   "author": "Kris Swodeck",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
+    "@popperjs/core": "^2.2.3",
     "body-parser": "^1.19.0",
+    "bootstrap": "^4.4.1",
     "connect-flash": "^0.1.1",
     "connect-timeout": "^1.9.0",
     "cookie-parser": "^1.4.5",
@@ -19,6 +22,7 @@
     "express-session": "^1.17.0",
     "express-validator": "^6.4.0",
     "http-errors": "^1.6.3",
+    "jquery": "^3.5.0",
     "method-override": "^3.0.0",
     "moment": "^2.24.0",
     "mongodb": "^3.5.4",
@@ -29,6 +33,7 @@
     "passport-local-mongoose": "^6.0.1",
     "path": "^0.12.7",
     "request": "^2.88.2",
-    "request-promise": "^4.2.5"
+    "request-promise": "^4.2.5",
+    "vue": "^2.6.11"
   }
 }
