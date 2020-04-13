@@ -9,7 +9,7 @@
         <form action="/cards/?_method=PUT" method="POST">
           <input value="<%= currentCoins %>" name="userCoins" id="coinsInput" class="card-coins-input">
           <input value="0" name="currentWin" id="currentWinInput" class="card-coins-input">
-          <button id="card-deal-button" class="btn" type="submit" name="deal-button" onclick="getCards(); updateStoredCoins()">{{ dealButtonText }}</button>
+          <input type="submit" role="button" id="card-deal-button" class="btn" name="deal-button" onclick="getCards(); updateStoredCoins()">{{ dealButtonText }}</button>
         </form>
       </div>
       <div id="current-win-div" class="text-left col">
