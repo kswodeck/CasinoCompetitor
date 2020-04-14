@@ -3,7 +3,7 @@ body, html {
   height: 100%;
   width: 100%;
   margin: 0;
-  overflow-x: auto;
+  overflow-x: hidden; /* navbar toggle button causes this to show no matter what when reaches small enough size */
   overflow-y: auto;
 }
 
@@ -13,7 +13,8 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: calc(5px + 0.07vw + 0.07vh);
+  width: calc(5px + 0.1vw + 0.05vh);
+  height: calc(5px + 0.05vw + 0.1vh);
   background-color: #343a40;
 }
 ::-webkit-scrollbar-thumb {
