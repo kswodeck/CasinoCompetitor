@@ -4,7 +4,7 @@
     <h1 id="page-heading" class="mb-md-3 mb-2">Practice Poker</h1>
     <div id = "card-prep-row" class="justify-content-around mt-md-4 mb-md-3 my-sm-2 my-1">
       <div id="card-play-div" class="card-play-div text-center">
-        <input type="button" role="button" id="card-deal-button" class="btn" name="deal-button" onclick="getPracticeCards()">{{ dealButtonText }}</button>
+        <button type="button" role="button" id="card-deal-button" class="btn lg-text gold-bg red-text btn-style" name="deal-button" onclick="getPracticeCards()">{{ dealButtonText }}</button>
       </div>
     </div>
     <div class="container-xl" id="play-container">
@@ -33,7 +33,7 @@
       <h3 id="hand-ranking-heading">{{ resultText }}</h3>
     </div>
     <div id ="show-hide-odds-div">
-      <button id="show-hide-odds-button" class="btn" onclick="toggleOddsTable()">Show Odds</button>
+      <button id="show-hide-odds-button" class="btn sm-text blue-bg gold-text btn-style" onclick="toggleOddsTable()">Show Odds</button>
     </div>
     <div id="hand-odds-div">
       <span id="odds-heading" class="table-heading">Winning Hand Odds</span>
@@ -53,7 +53,7 @@
 <dialog id="winHandDialog">
   <span id="hand-win-popup-span">{{ resultText }}</span>
   <div id="winHandDiv">
-      <button id="winHandCancel" class="btn cancelbutton">OK</button>
+      <button id="winHandCancel" class="btn sm-text red-bg gold-text btn-style">OK</button>
     </div>
 </dialog>
 

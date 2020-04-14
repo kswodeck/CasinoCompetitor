@@ -14,7 +14,6 @@ router.get('/', function(req, res){
     afterLogin = false;
   }
   if (req.user && afterLogin) {
-    console.log(afterLogin);
     var current = new Date(User.getCurrentDate());
     let adjYesDate = moment().subtract(1, 'days').format();
     let strYesDate = adjYesDate.toString();

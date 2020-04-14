@@ -32,18 +32,91 @@ body {
   background-color: gold;
   color: darkblue;
   font-weight: bold;
-  width: calc(28px + 0.5vw);
+  width: calc(28px + 0.6vw);
   height: calc(14px + 0.5vw);
   padding: 0;
   margin-left: 4px;
 }
 
-#bet-button:hover, #dicequantity:hover, #table-search-cell, #confirmBtn, .cancelbutton:hover {
+.lg-text {
+  font-size: calc(20px + 0.9vw);
+}
+.md-text {
+  font-size: calc(15px + 0.5vw);
+}
+.sm-text {
+  font-size: calc(13px + 0.25vw);
+}
+button.gold-bg, input.gold-bg {
+  background-color: gold;
+  border-color: crimson;
+}
+button.red-bg, input.red-bg, #win-button:hover, #win-button:active {
+  background-color: crimson;
+  border-color: darkblue;
+}
+button.blue-bg, input.blue-bg {
+  background-color: darkblue;
+  border-color: crimson;
+}
+button.btn-style, input.btn-style {
+  padding: 0.1% 1%;
+  white-space: nowrap;
+  transition: all 0.4s;
+  font-weight: bold;
+  margin: 0.5% 0;
+  border-style: solid;
+  border-width: 0.06em;
+  min-width: calc(38px + 2vw);
+  min-height: calc(22px + 0.8vw);
+}
+.gold-text, #win-button:hover, #win-button:active {
+  color: gold;
+}
+.red-text {
+  color: crimson;
+}
+.blue-text {
+  color: darkblue;
+}
+button.gold-bg:hover, input.gold-bg:hover {
+  background-color: darkblue;
+  color: gold;
+  border-color: gold;
+}
+button.gold-bg:active, input.gold-bg:active {
+  border-color: crimson;
+}
+button.blue-bg:hover, input.blue-bg:hover {
+  background-color: crimson;
+  color: gold;
+  border-color: var(--lightthemeblue);
+}
+button.blue-bg:active, input.blue-bg:active {
+  border-color: darkblue;
+}
+button.red-bg:hover, input.red-bg:hover, button.poker-button:hover {
+  background-color: darkblue;
+  color: gold;
+  border-color: gold;
+}
+button.red-bg:active, input.red-bg:active, button.poker-button:active {
+  border-color: crimson;
+}
+button.btn:disabled, input.btn:disabled {
+  opacity: 0.1;
+  cursor: default;
+}
+button.btn:active, input.btn:active, button.poker-button:active {
+  border-width: 0.08em;
+}
+
+#dicequantity:hover, #table-search-cell, .cancelbutton:hover {
   color: gold;
   background-color: darkblue;
   transition: all 0.4s;
 }
-#bet-button:active, #dicequantity:active, .cancelbutton:active {
+#dicequantity:active, .cancelbutton:active {
   background-color: var(--darkerblue);
   border: 1px solid crimson;
 }
@@ -74,17 +147,6 @@ body {
   line-height: 1.25;
   padding: 0.2% 0.1%;
   text-align: center;
-}
-
-#show-hide-odds-button {
-  cursor: pointer;
-  color: gold;
-  background-color: darkblue;
-  border: 1px solid crimson;
-  padding: 0.1% 0.3%;
-  font-weight: bold;
-  font-size: calc(11px + 0.3vw);
-  transition: all 0.4s;
 }
 
 #dice-clear-tally-col {
@@ -119,13 +181,12 @@ body {
 }
 
 .card-slot-div .interactive-card:hover {
-  border: 2px solid lightsteelblue;
+  border: 0.06em solid lightsteelblue;
   border-radius: 15px;
   cursor: pointer;
 }
 .card-slot-div .interactive-card:active {
-  border: 2px solid darkblue;
-  border-radius: 15px;
+  border: 0.1em solid darkblue;
 }
 .card-coins-input, #userIdInput {
   display: none;
@@ -187,7 +248,7 @@ body {
   font-weight: bold;
 }
 
-#coin-flip-button, #dice-roll-button, #card-deal-button, #clear-tally-button, #homeButton {
+#homeButton {
   background-color: gold;
   color: crimson;
   font-weight: bold;
@@ -196,44 +257,36 @@ body {
   white-space: nowrap;
   transition: all 0.4s;
 }
-#coin-flip-button, #dice-roll-button, #card-deal-button, #homeButton {
+#dice-roll-button, #homeButton {
   font-size:calc(16px + 1vw);
 }
-#clear-tally-button {
-  font-size:calc(11.5px + 0.3vw);
-}
-#coin-flip-button:hover, #dice-roll-button:hover, #card-deal-button:hover, #clear-tally-button:hover, #homeButton:hover {
+#homeButton:hover {
   background-color: darkblue;
   color: gold;
   border: 2px solid gold;
 }
-#coin-flip-button:active, #dice-roll-button:active, #card-deal-button:active, #clear-tally-button:active, #homeButton:active {
+#homeButton:active {
   border: 2px solid crimson;
 }
-#coin-flip-button:disabled, #dice-roll-button:disabled, #card-deal-button:disabled, #clear-tally-button:disabled, #homeButton:disabled {
+#homeButton:disabled {
   opacity: 0.1;
   cursor: default;
 }
 
-#bet-button, #win-button {
+button.poker-button {
   background-color: crimson;
-  color: gold;
+  border: 0.06em outset gold;
   font-weight: bold;
   padding: 0.1% 1% 4% 1%;
-  border: 2px solid gold;
   border-radius: 50px;
-  white-space: nowrap;
-  font-size:calc(12px + 0.5vw);
   width: calc(38px + 2.3vw);
-  height: calc(30px + 1.4vw);
+  height: calc(34px + 1.4vw);
+  white-space: nowrap;
   transition: all 0.4s;
+  font-weight: bold;
+  margin: 0.5% 0;
 }
-#bet-button:disabled {
-  background-color: crimson;
-}
-
-#bet-button:disabled, #win-button:disabled {
-  cursor: default;
+button.poker-button:disabled {
   opacity: 1;
 }
 
@@ -483,12 +536,12 @@ body {
   font-size: calc(13px + 0.4vw);
   transition: all 0.3s;
 }
-.account-button:hover, #login-button:hover, #forgot-pw-button:hover, #forgot-user-button:hover, #show-hide-odds-button:hover {
+.account-button:hover, #login-button:hover, #forgot-pw-button:hover, #forgot-user-button:hover {
   color: gold;
   border: 1px inset var(--lightthemeblue);
   background-color: crimson;
 }
-.account-button:active, #login-button:active, #forgot-pw-button:active, #forgot-user-button:active, #show-hide-odds-button:active {
+.account-button:active, #login-button:active, #forgot-pw-button:active, #forgot-user-button:active {
   border: 1.5px inset darkblue;
   transition: all 0.1s;
 }
@@ -669,7 +722,7 @@ input:disabled {
   justify-content: flex-end!important;
 }
 
-#practice-mode-link, .page-link {
+.page-link {
   color: darkblue;
   transition: all 0.4s;
   font-size: calc(12px + 0.35vw);
@@ -695,7 +748,7 @@ input:disabled {
   top: calc(10vh + 20%);
 }
 
-.cancelbutton, #confirmBtn {
+.cancelbutton {
   color: gold;
   font-weight: bold;
   padding: 0.1% 1% 1% 1%;
@@ -711,15 +764,6 @@ input:disabled {
   background-color: crimson;
 }
 
-#confirmBtn {
-  background-color: darkblue;
-}
-#confirmBtn:hover {
-  background-color: crimson;
-}
-#confirmBtn:active {
-  border: 1px solid darkblue;
-}
 #go-button-link{
   transition: all 0.4s;
   color: gold;

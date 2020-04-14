@@ -3,17 +3,17 @@
     <h1 id="page-heading" class="mb-md-3 mb-2">Competitive Poker</h1>
     <div id = "card-prep-row" class="row justify-content-around mt-md-4 mb-md-3 my-sm-2 my-1">
       <div id="current-bet-div" class="text-right col">
-        <button id="bet-button" class="btn pb-4" type="button" name="bet-button" onclick="toggleBet()">bet<span id ="current-bet-span">{{ currentBet }}</span></button>
+        <button id="bet-button" class="btn poker-button md-text gold-text" type="button" name="bet-button" onclick="toggleBet()">bet<span id ="current-bet-span">{{currentBet}}</span></button>
       </div>
       <div id="card-play-div" class="card-play-div text-center col">
         <form action="/cards/?_method=PUT" method="POST">
           <input value="<%= currentCoins %>" name="userCoins" id="coinsInput" class="card-coins-input">
           <input value="0" name="currentWin" id="currentWinInput" class="card-coins-input">
-          <input type="submit" role="button" id="card-deal-button" class="btn" name="deal-button" onclick="getCards(); updateStoredCoins()">{{ dealButtonText }}</button>
+          <button type="submit" role="button" id="card-deal-button" class="btn lg-text gold-bg red-text btn-style" name="deal-button" onclick="getCards(); updateStoredCoins()">{{dealButtonText}}</button>
         </form>
       </div>
       <div id="current-win-div" class="text-left col">
-        <button id="win-button" class="btn pb-4" type="button" name="win-button" disabled>win<span id="current-win-span">{{ currentWin }}</span></button>
+        <button id="win-button" class="btn poker-button md-text gold-text" type="button" name="win-button" disabled>win<span id="current-win-span">{{currentWin}}</span></button>
       </div>
     </div>
     <div class="container-xl" id="play-container">
@@ -44,22 +44,22 @@
 </div>
 <dialog id="outOfCoinsDialog">
   <p class="dialog-popup-text">You ran out of coins!<br />
-  Play <a id="practice-mode-link" href="practice-cards.html">Practice Mode</a></p>
+  <a id="practice-mode-link" class="sm-text blue-bg blue-text" href="practice-cards.html">Play Practice Mode</a></p>
   <div id="dialogButtonDiv" class = "row justify-content-around">
     <div class = "col">
-      <button id="outOfCoinsCancel" class="btn cancelbutton" value="cancel" onclick="closeDialog('outOfCoinsDialog')">Cancel</button>
+      <button id="outOfCoinsCancel" class="btn sm-text red-bg gold-text btn-style" value="cancel" onclick="closeDialog('outOfCoinsDialog')">Cancel</button>
     </div>
     <div class = "col">
-     <button id="confirmBtn" class="btn"><a id="go-button-link" role="button" href="/practice-cards">Go</a></button>
+     <button id="confirmBtn" class="btn sm-text blue-bg gold-text btn-style"><a id="go-button-link" role="button" href="/practice-cards">Go</a></button>
     </div>
   </div>
 </dialog>
 <dialog id="winCoinsDialog">
 <span id="coin-win-popup-span">{{ resultText }}</span><br />
-<span id="coin-win-popup-text" class="dialog-popup-text">You win</span><span id="number-coins-won"> {{ currentWin }} </span><img id="coins-popup-img" src="images/coins.png">
+<span id="coin-win-popup-text" class="dialog-popup-text">You win</span><span id="number-coins-won"> {{currentWin}} </span><img id="coins-popup-img" src="images/coins.png">
   <div id="coinDialogDiv" class="row justify-content-around">
     <div class = "col">
-      <button id="winCoinsCancel" class="btn cancelbutton">OK</button>
+      <button id="winCoinsCancel" class="btn sm-text red-bg gold-text btn-style">OK</button>
     </div>
   </div>
 </dialog>
