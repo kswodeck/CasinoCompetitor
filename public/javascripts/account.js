@@ -83,7 +83,6 @@ function exitDialog(currentDialog){
   }
   document.getElementById(currentDialog).close();
   document.getElementById('mid-container').style.display = 'block';
-  // enableAllInputs(accountInputs);
 }
 
 function backFromDialog(currentDialog){
@@ -149,11 +148,4 @@ function displayStreakDialog(streak){
   }
   let coinsEarned = streak*10;
   loginCoinSpan.innerText = "You earned " + coinsEarned + " ";
-}
-
-function closeDialog(dialog) {
-  let curDialog = document.getElementById(dialog);
-  if (curDialog.showModal) {
-    curDialog.close();
-  }
 }

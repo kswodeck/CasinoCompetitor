@@ -4,7 +4,7 @@
     <h1 id="page-heading" class="mb-md-3 mb-2">Practice Poker</h1>
     <div id = "card-prep-row" class="justify-content-around mt-md-4 mb-md-3 my-sm-2 my-1">
       <div id="card-play-div" class="card-play-div text-center">
-        <button type="button" role="button" id="card-deal-button" class="btn lg-text gold-bg red-text btn-style" name="deal-button" onclick="getPracticeCards()">{{ dealButtonText }}</button>
+        <button type="button" role="button" id="card-deal-button" class="btn lg-text gold-bg red-text btn-style" name="deal-button" onclick="getPracticeCards()">{{dealButtonText}}</button>
       </div>
     </div>
     <div class="container-xl" id="play-container">
@@ -30,7 +30,7 @@
           <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card4" onclick="toggleCardHold('hold4')">
         </div>
       </div>
-      <h3 id="hand-ranking-heading">{{ resultText }}</h3>
+      <h3 id="hand-ranking-heading">{{resultText}}</h3>
     </div>
     <div id ="show-hide-odds-div">
       <button id="show-hide-odds-button" class="btn sm-text blue-bg gold-text btn-style" onclick="toggleOddsTable()">Show Odds</button>
@@ -51,7 +51,7 @@
     </div>
 </div>
 <dialog id="winHandDialog">
-  <span id="hand-win-popup-span">{{ resultText }}</span>
+  <span id="hand-win-popup-span">{{resultText}}</span>
   <div id="winHandDiv">
       <button id="winHandCancel" class="btn sm-text red-bg gold-text btn-style">OK</button>
     </div>
@@ -59,6 +59,6 @@
 
 <%- include('partials/logindialogs') %>
 <%- include('partials/footer') %>
-<script src="\javascripts\vue\dist\vue.min.js"></script>
+<script src="\javascripts\vue\dist\vue.min.js" type="text/javascript"></script>
 <script src="javascripts\cards.js" type="text/javascript" ></script>
 <%- include('partials/javascripts') %>

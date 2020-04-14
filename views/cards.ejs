@@ -39,7 +39,7 @@
           <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card4" onclick="toggleCardHold('hold4')">
         </div>
       </div>
-      <h3 id="hand-ranking-heading">{{ resultText }}</h3>
+      <h3 id="hand-ranking-heading">{{resultText}}</h3>
     </div>
 </div>
 <dialog id="outOfCoinsDialog">
@@ -47,7 +47,7 @@
   <a id="practice-mode-link" class="sm-text blue-bg blue-text link-text" href="practice-cards.html">Play Practice Mode</a></p>
   <div id="dialogButtonDiv" class = "row justify-content-around">
     <div class = "col">
-      <button id="outOfCoinsCancel" class="btn sm-text red-bg gold-text btn-style" value="cancel" onclick="closeDialog('outOfCoinsDialog')">Cancel</button>
+      <button id="outOfCoinsCancel" class="btn sm-text red-bg gold-text btn-style" value="cancel" onclick="exitDialog('outOfCoinsDialog')">Cancel</button>
     </div>
     <div class = "col">
      <button id="confirmBtn" class="btn sm-text blue-bg gold-text btn-style"><a id="go-button-link" role="button" href="/practice-cards">Go</a></button>
@@ -55,7 +55,7 @@
   </div>
 </dialog>
 <dialog id="winCoinsDialog">
-<span id="coin-win-popup-span">{{ resultText }}</span><br />
+<span id="coin-win-popup-span">{{resultText}}</span><br />
 <span id="coin-win-popup-text" class="dialog-popup-text">You win</span><span id="number-coins-won"> {{currentWin}} </span><img id="coins-popup-img" src="images/coins.png">
   <div id="coinDialogDiv" class="row justify-content-around">
     <div class = "col">

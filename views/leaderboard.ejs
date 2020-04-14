@@ -22,7 +22,7 @@
             <td class="leaderboard-head">Total Coins</td>
           </tr>
           <!-- must delete all kswodecks, duplicates and such after going live -->
-          <% let numPages = 1, currentRank = 1, rowsPerPage = 1, totalRows = 1 %>
+          <% let numPages = 1, currentRank = 1, rowsPerPage = 200, totalRows = 1 %>
           <% users.forEach(function(user){ %>
             <tr class ="leaderboard-row normal-row">
               <td class ="leaderboard-cell leaderboard-rank"><%= currentRank %></td>
@@ -61,7 +61,6 @@
 
 <%- include('partials/logindialogs') %>
 <%- include('partials/footer') %>
-<!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
 <script src="\javascripts\vue\dist\vue.min.js"></script>
 <script src="\javascripts\leaderboard.js" type="text/javascript" ></script>
 <%- include('partials/javascripts') %>

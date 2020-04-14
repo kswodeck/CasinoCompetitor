@@ -47,7 +47,7 @@ button.gold-bg, input.gold-bg {
   background-color: gold;
   border-color: crimson;
 }
-button.red-bg, input.red-bg, #win-button:hover, #win-button:active {
+button.red-bg, input.red-bg, button.poker-button:disabled, button.poker-button[disabled]:hover {
   background-color: crimson;
   border-color: darkblue;
 }
@@ -62,11 +62,11 @@ button.btn-style, input.btn-style {
   font-weight: bold;
   margin: 0.5% 0;
   border-style: solid;
-  border-width: 0.06em;
+  border-width: 0.05em;
   min-width: calc(38px + 2vw);
   min-height: calc(22px + 0.8vw);
 }
-.gold-text, #win-button:hover, #win-button:active {
+.gold-text {
   color: gold;
 }
 .red-text, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active, svg.back-icon:active {
@@ -251,10 +251,10 @@ button.poker-button {
   background-color: crimson;
   border: 0.06em outset gold;
   font-weight: bold;
-  padding: 0.1% 1% 4% 1%;
+  padding: 0.1% 1% 8% 1%;
   border-radius: 50px;
   width: calc(38px + 2.3vw);
-  height: calc(34px + 1.4vw);
+  height: calc(38px + 1.5vw);
   white-space: nowrap;
   transition: all 0.4s;
   font-weight: bold;
