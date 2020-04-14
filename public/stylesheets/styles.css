@@ -8,13 +8,12 @@ body, html {
 }
 
 body {
-  background-color: rgba(255, 255, 255, 1.0);
+  background-color: rgba(255, 255, 255);
   background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6EE, #DBDFEB, #D1D7E5);
-  }
+}
 
 :root {
   --dice-width: 9%;
-  --card-width: 100%;
   --bluish: rgba(140, 145, 155, 0.5);
   --lightthemeblue: rgba(81, 101, 180, 0.7);
   --lightcrimson: rgb(250, 10, 50);
@@ -175,7 +174,7 @@ input.account-button {
 }
 
 .cards {
-  width: var(--card-width);
+  width: 100%;
   margin: auto;
 }
 
