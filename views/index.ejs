@@ -6,7 +6,7 @@
   <% if (currentUser){ %>
   <h3 id="usernameHome" class="username-welcome"><%= currentUser.username %></h3>
   <span id="total-coins-welcome" class="coins-welcome">You have <%= currentUser.coins %></span><img id="welcome-coins-img" class="home-coins" src="images/coins.png"><br>
-  <button id="homeButton" onclick="location.href='/cards'">Test your luck</button><br>
+  <button id="homeButton" class="btn lg-text gold-bg red-text btn-style" onclick="location.href='/cards'">Test your luck</button><br>
   <% } %>
 </div>
 <dialog id="logoutDialog" class="container-fluid account-form-div">
@@ -16,10 +16,10 @@
   <h2 id="logoutHeading" class="account-heading login-heading">You've been logged out</h2>
   <div id="logoutDialogDiv" class="row justify-content-around">
     <div class="col">
-      <button id="logoutLoginButton" class="btn cancelbutton" onclick="location.href='/login'">Log In</button>
+      <button id="logoutLoginButton" class="btn sm-text red-bg gold-text btn-style" onclick="location.href='/login'">Log In</button>
     </div>
     <div class="col">
-      <button id="logoutRegisterButton" class="btn cancelbutton" onclick="location.href='/register'">Sign Up</button>
+      <button id="logoutRegisterButton" class="btn sm-text red-bg gold-text btn-style" onclick="location.href='/register'">Sign Up</button>
     </div>
   </div>
 </dialog>

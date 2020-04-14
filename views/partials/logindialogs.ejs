@@ -9,12 +9,12 @@
       <label for="password" class="account-label">Password</label><br>
       <input type="password" name="password" id="loginPassword" class="login-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="loginPassIcon" onclick="togglePasswordVisibility('loginPassword', 'loginPassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="password-valid-check login-valid-content"></span><br>
       <ul id="invalid-login" class="invalid-fields-list"></ul>
-      <input type="submit" name="login-submit" role="button" value="Log In" onclick="return validateAccountLogin()" class="btn" id="login-button">
+      <input type="submit" name="login-submit" role="button" value="Log In" onclick="return validateAccountLogin()" class="btn md-text blue-bg gold-text btn-style account-button" id="login-button">
     </form>
     <div class="account-already">
-      <a id="forgot-user-link" onclick="displayForgotDialog('forgotUserDialog', false)">Forgot Username</a> |
-      <a id="forgot-pw-link" onclick="displayForgotDialog('forgotPWDialog', false)">Forgot Password</a> |
-      <a id="account-signup-link" onclick="location.href='/register'">Sign Up</a>
+      <a id="forgot-user-link" class="link-text" onclick="displayForgotDialog('forgotUserDialog', false)">Forgot Username</a> |
+      <a id="forgot-pw-link" class="link-text" onclick="displayForgotDialog('forgotPWDialog', false)">Forgot Password</a> |
+      <a id="account-signup-link" class="link-text" onclick="location.href='/register'">Sign Up</a>
     </div>
 </dialog>
 <dialog id="forgotUserDialog" class="container-fluid account-form-div">
@@ -28,11 +28,11 @@
       <label for="birthday" class="account-label">Birthday</label><br>
       <input type="date" name="forgotUser[birthday]" id="forgotUserBirthday" class="forgotUserInput birthday" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" required><span class="forgotUserValid"></span><br>
       <ul id="invalid-forgot-username" class="invalid-fields-list"></ul>
-      <input type="submit" name="forgot-pw-submit" role="button" value="Recover Username" class="btn" id="forgot-pw-button">
+      <input type="submit" name="forgot-pw-submit" role="button" value="Recover Username" class="btn md-text blue-bg gold-text btn-style account-button" id="forgot-pw-button">
     </form>
     <div class ="back-button-div">
-      <button id="forgotUserBackButton"  class="back-arrow btn" name="back-arrow" onclick="backFromDialog('forgotUserDialog')"><i id="forgotUserBackArrow" class="fas fa-long-arrow-alt-left"></i></button>
-      <span class="back-button-label" onclick="backFromDialog('forgotUserDialog')">Back to Login</span>
+      <button id="forgotUserBackButton"  class="back-arrow btn blue-text lg-text" name="back-arrow" onclick="backFromDialog('forgotUserDialog')"><i id="forgotUserBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
+      <span class="back-button-label blue-text sm-text" onclick="backFromDialog('forgotUserDialog')">Back to Login</span>
     </div>
 </dialog>
 <dialog id="forgotPWDialog" class="container-fluid account-form-div">
@@ -48,30 +48,10 @@
       <label for="birthday" class="account-label">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
       <input type="date" name="forgotPW[birthday]" id="forgotPWBirthday" class="forgotPassInput birthday" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" required><span class="forgotPassValid"></span><br>
       <ul id="invalid-forgot-password" class="invalid-fields-list"></ul>
-      <input type="submit" name="forgot-user-submit" role="button" value="Recover Password" class="btn" id="forgot-user-button">
+      <input type="submit" name="forgot-user-submit" role="button" value="Recover Password" class="btn md-text blue-bg gold-text btn-style account-button" id="forgot-user-button">
     </form>
     <div class ="back-button-div">
-      <button id="forgotPWBackButton" class="back-arrow btn" name="back-arrow" onclick="backFromDialog('forgotPWDialog')"><i id="forgotPWBackArrow" class="fas fa-long-arrow-alt-left"></i></button>
-      <span class="back-button-label" onclick="backFromDialog('forgotPWDialog')">Back to Login</span>
+      <button id="forgotPWBackButton" class="back-arrow btn blue-text lg-text" name="back-arrow" onclick="backFromDialog('forgotPWDialog')"><i id="forgotPWBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
+      <span class="back-button-label blue-text sm-text" onclick="backFromDialog('forgotPWDialog')">Back to Login</span>
     </div>
-</dialog>
-<dialog id="updatePWDialog" class="container-fluid account-form-div">
-  <div class ="exit-button-div">
-    <button id="updatePWDialogExit" class="exit-dialog-button" onclick="exitDialog('updatePWDialog')">✖</button>
-  </div>
-  <h2 id="updatePWHeading" class="login-heading">Update Password</h2>
-  <form action="/account/?_method=PUT" method="POST">
-    <label for="oldPassword" id="oldPassLabel" class="account-label">Current Password</label><br>
-    <input type="password" name="oldPassword" id="oldPassword" class="updatePassInput password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="oldPassIcon" onclick="togglePasswordVisibility('oldPassword', 'oldPassIcon')" class="show-hide input-icon fas fa-eye"></i><span id="oldPassCheck" class="update-password-content password-valid-check"></span><br>
-    <label for="updatePassword" class="account-label">New Password</label><br> <!-- password validations aren't fully sufficient -->
-    <input type="password" name="updatePassword" id="updatePassword" class="updatePassInput password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="updatePassIcon" onclick="togglePasswordVisibility('updatePassword', 'updatePassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="update-password-content password-valid-check"></span><br>
-    <label for="repeatNewPassword" class="account-label">Repeat Password</label><br>
-    <input type="password" name="repeatNewPassword" id="repeatNewPassword" class="updatePassInput password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="repeatNewPassIcon" onclick="togglePasswordVisibility('repeatNewPassword', 'repeatNewPassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="update-password-content password-valid-check"></span><br>
-    <ul id="invalid-update-password" class="invalid-fields-list"></ul>
-    <input type="submit" name="password-update" onclick="return validatePasswordUpdate()" role="button" value="Update Password" class="btn account-button" id="passwordUpdateButton">
-  </form>
-  <div class ="back-button-div">
-    <button id="updatePWBackButton" class="back-arrow btn" name="back-arrow" onclick="exitDialog('updatePWDialog')"><i id="updatePWBackArrow" class="fas fa-long-arrow-alt-left"></i></button>
-    <span id="updatePWBackSpan" class="back-button-label" onclick="exitDialog('updatePWDialog')">Back</span>
-  </div>
 </dialog>

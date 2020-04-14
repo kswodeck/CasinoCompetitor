@@ -33,11 +33,32 @@
             <li class="valid-list"><%= success %></li>
           <% } %>
           </ul>
-          <input type="submit" role="button" name="account-update" onclick="return validateAccountUpdate()" value="Update Account" class="btn account-button" id="accountUpdateButton">
+          <input type="submit" role="button" name="account-update" onclick="return validateAccountUpdate()" value="Update Account" class="btn md-text blue-bg gold-text btn-style account-button" id="accountUpdateButton">
         </form>
       </div>
     </div>
 </div>
+
+<dialog id="updatePWDialog" class="container-fluid account-form-div">
+  <div class ="exit-button-div">
+    <button id="updatePWDialogExit" class="exit-dialog-button" onclick="exitDialog('updatePWDialog')">✖</button>
+  </div>
+  <h2 id="updatePWHeading" class="login-heading">Update Password</h2>
+  <form action="/account/?_method=PUT" method="POST">
+    <label for="oldPassword" id="oldPassLabel" class="account-label">Current Password</label><br>
+    <input type="password" name="oldPassword" id="oldPassword" class="updatePassInput password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="oldPassIcon" onclick="togglePasswordVisibility('oldPassword', 'oldPassIcon')" class="show-hide input-icon fas fa-eye"></i><span id="oldPassCheck" class="update-password-content password-valid-check"></span><br>
+    <label for="updatePassword" class="account-label">New Password</label><br> <!-- password validations aren't fully sufficient -->
+    <input type="password" name="updatePassword" id="updatePassword" class="updatePassInput password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="updatePassIcon" onclick="togglePasswordVisibility('updatePassword', 'updatePassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="update-password-content password-valid-check"></span><br>
+    <label for="repeatNewPassword" class="account-label">Repeat Password</label><br>
+    <input type="password" name="repeatNewPassword" id="repeatNewPassword" class="updatePassInput password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="repeatNewPassIcon" onclick="togglePasswordVisibility('repeatNewPassword', 'repeatNewPassIcon')" class="show-hide input-icon fas fa-eye"></i><span class="update-password-content password-valid-check"></span><br>
+    <ul id="invalid-update-password" class="invalid-fields-list"></ul>
+    <input type="submit" name="password-update" role="button" onclick="return validatePasswordUpdate()" value="Update Password" class="btn md-text blue-bg gold-text btn-style" id="passwordUpdateButton">
+  </form>
+  <div class ="back-button-div">
+    <button id="updatePWBackButton" class="back-arrow btn blue-text lg-text" name="back-arrow" onclick="exitDialog('updatePWDialog')"><i id="updatePWBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
+    <span id="updatePWBackSpan" class="back-button-label blue-text sm-text" onclick="exitDialog('updatePWDialog')">Back</span>
+  </div>
+</dialog>
 
 <%- include('partials/logindialogs') %>
 <%- include('partials/footer') %>

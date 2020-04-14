@@ -24,10 +24,6 @@ body {
   --darkerblue: rgb(0, 0, 100);
 }
 
-#mid-container {
-  text-align: center;
-}
-
 #dicequantity {
   background-color: gold;
   color: darkblue;
@@ -73,7 +69,7 @@ button.btn-style, input.btn-style {
 .gold-text, #win-button:hover, #win-button:active {
   color: gold;
 }
-.red-text {
+.red-text, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active, svg.back-icon:active {
   color: crimson;
 }
 .blue-text {
@@ -84,7 +80,7 @@ button.gold-bg:hover, input.gold-bg:hover {
   color: gold;
   border-color: gold;
 }
-button.gold-bg:active, input.gold-bg:active {
+button.gold-bg:active, input.gold-bg:active, button.exit-dialog-button:active {
   border-color: crimson;
 }
 button.blue-bg:hover, input.blue-bg:hover {
@@ -107,8 +103,11 @@ button.btn:disabled, input.btn:disabled {
   opacity: 0.1;
   cursor: default;
 }
-button.btn:active, input.btn:active, button.poker-button:active {
+button.btn:active, input.btn:active, button.poker-button:active, button.exit-dialog-button:active {
   border-width: 0.08em;
+}
+input.account-button {
+  margin: 2% auto;
 }
 
 #dicequantity:hover, #table-search-cell, .cancelbutton:hover {
@@ -212,7 +211,7 @@ button.btn:active, input.btn:active, button.poker-button:active {
 #dice-roll-current-div {
   margin-right: 0;
 }
-#dice-roll-tally-div {
+#dice-roll-tally-div, .back-button-label, .dropdown-toggle::after {
   margin-left: 0;
 }
 
@@ -246,31 +245,6 @@ button.btn:active, input.btn:active, button.poker-button:active {
   font-size:calc(15px + 0.4vw);
   color: crimson;
   font-weight: bold;
-}
-
-#homeButton {
-  background-color: gold;
-  color: crimson;
-  font-weight: bold;
-  padding: 0.1% 1%;
-  border: 2px solid crimson;
-  white-space: nowrap;
-  transition: all 0.4s;
-}
-#dice-roll-button, #homeButton {
-  font-size:calc(16px + 1vw);
-}
-#homeButton:hover {
-  background-color: darkblue;
-  color: gold;
-  border: 2px solid gold;
-}
-#homeButton:active {
-  border: 2px solid crimson;
-}
-#homeButton:disabled {
-  opacity: 0.1;
-  cursor: default;
 }
 
 button.poker-button {
@@ -365,13 +339,10 @@ button.poker-button:disabled {
   z-index: 10;
 }
 
-#header a:hover, #account-login-link:hover, #current-link, #practice-mode-link:hover, #forgot-pw-link:hover, #forgot-user-link:hover, #account-signup-link:hover, .back-button-label:hover, #forgotUserBackArrow:hover, #forgotPWBackArrow:hover, #updatePWBackArrow:hover {
+#header a:hover, #current-link, a.link-text:hover, .back-button-label:hover, svg.back-icon:hover {
   color: crimson;
   cursor: pointer;
   transition: all 0.4s;
-}
-#header a:active, #account-login-link:active, #practice-mode-link:active, #forgot-pw-link:active, #forgot-user-link:active, #account-signup-link:active, .back-button-label:active, #forgotUserBackArrow:active, #forgotPWBackArrow:active, #updatePWBackArrow:active {
-  color: var(--darkcrimson);
 }
 
 #dropdownMainLink {
@@ -407,13 +378,6 @@ button.poker-button:disabled {
 #dropdownCardsLink #dropdownMainLink, li a, #main-container, #play-container, #dice-col, #dice-current-col, #dice-roll-tally-div, #dice-roll-current-div {
   padding: 0;
 } 
-
-.dropdown-toggle::after {
-  margin-left: 0;
-}
-#collapse-button-div {
-  text-align: right;
-}
 
 #footer {
   position: fixed;
@@ -525,26 +489,6 @@ button.poker-button:disabled {
   margin: 3% auto 2% auto;
 }
 
-.account-button, #login-button, #forgot-pw-button, #forgot-user-button {
-  margin: 2% auto;
-  cursor: pointer;
-  color: gold;
-  background-color: darkblue;
-  border: 1px outset lightsteelblue;
-  padding: 0.4% 1%;
-  font-weight: bold;
-  font-size: calc(13px + 0.4vw);
-  transition: all 0.3s;
-}
-.account-button:hover, #login-button:hover, #forgot-pw-button:hover, #forgot-user-button:hover {
-  color: gold;
-  border: 1px inset var(--lightthemeblue);
-  background-color: crimson;
-}
-.account-button:active, #login-button:active, #forgot-pw-button:active, #forgot-user-button:active {
-  border: 1.5px inset darkblue;
-  transition: all 0.1s;
-}
 .input-icon {
   cursor: pointer;
   color: darkblue;
@@ -565,9 +509,6 @@ button.poker-button:disabled {
 }
 .password {
   margin-left: -8px;
-}
-#forgot-pw-button, #forgot-user-button {
-  margin: 3% auto 0 auto;
 }
 .invalid-fields-list {
   margin: 2% auto 0 auto;
@@ -596,9 +537,8 @@ button.poker-button:disabled {
   font-size: calc(11px + 0.3vw);
   margin-bottom: 2%;
 }
-#account-login-link, #forgot-pw-link, #forgot-user-link, #account-signup-link {
+a.link-text {
   color: darkblue;
-  text-decoration: underline;
 }
 input:disabled {
   background-color: aliceblue;
@@ -624,28 +564,18 @@ input:disabled {
   margin-top: 20px;
   width: calc(250px + 15vw);
 }
-#logoutLoginButton, #logoutRegisterButton {
-  width: calc(60px + 2.2vw);
-  margin: 5% auto;
-}
-#logoutLoginButton:hover, #logoutRegisterButton:hover {
-  background-color: darkblue;
-  color: gold;
-}
+
 #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #loginDialog, #forgotPWDialog, #forgotUserDialog, #logoutDialog, #updatePWDialog, #changePWDialog {
   margin: 0 auto;
   transition: all 0.4s;
 }
-.exit-button-div, #table-search-row {
+.exit-button-div, #table-search-row, #collapse-button-div {
   text-align: right;
 }
 .back-button-div {
   text-align: left;
 }
-.back-button-label {
-  margin-left: 0;
-  font-size: calc(11px + 0.3vw);
-}
+
 .login-heading {
   margin: 0 auto 1.5% auto;
 }
@@ -664,15 +594,12 @@ input:disabled {
 .exit-dialog-button:active {
   border: 1px outset var(--darkcrimson);
 }
-#forgotUserBackButton, #forgotPWBackButton, #updatePWBackButton {
+
+button.back-arrow {
   padding: 0;
   border: none;
-  font-size: calc(20px + 1vw);
   width: calc(20px + 1.2vw);
   line-height: 1;
-}
-#forgotUserBackArrow, #forgotPWBackArrow, #updatePWBackArrow {
-  color: darkblue;
   margin-right: calc(2px + 0.2%);
 }
 
@@ -734,7 +661,7 @@ input:disabled {
   font-size:calc(14px + 0.6vw);
 }
 
-#dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv, .account-form-div, .myAccountDiv, #show-hide-odds-div {
+#mid-container, #dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv, .account-form-div, .myAccountDiv, #show-hide-odds-div {
   text-align: center;
 }
 
