@@ -117,6 +117,16 @@ input.account-button {
   margin: 2% auto;
 }
 
+input.account-input:focus {
+  border-color: darkblue;
+}
+input:valid {
+  border-color: green;
+}
+input:invalid {
+  border-color: crimson;
+}
+
 #go-button-link, #footer a:hover, .secondary-link, #table-search-icon:hover {
   color: gold;
 }
@@ -448,7 +458,7 @@ button.poker-button:disabled {
 }
 .account-input, .login-input, .forgotUserInput, .forgotPassInput, .updatePassInput, .changePassInput {
   font-size: calc(11px + 0.3vw);
-  border: 1px solid #343a40;
+  border: 0.03em solid #343a40;
   border-radius: 10px;
   max-width: 90%;
   min-width: 30%;

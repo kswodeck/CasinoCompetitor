@@ -24,7 +24,7 @@
     <h2 id="forgotUserHeading" class="account-heading login-heading">Forgotten Username</h2>
     <form action="/forgotuser" method="POST">
       <label for="email" class="account-label">Email</label><br>
-      <input type="email" name="forgotUser[email]" id="forgotUserEmail" class="forgotUserInput" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autofocus required><span class="forgotUserValid"></span><br>
+      <input type="email" name="forgotUser[email]" id="forgotUserEmail" class="forgotUserInput" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autocomplete="email" required><span class="forgotUserValid"></span><br>
       <label for="birthday" class="account-label">Birthday</label><br>
       <input type="date" name="forgotUser[birthday]" id="forgotUserBirthday" class="forgotUserInput birthday" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" required><span class="forgotUserValid"></span><br>
       <ul id="invalid-forgot-username" class="invalid-fields-list"></ul>
@@ -42,9 +42,9 @@
     <h2 id="forgotPWHeading" class="account-heading login-heading">Forgotten Password</h2>
     <form action="/forgotpass" method="POST">
       <label for="email" class="account-label">Email</label><br>
-      <input type="email" name="forgotPW[email]" id="forgotPWEmail" class="forgotPassInput" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autofocus required><span class="forgotPassValid"></span><br>
+      <input type="email" name="forgotPW[email]" id="forgotPWEmail" class="forgotPassInput" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autocomplete="email" required><span class="forgotPassValid"></span><br>
       <label for="username" class="account-label">Username</label><br>
-      <input type="text" name="forgotPW[username]" class="forgotPassInput" minlength="5" maxlength="20" placeholder="username" size="25" required><span class="forgotPassValid"></span><br>
+      <input type="text" name="forgotPW[username]" class="forgotPassInput" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete="username" required><span class="forgotPassValid"></span><br>
       <label for="birthday" class="account-label">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
       <input type="date" name="forgotPW[birthday]" id="forgotPWBirthday" class="forgotPassInput birthday" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" required><span class="forgotPassValid"></span><br>
       <ul id="invalid-forgot-password" class="invalid-fields-list"></ul>

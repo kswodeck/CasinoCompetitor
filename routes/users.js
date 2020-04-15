@@ -35,6 +35,7 @@ router.get('/', function(req, res){
       newCoins = req.user.coins + addCoins;
       changedLastLogin = false;
     } else if (today == lastLoginDate) {
+      newCoins = req.user.coins;
       changedLastLogin = true;
     } else {
       changedLastLogin = false;
@@ -50,9 +51,14 @@ router.get('/', function(req, res){
     } else {
       changedLastLogin = true;
     }
-    res.render('index', {pageTitle: 'Pocket Poker', fromLogout: false, loggedInToday: changedLastLogin});
+    res.render('index', {pageTitle: 'Pocket Poker', fromLogout: false, loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins});
   } else {
-    res.render('index', {pageTitle: 'Pocket Poker', fromLogout: false, loggedInToday: true});
+    var streak, coins;
+    if (req.user) {
+      streak = req.user.loginStreak;
+      coins = req.user.coins;
+    }
+    res.render('index', {pageTitle: 'Pocket Poker', fromLogout: false, loggedInToday: true, streak: streak, coins: coins});
   }
 });
 
