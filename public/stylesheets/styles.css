@@ -25,7 +25,7 @@ body {
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
   background-color: #D1D7E5;
 }
-::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover, #table-search-cell {
   background-color: darkblue;
 }
 
@@ -39,16 +39,6 @@ body {
   --darkcrimson: rgb(220, 2, 10);
   --darkerblue: rgb(0, 0, 100);
   --darkgrey: #343a40;
-}
-
-#dicequantity {
-  background-color: gold;
-  color: darkblue;
-  font-weight: bold;
-  width: calc(28px + 0.6vw);
-  height: calc(14px + 0.5vw);
-  padding: 0;
-  margin-left: 4px;
 }
 
 .lg-text {
@@ -92,7 +82,7 @@ button.btn-style, input.btn-style {
 .blue-text {
   color: darkblue;
 }
-button.gold-bg:hover, input.gold-bg:hover {
+button.gold-bg:hover, input.gold-bg:hover, #dicequantity:focus {
   background-color: darkblue;
   color: gold;
   border-color: gold;
@@ -108,7 +98,7 @@ button.blue-bg:hover, input.blue-bg:hover {
 button.blue-bg:active, input.blue-bg:active {
   border-color: darkblue;
 }
-button.red-bg:hover, input.red-bg:hover, button.poker-button:hover {
+button.red-bg:hover, input.red-bg:hover, button.poker-button:hover, #dicequantity:hover {
   background-color: darkblue;
   color: gold;
   border-color: gold;
@@ -127,22 +117,8 @@ input.account-button {
   margin: 2% auto;
 }
 
-#dicequantity:hover, #table-search-cell, .cancelbutton:hover {
+#go-button-link, #footer a:hover, .secondary-link, #table-search-icon:hover {
   color: gold;
-  background-color: darkblue;
-  transition: all 0.4s;
-}
-#dicequantity:active, .cancelbutton:active {
-  background-color: var(--darkerblue);
-  border: 1px solid crimson;
-}
-
-#dicequantity:hover, #go-button-link, #footer a:hover, .secondary-link, #table-search-icon:hover {
-  color: gold;
-  transition: all 0.4s;
-}
-#dicequantity:active {
-  border: 1px solid crimson;
 }
 
 #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
@@ -176,7 +152,7 @@ input.account-button {
   text-decoration: underline;
 }
 
-.result-tally, .odds-span, .result, .loss, .win, #page-description-div, #dice-quantity-input-div, #dicequantity {
+.result-tally, .odds-span, .result, .loss, .win, #page-description-div, #dice-quantity-input-div {
   font-size: calc(10px + 0.35vw);
 }
 
@@ -392,7 +368,7 @@ button.poker-button:disabled {
   margin: 0;
   padding: 0;
 }
-#dropdownCardsLink #dropdownMainLink, li a, #main-container, #play-container, #dice-col, #dice-current-col, #dice-roll-tally-div, #dice-roll-current-div {
+#dropdownCardsLink #dropdownMainLink, li a, #main-container, #play-container, #dice-col, #dice-current-col, #dice-roll-tally-div, #dice-roll-current-div, #table-search-cell, #search-button, .name-col {
   padding: 0;
 } 
 
@@ -433,7 +409,7 @@ button.poker-button:disabled {
 }
 
 .account-form-div {
-  margin: 4% auto 0 auto;
+  margin: 3% auto;
   max-width: 700px;
   width: calc(130px + 60vw);
   border: 2px outset var(--lightthemeblue);
@@ -441,16 +417,7 @@ button.poker-button:disabled {
   background-color: var(--bluish);
   background-image: radial-gradient(ellipse, var(--bluish) 30%, #979CA580, #9CA2AD80, #A5ABB680, #AEB3BD80);
 }
-.myAccountDiv {
-  margin: 4% auto 0 auto;
-  max-width: 700px;
-  width: calc(130px + 60vw);
-  border: 2px outset var(--lightthemeblue);
-  border-radius: 10px;
-  background-color: var(--bluish);
-  background-image: radial-gradient(ellipse, var(--bluish) 30%, #979CA580, #9CA2AD80, #A5ABB680, #AEB3BD80);
-  padding: 0;
-}
+
 #form-heading, .login-heading, .username-welcome {
   font-weight: bold;
   color: darkblue;
@@ -463,9 +430,6 @@ button.poker-button:disabled {
 .name-row {
   max-width: 100%;
   margin: 0 auto;
-}
-.name-col {
- padding: 0;
 }
 #firstNameCol {
   margin-left: 18%;
@@ -563,29 +527,19 @@ input:disabled {
   color: black;
 }
 
-#loginDialog, #forgotPWDialog, #forgotUserDialog, #logoutDialog, #updatePWDialog {
+dialog.account-dialog {
   border-radius: 0;
   top: calc(10vh + 10%);
+  min-width: calc(250px + 15vw);
   padding: 0;
 }
-#loginStreakDialog {
-  border-radius: 0;
-  top: calc(10vh + 10%);
-  padding: 0 0 1.5% 0;
-}
 #changePWDialog {
-  top: calc(10vh + 10%);
-  padding: 1% 0;
+  padding-top: 1%;
 }
-#logoutDialog {
-  margin-top: 20px;
-  width: calc(250px + 15vw);
+#loginStreakDialog {
+  padding-bottom: 1.5%;
 }
 
-#outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #loginDialog, #forgotPWDialog, #forgotUserDialog, #logoutDialog, #updatePWDialog, #changePWDialog {
-  margin: 0 auto;
-  transition: all 0.4s;
-}
 .exit-button-div, #table-search-row, #collapse-button-div {
   text-align: right;
 }
@@ -597,7 +551,6 @@ input:disabled {
   margin: 0 auto 1.5% auto;
 }
 .exit-dialog-button {
-  font-size: calc(15px + 0.4vw);
   background-color: var(--bluish);
   font-weight: bold;
   border: 1px inset lightsteelblue;
@@ -606,10 +559,6 @@ input:disabled {
 }
 .exit-dialog-button:hover {
   border: 1px outset lightsteelblue;
-  color: crimson;
-}
-.exit-dialog-button:active {
-  border: 1px outset var(--darkcrimson);
 }
 
 button.back-arrow {
@@ -626,9 +575,7 @@ button.back-arrow {
   margin: 2% auto;
   text-align: center;
 }
-#table-search-cell, #search-button {
-  padding: 0;
-}
+
 #search-button {
   background-color: darkblue;
   border: none;
@@ -678,7 +625,7 @@ button.back-arrow {
   font-size:calc(14px + 0.6vw);
 }
 
-#mid-container, #dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv, .account-form-div, .myAccountDiv, #show-hide-odds-div {
+#mid-container, #dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv, .account-form-div, #show-hide-odds-div {
   text-align: center;
 }
 
@@ -690,22 +637,6 @@ button.back-arrow {
   border: 3px solid darkblue;
   border-radius: 10px;
   top: calc(10vh + 20%);
-}
-
-.cancelbutton {
-  color: gold;
-  font-weight: bold;
-  padding: 0.1% 1% 1% 1%;
-  border: 1px solid gold;
-  border-radius: 2px;
-  white-space: nowrap;
-  font-size: calc(12px + 0.4vw);
-  width: calc(45px + 2.2vw);
-  height: calc(22px + 1vw);
-  margin: auto;
-}
-.cancelbutton {
-  background-color: crimson;
 }
 
 #go-button-link{

@@ -1,7 +1,7 @@
-<dialog id="loginDialog" class="container-fluid account-form-div">
+<dialog id="loginDialog" class="container-fluid account-form-div account-dialog">
     <div class ="exit-button-div">
-      <button id="loginDialogExit" class="exit-dialog-button" onclick="exitDialog('loginDialog')" >✖</button>
-    </div>
+      <button id="loginDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('loginDialog')" >✖</button>
+    </div> <!-- I'm here on refactor -->
     <h2 id="loginHeading" class="account-heading login-heading">Login to Pocket Poker</h2>
     <form action="/login" method="POST">
       <label for="username" class="account-label">Username</label><br>
@@ -17,9 +17,9 @@
       <a id="account-signup-link" class="link-text" onclick="location.href='/register'">Sign Up</a>
     </div>
 </dialog>
-<dialog id="forgotUserDialog" class="container-fluid account-form-div">
+<dialog id="forgotUserDialog" class="container-fluid account-form-div account-dialog">
     <div class ="exit-button-div">
-      <button id="forgotUserDialogExit" class="exit-dialog-button" onclick="exitDialog('forgotUserDialog')" >✖</button>
+      <button id="forgotUserDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('forgotUserDialog')" >✖</button>
     </div>
     <h2 id="forgotUserHeading" class="account-heading login-heading">Forgotten Username</h2>
     <form action="/forgotuser" method="POST">
@@ -35,9 +35,9 @@
       <span class="back-button-label blue-text sm-text" onclick="backFromDialog('forgotUserDialog')">Back to Login</span>
     </div>
 </dialog>
-<dialog id="forgotPWDialog" class="container-fluid account-form-div">
+<dialog id="forgotPWDialog" class="container-fluid account-form-div account-dialog">
     <div class ="exit-button-div">
-      <button id="forgotPWDialogExit" class="exit-dialog-button" onclick="exitDialog('forgotPWDialog')" >✖</button>
+      <button id="forgotPWDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('forgotPWDialog')" >✖</button>
     </div>
     <h2 id="forgotPWHeading" class="account-heading login-heading">Forgotten Password</h2>
     <form action="/forgotpass" method="POST">
