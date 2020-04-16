@@ -118,6 +118,7 @@ function getCards() {
     }
     mainContainer.totalCoins = mainContainer.totalCoins + mainContainer.currentWin;
     winButton.style.backgroundColor = 'darkblue';
+    winButton.style.boxShadow = '0 6px var(--darkerblue)';
     // totalCoinsSpan.innerText = totalCoins;
     winCoinsDialog();
   }

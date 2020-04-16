@@ -36,7 +36,7 @@ body {
   --lightcrimson: rgb(250, 10, 50);
   --lightthemegold: rgba(255, 217, 0, 0.7);
   --darkgold: rgb(210, 180, 20);
-  --darkcrimson: rgb(220, 2, 10);
+  --darkcrimson: rgb(150, 0, 5);
   --darkerblue: rgb(0, 0, 100);
   --darkgrey: #343a40;
 }
@@ -50,28 +50,29 @@ body {
 .sm-text {
   font-size: calc(13px + 0.25vw);
 }
-button.gold-bg, input.gold-bg {
+button.gold-bg, input.gold-bg.btn, button.gold-bg:focus, input.gold-bg.btn:focus {
   background-color: gold;
-  border-color: crimson;
+  box-shadow: 0 6px var(--darkgold);
 }
-button.red-bg, input.red-bg, button.poker-button:disabled, button.poker-button[disabled]:hover {
+button.red-bg, input.red-bg.btn, button.red-bg:focus, input.red-bg.btn:focus{
   background-color: crimson;
-  border-color: darkblue;
+  box-shadow: 0 6px var(--darkcrimson);
 }
-button.blue-bg, input.blue-bg {
+button.blue-bg, input.blue-bg.btn, button.blue-bg:focus, input.blue-bg.btn:focus {
   background-color: darkblue;
-  border-color: crimson;
+  box-shadow: 0 6px var(--darkerblue);
 }
 button.btn-style, input.btn-style {
   padding: 0.1% 1%;
+  transition: all 0.2s;
   white-space: nowrap;
-  transition: all 0.4s;
   font-weight: bold;
-  margin: 0.5% 0;
-  border-style: solid;
-  border-width: 0.05rem;
+  margin: 0.5% auto;
+  border: none;
   min-width: calc(38px + 2vw);
   min-height: calc(22px + 0.8vw);
+  position: relative;
+  box-sizing: border-box;
 }
 .gold-text {
   color: gold;
@@ -82,44 +83,47 @@ button.btn-style, input.btn-style {
 .blue-text {
   color: darkblue;
 }
-button.gold-bg:hover, input.gold-bg:hover, #dicequantity:focus {
-  background-color: darkblue;
+
+button.gold-bg:hover, input.gold-bg.btn:hover {
+  color: darkblue;
+  box-shadow: 0 4px var(--darkgold);
+  top: 2px;
+}
+button.gold-bg:active, input.gold-bg.btn:active, button.exit-dialog-button:active {
+  box-shadow: 0 0 var(--darkgold);
+  top: 6px;
+}
+button.red-bg:hover, input.red-bg.btn:hover, #dicequantity:hover {
   color: gold;
-  border-color: gold;
+  box-shadow: 0 4px var(--darkcrimson);
+  top: 2px;
 }
-button.gold-bg:active, input.gold-bg:active, button.exit-dialog-button:active {
-  border-color: crimson;
+button.red-bg:active, input.red-bg.btn:active {
+  box-shadow: 0 0 var(--darkcrimson);
+  top: 6px;
 }
-button.blue-bg:hover, input.blue-bg:hover {
-  background-color: crimson;
+button.blue-bg:hover, input.blue-bg.btn:hover {
   color: gold;
-  border-color: var(--lightthemeblue);
+  box-shadow: 0 4px var(--darkerblue);
+  top: 2px;
 }
-button.blue-bg:active, input.blue-bg:active {
-  border-color: darkblue;
-}
-button.red-bg:hover, input.red-bg:hover, button.poker-button:hover, #dicequantity:hover {
-  background-color: darkblue;
-  color: gold;
-  border-color: gold;
-}
-button.red-bg:active, input.red-bg:active, button.poker-button:active {
-  border-color: crimson;
+button.blue-bg:active, input.blue-bg.btn:active {
+  box-shadow: 0 0 var(--darkerblue);
+  top: 6px;
 }
 button.btn:disabled, input.btn:disabled {
-  opacity: 0.1;
+  opacity: 1;
   cursor: default;
+  pointer-events: none;
 }
-button.btn:active, input.btn:active, button.poker-button:active, button.exit-dialog-button:active {
+button.exit-dialog-button:active {
   border-width: 0.08rem;
 }
+
 input.account-button {
   margin: 2% auto;
 }
 
-input.account-input:focus, input.login-input:focus {
-  border-color: darkblue;
-}
 input:valid {
   border-color: green;
 }
@@ -129,6 +133,18 @@ input:invalid {
 
 #go-button-link, #footer a:hover, .secondary-link, #table-search-icon:hover {
   color: gold;
+}
+
+#dicequantity {
+  background-color: gold;
+  border-color: crimson;
+  width: calc(35px + 1.4vw);
+  height: calc(14px + 0.6vw);
+  text-align: left;
+  cursor: pointer;
+  margin-left: 0.5%;
+  font-weight: bold;
+  padding: 0.5%;
 }
 
 #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
@@ -144,7 +160,7 @@ input:invalid {
 #hand-odds-div {
   max-width: 270px;
   display: none;
-  margin: 2% auto 2% auto;
+  margin: 0.5% auto 2% auto;
   border: calc(1px + 0.2vw) solid darkblue;
   line-height: 1.25;
   padding: 0.2% 0.1%;
@@ -250,21 +266,30 @@ input:invalid {
   font-weight: bold;
 }
 
-button.poker-button {
+button.poker-button, button.poker-button:focus {
   background-color: crimson;
-  border: 0.06rem outset gold;
+  box-shadow: 0 6px var(--darkcrimson);
   font-weight: bold;
   padding: 0.1% 1% 8% 1%;
+  border: none;
   border-radius: 50px;
   width: calc(38px + 2.3vw);
   height: calc(38px + 1.5vw);
   white-space: nowrap;
-  transition: all 0.4s;
-  font-weight: bold;
-  margin: 0.5% 0;
-}
-button.poker-button:disabled {
+  transition: all 0.2s;
+  margin: 0.5% auto;
+  position: relative;
+  box-sizing: border-box;
   opacity: 1;
+}
+button.poker-button:hover {
+  color: gold;
+  box-shadow: 0 4px var(--darkcrimson);
+  top: 2px;
+}
+button.poker-button:active {
+  box-shadow: 0 0 var(--darkcrimson);
+  top: 6px;
 }
 
 #current-win-span, #current-bet-span{
@@ -499,7 +524,7 @@ button.poker-button:disabled {
   font-size: calc(11px + 0.3vw);
 }
 .invalid-list {
-  color: var(--darkcrimson);
+  color: crimson;
   text-shadow: 0px 0px 8px rgb(230, 230, 230);
 }
 .valid-list {
