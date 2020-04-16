@@ -11,23 +11,20 @@ if (titleTag.innerText == 'My Account') {
 
 function validateAccountCreate() {
     const inputs = document.getElementsByClassName('account-input');
-    const validitySpans = document.getElementsByClassName('valid-content');
     const invalidList = document.getElementById('invalid-fields-list');
     const newPassword = document.getElementById('newPassword');
     const repeatPassword = document.getElementById('repeatPassword');
-    validateInputs(invalidList, inputs, validitySpans)
-    validatePassMatch(newPassword, repeatPassword, validitySpans[4], validitySpans[5], invalidList)
+    validateInputs(invalidList, inputs)
+    validatePassMatch(newPassword, repeatPassword, invalidList)
 }
 
 function validateAccountLogin() {
   const inputs = document.getElementsByClassName('login-input');
-  const validitySpans = document.getElementsByClassName('login-valid-content');
   const invalidList = document.getElementById('invalid-login');
-  return validateInputs(invalidList, inputs, validitySpans);
+  return validateInputs(invalidList, inputs);
 }
 
-  function validateAccountUpdate() {
-    const validitySpans = document.getElementsByClassName('valid-content');
+function validateAccountUpdate() {
     const invalidList = document.getElementById('invalid-fields-list');
     while (invalidList.hasChildNodes()) {
       invalidList.removeChild(invalidList.lastChild);
@@ -43,26 +40,25 @@ function validateAccountLogin() {
         item.className = 'valid-list';
         item.innerText = 'Account has been updated';
       }
-      return validateInputs(invalidList, accountInputs, validitySpans);
-  }
+      return validateInputs(invalidList, accountInputs);
+}
 
-  function validatePasswordUpdate() {
-    let inputs = document.getElementsByClassName('updatePassInput');
-    let validitySpans = document.getElementsByClassName('update-password-content');
-    let invalidList = document.getElementById('invalid-update-password');
-    let oldPassword = document.getElementById('oldPassword');
-    let updatePassword = document.getElementById('updatePassword');
-    let repeatPassword = document.getElementById('repeatNewPassword');
+function validatePasswordUpdate() {
+    var inputs = document.getElementsByClassName('updatePassInput');
+    var invalidList = document.getElementById('invalid-update-password');
+    var oldPassword = document.getElementById('oldPassword');
+    var updatePassword = document.getElementById('updatePassword');
+    var repeatPassword = document.getElementById('repeatNewPassword');
     while (invalidList.hasChildNodes()) {
       invalidList.removeChild(invalidList.lastChild);
     }
     let match = true;
     let oldNewMatch = false;
     let isValid = true;
-    isValid = validateInputs(invalidList, inputs, validitySpans);
-    match = validatePassMatch(updatePassword, repeatPassword, validitySpans[1], validitySpans[2], invalidList);
+    isValid = validateInputs(invalidList, inputs);
+    match = validatePassMatch(updatePassword, repeatPassword, invalidList);
     if (oldPassword.value == updatePassword.value || oldPassword.value == repeatPassword.value) {
-      addToInvalidList('* old and new passwords must be different', validitySpans[0], invalidList);
+      addToInvalidList('* old and new passwords must be different', invalidList);
       oldNewMatch = true;
     }
     if (!match) {
@@ -71,15 +67,14 @@ function validateAccountLogin() {
       return false;
     } else {
       setTimeout(function() { // good way of setting error message if there's only 1 more possible error
-        addToInvalidList('* Current Password is incorrect', validitySpans[0], invalidList);
+        addToInvalidList('* Current Password is incorrect', invalidList);
       }, 1500);
       return true;
     }
-  }
+}
 
-  function validatePasswordChange() {
+function validatePasswordChange() {
     let inputs = document.getElementsByClassName('changePassInput');
-    let validitySpans = document.getElementsByClassName('change-password-content');
     let invalidList = document.getElementById('invalid-change-password');
     let updatePassword = document.getElementById('changePassword');
     let repeatPassword = document.getElementById('repeatChangePassword');
@@ -88,30 +83,31 @@ function validateAccountLogin() {
     }
     let match = true;
     let isValid = true;
-    isValid = validateInputs(invalidList, inputs, validitySpans);
-    match = validatePassMatch(updatePassword, repeatPassword, validitySpans[0], validitySpans[1], invalidList);
+    isValid = validateInputs(invalidList, inputs);
+    match = validatePassMatch(updatePassword, repeatPassword, invalidList);
     if (!match) {
       return false;
     } else {
       return true;
     }
-  }
+}
 
-function validateInputs(invalidList, inputs, validitySpans) {
+function validateForgot(inputClass, list) {
+    const inputs = document.getElementsByClassName(inputClass);
+    const invalidList = document.getElementById(list);
+    return validateInputs(invalidList, inputs);
+}
+
+function validateInputs(invalidList, inputs) {
   let validity = true;
     while (invalidList.hasChildNodes()) {
         invalidList.removeChild(invalidList.lastChild);
       }
-    for (var i = 0; i < validitySpans.length; i++) {
+    for (var i = 0; i < inputs.length; i++) {
         if (!inputs[i].checkValidity()) {
             validity = false;
-            validitySpans[i].innerText = '✖';
-            validitySpans[i].style.color = 'crimson';
-        } else {
-            validitySpans[i].innerText = '✓';
-            validitySpans[i].style.color = 'green';
         }
-        validitySpans[i].style.display = 'inline-block';
+        inputs[i].style.borderWidth = '0.06em';
     }
     return validity;
 }
@@ -121,9 +117,7 @@ function addToInvalidList(str, el, invalidList) {
   item.className = 'invalid-list';
   item.innerText = str;
   invalidList.appendChild(item);
-  el.innerText = '✖';
-  el.style.color = 'crimson';
-  el.style.display = "inline-block";
+  el.style.borderWidth = '0.06em';
 }
 
 function validateKeys(evt, type) {
@@ -144,11 +138,10 @@ function validateKeys(evt, type) {
   }
 }
 
-  function validatePassMatch(password, repeatPassword, passEl, repeatPassEl, invalidList) {
+function validatePassMatch(password, repeatPassword, invalidList) {
     if (password.value != repeatPassword.value) {
-        addToInvalidList('* passwords must match', passEl, invalidList);
-        repeatPassEl.innerText = '✖';
-        repeatPassEl.style.color = 'crimson';
+        addToInvalidList('* passwords must match', password, invalidList);
+        repeatPassword.style.borderWidth = '0.06em';
         return false;
     }
-  }
+}

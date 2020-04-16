@@ -69,7 +69,7 @@ button.btn-style, input.btn-style {
   font-weight: bold;
   margin: 0.5% 0;
   border-style: solid;
-  border-width: 0.05em;
+  border-width: 0.05rem;
   min-width: calc(38px + 2vw);
   min-height: calc(22px + 0.8vw);
 }
@@ -111,13 +111,13 @@ button.btn:disabled, input.btn:disabled {
   cursor: default;
 }
 button.btn:active, input.btn:active, button.poker-button:active, button.exit-dialog-button:active {
-  border-width: 0.08em;
+  border-width: 0.08rem;
 }
 input.account-button {
   margin: 2% auto;
 }
 
-input.account-input:focus {
+input.account-input:focus, input.login-input:focus {
   border-color: darkblue;
 }
 input:valid {
@@ -183,12 +183,12 @@ input:invalid {
 }
 
 .card-slot-div .interactive-card:hover {
-  border: 0.06em solid lightsteelblue;
+  border: 0.06rem solid lightsteelblue;
   border-radius: 15px;
   cursor: pointer;
 }
 .card-slot-div .interactive-card:active {
-  border: 0.1em solid darkblue;
+  border: 0.1rem solid darkblue;
 }
 .card-coins-input, #userIdInput {
   display: none;
@@ -252,7 +252,7 @@ input:invalid {
 
 button.poker-button {
   background-color: crimson;
-  border: 0.06em outset gold;
+  border: 0.06rem outset gold;
   font-weight: bold;
   padding: 0.1% 1% 8% 1%;
   border-radius: 50px;
@@ -458,24 +458,13 @@ button.poker-button:disabled {
 }
 .account-input, .login-input, .forgotUserInput, .forgotPassInput, .updatePassInput, .changePassInput {
   font-size: calc(11px + 0.3vw);
-  border: 0.03em solid #343a40;
+  border: 0.03rem solid #343a40;
   border-radius: 10px;
   max-width: 90%;
   min-width: 30%;
   text-align: center;
 }
-.valid-content, .update-password-content, .login-valid-content, .forgotUserValid, .forgotPassValid  {
-  font-size: calc(12px + 0.25vw);
-  position: absolute;
-  padding-left: calc(3px + 0.1vw);
-  padding-top: calc(3px + 0.06vw);
-  color: crimson;
-  display: none;
-  transition: all 0.4s;
-}
-.password-valid-check {
-  margin-left: calc(10px + 0.002vw);
-}
+
 .account-heading {
   margin: 3% auto 2% auto;
 }
@@ -543,10 +532,7 @@ dialog.account-dialog {
   min-width: calc(250px + 15vw);
   padding: 0;
 }
-#changePWDialog {
-  padding-top: 1%;
-}
-#loginStreakDialog {
+#loginStreakDialog, #changePWDialog {
   padding-bottom: 1.5%;
 }
 
