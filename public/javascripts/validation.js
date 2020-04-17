@@ -92,10 +92,26 @@ function validatePasswordChange() {
     }
 }
 
-function validateForgot(inputClass, list) {
+function validatePreLogin(inputClass, list) {
     const inputs = document.getElementsByClassName(inputClass);
     const invalidList = document.getElementById(list);
-    return validateInputs(invalidList, inputs);
+    var empty = false;
+    var valid = validateInputs(invalidList, inputs);
+    for (let i = 0; i<inputs.length; i++) {
+      if (!inputs[i].value) {
+        console.log('empty input')
+        empty=true;
+        inputs[i].style.borderWidth = '0.06em';
+      }
+    }
+    let lastInput = inputs[inputs.length-1];
+    if (empty == true) {
+      addToInvalidList('* please fill out all fields', lastInput, invalidList);
+      return false;
+    } else if (valid == false) {
+      return false
+    }
+    return true;
 }
 
 function validateInputs(invalidList, inputs) {
@@ -113,6 +129,7 @@ function validateInputs(invalidList, inputs) {
 }
 
 function addToInvalidList(str, el, invalidList) {
+  console.log('adding as invalid');
   const item = document.createElement('li');
   item.className = 'invalid-list';
   item.innerText = str;
