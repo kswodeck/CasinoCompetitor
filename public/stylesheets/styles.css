@@ -30,7 +30,7 @@ body {
 }
 
 :root {
-  --dice-width: 9%;
+  --dice-width: calc(4px + 0.3vw + 0.3vh);
   --bluish: rgba(140, 145, 155, 0.5);
   --lightthemeblue: rgba(81, 101, 180, 0.7);
   --lightcrimson: rgb(250, 10, 50);
@@ -64,10 +64,10 @@ button.blue-bg, input.blue-bg.btn, button.blue-bg:focus, input.blue-bg.btn:focus
 }
 button.btn-style, input.btn-style {
   padding: 0.1% 1%;
-  transition: all 0.2s;
+  transition: all 0.1s ease-out 0s;
   white-space: nowrap;
   font-weight: bold;
-  margin: 0.5% auto;
+  margin: 0.5% auto calc(6px + 0.2vh) auto;
   border: none;
   min-width: calc(38px + 2vw);
   min-height: calc(22px + 0.8vw);
@@ -77,7 +77,7 @@ button.btn-style, input.btn-style {
 .gold-text {
   color: gold;
 }
-.red-text, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active, svg.back-icon:active {
+.red-text, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active, svg.back-icon:active, #dicequantity:hover, #dicequantity:focus {
   color: crimson;
 }
 .blue-text {
@@ -93,7 +93,7 @@ button.gold-bg:active, input.gold-bg.btn:active, button.exit-dialog-button:activ
   box-shadow: 0 0 var(--darkgold);
   top: 6px;
 }
-button.red-bg:hover, input.red-bg.btn:hover, #dicequantity:hover {
+button.red-bg:hover, input.red-bg.btn:hover {
   color: gold;
   box-shadow: 0 4px var(--darkcrimson);
   top: 2px;
@@ -135,7 +135,8 @@ input:invalid {
   color: gold;
 }
 
-#dicequantity {
+#dicequantity, #dicequantity:focus {
+  color: darkblue;
   background-color: gold;
   border-color: crimson;
   width: calc(35px + 1.4vw);
@@ -148,10 +149,10 @@ input:invalid {
 }
 
 #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
-  margin: 2% auto 2% auto;
+  margin: 2% auto;
   border: calc(1px + 0.2vw) solid darkblue;
   line-height: 1.25;
-  padding: 0.2% 0.1%;
+  padding: 0.2%;
   text-align: center;
   width: calc(90px + 4vw);
   max-width: 180px;
@@ -203,7 +204,7 @@ input:invalid {
   border-radius: 15px;
   cursor: pointer;
 }
-.card-slot-div .interactive-card:active {
+.card-slot-div .interactive-card:active, #dicequantity:active {
   border: 0.1rem solid darkblue;
 }
 .card-coins-input, #userIdInput {
@@ -212,15 +213,19 @@ input:invalid {
   border: 0;
 }
 
-.coin {
-  width: calc(100px + 4vw);
-  margin: 0.2% 0;
+#coin {
+  width: calc(5.5px + 0.5vw + 0.5vh);
+  margin: calc(30px + 2%) auto;
+}
+#coin.spin-grow, .dice.spin-grow {
+  transition: transform 0.5s ease-out 0s;
+  transform: rotate(1440deg) scale(10);
 }
 
 .dice {
   width: var(--dice-width);
-  min-width: 28px;
-  margin: 0 auto;
+  margin: calc(28px + 2%);
+  /* min-width: 28px; */
 }
 
 #dice-col, #dice-current-col {
@@ -276,7 +281,7 @@ button.poker-button, button.poker-button:focus {
   width: calc(38px + 2.3vw);
   height: calc(38px + 1.5vw);
   white-space: nowrap;
-  transition: all 0.2s;
+  transition: all 0.1s ease-out 0s;
   margin: 0.5% auto;
   position: relative;
   box-sizing: border-box;
@@ -306,6 +311,9 @@ button.poker-button:active {
   display: block;
   text-transform: uppercase;
   text-align: center;
+}
+.winner {
+  transition: all 2s linear 0s;
 }
 
 .hold-card-text {

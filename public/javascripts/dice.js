@@ -13,9 +13,11 @@ const fiveWin = document.getElementById('five_win');
 fiveWin.innerText = fivesWins.length;
 const sixWin = document.getElementById('six_win');
 sixWin.innerText = sixesWins.length;
-const diceRollDiv = document.getElementById('dice-roll-div');
+var diceRollDiv = document.getElementById('dice-roll-div');
+var diceRollButton = document.getElementById('dice-roll-button');
 
 function diceRoll () {
+  diceRollButton.disabled = true;
   var currentOnesWins = []; var currentTwosWins = []; var currentThreesWins = []; var currentFoursWins = []; var currentFivesWins = []; var currentSixesWins = [];
   document.getElementById('current_one_win').innerText = '0'; document.getElementById('current_two_win').innerText = '0';
   document.getElementById('current_three_win').innerText = '0'; document.getElementById('current_four_win').innerText = '0';
@@ -35,11 +37,11 @@ function diceRoll () {
     img.setAttribute('id', 'dice' + i);
     img.src = 'images/' + dice + 'dice.png';
     diceRollDiv.appendChild(img);
-    // let text = document.createElement("span");
-    // text.className ="winner";
-    // text.innerText = dice;
-    // div = document.getElementById("winner-div");
-    // div.appendChild(text);
+      // let text = document.createElement("span");
+      // text.className ="winner";
+      // text.innerText = dice;
+      // let winDiv = document.getElementById("winner-div");
+      // winDiv.appendChild(text);
   }
   function updateDiceValues (dice, result, wins, currentwins) {
     const numWins = wins.push(result);
@@ -80,17 +82,32 @@ function diceRoll () {
   }
   // let winnerFont = document.getElementsByClassName("winner");
   const diceImage = document.getElementsByClassName('dice');
-  if (diceQuantity > 8) {
-    for (let i = 0; i < diceImage.length; i++) {
-      const imageSize = getComputedStyle(diceImage[i]).getPropertyValue('--dice-width');
-      const computedSize = parseInt(imageSize.replace(/%/, ''));
-      const newSize = computedSize - (diceQuantity / 4);
-      diceImage[i].style.setProperty('--dice-width', newSize + '%');
+  if (diceQuantity > 5) {
+    var diceWidth = 'calc(3px + 0.25vw + 0.25vh)';
+    var diceMargin = 'calc(22px + 1.5%)';
+    if (diceQuantity > 10) {
+      diceWidth = 'calc(2px + 0.15vw + 0.15vh)';
+      diceMargin = 'calc(15px + 0.8%)';
     }
-  }
+    for (let i = 0; i < diceImage.length; i++) {
+      diceImage[i].style.setProperty('--dice-width', diceWidth);
+      diceImage[i].style.setProperty('margin', diceMargin);
+    }
+  } 
   document.getElementById('dice-roll-current-div').style.display = 'block';
   document.getElementById('dice-roll-tally-div').style.display = 'block';
   document.getElementById('dice-clear-tally-col').style.display = 'block';
+  animateDice();
+  setTimeout(function() {diceRollButton.disabled = false;}, 100);
+}
+
+function animateDice() {
+  setTimeout(function() {
+    let diceElements = document.getElementsByClassName('dice')
+    for (let i=0; i<diceElements.length; i++) {
+      diceElements[i].classList.add('spin-grow');
+    }
+  }, 50);
 }
 
 function clearTally () {
