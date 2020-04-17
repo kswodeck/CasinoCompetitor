@@ -36,7 +36,7 @@ function coinFlip () {
   tailWin.className = 'result-tally';
   animateCoin();
   displayWinText(winner, winnerDiv);
-  setTimeout(function() {coinFlipButton.disabled = false;}, 100);
+  setTimeout(function() {coinFlipButton.disabled = false;}, 500);
 }
 
 function createCoin(coin, winner) {
@@ -49,7 +49,7 @@ function createCoin(coin, winner) {
 }
 
 function animateCoin() {
-  setTimeout(function() {document.getElementById('coin').classList.add('spin-grow');}, 20);
+  document.getElementById('coin').classList.add('spin-grow');
 }
 
 function displayWinText(winner, winnerDiv) {
