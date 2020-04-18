@@ -52,7 +52,6 @@ function getCards() {
     var currentValues = [];
     if (handsDealt === 0) {
       currentHand = getFirstHand(currentCard,holdCurrentCard,currentValues);
-      document.getElementsByClassName('cards')[currentCard].src = cards[currentCard].imgSrc;
       betButton.disabled = true;
     } else if (handsDealt === 1) {
       currentHand = getSecondHand(currentCard, holdCurrentCard, currentValues);
@@ -73,6 +72,10 @@ function getCards() {
   getGameResults(handsDealt, handRankingHeading, cardDealButton, collectCoins);
   if (handsDealt === 2) {
     handsDealt = 0;
+    for (let currentCard = 0; currentCard < 5; currentCard++) {
+      let currentCardElement = document.getElementsByClassName('cards')[currentCard];
+      currentCardElement.classList.remove('flip');
+    }
   }
   else {
     handsDealt++;
@@ -134,7 +137,6 @@ function getPracticeCards() {
     let currentValues = [];
     if (handsDealt === 0) {
       currentHand = getFirstHand(currentCard, holdCurrentCard, currentValues);
-      document.getElementsByClassName('cards')[currentCard].src = cards[currentCard].imgSrc;
       oddsDiv.style.display = 'none';
       showHideOddsButton.style.display = 'none';
     } else if (handsDealt === 1) {
@@ -152,9 +154,13 @@ function getPracticeCards() {
       showHideOddsButton.style.display = 'inline-block';
     }
   }
-  getGameResults(handsDealt, handRankingHeading, cardDealButton, winHandDialog);
+    getGameResults(handsDealt, handRankingHeading, cardDealButton, winHandDialog);
   if (handsDealt === 2) {
     handsDealt = 0;
+    for (let currentCard = 0; currentCard < 5; currentCard++) {
+      let currentCardElement = document.getElementsByClassName('cards')[currentCard];
+      currentCardElement.classList.remove('flip');
+    }
   }
   else {
     handsDealt++;
@@ -198,6 +204,8 @@ function getFirstHand(currentCard, holdCurrentCard, currentValues) {
   let currentCardElement = document.getElementsByClassName('cards')[currentCard];
   currentCardElement.classList.add('interactive-card');
   holdCurrentCard.classList.add('text-opacity');
+  let curCard = document.getElementsByClassName('cards')[currentCard];
+  curCard.classList.add('flip');
   let isSameIdentity = true;
   while (isSameIdentity) {
     currentValues = getRandomCardValues();
@@ -206,7 +214,9 @@ function getFirstHand(currentCard, holdCurrentCard, currentValues) {
     }
   }
   cards.push(new Card(currentValues[0], currentValues[1], currentValues[2]));
-  document.getElementsByClassName('cards')[currentCard].src = cards[currentCard].imgSrc;
+  setTimeout(function() {
+    curCard.src = cards[currentCard].imgSrc;
+  }, 200);
   return cards;
 }
 
@@ -214,9 +224,6 @@ function getSecondHand(currentCard,holdCurrentCard,currentValues) {
   holdCurrentCard.classList.add('text-opacity');
   let currentCardElement = document.getElementsByClassName('cards')[currentCard];
   currentCardElement.classList.remove('interactive-card');
-  // let currentCardNumber = 'card' + currentCard;
-  // let currentCardElement = document.getElementById(currentCardNumber);
-  // currentCardElement.classList.remove('interactive-card');
   let isSameIdentity = true;
   while (isSameIdentity) {
     currentValues = getRandomCardValues();

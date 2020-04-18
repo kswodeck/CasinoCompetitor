@@ -30,10 +30,6 @@ body {
 }
 
 :root {
-  /* --dice-width: calc(4px + 0.3vw + 0.3vh);
-  --coin-width: calc(5.5px + 0.5vw + 0.5vh); */
-  --dice-width: 0.75%;
-  --coin-width: 1%;
   --bluish: rgba(140, 145, 155, 0.5);
   --lightthemeblue: rgba(81, 101, 180, 0.7);
   --lightcrimson: rgb(250, 10, 50);
@@ -201,6 +197,18 @@ input:invalid {
   width: 100%;
   margin: auto;
 }
+.cards.display-card {
+  animation: 0.5s ease-in 0s 1 forwards displayEl;
+}
+.cards.hide-card {
+  animation: 0.5s ease-out 0s 1 forwards hideEl;
+}
+.cards.flip {
+	animation: 0.5s ease-in-out 0s 1 forwards flipCard;
+}
+/* #card0, #card1, #card3, #card4 {
+  visibility: hidden;
+} */
 
 .card-slot-div .interactive-card:hover {
   border: 0.06rem solid lightsteelblue;
@@ -215,14 +223,20 @@ input:invalid {
   padding: 0;
   border: 0;
 }
+#card-prep-row {
+  margin: calc(4px + 0.8%) auto calc(1px + 0.2%) auto;
+}
+#dealt-cards-div {
+  margin: 0 auto calc(4px + 0.8%) auto;
+}
 
 #coin {
-  width: var(--coin-width);
+  width: 1%;
   margin: calc(40px + 3%) auto;
   min-width: 10px;
 }
 .dice {
-  width: var(--dice-width);
+  width: 0.75%;
   margin: calc(28px + 2%);
   min-width: 7px;
   max-width: 100px;
@@ -690,6 +704,19 @@ button.back-arrow {
 @keyframes spinGrow {
   from {transform: rotate(0deg) scale(0);}
   to {transform: rotate(1440deg) scale(10);}
+}
+
+@keyframes displayEl {
+  from {visibility: hidden;}
+  to {visibility: visible;}
+}
+@keyframes hideEl {
+  from {visibility: visible;}
+  to {visibility: hidden;}
+}
+@keyframes flipCard {
+  from {transform: rotateY(180deg);}
+  to {transform: rotateY(0deg);}
 }
 
 /* small breakpoint */

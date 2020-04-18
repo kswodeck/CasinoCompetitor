@@ -1,14 +1,34 @@
 <%- include('partials/header') %>
 
 <div id="mid-container">
-    <h1 id="page-heading" class="mb-md-3 mb-2">Practice Poker</h1>
-    <div id = "card-prep-row" class="justify-content-around mt-md-4 mb-md-3 my-sm-2 my-1">
-      <div id="card-play-div" class="card-play-div text-center">
+    <h1 id="page-heading">Practice Poker</h1>
+    <div id="card-prep-row" class="justify-content-around">
+      <div id="card-play-div">
         <button type="button" role="button" id="card-deal-button" class="btn lg-text gold-bg red-text btn-style" name="deal-button" onclick="getPracticeCards()">{{dealButtonText}}</button>
       </div>
     </div>
     <div class="container-xl" id="play-container">
-      <div id="dealt-cards-div" class="card-play-div row justify-content-center m-lg-2 m-sm-1 my-1 mx-0">
+      <div id="dealt-cards-div" class="row justify-content-center">
+        <!-- <div class="card-slot-div col-md-2 col p-lg-2 p-md-1 p-0" id="card-0-div">
+          <figcaption class="hold-card-text text-opacity" id="hold0">HELD</figcaption>
+          <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card0" onclick="toggleCardHold('hold0')">
+        </div>
+        <div class="card-slot-div col-md-2 col p-lg-2 p-md-1 p-0" id="card-1-div">
+          <figcaption class="hold-card-text text-opacity" id="hold1">HELD</figcaption>
+          <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card1" onclick="toggleCardHold('hold1')">
+        </div>
+        <div class="card-slot-div col-md-2 col p-lg-2 p-md-1 p-0" id="card-2-div">
+          <figcaption class="hold-card-text text-opacity" id="hold2">HELD</figcaption>
+          <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card2" onclick="toggleCardHold('hold2')">
+        </div>
+        <div class="card-slot-div col-md-2 col p-lg-2 p-md-1 p-0" id="card-3-div">
+          <figcaption class="hold-card-text text-opacity" id="hold3">HELD</figcaption>
+          <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card3" onclick="toggleCardHold('hold3')">
+        </div>
+        <div class="card-slot-div col-md-2 col p-lg-2 p-md-1 p-0" id="card-4-div">
+          <figcaption class="hold-card-text text-opacity" id="hold4">HELD</figcaption>
+          <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card4" onclick="toggleCardHold('hold4')">
+        </div> -->
         <div class="card-slot-div col-md-2 col p-lg-2 p-md-1 p-0" id="card-0-div">
           <figcaption class="hold-card-text text-opacity" id="hold0">HELD</figcaption>
           <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card0" onclick="toggleCardHold('hold0')">

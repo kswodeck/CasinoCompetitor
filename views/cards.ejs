@@ -1,11 +1,11 @@
 <%- include('partials/header') %>
 <div id="mid-container">
-    <h1 id="page-heading" class="mb-md-3 mb-2">Competitive Poker</h1>
-    <div id = "card-prep-row" class="row justify-content-around mt-md-4 mb-md-3 my-sm-2 my-1">
+    <h1 id="page-heading">Competitive Poker</h1>
+    <div id = "card-prep-row" class="row justify-content-around">
       <div id="current-bet-div" class="text-right col">
         <button id="bet-button" class="btn poker-button md-text gold-text" type="button" name="bet-button" onclick="toggleBet()">bet<span id ="current-bet-span">{{currentBet}}</span></button>
       </div>
-      <div id="card-play-div" class="card-play-div text-center col">
+      <div id="card-play-div" class="col">
         <form action="/cards/?_method=PUT" method="POST">
           <input value="<%= currentCoins %>" name="userCoins" id="coinsInput" class="card-coins-input">
           <input value="0" name="currentWin" id="currentWinInput" class="card-coins-input">

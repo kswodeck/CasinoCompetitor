@@ -92,7 +92,7 @@ function diceRoll () {
       diceMinWidth = '4px';
     }
     for (let i = 0; i < diceImage.length; i++) {
-      diceImage[i].style.setProperty('--dice-width', diceWidth);
+      diceImage[i].style.setProperty('width', diceWidth);
       diceImage[i].style.setProperty('margin', diceMargin);
       diceImage[i].style.setProperty('min-width', diceMinWidth);
     }
