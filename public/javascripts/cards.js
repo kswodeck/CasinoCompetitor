@@ -56,12 +56,6 @@ function getCards() {
       betButton.disabled = true;
     } else if (handsDealt === 1) {
       currentHand = getSecondHand(currentCard, holdCurrentCard, currentValues);
-      if (currentCard === 4) {
-        setTimeout(function() {
-          cards = [];
-          cards2 = [];
-        }, 400);
-      }
     } else {
       lastHandTeardown(holdCurrentCard, currentCard, cardDealButton);
       betButton.disabled = false;
@@ -144,12 +138,6 @@ function getPracticeCards() {
       showHideOddsButton.style.display = 'none';
     } else if (handsDealt === 1) {
       currentHand = getSecondHand(currentCard, holdCurrentCard, currentValues);
-      if (currentCard === 4) {
-        setTimeout(function() {
-          cards = [];
-          cards2 = [];
-        }, 300);
-      }
     } else {
       lastHandTeardown(holdCurrentCard, currentCard, cardDealButton);
       if (showHideOddsButton.innerText === 'Hide Odds') {
@@ -261,6 +249,8 @@ function lastHandTeardown(holdCurrentCard, currentCard) {
   // cardDealButton.innerText = 'Deal Cards';
   mainContainer.dealButtonText = 'Deal Cards';
   mainContainer.currentWin = 0;
+  cards = [];
+  cards2 = [];
 }
 
 function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunction){
