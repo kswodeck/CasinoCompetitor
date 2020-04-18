@@ -55,27 +55,27 @@ function diceRoll () {
   for (let i = 0; i < diceQuantity; i++) {
     const result = roll();
     if (result === 1) {
-      const dice = 'one';
+      const dice = '1';
       createDice(dice, i);
       updateDiceValues(dice, result, onesWins, currentOnesWins);
     } else if (result === 2) {
-      const dice = 'two';
+      const dice = '2';
       createDice(dice, i);
       updateDiceValues(dice, result, twosWins, currentTwosWins);
     } else if (result === 3) {
-      const dice = 'three';
+      const dice = '3';
       createDice(dice, i);
       updateDiceValues(dice, result, threesWins, currentThreesWins);
     } else if (result === 4) {
-      const dice = 'four';
+      const dice = '4';
       createDice(dice, i);
       updateDiceValues(dice, result, foursWins, currentFoursWins);
     } else if (result === 5) {
-      const dice = 'five';
+      const dice = '5';
       createDice(dice, i);
       updateDiceValues(dice, result, fivesWins, currentFivesWins);
     } else if (result === 6) {
-      const dice = 'six';
+      const dice = '6';
       createDice(dice, i);
       updateDiceValues(dice, result, sixesWins, currentSixesWins);
     }

@@ -47,7 +47,8 @@ function getCards() {
   // currentWinSpan.innerText = 0;
   handRankingHeading.style.display = 'none';
   winButton.style.backgroundColor = 'crimson';
-  for (let currentCard = 0; currentCard < 5; currentCard++) {
+  winButton.style.boxShadow = '0 6px var(--darkcrimson)';
+  for (var currentCard = 0; currentCard < 5; currentCard++) {
     let holdCurrentCard = document.getElementById('hold' + currentCard);
     var currentValues = [];
     if (handsDealt === 0) {
@@ -56,9 +57,10 @@ function getCards() {
     } else if (handsDealt === 1) {
       currentHand = getSecondHand(currentCard, holdCurrentCard, currentValues);
       if (currentCard === 4) {
-        cards = [];
-        cards2 = [];
-        handRankingHeading.style.display = 'block';
+        setTimeout(function() {
+          cards = [];
+          cards2 = [];
+        }, 400);
       }
     } else {
       lastHandTeardown(holdCurrentCard, currentCard, cardDealButton);
@@ -75,6 +77,7 @@ function getCards() {
     for (let currentCard = 0; currentCard < 5; currentCard++) {
       let currentCardElement = document.getElementsByClassName('cards')[currentCard];
       currentCardElement.classList.remove('flip');
+      currentCardElement.classList.remove('fadeInOut-card');
     }
   }
   else {
@@ -132,7 +135,7 @@ function getPracticeCards() {
   handRankingHeading.style.display = 'none';
   var oddsDiv = document.getElementById('hand-odds-div');
   var showHideOddsButton = document.getElementById('show-hide-odds-button');
-  for (let currentCard = 0; currentCard < 5; currentCard++) {
+  for (var currentCard = 0; currentCard < 5; currentCard++) {
     let holdCurrentCard = document.getElementById('hold' + currentCard);
     let currentValues = [];
     if (handsDealt === 0) {
@@ -142,9 +145,10 @@ function getPracticeCards() {
     } else if (handsDealt === 1) {
       currentHand = getSecondHand(currentCard, holdCurrentCard, currentValues);
       if (currentCard === 4) {
-        cards = [];
-        cards2 = [];
-        handRankingHeading.style.display = 'block';
+        setTimeout(function() {
+          cards = [];
+          cards2 = [];
+        }, 300);
       }
     } else {
       lastHandTeardown(holdCurrentCard, currentCard, cardDealButton);
@@ -160,6 +164,7 @@ function getPracticeCards() {
     for (let currentCard = 0; currentCard < 5; currentCard++) {
       let currentCardElement = document.getElementsByClassName('cards')[currentCard];
       currentCardElement.classList.remove('flip');
+      currentCardElement.classList.remove('fadeInOut-card');
     }
   }
   else {
@@ -220,7 +225,7 @@ function getFirstHand(currentCard, holdCurrentCard, currentValues) {
   return cards;
 }
 
-function getSecondHand(currentCard,holdCurrentCard,currentValues) {
+function getSecondHand(currentCard, holdCurrentCard, currentValues) {
   holdCurrentCard.classList.add('text-opacity');
   let currentCardElement = document.getElementsByClassName('cards')[currentCard];
   currentCardElement.classList.remove('interactive-card');
@@ -235,18 +240,22 @@ function getSecondHand(currentCard,holdCurrentCard,currentValues) {
       }
     }
   }
+  currentCardElement.classList.remove('flip');
   if (cards[currentCard].isHeld) {
     cards2.push(new Card(cards[currentCard].numValue, cards[currentCard].numSuit, cards[currentCard].identity));
   } else {
     cards2.push(new Card(currentValues[0], currentValues[1], currentValues[2]));
+      currentCardElement.classList.add('fadeInOut-card');
+    setTimeout(function() {
+      document.getElementsByClassName('cards')[currentCard].src = cards2[currentCard].imgSrc;
+    }, 300);
   }
-  document.getElementsByClassName('cards')[currentCard].src = cards2[currentCard].imgSrc;
   // cardDealButton.innerText = 'Play Again';
   mainContainer.dealButtonText = 'Play Again';
   return cards2;
 }
 
-function lastHandTeardown(holdCurrentCard,currentCard) {
+function lastHandTeardown(holdCurrentCard, currentCard) {
   holdCurrentCard.classList.add('text-opacity');
   document.getElementsByClassName('cards')[currentCard].src = 'images/cards/card_standard_blue_back.png';
   // cardDealButton.innerText = 'Deal Cards';
@@ -261,14 +270,20 @@ function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunct
     if (mainContainer.resultText === 'Game Over') {
       handRankingHeading.style.color = 'crimson'; // if no hand category has been acheived, red text
     } else {
-      handRankingHeading.style.display = 'block';
       handRankingHeading.style.color = 'darkblue'; // if a hand category has been acheived, blue text
+      setTimeout(function() {
+        handRankingHeading.style.display = 'block';
+      }, 300);
       if (handsDealt === 1) {
-        winFunction();
+        setTimeout(function() {
+          winFunction();
+        }, 400);
       }
     }
   }
-  cardDealButton.disabled = false;
+  setTimeout(function() {
+    cardDealButton.disabled = false;
+  }, 300);
 }
 
 function getHandRanking(hand) {
