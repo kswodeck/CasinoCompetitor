@@ -7,12 +7,13 @@ var currentHand = 0;
 var startCoins;
 var pageTitle = document.getElementsByTagName('title')[0];
 if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-heading').innerText == 'COMPETITIVE POKER') {
-  let coinsInput = document.getElementById('coinsInput');
+  var coinsInput = document.getElementById('coinsInput');
   var currentBetSpan = document.getElementById('current-bet-span');
   document.getElementById('current-bet-span').style.visibility = 'visible';
   document.getElementById('current-win-span').style.visibility = 'visible';
   document.getElementById('total-coins-span').innerText = '{{totalCoins}}';
   startCoins = coinsInput.value;
+  coinsInput.value = startCoins;
   if (coinsInput.value < 1 || coinsInput.value == null) {
     outOfCoinsDialog();
   }
@@ -63,6 +64,7 @@ function getCards() {
   }
   if (handsDealt === 0) {
     mainContainer.totalCoins = mainContainer.totalCoins - mainContainer.currentBet;
+    // coinsInput.value = mainContainer.totalCoins; //if doesn't work, remove
     // totalCoinsSpan.innerText = totalCoins;
   }
   getGameResults(handsDealt, handRankingHeading, cardDealButton, collectCoins);
@@ -73,6 +75,7 @@ function getCards() {
       currentCardElement.classList.remove('flip');
       currentCardElement.classList.remove('fadeInOut-card');
     }
+
   }
   else {
     handsDealt++;
@@ -148,12 +151,12 @@ function getPracticeCards() {
   }
     getGameResults(handsDealt, handRankingHeading, cardDealButton, winHandDialog);
   if (handsDealt === 2) {
-    handsDealt = 0;
     for (let currentCard = 0; currentCard < 5; currentCard++) {
       let currentCardElement = document.getElementsByClassName('cards')[currentCard];
       currentCardElement.classList.remove('flip');
       currentCardElement.classList.remove('fadeInOut-card');
     }
+    handsDealt = 0;
   }
   else {
     handsDealt++;
@@ -255,25 +258,26 @@ function lastHandTeardown(holdCurrentCard, currentCard) {
 
 function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunction){
   if (handsDealt < 2) {
-    mainContainer.resultText = getHandRanking(currentHand);
-    // handRankingHeading.innerText = resultText;
+    mainContainer.resultText = getHandRanking(currentHand); // handRankingHeading.innerText = resultText;
     if (mainContainer.resultText === 'Game Over') {
       handRankingHeading.style.color = 'crimson'; // if no hand category has been acheived, red text
     } else {
       handRankingHeading.style.color = 'darkblue'; // if a hand category has been acheived, blue text
-      setTimeout(function() {
-        handRankingHeading.style.display = 'block';
-      }, 300);
       if (handsDealt === 1) {
         setTimeout(function() {
           winFunction();
         }, 400);
       }
     }
+    if (handsDealt === 1 || mainContainer.resultText !== 'Game Over') {
+      setTimeout(function() {
+        handRankingHeading.style.display = 'block';
+      }, 300);
+    }
   }
   setTimeout(function() {
     cardDealButton.disabled = false;
-  }, 300);
+  }, 450);
 }
 
 function getHandRanking(hand) {
@@ -462,14 +466,15 @@ function toggleOddsTable() {
 }
 
 function updateStoredCoins() {
-  let coinsInput = document.getElementById('coinsInput');
-  let currentWinInput = document.getElementById('currentWinInput');
-  if (handsDealt == 2) {
-    currentWinInput.value = mainContainer.currentWin;
-  }
-  if (mainContainer.totalCoins != coinsInput.value) {
-    coinsInput.value = mainContainer.totalCoins;
-    return true;
-  }
-  return false;
+    if (mainContainer.totalCoins != coinsInput.value) {
+      setTimeout(function() {
+        document.getElementById('coinsInput').value = mainContainer.totalCoins;
+      }, 400);
+    } else {
+      return false;
+    }
+  setTimeout(function() {
+    document.getElementById('currentWinInput').value = mainContainer.currentWin;
+    document.getElementById('cardsForm').submit();
+  }, 400);
 }
