@@ -75,19 +75,15 @@ function displayForgotDialog(newDialog, message){
 }
 
 function exitDialog(currentDialog){
-  const invalidList = document.getElementsByClassName('invalid-fields-list');
-  for (let i = 0; i < invalidList.length; i++) {
-    while (invalidList[i].hasChildNodes()) {
-      invalidList[i].removeChild(invalidList[i].lastChild);
-    }
-  }
+  clearValidityMessages();
   document.getElementById(currentDialog).close();
   document.getElementById('mid-container').style.display = 'block';
 }
 
 function backFromDialog(currentDialog){
-    document.getElementById(currentDialog).close();
-    document.getElementById('loginDialog').showModal();
+  clearValidityMessages();
+  document.getElementById(currentDialog).close();
+  document.getElementById('loginDialog').showModal();
 }
 
 function togglePasswordVisibility(passwordId, iconId){
@@ -106,7 +102,6 @@ function togglePasswordVisibility(passwordId, iconId){
 
 function displayEditPassword(updateDialog){
   const editDialog = document.getElementById(updateDialog);
-  // const updatePassword = document.getElementById('updatePassword');
   if (typeof editDialog.showModal == 'function') {
     editDialog.showModal();
     document.getElementById('mid-container').style.display = 'none';
@@ -148,4 +143,12 @@ function displayStreakDialog(streak){
   }
   let coinsEarned = streak*10;
   loginCoinSpan.innerText = "You earned " + coinsEarned + " ";
+}
+
+function clearValidityMessages() {
+  let invalidMessages = document.getElementsByClassName('invalid-list');
+  for (let i = 0; i < invalidMessages.length; i++) {
+    invalidMessages[i].remove;
+    invalidMessages[i].style.display = 'none';
+  }
 }

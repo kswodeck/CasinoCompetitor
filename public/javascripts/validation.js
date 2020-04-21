@@ -10,131 +10,156 @@ if (titleTag.innerText == 'My Account') {
 }
 
 function validateAccountCreate() {
-    const inputs = document.getElementsByClassName('account-input');
-    const invalidList = document.getElementById('invalid-fields-list');
-    const newPassword = document.getElementById('newPassword');
-    const repeatPassword = document.getElementById('repeatPassword');
-    validateInputs(invalidList, inputs)
-    validatePassMatch(newPassword, repeatPassword, invalidList)
-}
-
-function validateAccountLogin() {
-  const inputs = document.getElementsByClassName('login-input');
-  const invalidList = document.getElementById('invalid-login');
-  return validateInputs(invalidList, inputs);
+  const inputs = document.getElementsByClassName('account-input');
+  removeWhiteSpace(inputs);
+  const invalidList = document.getElementById('invalid-fields-list');
+  const newPassword = document.getElementById('newPassword');
+  const repeatPassword = document.getElementById('repeatPassword');
+  let isValid = validateInputs(invalidList, inputs);
+  if (!isValid) {
+    return false;
+  } 
+  return validatePassMatch(newPassword, repeatPassword, invalidList)
 }
 
 function validateAccountUpdate() {
-    const invalidList = document.getElementById('invalid-fields-list');
-    while (invalidList.hasChildNodes()) {
-      invalidList.removeChild(invalidList.lastChild);
+  const inputs = document.getElementsByClassName('account-input');
+  const invalidList = document.getElementById('invalid-fields-list');
+  const item = document.createElement('li');
+  removeWhiteSpace(inputs);
+  let isValid = validateInputs(invalidList, accountInputs)
+  if (accountInputs[0].value == firstNameValue && accountInputs[1].value == lastNameValue && accountInputs[2].value == emailValue &&
+    accountInputs[3].value == usernameValue && accountInputs[4].value == phoneValue && accountInputs[5].value == birthdayValue) {
+      item.className = 'invalid-list';
+      item.innerText = 'Please make changes before trying to update info';
+      invalidList.appendChild(item);
+      return false;
+    } else {
+      item.className = 'valid-list';
+      item.innerText = 'Account has been updated';
     }
-    const item = document.createElement('li');
-    if (accountInputs[0].value == firstNameValue && accountInputs[1].value == lastNameValue && accountInputs[2].value == emailValue &&
-      accountInputs[3].value == usernameValue && accountInputs[4].value == phoneValue && accountInputs[5].value == birthdayValue) {
-        item.className = 'invalid-list';
-        item.innerText = 'Please make changes before trying to update info';
-        invalidList.appendChild(item);
-        return false;
-      } else {
-        item.className = 'valid-list';
-        item.innerText = 'Account has been updated';
-      }
-      return validateInputs(invalidList, accountInputs);
+  return isValid;
 }
 
 function validatePasswordUpdate() {
-    var inputs = document.getElementsByClassName('updatePassInput');
-    var invalidList = document.getElementById('invalid-update-password');
-    var oldPassword = document.getElementById('oldPassword');
-    var updatePassword = document.getElementById('updatePassword');
-    var repeatPassword = document.getElementById('repeatNewPassword');
-    while (invalidList.hasChildNodes()) {
-      invalidList.removeChild(invalidList.lastChild);
-    }
-    let match = true;
-    let oldNewMatch = false;
-    let isValid = true;
-    isValid = validateInputs(invalidList, inputs);
-    match = validatePassMatch(updatePassword, repeatPassword, invalidList);
-    if (oldPassword.value == updatePassword.value || oldPassword.value == repeatPassword.value) {
-      addToInvalidList('* old and new passwords must be different', invalidList);
-      oldNewMatch = true;
-    }
-    if (!match) {
-      return false;
-    } else if (oldNewMatch) {
-      return false;
-    } else {
-      setTimeout(function() { // good way of setting error message if there's only 1 more possible error
-        addToInvalidList('* Current Password is incorrect', invalidList);
-      }, 1500);
-      return true;
-    }
+  let inputs = document.getElementsByClassName('updatePassInput');
+  var invalidList = document.getElementById('invalid-update-password');
+  var oldPassword = document.getElementById('oldPassword');
+  var updatePassword = document.getElementById('updatePassword');
+  var repeatPassword = document.getElementById('repeatNewPassword');
+  let isValid = validateInputs(invalidList, inputs);
+  if (!isValid) {
+    return false;
+  }   
+  let match = validatePassMatch(updatePassword, repeatPassword, invalidList);
+  if (!match) {
+    return false;
+  } else if (oldPassword.value == updatePassword.value || oldPassword.value == repeatPassword.value) {
+    addToInvalidList('* old and new passwords must be different', updatePassword, invalidList);
+    return false;
+  } else {
+    setTimeout(function() { // good way of setting error message if there's only 1 more possible error
+      addToInvalidList('* current password is incorrect', oldPassword, invalidList);
+      oldPassword.style.borderColor = 'crimson';
+    }, 900);
+    return true;
+  }
 }
 
 function validatePasswordChange() {
-    let inputs = document.getElementsByClassName('changePassInput');
-    let invalidList = document.getElementById('invalid-change-password');
-    let updatePassword = document.getElementById('changePassword');
-    let repeatPassword = document.getElementById('repeatChangePassword');
-    while (invalidList.hasChildNodes()) {
-      invalidList.removeChild(invalidList.lastChild);
-    }
-    let match = true;
-    let isValid = true;
-    isValid = validateInputs(invalidList, inputs);
-    match = validatePassMatch(updatePassword, repeatPassword, invalidList);
-    if (!match) {
-      return false;
-    } else {
-      return true;
-    }
+  let inputs = document.getElementsByClassName('changePassInput');
+  let invalidList = document.getElementById('invalid-change-password');
+  let updatePassword = document.getElementById('changePassword');
+  let repeatPassword = document.getElementById('repeatChangePassword');
+  let isValid = validateInputs(invalidList, inputs);
+  if (!isValid) {
+    return false;
+  } 
+  let match = validatePassMatch(updatePassword, repeatPassword, invalidList);
+  if (!match) {
+    return false;
+  }
+  return true;
 }
 
 function validatePreLogin(inputClass, list) {
-    const inputs = document.getElementsByClassName(inputClass);
-    const invalidList = document.getElementById(list);
-    var empty = false;
-    var valid = validateInputs(invalidList, inputs);
-    for (let i = 0; i<inputs.length; i++) {
-      if (!inputs[i].value) {
-        console.log('empty input')
-        empty=true;
-        inputs[i].style.borderWidth = '0.06em';
-      }
-    }
-    let lastInput = inputs[inputs.length-1];
-    if (empty == true) {
-      addToInvalidList('* please fill out all fields', lastInput, invalidList);
-      return false;
-    } else if (valid == false) {
-      return false
-    }
-    return true;
+  const inputs = document.getElementsByClassName(inputClass);
+  removeWhiteSpace(inputs);
+  const invalidList = document.getElementById(list);
+  let isValid = validateInputs(invalidList, inputs);
+  if (!isValid) {
+    return false;
+  }
+  return true;
 }
 
 function validateInputs(invalidList, inputs) {
+  clearValidityMessages();
   let validity = true;
-    while (invalidList.hasChildNodes()) {
-        invalidList.removeChild(invalidList.lastChild);
-      }
-    for (var i = 0; i < inputs.length; i++) {
-        if (!inputs[i].checkValidity()) {
-            validity = false;
+  let empty = false;
+    for (let i = 0; i < inputs.length; i++) {
+      if (!inputs[i].checkValidity()) {
+        if (!inputs[i].value) {
+          empty = true;
         }
-        inputs[i].style.borderWidth = '0.06em';
+        validity = false;
+      }
+      inputs[i].style.borderWidth = '0.06em';
     }
-    return validity;
+    if (empty == true) {
+      addToInvalidList('* please fill out all fields', inputs[inputs.length-1], invalidList);
+      return false;
+    } else if (!validity) {
+      addToInvalidList('* all fields must be valid', inputs[inputs.length-1], invalidList);
+      return false;
+    }
+  return validity;
+}
+
+function validatePassMatch(password, repeatPassword, invalidList) {
+  if (password.value != repeatPassword.value) {
+      addToInvalidList('* repeat password must match new password', password, invalidList);
+      repeatPassword.style.borderWidth = '0.06em';
+      return false;
+  }
+  return true;
 }
 
 function addToInvalidList(str, el, invalidList) {
-  console.log('adding as invalid');
   const item = document.createElement('li');
   item.className = 'invalid-list';
   item.innerText = str;
   invalidList.appendChild(item);
   el.style.borderWidth = '0.06em';
+}
+
+function clearValidityMessages() {
+  let invalidMessages = document.getElementsByClassName('invalid-list');
+  let validMessages = document.getElementsByClassName('valid-list');
+  for (let i = 0; i < invalidMessages.length; i++) {
+    invalidMessages[i].remove;
+    invalidMessages[i].style.display = 'none';
+  }
+  for (let i = 0; i < validMessages.length; i++) {
+    validMessages[i].remove;
+    validMessages[i].style.display = 'none';
+  }
+}
+
+function removeWhiteSpace(inputs) {
+  for (let i = 0; i < inputs.length; i++) {
+    console.log('first char: ' + inputs[i].value[0]);
+    console.log('last char: ' + inputs[i].value.slice(-1));
+    console.log(i + ') id ' + inputs[i].getAttribute('id'));
+    let curId = inputs[i].getAttribute('id');
+    while (inputs[i].value[0] == ' ' && !curId.includes('word')) {
+      inputs[i].value = inputs[i].value.replace(inputs[i].value[0],'');
+    }
+    while (inputs[i].value.slice(-1) == ' ' && !curId.includes('word')) {
+      inputs[i].value = inputs[i].value.replace(inputs[i].value.slice(-1),'');
+    }
+    console.log(i + ') new value: ' + inputs[i].value);
+  }
 }
 
 function validateKeys(evt, type) {
@@ -153,12 +178,4 @@ function validateKeys(evt, type) {
     theEvent.returnValue = false;
     if(theEvent.preventDefault) theEvent.preventDefault();
   }
-}
-
-function validatePassMatch(password, repeatPassword, invalidList) {
-    if (password.value != repeatPassword.value) {
-        addToInvalidList('* passwords must match', password, invalidList);
-        repeatPassword.style.borderWidth = '0.06em';
-        return false;
-    }
 }

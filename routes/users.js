@@ -246,7 +246,7 @@ router.post('/forgotuser', function(req, res){
   });
 });
 
-router.get('/forgotpass', isLoggedIn, function(req, res){
+router.get('/forgotpass', function(req, res){
   res.render('forgotpass', {pageTitle: 'Forgot Password'});
 });
 router.post('/forgotpass', function(req, res){

@@ -66,7 +66,7 @@ button.btn-style, input.btn-style {
   transition: all 0.1s ease-out 0s;
   white-space: nowrap;
   font-weight: bold;
-  margin: 0.5% auto calc(6px + 0.2vh) auto;
+  margin: 0.8% auto calc(6px + 0.2vh) auto;
   border: none;
   min-width: calc(38px + 2vw);
   min-height: calc(22px + 0.8vw);
@@ -491,13 +491,13 @@ button.poker-button:active {
 .account-label {
   font-size: calc(13px + 0.3vw);
   font-weight: bold;
-  color: #252b30;
+  color: rgb(0, 0, 0);
   margin: 5px auto 0 auto;
 }
 .placeholderPassword {
   margin-left: calc(10px + 0.5vw);
 }
-.account-input, .login-input, .forgotUserInput, .forgotPassInput, .updatePassInput, .changePassInput {
+.account-input, .login-input, .forgotUserInput, .forgotPassInput, .updatePassInput, .changePassInput, #accountPassword {
   font-size: calc(11px + 0.3vw);
   border: 0.03rem solid #343a40;
   border-radius: 10px;
@@ -687,7 +687,7 @@ button.back-arrow {
   color: var(--darkgold);
 }
 
-#dialogButtonDiv, #logoutDialogDiv {
+#dialogButtonDiv, #logoutDialogDiv, #accountUpdateDiv {
   margin: 4% auto 2.5% auto;
 }
 #coinDialogDiv {

@@ -3,11 +3,19 @@
 <div id="mid-container">
 </div>
 
+<% if (currentUser){ %>
 <script>
   window.onload = function() {
     displayChangePassword();
   };
 </script>
+<% } else { %>
+  <script>
+    window.onload = function() {
+      displayForgotDialog('forgotPWDialog', '<%= error %>');
+    };
+  </script>
+<% } %>
 
 <!-- won't care about all this after emails are implemented -->
 <dialog id="changePWDialog" class="container-fluid account-form-div account-dialog">
