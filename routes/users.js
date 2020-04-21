@@ -41,10 +41,10 @@ router.get('/', function(req, res){
       changedLastLogin = false;
     }
     if (changedLastLogin && afterLogin) {
-      User.findOneAndUpdate({username: req.user.username}, {$set: {lastLogin: current}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
+      User.findOneAndUpdate({_id: req.user._id}, {$set: {lastLogin: current}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
       console.log('updated lastLogin to ' + current);
     } else if (afterLogin){
-      User.findOneAndUpdate({username: req.user.username}, {$set: {loginStreak: newStreak, lastLogin: current, coins: newCoins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
+      User.findOneAndUpdate({_id: req.user._id}, {$set: {loginStreak: newStreak, lastLogin: current, coins: newCoins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
       console.log('updated loginStreak to ' + newStreak);
       console.log('updated coins to ' + newCoins);
       console.log('updated lastLogin to ' + current);
@@ -94,14 +94,16 @@ router.get('/register', isLoggedOut, function(req, res){
 });
 router.post('/register', isLoggedOut, function(req, res){
   User.find({email: req.body.createUser.email}, function(err, emails){
-    if (err || emails.length > 0) { // need to display UI errors without refreshing page (need user's editted values to stay)
-      req.flash('error', 'The email provided is already registered');
+    if (err || emails.length > 0) { // desire to display UI errors without refreshing page (need user's editted values to stay)
+      req.flash('error', 'Email "' + req.body.createUser.email + '" is already registered');
       res.redirect('/register');
+      // res.status(204).send(); // could use this then timeout and display message on UI
     } else {
       User.find({username: req.body.username}, function(err, usernames) {
         if (err || usernames.length > 0) {
-          req.flash('error', 'The username provided is already registered');
+          req.flash('error', 'Username "' + req.body.username + '" is already registered');
           res.redirect('/register');
+          // res.status(204).send(); // could use this then timeout and display message on UI
         } else {
           let momentBirthday = getLocalNoonDate(req.body.createUser.birthday);
           var newUser = new User({email: req.body.createUser.email, username: req.body.username, firstName: req.body.createUser.firstName, lastName: req.body.createUser.lastName, phone: req.body.createUser.phone, birthday: momentBirthday});
@@ -160,30 +162,30 @@ router.put('/account', function(req, res){
   } else {
     var formattedBirthday = formatDate(curUser.birthday);
     if (updated.firstName != curUser.firstName) {
-      User.findOneAndUpdate({username: curUser.username}, {$set: {firstName: updated.firstName}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
+      User.findOneAndUpdate({_id: curUser._id}, {$set: {firstName: updated.firstName}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
       console.log('firstName updated from: ' + curUser.firstName + ' to ' + updated.firstName);
     } 
     if (updated.lastName != curUser.lastName) {
-      User.findOneAndUpdate({username: curUser.username}, {$set: {lastName: updated.lastName}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
+      User.findOneAndUpdate({_id: curUser._id}, {$set: {lastName: updated.lastName}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
       console.log('lastName updated from: ' + curUser.lastName + ' to ' + updated.lastName);
     }
     if (updated.phone != curUser.phone) {
-      User.findOneAndUpdate({username: curUser.username}, {$set: {phone: updated.phone}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
+      User.findOneAndUpdate({_id: curUser._id}, {$set: {phone: updated.phone}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
       console.log('phone updated from: ' + curUser.phone + ' to ' + updated.phone);
     }
     if (updated.birthday != formattedBirthday) {
       let momentBirthday =  getLocalNoonDate(updated.birthday);
-      User.findOneAndUpdate({username: curUser.username}, {$set: {birthday: momentBirthday}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
+      User.findOneAndUpdate({_id: curUser._id}, {$set: {birthday: momentBirthday}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
       console.log('birthday updated from: ' + formattedBirthday + ' to ' + momentBirthday);
     }
     if (updated.email != curUser.email) {
       User.find({email: updated.email}, function(err, result) {
         if (err || result.length > 0) {
           console.log('Email Num Results: ' + result.length + ', Error: ' + err);
-          req.flash('invalidEmail', 'Email already exists');
+          req.flash('invalidEmail', 'Email "' + updated.email + '" already exists');
           res.redirect('/account');
         } else {
-          User.findOneAndUpdate({username: curUser.username}, {$set: {email: updated.email}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
+          User.findOneAndUpdate({_id: curUser._id}, {$set: {email: updated.email}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
           console.log('email updated from: ' + curUser.email + ' to ' + updated.email);
         }
       });
@@ -194,14 +196,14 @@ router.put('/account', function(req, res){
           console.log('Username Num Results: ' + result.length + ', Error: ' + err);
           res.setTimeout(500, function(){
             if (!res.headersSent) {
-              req.flash('invalidUser', 'Username already exists');
+              req.flash('invalidUser', 'Username "' + updated.username + '" already exists');
               res.redirect('/account');
             }
           });
         } else {
-          User.findOneAndUpdate({username: curUser.username}, {$set: {username: updated.username}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
+          User.findOneAndUpdate({_id: curUser._id}, {$set: {username: updated.username}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
           console.log('username updated from: ' + curUser.username + ' to ' + updated.username);
-          res.setTimeout(300, function(){
+          res.setTimeout(800, function(){
             if (!res.headersSent) {
               req.flash('error', 'Please login with your new username');
               res.redirect('/login');
@@ -210,7 +212,7 @@ router.put('/account', function(req, res){
         }
       });
     } else {
-      res.setTimeout(300, function(){
+      res.setTimeout(400, function(){
         if (!res.headersSent) {
           req.flash('success', 'Account has been updated');
           res.redirect('/account');
