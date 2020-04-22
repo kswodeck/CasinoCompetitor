@@ -134,7 +134,7 @@ input:invalid {
   color: gold;
 }
 
-#dicequantity, #dicequantity:focus {
+#dicequantity {
   color: darkblue;
   background-color: gold;
   border-color: crimson;
@@ -209,7 +209,7 @@ input:invalid {
   border-radius: 15px;
   cursor: pointer;
 }
-.card-slot-div .interactive-card:active, #dicequantity:active {
+.card-slot-div .interactive-card:active, #dicequantity:active, #dicequantity:focus {
   border: 0.1rem solid darkblue;
 }
 .card-coins-data, #userIdInput {
@@ -368,9 +368,7 @@ button.poker-button:active {
 }
 
 #hand-ranking-heading {
-  font-weight: bold;
   color: crimson;
-  text-align: center;
   display: none;
 }
 
@@ -507,7 +505,7 @@ button.poker-button:active {
 }
 .account-input, .login-input, .forgotUserInput, .forgotPassInput, .updatePassInput, .changePassInput, #accountPassword {
   font-size: calc(11px + 0.3vw);
-  border: 0.03rem solid #343a40;
+  border: 0rem solid #343a40;
   border-radius: 10px;
   max-width: 90%;
   min-width: 30%;

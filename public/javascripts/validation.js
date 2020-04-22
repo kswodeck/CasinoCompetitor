@@ -148,9 +148,6 @@ function clearValidityMessages() {
 
 function removeWhiteSpace(inputs) {
   for (let i = 0; i < inputs.length; i++) {
-    console.log('first char: ' + inputs[i].value[0]);
-    console.log('last char: ' + inputs[i].value.slice(-1));
-    console.log(i + ') id ' + inputs[i].getAttribute('id'));
     let curId = inputs[i].getAttribute('id');
     while (inputs[i].value[0] == ' ' && !curId.includes('word')) {
       inputs[i].value = inputs[i].value.replace(inputs[i].value[0],'');
@@ -158,7 +155,6 @@ function removeWhiteSpace(inputs) {
     while (inputs[i].value.slice(-1) == ' ' && !curId.includes('word')) {
       inputs[i].value = inputs[i].value.replace(inputs[i].value.slice(-1),'');
     }
-    console.log(i + ') new value: ' + inputs[i].value);
   }
 }
 

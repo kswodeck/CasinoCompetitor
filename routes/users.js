@@ -66,8 +66,6 @@ router.get('/cards', isLoggedIn, function(req, res){
   res.render('cards', {pageTitle: 'Competitive Poker', currentCoins: req.user.coins});
 });
 router.put('/cards', function(req, res){
-  console.log('req.body.userCoins: ' + req.body.userCoins + ', req.user.coins: ' + req.user.coins);
-  console.log('req.body.currentWin: ' + req.body.currentWin + ', req.user.highestWin: ' + req.user.highestWin);
   if (req.body.userCoins != req.user.coins) { //update coins
     console.log('updating coins: ' + req.user.coins + ' to ' + req.body.userCoins);
     User.findOneAndUpdate({username: req.user.username}, {$set: {coins: req.body.userCoins}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
