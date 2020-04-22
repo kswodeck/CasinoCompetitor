@@ -411,13 +411,21 @@ button.poker-button:active {
   margin-bottom: 2px;
 }
 #cardsDropdown, #mainDropdown {
-  max-width: 180px;
+  max-width: 170px;
   min-width: 100px;
   background-color: #343a40;
   text-align: center;
   border: none;
-  margin: 0;
   padding: 0;
+  top: 30px;
+}
+#mainDropdown {
+  right: 10px;
+  margin: 0 -1px;
+}
+#cardsDropdown {
+  right: -10px;
+  margin: 0 -35px;
 }
 #dropdownCardsLink #dropdownMainLink, li a, #main-container, #play-container, #dice-col, #dice-current-col, #dice-roll-tally-div, #dice-roll-current-div, #table-search-cell, #search-button, .name-col {
   padding: 0;
@@ -711,50 +719,57 @@ button.back-arrow {
 
 /* small breakpoint */
 @media (max-width: 575px) {
-    #dropdownMainLink, .navbar-toggler{
-      font-size: calc(12px + 1vw);
-    }
-    #main-links-list, #cardsDropdown a, #mainDropdown a {
-      font-size: calc(8px + 1vw);
-    }
-    #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
-      width: 105px;
-      line-height: 1;
-    }
-    #hand-odds-div {
-      width: 150px;
-      line-height: 1;
-    }
-    #dropdownCardsLink, #dropdownMainLink {
-      margin-bottom: 0;
-    }
-    #cardsDropdown a:hover, #mainDropdown a:hover {
-      color: crimson;
-      background-color: #343a40;
-    }
-    .birthday {
-      padding-left: calc(14px + 3%);
-    }
-    #leaderboard-div {
-      width: 99%;
-    }
-    #firstNameCol {
-      margin-left: 5px;
-     }
-    #lastNameCol {
-      margin-right: 5px;
-     }
-     #collapse-button-div {
-      padding: 0;
-    }
-    #hamburger-button {
-      margin-right: 12px;
-    }
+  #total-coins-span, #coins-img {
+    display: none;
+  }
+  #dropdownMainLink, .navbar-toggler{
+    font-size: calc(12px + 1vw);
+  }
+  #main-links-list, #cardsDropdown a, #mainDropdown a {
+    font-size: calc(8px + 1vw);
+  }
+  #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
+    width: 105px;
+    line-height: 1;
+  }
+  #hand-odds-div {
+    width: 150px;
+    line-height: 1;
+  }
+  #dropdownCardsLink, #dropdownMainLink {
+    margin-bottom: 0;
+  }
+  #cardsDropdown a:hover, #mainDropdown a:hover {
+    color: crimson;
+    background-color: #343a40;
+  }
+  .birthday {
+    padding-left: calc(14px + 3%);
+  }
+  #leaderboard-div {
+    width: 99%;
+  }
+  #firstNameCol {
+    margin-left: 5px;
+  }
+  #lastNameCol {
+    margin-right: 5px;
+  }
+  #collapse-button-div {
+    padding: 0;
+  }
+  #hamburger-button {
+    margin-right: 12px;
+  }
 }
 /* medium breakpoint */
 @media (max-width: 767px) {
   #mainDropdown {
     position: static;
+    margin-left: calc(10px + 0.5vw);
+  }
+  #cardsDropdown {
+    margin-left: calc(-95px + 14vw);
   }
   #main-navbar {
     min-height: none;
@@ -763,9 +778,6 @@ button.back-arrow {
   }
 }
 @media (max-width: 767px) and (min-width: 575px) {
-  #cardsDropdown {
-    max-width: 195px;
-  }
   #firstNameCol {
     margin-left: 15%;
    }
