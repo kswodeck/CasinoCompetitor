@@ -191,8 +191,8 @@ input:invalid {
   color: green;
 }
 
-.cards {
-  width: 100%;
+.cards, #home-logo {
+  max-width: 100%;
   margin: auto;
 }
 .cards.fadeInOut-card {
@@ -248,11 +248,8 @@ input:invalid {
   margin-left: 0;
 }
 
-#coins-img {
+.coins-img {
   width: calc(22px + 1vw);
-}
-.home-coins {
-  width: calc(26px + 1.2vw);
 }
 
 #total-coins-span {
@@ -262,22 +259,8 @@ input:invalid {
   margin-right: 1.5%;
   text-align: right;
 }
-.coins-welcome {
-  font-size:calc(15px + 0.4vw);
-  color: crimson;
-  font-weight: bolder;
-}
-#total-coins-welcome, .home-coins {
-  margin: 0.8% 0.3%;
-}
 .coins-streak-image {
   margin: 0.2% 0.3%;
-  width: calc(24px + 1vw);
-}
-.coins-streak {
-  font-size:calc(15px + 0.4vw);
-  color: crimson;
-  font-weight: bold;
 }
 
 button.poker-button, button.poker-button:focus {
@@ -363,7 +346,6 @@ button.poker-button:active {
 
 #home-logo {
   width: calc(140px + 8vw);
-  display: block;
 }
 
 #header {
