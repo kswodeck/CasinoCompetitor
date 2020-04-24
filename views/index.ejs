@@ -4,7 +4,7 @@
   <h1 id="home-heading" class="mb-md-3 mb-sm-2 mb-1"><span id="welcome-home">Welcome to</span><br />Pocket Poker</h1>
   <img src="images\pocket-poker.png" alt="PocketPoker" id="home-logo" class="m-auto img-fluid">
   <% if (currentUser){ %>
-  <h3 id="usernameHome" class="username-welcome"><%= currentUser.username %></h3>
+  <h3 id="usernameHome" class="username-welcome blue-text"><%= currentUser.username %></h3>
   <span id="total-coins-welcome" class="coins-welcome">You have <%= coins %></span><img id="welcome-coins-img" class="home-coins" src="images/coins.png"><br>
   <button id="homeButton" class="btn lg-text gold-bg red-text btn-style" onclick="location.href='/cards'">Test your luck</button><br>
   <% } %>
@@ -13,7 +13,7 @@
   <div class ="exit-button-div">
     <button id="logoutDialogExit" class="exit-dialog-button md-text" onclick="window.location.href = '/'" >✖</button>
   </div>
-  <h2 id="logoutHeading" class="account-heading login-heading">You've been logged out</h2>
+  <h2 id="logoutHeading" class="account-heading login-heading blue-text">You've been logged out</h2>
   <div id="logoutDialogDiv" class="row justify-content-around">
     <div class="col">
       <button id="logoutLoginButton" class="btn sm-text red-bg gold-text btn-style" onclick="location.href='/login'">Log In</button>
@@ -28,7 +28,7 @@
   <div class ="exit-button-div">
     <button id="streakDialogExit" class="exit-dialog-button md-text" onclick="window.location.href = '/'" >✖</button>
   </div>
-  <h2 id="streakHeading" class="account-heading login-heading">You've visited us <%= streak %> days in a row!</h2>
+  <h2 id="streakHeading" class="account-heading login-heading blue-text">You've visited us <%= streak %> days in a row!</h2>
   <span id="login-streak-win" class="coins-streak"></span><img id="loginStreakCoinImg" class="coins-streak-image"  src="images/coins.png"><br>
   <span class="coins-streak">Keep up the streak!</span>
   <div id="streakDialogDiv" class="row justify-content-around">

@@ -1,13 +1,13 @@
 <dialog id="loginDialog" class="container-fluid account-form-div account-dialog">
     <div class ="exit-button-div">
       <button id="loginDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('loginDialog')" >✖</button>
-    </div> <!-- I'm here on refactor -->
-    <h2 id="loginHeading" class="account-heading login-heading">Login to Pocket Poker</h2>
+    </div>
+    <h2 id="loginHeading" class="account-heading login-heading blue-text">Login to Pocket Poker</h2>
     <form action="/login" method="POST">
-      <label for="username" class="account-label">Username</label><br>
-      <input type="text" name="username" id="loginUsername" class="login-input" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete="username" required><br>
-      <label for="password" class="account-label">Password</label><br>
-      <input type="password" name="password" id="loginPassword" class="login-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="loginPassIcon" onclick="togglePasswordVisibility('loginPassword', 'loginPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+      <label for="username" class="account-label sm-txt">Username</label><br>
+      <input type="text" name="username" id="loginUsername" class="login-input user-input" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete="username" required><br>
+      <label for="password" class="account-label sm-txt">Password</label><br>
+      <input type="password" name="password" id="loginPassword" class="login-input password user-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="loginPassIcon" onclick="togglePasswordVisibility('loginPassword', 'loginPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
       <ul id="invalid-login" class="invalid-fields-list"></ul>
       <input type="submit" name="login-submit" role="button" value="Log In" onclick="return validatePreLogin('login-input', 'invalid-login')" class="btn md-text blue-bg gold-text btn-style account-button" id="login-button">
     </form>
@@ -21,17 +21,17 @@
     <div class ="exit-button-div">
       <button id="forgotUserDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('forgotUserDialog')" >✖</button>
     </div>
-    <h2 id="forgotUserHeading" class="account-heading login-heading">Forgotten Username</h2>
+    <h2 id="forgotUserHeading" class="account-heading login-heading blue-text">Forgotten Username</h2>
     <form action="/forgotuser" method="POST">
-      <label for="email" class="account-label">Email</label><br>
-      <input type="email" name="forgotUser[email]" id="forgotUserEmail" class="forgotUserInput" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autocomplete="email" required><br>
-      <label for="birthday" class="account-label">Birthday</label><br>
-      <input type="date" name="forgotUser[birthday]" id="forgotUserBirthday" class="forgotUserInput birthday" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" required><br>
+      <label for="email" class="account-label sm-txt">Email</label><br>
+      <input type="email" name="forgotUser[email]" id="forgotUserEmail" class="forgotUserInput user-input" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autocomplete="email" required><br>
+      <label for="birthday" class="account-label sm-txt">Birthday</label><br>
+      <input type="date" name="forgotUser[birthday]" id="forgotUserBirthday" class="forgotUserInput birthday user-input" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" required><br>
       <ul id="invalid-forgot-username" class="invalid-fields-list"></ul>
       <input type="submit" name="forgot-pw-submit" role="button" value="Recover Username" onclick="return validatePreLogin('forgotUserInput', 'invalid-forgot-username')" class="btn md-text blue-bg gold-text btn-style account-button" id="forgot-pw-button">
     </form>
     <div class ="back-button-div">
-      <button id="forgotUserBackButton"  class="back-arrow btn blue-text lg-text" name="back-arrow" onclick="backFromDialog('forgotUserDialog')"><i id="forgotUserBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
+      <button id="forgotUserBackButton" class="back-arrow btn blue-text lg-text" name="back-arrow" onclick="backFromDialog('forgotUserDialog')"><i id="forgotUserBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
       <span class="back-button-label blue-text sm-text" onclick="backFromDialog('forgotUserDialog')">Back to Login</span>
     </div>
 </dialog>
@@ -39,14 +39,14 @@
     <div class ="exit-button-div">
       <button id="forgotPWDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('forgotPWDialog')" >✖</button>
     </div>
-    <h2 id="forgotPWHeading" class="account-heading login-heading">Forgotten Password</h2>
+    <h2 id="forgotPWHeading" class="account-heading login-heading blue-text">Forgotten Password</h2>
     <form action="/forgotpass" method="POST">
-      <label for="email" class="account-label">Email</label><br>
-      <input type="email" name="forgotPW[email]" id="forgotPWEmail" class="forgotPassInput" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autocomplete="email" required><br>
-      <label for="username" class="account-label">Username</label><br>
-      <input type="text" name="forgotPW[username]" id="forgotPWUsername" class="forgotPassInput" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete="username" required><br>
-      <label for="birthday" class="account-label">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
-      <input type="date" name="forgotPW[birthday]" id="forgotPWBirthday" class="forgotPassInput birthday" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" required><br>
+      <label for="email" class="account-label sm-txt">Email</label><br>
+      <input type="email" name="forgotPW[email]" id="forgotPWEmail" class="forgotPassInput user-input" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autocomplete="email" required><br>
+      <label for="username" class="account-label sm-txt">Username</label><br>
+      <input type="text" name="forgotPW[username]" id="forgotPWUsername" class="forgotPassInput user-input" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete="username" required><br>
+      <label for="birthday" class="account-label sm-txt">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
+      <input type="date" name="forgotPW[birthday]" id="forgotPWBirthday" class="forgotPassInput birthday user-input" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" required><br>
       <ul id="invalid-forgot-password" class="invalid-fields-list"></ul>
       <input type="submit" name="forgot-user-submit" role="button" value="Recover Password" onclick="return validatePreLogin('forgotPassInput', 'invalid-forgot-password')" class="btn md-text blue-bg gold-text btn-style account-button" id="forgot-user-button">
     </form>

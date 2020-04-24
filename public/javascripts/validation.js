@@ -167,11 +167,13 @@ function validateKeys(evt, type) {
       key = String.fromCharCode(key);
   }
   var regex = /[0-9]|\./;
-  if (type == 'tel') {
-      regex = /[0-9]|[-]|[+]|[(]|[)]|[ ]/;
-  }
-  if(!regex.test(key) ) {
+  // if (type == 'tel') { //phone number allowed characters
+  //     regex = /[0-9]|[-]|[+]|[(]|[)]|[ ]/;
+  // }
+  if(!regex.test(key)) {
     theEvent.returnValue = false;
-    if(theEvent.preventDefault) theEvent.preventDefault();
+    if(theEvent.preventDefault) {
+      theEvent.preventDefault();
+    }
   }
 }

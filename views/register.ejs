@@ -1,32 +1,32 @@
 <%- include('partials/header') %>
 
 <div id="mid-container">
-    <div id="account-form-div" class="container-fluid account-form-div">
-      <h2 id="form-heading" class="account-heading">Create An Account</h2>
+    <div class="container-fluid account-form-div">
+      <h2 id="form-heading" class="account-heading blue-text">Create An Account</h2>
       <form action="/register" method="POST">
         <div class="name-row row">
           <div id="firstNameCol" class="name-col col">
-            <label for="firstName" class="account-label account-name-label">First Name</label><br>
-            <input type="text" name="createUser[firstName]" id="firstName" class="account-input account-name-input" minlength="1" maxlength="40" placeholder="first" size="20" autocomplete="given-name" required>
+            <label for="firstName" class="account-label sm-txt">First Name</label><br>
+            <input type="text" name="createUser[firstName]" id="firstName" class="account-input user-input" minlength="1" maxlength="40" placeholder="first" size="20" autocomplete="given-name" required>
           </div>
           <div id="lastNameCol" class="name-col col">
-            <label for="lastName" class="account-label account-name-label">Last Name</label><br>
-            <input type="text" name="createUser[lastName]" id="lastName" class="account-input account-name-input" minlength="1" maxlength="50" placeholder="last" size="20" autocomplete="family-name" required>
+            <label for="lastName" class="account-label sm-txt">Last Name</label><br>
+            <input type="text" name="createUser[lastName]" id="lastName" class="account-input user-input" minlength="1" maxlength="50" placeholder="last" size="20" autocomplete="family-name" required>
           </div>
         </div>
-        <label for="email" class="account-label">Email</label><br> <!-- email validations aren't fully sufficient -->
-        <input type="email" name="createUser[email]" id="newEmail" class="account-input" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autocomplete="email" required><br>
-        <label for="username" class="account-label">Username</label><br> <!-- username validations are sufficient -->
-        <input type="text" name="username" id="createUsername" class="account-input" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete="username" required><br>
-        <label for="password" class="account-label">Password</label><br> <!-- password validations aren't fully sufficient -->
-        <input type="password" name="password" id="newPassword" class="account-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="newPassIcon" onclick="togglePasswordVisibility('newPassword', 'newPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
-        <label for="repeatPassword" class="account-label">Repeat Password</label><br>
-        <input type="password" name="repeatPassword" id="repeatPassword" class="account-input password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="repeatPassIcon" onclick="togglePasswordVisibility('repeatPassword', 'repeatPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
-        <label for="phone" class="account-label">Phone Number</label><br> <!-- phone number validations aren't sufficient, complex -->
-        <input type="tel" name="createUser[phone]" id="createPhone" class="account-input" minlength="10" maxlength="16" placeholder="XXX-XXX-XXXX" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXX-XXX-XXXX" autocomplete="tel" required><br>
-        <label for="birthday" class="account-label">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
-        <input type="date" name="createUser[birthday]" id="newBirthday" class="account-input birthday" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" autocomplete="bday" required><br>
-        <ul id="invalid-fields-list" class="invalid-fields-list"> <!-- date validations are sufficient -->
+        <label for="email" class="account-label sm-txt">Email</label><br> <!-- email validations aren't fully sufficient -->
+        <input type="email" name="createUser[email]" id="newEmail" class="account-input user-input" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autocomplete="email" required><br>
+        <label for="username" class="account-label sm-txt">Username</label><br>
+        <input type="text" name="username" id="createUsername" class="account-input user-input" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete="username" required><br>
+        <label for="password" class="account-label sm-txt">Password</label><br>
+        <input type="password" name="password" id="newPassword" class="account-input password user-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="newPassIcon" onclick="togglePasswordVisibility('newPassword', 'newPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+        <label for="repeatPassword" class="account-label sm-txt">Repeat Password</label><br>
+        <input type="password" name="repeatPassword" id="repeatPassword" class="account-input password user-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="repeatPassIcon" onclick="togglePasswordVisibility('repeatPassword', 'repeatPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+        <label for="phone" class="account-label sm-txt">Phone Number</label><br> <!-- phone number validations aren't sufficient, complex -->
+        <input type="tel" name="createUser[phone]" id="createPhone" class="account-input user-input" minlength="10" maxlength="16" placeholder="XXXXXXXXXX" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" pattern="^[0–9]$" title="format: XXXXXXXXXX" autocomplete="tel" required><br>
+        <label for="birthday" class="account-label sm-txt">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
+        <input type="date" name="createUser[birthday]" id="newBirthday" class="account-input birthday user-input" size="8" min="1920-01-01" max="2019-12-31" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" autocomplete="bday" required><br>
+        <ul id="invalid-fields-list" class="invalid-fields-list">
           <% if(error && error.length > 0) { %>
           <li class="invalid-list"><%= error %></li>
           <% } %>

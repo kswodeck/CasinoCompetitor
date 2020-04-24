@@ -2,28 +2,28 @@
 
 <div id="mid-container">
     <div id="accountUpdateDiv" class="container-fluid account-form-div">
-        <h2 id="form-heading" class="account-heading">My Account</h2>
+        <h2 id="form-heading" class="account-heading blue-text">My Account</h2>
         <form action="/account/?_method=PUT" method="POST">
           <div class="name-row row">
             <div id="firstNameCol" class="name-col col">
-              <label for="firstName" class="account-label account-name-label">First Name</label><br>
-              <input type="text" name="updateUser[firstName]" id="updateFirstName" class="account-input account-name-input my-account" minlength="1" maxlength="30" value="<%= currentUser.firstName %>" size="20" required>
+              <label for="firstName" class="account-label sm-txt">First Name</label><br>
+              <input type="text" name="updateUser[firstName]" id="updateFirstName" class="my-account user-input" minlength="1" maxlength="30" value="<%= currentUser.firstName %>" size="20"  autocomplete="given-name" required>
             </div>
             <div id="lastNameCol" class="name-col col">
-              <label for="lastName" class="account-label account-name-label">Last Name</label><br>
-              <input type="text" name="updateUser[lastName]" id="updateLastName" class="account-input account-name-input my-account" minlength="1" maxlength="40" value="<%= currentUser.lastName %>" size="20" required>
+              <label for="lastName" class="account-label sm-txt">Last Name</label><br>
+              <input type="text" name="updateUser[lastName]" id="updateLastName" class="my-account user-input" minlength="1" maxlength="40" value="<%= currentUser.lastName %>" size="20" autocomplete="family-name" required>
             </div>
           </div>
-          <label for="email" class="account-label">Email</label><br> <!-- email validations aren't fully sufficient. Make sure "." included with at least 1 character after -->
-          <input type="email" name="updateUser[email]" id="updateEmail" class="account-input my-account" minlength="8" maxlength="60" value="<%= currentUser.email %>" size="40" required><br>
-          <label for="username" class="account-label">Username</label><br> <!-- username validations are sufficient -->
-          <input type="text" name="updateUser[username]" id="updateUsername" class="account-input my-account" minlength="5" maxlength="20" value="<%= currentUser.username %>" size="25" required><br>
-          <label for="accountPassword" class="account-label">Password</label><br> <!-- password validations aren't fully sufficient -->
-          <input type="password" id="accountPassword" class="placeholderPassword" value="password" size="25" disabled><i class="fas fa-pencil-alt edit-icon input-icon" onclick="displayEditPassword('updatePWDialog')"></i><br>
-          <label for="phone" class="account-label">Phone Number</label><br> <!-- phone number validations aren't sufficient, complex -->
-          <input type="tel" name="updateUser[phone]" id="updatePhone" class="account-input my-account" minlength="10" maxlength="16" value="<%= currentUser.phone %>" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXX-XXX-XXXX" required><br>
-          <label for="birthday" class="account-label">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
-          <input type="date" name="updateUser[birthday]" id="updateBirthday" class="account-input birthday my-account" size="8" min="1920-01-01" max="2019-12-31" value="<%= birthday %>" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" required><br>
+          <label for="email" class="account-label sm-txt">Email</label><br> <!-- email validations aren't fully sufficient. Make sure "." included with at least 1 character after -->
+          <input type="email" name="updateUser[email]" id="updateEmail" class="my-account user-input" minlength="8" maxlength="60" value="<%= currentUser.email %>" size="40" autocomplete="email" required><br>
+          <label for="username" class="account-label sm-txt">Username</label><br>
+          <input type="text" name="updateUser[username]" id="updateUsername" class="my-account user-input" minlength="5" maxlength="20" value="<%= currentUser.username %>" size="25" autocomplete="username" required><br>
+          <label for="accountPassword" class="account-label sm-txt">Password</label><br>
+          <input type="password" id="accountPassword" class="placeholderPassword user-input" value="password" size="25" disabled><i class="fas fa-pencil-alt edit-icon input-icon" onclick="displayEditPassword('updatePWDialog')"></i><br>
+          <label for="phone" class="account-label sm-txt">Phone Number</label><br> <!-- phone number validations aren't sufficient, complex -->
+          <input type="tel" name="updateUser[phone]" id="updatePhone" class="my-account user-input" minlength="10" maxlength="16" value="<%= currentUser.phone %>" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" pattern="^[0–9]$" title="format: XXXXXXXXXX" autocomplete="tel" required><br>
+          <label for="birthday" class="account-label sm-txt">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
+          <input type="date" name="updateUser[birthday]" id="updateBirthday" class="my-account birthday user-input" size="8" min="1920-01-01" max="2019-12-31" value="<%= birthday %>" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" autocomplete="bday" required><br>
           <ul id="invalid-fields-list" class="invalid-fields-list">
           <% if (invalidUser && invalidUser.length > 0) { %>
             <li class="invalid-list"><%= invalidUser %></li>
@@ -45,12 +45,12 @@
   </div>
   <h2 id="updatePWHeading" class="login-heading">Update Password</h2>
   <form action="/account/?_method=PUT" method="POST">
-    <label for="oldPassword" id="oldPassLabel" class="account-label">Current Password</label><br>
-    <input type="password" name="oldPassword" id="oldPassword" class="updatePassInput password" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="oldPassIcon" onclick="togglePasswordVisibility('oldPassword', 'oldPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
-    <label for="updatePassword" class="account-label">New Password</label><br> <!-- password validations aren't fully sufficient -->
-    <input type="password" name="updatePassword" id="updatePassword" class="updatePassInput password" minlength="5" maxlength="20" placeholder="password" size="25" required><i id="updatePassIcon" onclick="togglePasswordVisibility('updatePassword', 'updatePassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
-    <label for="repeatNewPassword" class="account-label">Repeat Password</label><br>
-    <input type="password" name="repeatNewPassword" id="repeatNewPassword" class="updatePassInput password" minlength="5" maxlength="20" placeholder="password" size="25" required><i id="repeatNewPassIcon" onclick="togglePasswordVisibility('repeatNewPassword', 'repeatNewPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+    <label for="oldPassword" id="oldPassLabel" class="account-label sm-txt">Current Password</label><br>
+    <input type="password" name="oldPassword" id="oldPassword" class="updatePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="oldPassIcon" onclick="togglePasswordVisibility('oldPassword', 'oldPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+    <label for="updatePassword" class="account-label sm-txt">New Password</label><br> <!-- password validations aren't fully sufficient -->
+    <input type="password" name="updatePassword" id="updatePassword" class="updatePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" required><i id="updatePassIcon" onclick="togglePasswordVisibility('updatePassword', 'updatePassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+    <label for="repeatNewPassword" class="account-label sm-txt">Repeat Password</label><br>
+    <input type="password" name="repeatNewPassword" id="repeatNewPassword" class="updatePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" required><i id="repeatNewPassIcon" onclick="togglePasswordVisibility('repeatNewPassword', 'repeatNewPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
     <ul id="invalid-update-password" class="invalid-fields-list"></ul>
     <input type="submit" name="password-update" role="button" onclick="return validatePasswordUpdate()" value="Update Password" class="btn md-text blue-bg gold-text btn-style" id="passwordUpdateButton">
   </form>

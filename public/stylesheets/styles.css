@@ -73,14 +73,17 @@ button.btn-style, input.btn-style {
   position: relative;
   box-sizing: border-box;
 }
-.gold-text {
+.gold-text, .warning-list {
   color: gold;
 }
-.red-text, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active, svg.back-icon:active, #dicequantity:hover, #dicequantity:focus {
+.red-text, .input-icon:hover, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active, svg.back-icon:active, #dicequantity:hover, #dicequantity:focus, .invalid-list {
   color: crimson;
 }
-.blue-text {
+.blue-text, a.link-text {
   color: darkblue;
+}
+.green-text .valid-list {
+  color: green;
 }
 
 button.gold-bg:hover, input.gold-bg.btn:hover {
@@ -88,7 +91,7 @@ button.gold-bg:hover, input.gold-bg.btn:hover {
   box-shadow: 0 4px var(--darkgold);
   top: 2px;
 }
-button.gold-bg:active, input.gold-bg.btn:active, button.exit-dialog-button:active {
+button.gold-bg:active, input.gold-bg.btn:active {
   box-shadow: 0 0 var(--darkgold);
   top: 6px;
 }
@@ -117,10 +120,6 @@ button.btn:disabled, input.btn:disabled {
 }
 button.exit-dialog-button:active {
   border-width: 0.08rem;
-}
-
-input.account-button {
-  margin: 2% auto;
 }
 
 input:valid {
@@ -181,8 +180,7 @@ input:invalid {
 .result-tally, .odds-span, .result, .loss, .win, #page-description-div, #dice-quantity-input-div {
   font-size: calc(10px + 0.35vw);
 }
-
-.result {
+.result, #home-heading, #page-heading, .leaderboard-head, .main-heading {
   font-weight: bold;
   color: darkblue;
 }
@@ -246,7 +244,7 @@ input:invalid {
 #dice-roll-current-div {
   margin-right: 0;
 }
-#dice-roll-tally-div, .back-button-label, .dropdown-toggle::after {
+#dice-roll-tally-div, .dropdown-toggle::after {
   margin-left: 0;
 }
 
@@ -324,9 +322,6 @@ button.poker-button:active {
   text-align: center;
 }
 
-.hold-card-text {
-  margin: 2% 0;
-}
 .text-opacity {
   opacity: 0.0001;
 }
@@ -339,12 +334,6 @@ button.poker-button:active {
   font-size: calc(23px + 1vw);
   text-transform: uppercase;
   text-shadow: 7px 2px 7px lightsteelblue, 7px 6px 7px lightsteelblue, 7px 10px 7px lightsteelblue;
-}
-
-#home-heading, #page-heading, #leaderboard-head {
-  color: darkblue;
-  font-weight: bold;
-  text-align: center
 }
 
 #page-heading, #hand-ranking-heading {
@@ -477,7 +466,6 @@ button.poker-button:active {
 
 #form-heading, .login-heading, .username-welcome {
   font-weight: bold;
-  color: darkblue;
   text-shadow: 2px 4px 5px lightsteelblue;
   font-size: calc(20px + 0.85vw)
 }
@@ -485,7 +473,6 @@ button.poker-button:active {
   margin: 1.5% auto 0 auto;
 }
 .name-row {
-  max-width: 100%;
   margin: 0 auto;
 }
 #firstNameCol {
@@ -495,7 +482,6 @@ button.poker-button:active {
   margin-right: 18%;
  }
 .account-label {
-  font-size: calc(13px + 0.3vw);
   font-weight: bold;
   color: rgb(0, 0, 0);
   margin: 5px auto 0 auto;
@@ -503,7 +489,7 @@ button.poker-button:active {
 .placeholderPassword {
   margin-left: calc(10px + 0.5vw);
 }
-.account-input, .login-input, .forgotUserInput, .forgotPassInput, .updatePassInput, .changePassInput, #accountPassword {
+.user-input {
   font-size: calc(11px + 0.3vw);
   border: 0rem solid #343a40;
   border-radius: 10px;
@@ -522,18 +508,16 @@ button.poker-button:active {
   z-index: 2;
   font-size: calc(11px + 0.3vw);
 }
+.input-icon:active {
+  color: var(--darkcrimson);
+}
 .show-hide {
   margin-left: -25px;
 }
 .edit-icon {
   margin-left: calc(2px + 0.2vw);
 }
-.input-icon:hover {
-  color: crimson;
-}
-.input-icon:active {
-  color: var(--darkcrimson);
-}
+
 .password {
   margin-left: -8px;
 }
@@ -542,30 +526,17 @@ button.poker-button:active {
   list-style-type: none;
   text-align: center;
   padding: 0;
-  font-weight: bolder;
+  font-weight: bold;
   font-size: calc(11px + 0.3vw);
-}
-.invalid-list {
-  color: crimson;
   text-shadow: 0px 0px 8px rgb(230, 230, 230);
 }
-.valid-list {
-  color: green;
-  text-shadow: 0px 0px 8px rgb(230, 230, 230);
-}
-.warning-list {
-  color: gold;
-  text-shadow: 0px 0px 10px rgb(80, 80, 80);
-}
-.birthday {
+
+input.birthday {
   padding-left: calc(23px + 3%);
 }
 .account-already {
   font-size: calc(11px + 0.3vw);
   margin-bottom: 2%;
-}
-a.link-text {
-  color: darkblue;
 }
 input:disabled {
   background-color: aliceblue;
@@ -606,16 +577,13 @@ dialog.account-dialog {
 
 button.back-arrow {
   padding: 0;
-  border: none;
   width: calc(20px + 1.2vw);
   line-height: 1;
-  margin-right: calc(2px + 0.2%);
 }
 
 #leaderboard-div {
   width: calc(80px + 80%);
   padding: 0;
-  margin: 2% auto;
   text-align: center;
 }
 
@@ -649,7 +617,7 @@ button.back-arrow {
   background-color: rgba(210, 210, 200, 0.3);
 }
 
-#leaderboard-pagination {
+#leaderboard-pagination, .hold-card-text, input.account-button, #leaderboard-div {
   margin: 2% auto;
 }
 #pagination-list {
@@ -741,7 +709,7 @@ button.back-arrow {
     color: crimson;
     background-color: #343a40;
   }
-  .birthday {
+  input.birthday {
     padding-left: calc(14px + 3%);
   }
   #leaderboard-div {
