@@ -1,5 +1,5 @@
-/* eslint-disable semi */
-// eslint-disable no-unused-vars
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 var handsDealt = 0;
 var cards = [];
 var cards2 = [];
@@ -8,7 +8,7 @@ var startCoins;
 var pageTitle = document.getElementsByTagName('title')[0];
 if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-heading').innerText == 'COMPETITIVE POKER') {
   var coinsInput = document.getElementById('coinsInput');
-  var currentBetSpan = document.getElementById('current-bet-span');
+  // var currentBetSpan = document.getElementById('current-bet-span');
   document.getElementById('current-bet-span').style.visibility = 'visible';
   document.getElementById('current-win-span').style.visibility = 'visible';
   document.getElementById('total-coins-span').innerText = '{{totalCoins}}';

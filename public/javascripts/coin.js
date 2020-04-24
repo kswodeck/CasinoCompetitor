@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable semi */
 var headsWins = []; var tailsWins = [];
 const headWin = document.getElementById('head_win');
 const tailWin = document.getElementById('tail_win');
@@ -23,12 +22,12 @@ function coinFlip () {
   var result = flip();
   if (result === 1) {
     const coin = 'heads';
-    winner = createCoin(coin, winner);
+    winner = createCoin(coin);
     const headWins = headsWins.push(result);
     headWin.innerText = headWins;
   } else if (result === 2) {
     const coin = 'tails';
-    winner = createCoin(coin, winner);
+    winner = createCoin(coin);
     const tailWins = `${tailsWins.push(result)}`;
     tailWin.innerText = tailWins;
   }
@@ -39,7 +38,7 @@ function coinFlip () {
   setTimeout(function() {coinFlipButton.disabled = false;}, 500);
 }
 
-function createCoin(coin, winner) {
+function createCoin(coin) {
   const img = document.createElement('img');
   img.className = 'coin img-fluid';
   img.setAttribute('id', 'coin');
@@ -68,8 +67,3 @@ function clearTally () {
   headWin.innerText = headsWins.length;
   tailWin.innerText = tailsWins.length;
 }
-
-// function print_winner(){
-//   winner = '';
-//   document.getElementById("final_winner").innerHTML = final_winner;
-// }

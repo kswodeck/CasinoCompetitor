@@ -45,14 +45,14 @@ app.use(function(req, res, next){
 app.use('/', featureRoutes);
 app.use('/', userRoutes);
 
-app.use(function(req, res, next) {
+app.use(function(req, res) {
   return res.status(404).render('error', {pageTitle: 'Page Not Found', message: 'Route '+req.url+' does not exist', status: 'Page Not Found: 404'});
 });
-app.use(function(err, req, res, next) {
+app.use(function(err, res) {
   return res.status(500).render('error', {pageTitle: 'Server Error', message: err, status: 'Server Error: 500'});
 });
 
-var server = app.listen(port, hostname, function(){
+app.listen(port, hostname, function(){
   console.log('App running on ' + hostname + ':' + port)
 });
 

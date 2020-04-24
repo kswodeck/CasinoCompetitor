@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable semi */
 var onesWins = []; var twosWins = []; var threesWins = []; var foursWins = []; var fivesWins = []; var sixesWins = []; // total results arrays declared globally
 const oneWin = document.getElementById('one_win');
 oneWin.innerText = onesWins.length;

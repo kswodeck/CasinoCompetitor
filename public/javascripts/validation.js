@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const titleTag = document.getElementsByTagName('title')[0];
 if (titleTag.innerText == 'My Account') {
   var accountInputs = document.getElementsByClassName('my-account');

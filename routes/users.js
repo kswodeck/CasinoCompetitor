@@ -1,9 +1,9 @@
+/* eslint-disable no-unused-vars */
 var express = require('express');
 var passport = require('passport'),
     router   = express.Router({mergeParams: true}),
     moment   = require('moment'),
-    User     = require('../models/user'),
-    app      = express();
+    User     = require('../models/user');
 
 // User and authentication related routes
 router.get('/', function(req, res){
@@ -152,7 +152,7 @@ router.put('/account', function(req, res){
           console.log(err);
           return res.status(204).send();
         } else {
-          console.log('Password changed to: ' + req.body.updatePassword);
+          console.log('Password changed to: ' + req.body.updatePassword + 'for ' + user.username);
           req.flash('success', 'Account has been updated');
           res.redirect('/account');
         }
@@ -265,6 +265,7 @@ router.post('/forgotpass', function(req, res){
           console.log('Match found, logging in');
           req.login(curUser, function(err) {
             if (err) {
+              // eslint-disable-next-line no-undef
               return next(err);
             }
             return res.redirect('/forgotpass');
