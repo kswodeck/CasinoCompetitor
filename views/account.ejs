@@ -43,7 +43,7 @@
   <div class ="exit-button-div">
     <button id="updatePWDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('updatePWDialog')">✖</button>
   </div>
-  <h2 id="updatePWHeading" class="login-heading">Update Password</h2>
+  <h2 id="updatePWHeading" class="login-heading blue-text">Update Password</h2>
   <form action="/account/?_method=PUT" method="POST">
     <label for="oldPassword" id="oldPassLabel" class="account-label sm-txt">Current Password</label><br>
     <input type="password" name="oldPassword" id="oldPassword" class="updatePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="oldPassIcon" onclick="togglePasswordVisibility('oldPassword', 'oldPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>

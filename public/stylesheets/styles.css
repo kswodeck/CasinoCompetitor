@@ -12,6 +12,17 @@ body {
   background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6EE, #DBDFEB, #D1D7E5);
 }
 
+:root {
+  --bluish: rgba(140, 145, 155, 0.5);
+  --lightthemeblue: rgba(81, 101, 180, 0.7);
+  --lightcrimson: rgb(250, 10, 50);
+  --lightthemegold: rgba(255, 217, 0, 0.7);
+  --darkgold: rgb(210, 180, 20);
+  --darkcrimson: rgb(150, 0, 5);
+  --darkerblue: rgb(0, 0, 100);
+  --darkgrey: #343a40;
+}
+
 ::-webkit-scrollbar {
   width: calc(5px + 0.1vw + 0.05vh);
   height: calc(5px + 0.05vw + 0.1vh);
@@ -25,19 +36,8 @@ body {
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
   background-color: #D1D7E5;
 }
-::-webkit-scrollbar-thumb:hover, #table-search-cell {
+::-webkit-scrollbar-thumb:hover, #table-search-cell, #search-button {
   background-color: darkblue;
-}
-
-:root {
-  --bluish: rgba(140, 145, 155, 0.5);
-  --lightthemeblue: rgba(81, 101, 180, 0.7);
-  --lightcrimson: rgb(250, 10, 50);
-  --lightthemegold: rgba(255, 217, 0, 0.7);
-  --darkgold: rgb(210, 180, 20);
-  --darkcrimson: rgb(150, 0, 5);
-  --darkerblue: rgb(0, 0, 100);
-  --darkgrey: #343a40;
 }
 
 .lg-text {
@@ -47,17 +47,20 @@ body {
   font-size: calc(15px + 0.5vw);
 }
 .sm-text {
-  font-size: calc(13px + 0.25vw);
+  font-size: calc(13px + 0.35vw);
+}
+.xs-text {
+  font-size: calc(11px + 0.3vw);
 }
 button.gold-bg, input.gold-bg.btn, button.gold-bg:focus, input.gold-bg.btn:focus {
   background-color: gold;
   box-shadow: 0 6px var(--darkgold);
 }
-button.red-bg, input.red-bg.btn, button.red-bg:focus, input.red-bg.btn:focus{
+button.red-bg, input.red-bg.btn, button.red-bg:focus, input.red-bg.btn:focus {
   background-color: crimson;
   box-shadow: 0 6px var(--darkcrimson);
 }
-button.blue-bg, input.blue-bg.btn, button.blue-bg:focus, input.blue-bg.btn:focus {
+button.blue-bg, input.blue-bg.btn, button.blue-bg:focus, input.blue-bg.btn:focus, a.page-link, a.page-link:focus {
   background-color: darkblue;
   box-shadow: 0 6px var(--darkerblue);
 }
@@ -73,10 +76,10 @@ button.btn-style, input.btn-style {
   position: relative;
   box-sizing: border-box;
 }
-.gold-text, .warning-list {
+.gold-text, .warning-list, #go-button-link, #footer a:hover, .secondary-link, #table-search-icon:hover, a.page-link {
   color: gold;
 }
-.red-text, .input-icon:hover, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active, svg.back-icon:active, #dicequantity:hover, #dicequantity:focus, .invalid-list {
+.red-text, .input-icon:hover, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active, svg.back-icon:active, #dicequantity:hover, #dicequantity:focus, .invalid-list, #table-search-icon:active {
   color: crimson;
 }
 .blue-text, a.link-text {
@@ -95,12 +98,12 @@ button.gold-bg:active, input.gold-bg.btn:active {
   box-shadow: 0 0 var(--darkgold);
   top: 6px;
 }
-button.red-bg:hover, input.red-bg.btn:hover {
+button.red-bg:hover, input.red-bg.btn:hover, a.page-link:hover {
   color: gold;
   box-shadow: 0 4px var(--darkcrimson);
   top: 2px;
 }
-button.red-bg:active, input.red-bg.btn:active {
+button.red-bg:active, input.red-bg.btn:active, a.page-link:active {
   box-shadow: 0 0 var(--darkcrimson);
   top: 6px;
 }
@@ -122,28 +125,22 @@ button.exit-dialog-button:active {
   border-width: 0.08rem;
 }
 
-input:valid {
+input:valid, #tableSearch:focus, #tableSearch:hover {
   border-color: green;
 }
-input:invalid {
+input:invalid, #tableSearch:active {
   border-color: crimson;
-}
-
-#go-button-link, #footer a:hover, .secondary-link, #table-search-icon:hover {
-  color: gold;
 }
 
 #dicequantity {
-  color: darkblue;
   background-color: gold;
-  border-color: crimson;
+  border: 1px solid crimson;
   width: calc(35px + 1.4vw);
   height: calc(14px + 0.6vw);
-  text-align: left;
   cursor: pointer;
   margin-left: 0.5%;
   font-weight: bold;
-  padding: 0.5%;
+  padding: 0.5% 0.4%;
 }
 
 #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
@@ -177,7 +174,11 @@ input:invalid {
   text-decoration: underline;
 }
 
-.result-tally, .odds-span, .result, .loss, .win, #page-description-div, #dice-quantity-input-div {
+#dice-quantity-input-div {
+  justify-content: center;
+}
+
+.result-tally, .odds-span, .result, .loss, .win, #dice-quantity-input-div {
   font-size: calc(10px + 0.35vw);
 }
 .result, #home-heading, #page-heading, .leaderboard-head, .main-heading {
@@ -207,7 +208,7 @@ input:invalid {
   border-radius: 15px;
   cursor: pointer;
 }
-.card-slot-div .interactive-card:active, #dicequantity:active, #dicequantity:focus {
+.card-slot-div .interactive-card:active, #dicequantity:active, #dicequantity:focus, #table-search-cell {
   border: 0.1rem solid darkblue;
 }
 .card-coins-data, #userIdInput {
@@ -218,7 +219,7 @@ input:invalid {
 #card-prep-row {
   margin: calc(4px + 0.8%) auto calc(1px + 0.2%) auto;
 }
-#dealt-cards-div {
+#dealt-cards-div, .dice-prep-div {
   margin: 0 auto calc(4px + 0.8%) auto;
 }
 
@@ -226,6 +227,9 @@ input:invalid {
   width: 1%;
   margin: calc(40px + 3%) auto;
   min-width: 10px;
+}
+#coin.flip-grow {
+  animation: 0.5s ease-out 0s 1 forwards flipGrow;
 }
 .dice {
   width: 0.75%;
@@ -244,7 +248,7 @@ input:invalid {
 #dice-roll-current-div {
   margin-right: 0;
 }
-#dice-roll-tally-div, .dropdown-toggle::after {
+#dice-roll-tally-div {
   margin-left: 0;
 }
 
@@ -325,15 +329,8 @@ button.poker-button:active {
   text-shadow: 5px 10px 9px lightsteelblue;
 }
 
-#welcome-home {
+.italicized-subheading {
   font-size: 70%;
-  font-style: italic;
-  text-transform: none;
-  text-shadow: 5px 10px 9px lightsteelblue;
-}
-
-#leaderboard-span {
-  font-size: 80%;
   font-style: italic;
   text-transform: none;
   text-shadow: 5px 10px 9px lightsteelblue;
@@ -396,7 +393,7 @@ button.poker-button:active {
   right: -10px;
   margin: 0 -35px;
 }
-#dropdownCardsLink #dropdownMainLink, li a, #main-container, #play-container, #dice-col, #dice-current-col, #dice-roll-tally-div, #dice-roll-current-div, #table-search-cell, #search-button, .name-col {
+#dropdownCardsLink #dropdownMainLink, li a, #main-container, #play-container, #dice-col, #dice-current-col, #dice-roll-tally-div, #dice-roll-current-div, #table-search-cell, .name-col, #leaderboard-div, #tableSearch, button.back-arrow, #search-button {
   padding: 0;
 } 
 
@@ -539,7 +536,7 @@ dialog.account-dialog {
 .exit-button-div, #table-search-row, #collapse-button-div {
   text-align: right;
 }
-.back-button-div {
+.back-button-div, #dicequantity {
   text-align: left;
 }
 
@@ -557,37 +554,24 @@ dialog.account-dialog {
   border: 1px outset lightsteelblue;
 }
 
-button.back-arrow {
-  padding: 0;
-  width: calc(20px + 1.2vw);
-  line-height: 1;
+button.back-arrow, #search-button {
+  line-height: 1.2;
 }
 
 #leaderboard-div {
-  width: calc(80px + 80%);
-  padding: 0;
-  text-align: center;
+  width: calc(150px + 80%);
+  max-width: 99%;
 }
 
-#search-button {
-  background-color: darkblue;
-  border: none;
-  font-size: calc(11px + 0.4vw);
-  width: calc(20px + 0.8vw);
-}
 #table-search-icon {
   color: white;
-  margin-right: calc(2px + 0.2%);
 }
 #tableSearch {
   border: 1px solid lightsteelblue;
-  border-radius: 5px;
-  text-align: center;
-  padding: 0;
+  border-radius: 2px;
 }
 #leaderboard-table {
   width: 100%;
-  font-size: calc(10px + 0.35vw);
 }
 .leaderboard-head, .leaderboard-cell {
   border: 1px solid black;
@@ -605,11 +589,12 @@ button.back-arrow {
 #pagination-list {
   justify-content: flex-end!important;
 }
-
-.page-link {
-  color: darkblue;
-  transition: all 0.4s;
-  font-size: calc(12px + 0.35vw);
+a.page-link:hover, a.page-link:active {
+  background-color: crimson;
+}
+a.page-link {
+  border: none;
+  font-weight: bold;
 }
 
 #coin-win-popup-span, #number-coins-won, #hand-win-popup-span {
@@ -618,11 +603,11 @@ button.back-arrow {
   font-size:calc(14px + 0.6vw);
 }
 
-#mid-container, #dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv, .account-form-div, #show-hide-odds-div {
+#mid-container, #dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv, .account-form-div, #show-hide-odds-div, #leaderboard-div, #tableSearch {
   text-align: center;
 }
 
-#coins-popup-img {
+#coins-popup-img, #search-button {
   width: calc(18px + 0.8vw)
 }
 
@@ -654,6 +639,13 @@ button.back-arrow {
 @keyframes spinGrow {
   from {transform: rotate(0deg) scale(0);}
   to {transform: rotate(1440deg) scale(10);}
+}
+@keyframes flipGrow {
+  0% {transform: rotateY(0deg) scale(0);}
+  25% {transform: rotateY(180deg) scale(2);}
+  50% {transform: rotateY(0deg) scale(4);}
+  75% {transform: rotateY(180deg) scale(7);}
+  100% {transform: rotateY(0deg) scale(10);}
 }
 
 @keyframes fadeInOut {
@@ -693,9 +685,6 @@ button.back-arrow {
   }
   input.birthday {
     padding-left: calc(14px + 3%);
-  }
-  #leaderboard-div {
-    width: 99%;
   }
   #firstNameCol {
     margin-left: 5px;

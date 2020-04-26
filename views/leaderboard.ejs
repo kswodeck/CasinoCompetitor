@@ -1,15 +1,15 @@
 <%- include('partials/header') %>
 
 <div id="mid-container">
-    <h1 id="page-heading" class="mb-md-3 mb-sm-2 mb-1"><span id="leaderboard-span">Competitive Poker</span><br />Leaderboard</h1>
+    <h1 id="page-heading"><span id="leaderboard-span" class="italicized-subheading">Competitive Poker</span><br />Leaderboard</h1>
     <div id="leaderboard-div" class="container-fluid">
-      <table id ="leaderboard-table">
+      <table id ="leaderboard-table" class="xs-text">
         <thead id ="leaderboard-heading">
           <tr id="table-search-row">
             <th id="table-search-cell" class="leaderboard-cell" colspan="4" scope="colgroup">
               <form action="#" onsubmit="searchLeaderboard();return false">
-                <button id="search-button" class="btn" name="search-submit" type="submit" onclick="restoreLeaderboard()"><i id="table-search-icon" class="fas fa-search"></i></button>
-                <input type="search" id="tableSearch" class="table-search" name="table-search" size="21" maxlength="20" placeholder="search by username..." incremental>
+                <button id="search-button" class="btn sm-text" name="search-submit" type="submit" onclick="restoreLeaderboard()"><i id="table-search-icon" class="fas fa-search"></i></button>
+                <input type="search" id="tableSearch" class="table-search" name="table-search" size="22" maxlength="20" placeholder="search by username..." incremental>
               </form>
             </th>
           </tr>
@@ -35,21 +35,21 @@
         <% }); %>
         </tbody>
       </table>
-        <% if (numPages >= 2 ) { %>
+        <% if (numPages >= 2) { %>
         <nav id="leaderboard-pagination" aria-label="Page navigation">
-          <ul id="pagination-list" class="pagination">
+          <ul id="pagination-list" class="pagination sm-text">
             <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
+              <a class="page-link blue-text" href="#" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#"><%= numPages %></a></li>
+            <li class="page-item"><a class="page-link blue-text" href="#"><%= numPages %></a></li>
             <% while (numPages*rowsPerPage < totalRows ) { %>
-              <li class="page-item"><a class="page-link" href="#"><%= numPages %></a></li>
+              <li class="page-item"><a class="page-link blue-text" href="#"><%= numPages %></a></li>
             <% numPages++; %>
             <% } %>
             <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
+              <a class="page-link blue-text" href="#" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>

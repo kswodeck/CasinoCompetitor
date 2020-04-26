@@ -17,7 +17,7 @@ if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-
   if (coinsInput.value < 1 || coinsInput.value == null) {
     outOfCoinsDialog();
   }
-} else if (pageTitle.innerText == 'Practice Poker' || document.getElementById('page-heading').innerText == 'PRACTICE POKER') {
+} else if (pageTitle.innerText == 'Casual Poker' || document.getElementById('page-heading').innerText == 'CASUAL POKER') {
   startCoins = 100;
 }
 
@@ -127,7 +127,7 @@ function getCards() {
   }
 }
 
-function getPracticeCards() {
+function getCasualCards() {
   cardDealButton.disabled = true;
   handRankingHeading.style.display = 'none';
   var oddsDiv = document.getElementById('hand-odds-div');

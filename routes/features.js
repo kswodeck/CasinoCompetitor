@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/practice-cards', function(req, res){
-    res.render('practice-cards', {pageTitle: 'Practice Poker'});
+router.get('/casual-cards', function(req, res){
+    res.render('casual-cards', {pageTitle: 'Casual Poker'});
 });
 
 router.get('/dice', function(req, res){

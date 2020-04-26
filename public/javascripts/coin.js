@@ -20,13 +20,14 @@ function coinFlip () {
     return Math.floor((Math.random() * 2) + 1)
   }
   var result = flip();
+  var coin;
   if (result === 1) {
-    const coin = 'heads';
+    coin = 'heads';
     winner = createCoin(coin);
     const headWins = headsWins.push(result);
     headWin.innerText = headWins;
   } else if (result === 2) {
-    const coin = 'tails';
+    coin = 'tails';
     winner = createCoin(coin);
     const tailWins = `${tailsWins.push(result)}`;
     tailWin.innerText = tailWins;
@@ -34,6 +35,7 @@ function coinFlip () {
   headWin.className = 'result-tally';
   tailWin.className = 'result-tally';
   animateCoin();
+  setTimeout(function() {document.getElementById('coin').src = 'images/' + coin + '.png';}, 350);
   displayWinText(winner, winnerDiv);
   setTimeout(function() {coinFlipButton.disabled = false;}, 500);
 }
@@ -42,13 +44,17 @@ function createCoin(coin) {
   const img = document.createElement('img');
   img.className = 'coin img-fluid';
   img.setAttribute('id', 'coin');
-  img.src = 'images/' + coin + '.png';
+  if (coin == 'heads') {
+    img.src = 'images/' + 'tails.png';
+  } else {
+    img.src = 'images/' + 'heads.png';
+  }
   coinFlipDiv.appendChild(img);
   return coin;
 }
 
 function animateCoin() {
-  document.getElementById('coin').classList.add('spin-grow');
+  document.getElementById('coin').classList.add('flip-grow');
 }
 
 function displayWinText(winner, winnerDiv) {
