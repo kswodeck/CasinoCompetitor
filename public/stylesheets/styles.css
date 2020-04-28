@@ -76,7 +76,7 @@ button.btn-style, input.btn-style {
   position: relative;
   box-sizing: border-box;
 }
-.gold-text, .warning-list, #go-button-link, #footer a:hover, .secondary-link, #table-search-icon:hover, a.page-link {
+.gold-text, .warning-list, #go-button-link, #footer a:hover, #table-search-icon:hover, a.page-link {
   color: gold;
 }
 .red-text, .input-icon:hover, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active,
@@ -175,7 +175,7 @@ input:invalid, #tableSearch:active {
   text-decoration: underline;
 }
 
-#dice-quantity-input-div, #dice-clear-tally-row, #dealt-cards-div, #dialogButtonDiv, #coinDialogDiv {
+#dice-quantity-input-div, #dice-clear-tally-row, #dealt-cards-div, #dialogButtonDiv {
   justify-content: center;
 }
 
@@ -363,7 +363,7 @@ button.poker-button:active {
   text-transform: uppercase;
   transition: all 0.4s;
 }
-#mainDropdown a, #main-links-list a{
+#main-navbar a {
   font-weight: bold;
   text-decoration: underline;
   text-transform: uppercase;
@@ -371,11 +371,10 @@ button.poker-button:active {
 }
 
 #dropdownCardsLink {
-  font-size: 100%;
   margin-bottom: 2px;
 }
 #cardsDropdown, #mainDropdown {
-  max-width: 170px;
+  max-width: 220px;
   min-width: 100px;
   background-color: #343a40;
   text-align: center;
@@ -389,9 +388,18 @@ button.poker-button:active {
 }
 #cardsDropdown {
   right: -10px;
-  margin: 0 -35px;
+  margin: 0 calc(-22px - 0.75vw);
 }
-#dropdownCardsLink #dropdownMainLink, li a, #main-container, #dice-col, #dice-current-col, #dice-roll-tally-div, #dice-roll-current-div, #table-search-cell, .name-col, #leaderboard-div, #tableSearch, button.back-arrow, #search-button {
+div.top-menu-div > a {
+  padding: 10%;
+}
+#coins-img {
+  margin: 0 5% 0 0;
+}
+
+#dropdownCardsLink #dropdownMainLink, li a, #main-container, #dice-col, #dice-current-col, #dice-roll-tally-div,
+#dice-roll-current-div, #table-search-cell, .name-col, #leaderboard-div, #tableSearch, button.back-arrow, #search-button,
+#main-navbar, #main-links-row, a.dropdown-item {
   padding: 0;
 } 
 
@@ -412,16 +420,19 @@ button.poker-button:active {
   display: none;
   transition: all 0.4s;
 }
-.nav-item {
-  padding: 0 5%;
-}
 
-#main-navbar {
-  display: block;
+#main-navbar, #header {
   min-height: 40px;
   max-height: 40px;
 }
-
+#main-links-row {
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+#main-links-row {
+  display: flex;
+}
 .main-heading {
   margin: 2% auto 0.5% auto;
 }
@@ -531,14 +542,14 @@ dialog.account-dialog {
   padding-bottom: 1.5%;
 }
 
-.exit-button-div, #table-search-row, #collapse-button-div, #current-bet-div {
+.exit-button-div, #table-search-row, #collapse-button-div, #current-bet-div, #homeLink {
   text-align: right;
 }
-.back-button-div, #dicequantity, #current-win-div {
+.back-button-div, #dicequantity, #current-win-div, #dropdownCardsLink {
   text-align: left;
 }
 
-.login-heading, #dice-clear-tally-row {
+.login-heading, #dice-clear-tally-row, #header {
   margin: 0 auto 1.5% auto;
 }
 .exit-dialog-button {
@@ -658,12 +669,6 @@ a.page-link {
   #total-coins-span, #coins-img {
     display: none;
   }
-  #dropdownMainLink, .navbar-toggler{
-    font-size: calc(12px + 1vw);
-  }
-  #main-links-list, #cardsDropdown a, #mainDropdown a {
-    font-size: calc(8px + 1vw);
-  }
   #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
     width: 105px;
     line-height: 1;
@@ -688,12 +693,6 @@ a.page-link {
   #lastNameCol {
     margin-right: 5px;
   }
-  #collapse-button-div {
-    padding: 0;
-  }
-  #hamburger-button {
-    margin-right: 12px;
-  }
 }
 /* medium breakpoint */
 @media (max-width: 767px) {
@@ -701,19 +700,49 @@ a.page-link {
     position: static;
     margin-left: calc(10px + 0.5vw);
   }
+  #cardsDropdown, #coins-img {
+    margin: 0;
+  }
   #cardsDropdown {
-    margin-left: calc(-95px + 14vw);
+    max-width: 230px;
   }
   #main-navbar {
-    min-height: none;
-    max-height: none;
-    padding: 0.5%;
+    padding: 0.1%;
+    max-height: 200px;
+    z-index: 1;
   }
-  .card-slot-div, #play-container {
+  #main-links-row {
+    align-items: flex-start;
+  }
+  #dropdownMainLink, .navbar-toggler {
+    font-size: calc(12px + 0.8vw);
+  }
+  .card-slot-div, #play-container, #collapse-button-div, #navbar-content div, .header-div {
     padding: 0;
   }
   #play-container {
     width: 100%;
+  }
+  #hamburger-button {
+    margin-right: 2px;
+  }
+  #mainDropdownDiv {
+    padding: 0.8% 0 0 0.4%;
+  }
+  div.top-menu-div>a {
+    padding: 3%;
+  }
+  #cardsDropdown a {
+    padding: 0.5% 0;
+  }
+  .dropdown-item:hover {
+    background-color: #343a40;
+  }
+  #homeLink, #cardsLink {
+    text-align: center;
+  }
+  div.top-menu-div a, #mainDropdown a {
+    font-size: calc(10px + 0.6vw);
   }
 }
 @media (max-width: 767px) and (min-width: 575px) {
