@@ -21,7 +21,7 @@
           <label for="accountPassword" class="account-label sm-txt">Password</label><br>
           <input type="password" id="accountPassword" class="placeholderPassword user-input" value="password" size="25" disabled><i class="fas fa-pencil-alt edit-icon input-icon" onclick="displayEditPassword('updatePWDialog')"></i><br>
           <label for="phone" class="account-label sm-txt">Phone Number</label><br> <!-- phone number validations aren't sufficient, complex -->
-          <input type="tel" name="updateUser[phone]" id="updatePhone" class="my-account user-input" minlength="10" maxlength="16" value="<%= currentUser.phone %>" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" pattern="^[0–9]$" title="format: XXXXXXXXXX" autocomplete="tel" required><br>
+          <input type="tel" name="updateUser[phone]" id="updatePhone" class="my-account user-input" minlength="10" maxlength="16" value="<%= currentUser.phone %>" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXXXXXXXXX" autocomplete="tel" required><br>
           <label for="birthday" class="account-label sm-txt">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
           <input type="date" name="updateUser[birthday]" id="updateBirthday" class="my-account birthday user-input" size="8" min="1920-01-01" max="2019-12-31" value="<%= birthday %>" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" autocomplete="bday" required><br>
           <ul id="invalid-fields-list" class="invalid-fields-list">
@@ -46,11 +46,11 @@
   <h2 id="updatePWHeading" class="login-heading blue-text">Update Password</h2>
   <form action="/account/?_method=PUT" method="POST">
     <label for="oldPassword" id="oldPassLabel" class="account-label sm-txt">Current Password</label><br>
-    <input type="password" name="oldPassword" id="oldPassword" class="updatePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="oldPassIcon" onclick="togglePasswordVisibility('oldPassword', 'oldPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+    <input type="password" name="oldPassword" id="oldPassword" class="updatePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="oldPassIcon" onclick="togglePasswordVisibility('oldPassword', 'oldPassIcon')" class="show-hide input-icon fas fa-eye-slash"></i><br>
     <label for="updatePassword" class="account-label sm-txt">New Password</label><br> <!-- password validations aren't fully sufficient -->
-    <input type="password" name="updatePassword" id="updatePassword" class="updatePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" required><i id="updatePassIcon" onclick="togglePasswordVisibility('updatePassword', 'updatePassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+    <input type="password" name="updatePassword" id="updatePassword" class="updatePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" required><i id="updatePassIcon" onclick="togglePasswordVisibility('updatePassword', 'updatePassIcon')" class="show-hide input-icon fas fa-eye-slash"></i><br>
     <label for="repeatNewPassword" class="account-label sm-txt">Repeat Password</label><br>
-    <input type="password" name="repeatNewPassword" id="repeatNewPassword" class="updatePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" required><i id="repeatNewPassIcon" onclick="togglePasswordVisibility('repeatNewPassword', 'repeatNewPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+    <input type="password" name="repeatNewPassword" id="repeatNewPassword" class="updatePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" required><i id="repeatNewPassIcon" onclick="togglePasswordVisibility('repeatNewPassword', 'repeatNewPassIcon')" class="show-hide input-icon fas fa-eye-slash"></i><br>
     <ul id="invalid-update-password" class="invalid-fields-list"></ul>
     <input type="submit" name="password-update" role="button" onclick="return validatePasswordUpdate()" value="Update Password" class="btn md-text blue-bg gold-text btn-style" id="passwordUpdateButton">
   </form>

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-var express = require('express');
+var express  = require('express');
 var passport = require('passport'),
     router   = express.Router({mergeParams: true}),
     moment   = require('moment'),
@@ -74,7 +74,7 @@ router.put('/cards', function(req, res){
     console.log('updating highestWin: ' + req.user.highestWin + ' to ' + req.body.currentWin);
     User.findOneAndUpdate({username: req.user.username}, {$set: {highestWin: req.body.currentWin}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
   }
-  return res.status(204).send(); //this works in ending the request
+  return res.status(204).send();
 });
 
 router.get('/leaderboard', isLoggedIn, function(req, res){
@@ -91,20 +91,20 @@ router.get('/register', isLoggedOut, function(req, res){
   res.render('register', {pageTitle: 'Create Account'});
 });
 router.post('/register', isLoggedOut, function(req, res){
-  User.find({email: req.body.createUser.email}, function(err, emails){
+  User.find({email: req.body.email}, function(err, emails){
     if (err || emails.length > 0) { // desire to display UI errors without refreshing page (need user's editted values to stay)
-      req.flash('error', 'Email "' + req.body.createUser.email + '" is already registered');
+      req.flash('error', 'Email "' + req.body.email + '" is already registered');
       res.redirect('/register');
-      // res.status(204).send(); // could use this then timeout and display message on UI
+      // res.status(204).send(); // seem like best option to use this then timeout and display generic message on UI
     } else {
       User.find({username: req.body.username}, function(err, usernames) {
         if (err || usernames.length > 0) {
           req.flash('error', 'Username "' + req.body.username + '" is already registered');
           res.redirect('/register');
-          // res.status(204).send(); // could use this then timeout and display message on UI
+          // res.status(204).send(); // seem like best option to use this then timeout and display generic message on UI
         } else {
-          let momentBirthday = getLocalNoonDate(req.body.createUser.birthday);
-          var newUser = new User({email: req.body.createUser.email, username: req.body.username, firstName: req.body.createUser.firstName, lastName: req.body.createUser.lastName, phone: req.body.createUser.phone, birthday: momentBirthday});
+          let momentBirthday = getLocalNoonDate(req.body.birthday);
+          var newUser = new User({email: req.body.email, username: req.body.username, firstName: req.body.firstName, lastName: req.body.lastName, phone: req.body.phone, birthday: momentBirthday});
           User.register(newUser, req.body.password, function(err, user){
               if (err){
                 req.flash('error', err);

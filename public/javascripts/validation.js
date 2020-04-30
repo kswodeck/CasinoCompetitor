@@ -119,8 +119,8 @@ function validateInputs(invalidList, inputs) {
 
 function validatePassMatch(password, repeatPassword, invalidList) {
   if (password.value != repeatPassword.value) {
-      addToInvalidList('* repeat password must match new password', password, invalidList);
-      repeatPassword.style.borderWidth = '0.06em';
+      addToInvalidList('* repeat password must match password', password, invalidList);
+      repeatPassword.style.border = '0.06em solid crimson';
       return false;
   }
   return true;

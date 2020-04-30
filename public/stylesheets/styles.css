@@ -66,7 +66,6 @@ button.blue-bg, input.blue-bg.btn, button.blue-bg:focus, input.blue-bg.btn:focus
 }
 button.btn-style, input.btn-style {
   padding: 0.1% 1%;
-  transition: all 0.1s ease-out 0s;
   white-space: nowrap;
   font-weight: bold;
   margin: 0.8% auto calc(6px + 0.2vh) auto;
@@ -280,7 +279,6 @@ button.poker-button, button.poker-button:focus {
   width: calc(38px + 2.3vw);
   height: calc(38px + 1.5vw);
   white-space: nowrap;
-  transition: all 0.1s ease-out 0s;
   margin: 0.5% auto;
   position: relative;
   box-sizing: border-box;
@@ -350,7 +348,6 @@ button.poker-button:active {
 #header a:hover, #current-link, a.link-text:hover, .back-button-label:hover, svg.back-icon:hover {
   color: crimson;
   cursor: pointer;
-  transition: all 0.4s;
 }
 .fa-caret-down {
   margin-left: 3px;
@@ -364,13 +361,18 @@ button.poker-button:active {
   font-weight: bold;
   text-decoration: underline;
   text-transform: uppercase;
-  transition: all 0.4s;
 }
 #main-navbar a {
   font-weight: bold;
   text-decoration: underline;
   text-transform: uppercase;
-  transition: all 0.4s;
+}
+
+a, svg.input-icon, button > svg {
+  transition: all 0.3s;
+}
+button.btn, input.btn, input.user-input {
+  transition: all 0.05s ease-out;
 }
 
 #dropdownCardsLink {
@@ -425,7 +427,6 @@ div.top-menu-div > a {
   font-weight: bold;
   text-decoration: underline;
   display: none;
-  transition: all 0.4s;
 }
 
 #main-navbar, #header {

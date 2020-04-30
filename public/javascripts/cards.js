@@ -266,7 +266,7 @@ function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunct
       if (handsDealt === 1) {
         setTimeout(function() {
           winFunction();
-        }, 400);
+        }, 350);
       }
     }
     if (handsDealt === 1 || mainContainer.resultText !== 'Game Over') {
@@ -277,7 +277,7 @@ function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunct
   }
   setTimeout(function() {
     cardDealButton.disabled = false;
-  }, 450);
+  }, 400);
 }
 
 function getHandRanking(hand) {

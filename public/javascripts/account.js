@@ -92,12 +92,12 @@ function togglePasswordVisibility(passwordId, iconId){
   const passwordIcon = document.getElementById(iconId);
   if (passwordInput.type === 'password') {
     passwordInput.type = 'text';
-    passwordIcon.classList.remove('fa-eye');
-    passwordIcon.classList.add('fa-eye-slash');
-  } else {
-    passwordInput.type = 'password';
     passwordIcon.classList.remove('fa-eye-slash');
     passwordIcon.classList.add('fa-eye');
+  } else {
+    passwordInput.type = 'password';
+    passwordIcon.classList.remove('fa-eye');
+    passwordIcon.classList.add('fa-eye-slash');
   }
 }
 
@@ -142,12 +142,11 @@ function displayStreakDialog(streak){
   } else {
     streakHeading.innerText = "You've visited us " + streak + " days in a row!"
   }
-  let coinsEarned = streak*10;
-  loginCoinSpan.innerText = "You earned " + coinsEarned + " ";
+  loginCoinSpan.innerText = "You earned " + streak*10 + " ";
 }
 
 function clearValidityMessages() {
-  let invalidMessages = document.getElementsByClassName('invalid-list');
+  let invalidMessages = document.getElementsByClassName('invalid-list'); 
   for (let i = 0; i < invalidMessages.length; i++) {
     invalidMessages[i].remove;
     invalidMessages[i].style.display = 'none';

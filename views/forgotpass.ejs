@@ -25,9 +25,9 @@
   <h2 id="changePWHeading" class="login-heading blue-text">Update Password</h2>
   <form action="/forgotpass/?_method=PUT" method="POST">
     <label for="password" class="account-label sm-txt">New Password</label><br> <!-- password validations aren't fully sufficient -->
-    <input type="password" name="password" id="changePassword" class="changePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="changePassIcon" onclick="togglePasswordVisibility('changePassword', 'changePassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+    <input type="password" name="password" id="changePassword" class="changePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="changePassIcon" onclick="togglePasswordVisibility('changePassword', 'changePassIcon')" class="show-hide input-icon fas fa-eye-slash"></i><br>
     <label for="repeatChangePassword" class="account-label sm-txt">Repeat Password</label><br>
-    <input type="password" name="repeatChangePassword" id="repeatChangePassword" class="changePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="repeatChangePassIcon" onclick="togglePasswordVisibility('repeatChangePassword', 'repeatChangePassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+    <input type="password" name="repeatChangePassword" id="repeatChangePassword" class="changePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="repeatChangePassIcon" onclick="togglePasswordVisibility('repeatChangePassword', 'repeatChangePassIcon')" class="show-hide input-icon fas fa-eye-slash"></i><br>
     <ul id="invalid-change-password" class="invalid-fields-list"></ul>
     <input type="submit" name="password-change" onclick="return validatePasswordChange()" role="button" value="Create New Password" class="btn md-text blue-bg gold-text btn-style" id="passwordChangeButton">
   </form>
