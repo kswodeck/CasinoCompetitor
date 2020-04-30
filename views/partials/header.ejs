@@ -17,9 +17,10 @@
       <header id="header">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="main-navbar" role="navigation">
           <div id="main-links-row">
-            <div id="mainDropdownDiv" class="col-4 main-dropdown header-div">
-              <a class="gold-text dropdown-toggle" href="/" role="button" id="dropdownMainLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pocket Poker</a>
+            <div id="mainDropdownDiv" class="col-md-3 col-4 main-dropdown header-div">
+              <a class="gold-text" href="/" role="button" id="dropdownMainLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pocket Poker<i class="fas fa-caret-down"></i></a>
               <div class="dropdown-menu" id="mainDropdown" aria-labelledby="dropdownMainLink">
+                <a class="gold-text dropdown-item" role="button" href="/">Home</a>
                 <% if (!currentUser){ %>
                 <a class="gold-text dropdown-item" href="register">Sign Up</a>
                 <a class="gold-text dropdown-item" onclick="displayLoginDialog('<%= error %>')" href="#">Log In</a>
@@ -29,22 +30,28 @@
                 <% } %>
               </div>
             </div>
-            <div id="linksDiv" class="col-4 header-div">
+            <div id="linksDiv" class="col-md-6 col-4 header-div">
               <div class="collapse navbar-collapse navbar-nav" id="navbar-content">
-                <div id="homeLink" class="col-md-6 top-menu-div"> <!-- refactor out home link to go elsewhere (in Pocket Poker menu) -->
-                  <a class="gold-text" role="button" href="/">Home</a> <!-- issues with spacing on smaller screens -->
-                </div>
-                <div id="cardsLink" class="col-md-6 top-menu-div cards-dropdown">
-                   <a class="gold-text dropdown-toggle" href="cards" role="button" id="dropdownCardsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Poker</a>
+                <div id="cardsLink" class="col-lg-4 col-md-3 col top-menu-div cards-dropdown">
+                  <a class="gold-text" href="cards" role="button" id="dropdownCardsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Poker<i class="fas fa-caret-down"></i></a>
                   <div class="dropdown-menu" id="cardsDropdown" aria-labelledby="dropdownCardsLink">
                     <a class="gold-text dropdown-item" href="casual-cards">Casual</a>
                     <a class="gold-text dropdown-item" href="cards">Competitive</a>
-                    <a class="gold-text dropdown-item" href="leaderboard">Leaderboard</a>
-                  </div> <!-- leaderboard will be in between both links -->
-                </div> <!-- add in farkle menu links and dropdown (similar to cards) -->
+                  </div>
+                </div>
+                <div id="leaderboardLink" class="col-lg-4 col-md-6 col top-menu-div">
+                  <a class="gold-text" href="leaderboard">Leaderboard</a>
+                </div>
+                <div id="farkleLink" class="col-lg-4 col-md-3 col top-menu-div farkle-dropdown">
+                  <a class="gold-text" href="farkle" role="button" id="dropdownFarkleLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Farkle<i class="fas fa-caret-down"></i></a>
+                 <div class="dropdown-menu" id="farkleDropdown" aria-labelledby="dropdownFarkleLink">
+                   <a class="gold-text dropdown-item" href="casual-farkle">Casual</a>
+                   <a class="gold-text dropdown-item" href="farkle">Competitive</a>
+                 </div>
+               </div>
              </div>
           </div>
-          <div class="col-4 header-div" id="collapse-button-div">
+          <div class="col-md-3 col-4  header-div" id="collapse-button-div">
             <% if (currentUser){ %>
             <span id="total-coins-span"><%= currentUser.coins %></span><img class="coins-img" id="coins-img" src="\images\coins.png">
             <% } %>

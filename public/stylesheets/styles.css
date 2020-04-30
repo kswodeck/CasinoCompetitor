@@ -352,6 +352,9 @@ button.poker-button:active {
   cursor: pointer;
   transition: all 0.4s;
 }
+.fa-caret-down {
+  margin-left: 3px;
+}
 
 #dropdownMainLink {
   font-size: 120%;
@@ -373,9 +376,9 @@ button.poker-button:active {
 #dropdownCardsLink {
   margin-bottom: 2px;
 }
-#cardsDropdown, #mainDropdown {
-  max-width: 220px;
-  min-width: 100px;
+div.dropdown-menu {
+  max-width: 180px;
+  min-width: 160px;
   background-color: #343a40;
   text-align: center;
   border: none;
@@ -387,11 +390,15 @@ button.poker-button:active {
   margin: 0 -1px;
 }
 #cardsDropdown {
-  right: -10px;
-  margin: 0 calc(-22px - 0.75vw);
+  margin: 0;
+  left: calc(-200px + 22vw);
+}
+#farkleDropdown {
+  margin: 0;
+  left: calc(-46px + 0.15vw);
 }
 div.top-menu-div > a {
-  padding: 10%;
+  padding: 10% 0;
 }
 #coins-img {
   margin: 0 5% 0 0;
@@ -399,7 +406,7 @@ div.top-menu-div > a {
 
 #dropdownCardsLink #dropdownMainLink, li a, #main-container, #dice-col, #dice-current-col, #dice-roll-tally-div,
 #dice-roll-current-div, #table-search-cell, .name-col, #leaderboard-div, #tableSearch, button.back-arrow, #search-button,
-#main-navbar, #main-links-row, a.dropdown-item {
+#main-navbar, #main-links-row, a.dropdown-item, #linksDiv, div.top-menu-div {
   padding: 0;
 } 
 
@@ -542,10 +549,10 @@ dialog.account-dialog {
   padding-bottom: 1.5%;
 }
 
-.exit-button-div, #table-search-row, #collapse-button-div, #current-bet-div, #homeLink {
+.exit-button-div, #table-search-row, #collapse-button-div, #current-bet-div, #cardsLink {
   text-align: right;
 }
-.back-button-div, #dicequantity, #current-win-div, #dropdownCardsLink {
+.back-button-div, #dicequantity, #current-win-div, #farkleLink {
   text-align: left;
 }
 
@@ -613,7 +620,7 @@ a.page-link {
 }
 
 #mid-container, #dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv,
-.account-form-div, #show-hide-odds-div, #leaderboard-div, #tableSearch {
+.account-form-div, #show-hide-odds-div, #leaderboard-div, #tableSearch, #leaderboardLink {
   text-align: center;
 }
 
@@ -680,7 +687,7 @@ a.page-link {
   #dropdownCardsLink, #dropdownMainLink {
     margin-bottom: 0;
   }
-  #cardsDropdown a:hover, #mainDropdown a:hover {
+  div.dropdown-menu a:hover {
     color: crimson;
     background-color: #343a40;
   }
@@ -693,18 +700,20 @@ a.page-link {
   #lastNameCol {
     margin-right: 5px;
   }
+  #cardsDropdown, #farkleDropdown {
+    min-width: 100px;
+  }
 }
 /* medium breakpoint */
 @media (max-width: 767px) {
   #mainDropdown {
     position: static;
-    margin-left: calc(10px + 0.5vw);
   }
-  #cardsDropdown, #coins-img {
+  #coins-img {
     margin: 0;
   }
-  #cardsDropdown {
-    max-width: 230px;
+  #cardsDropdown, #farkleDropdown {
+    margin: auto;
   }
   #main-navbar {
     padding: 0.1%;
@@ -729,7 +738,7 @@ a.page-link {
   #mainDropdownDiv {
     padding: 0.8% 0 0 0.4%;
   }
-  div.top-menu-div>a {
+  div.top-menu-div > a {
     padding: 3%;
   }
   #cardsDropdown a {
@@ -738,7 +747,7 @@ a.page-link {
   .dropdown-item:hover {
     background-color: #343a40;
   }
-  #homeLink, #cardsLink {
+  #farkleLink, #cardsLink {
     text-align: center;
   }
   div.top-menu-div a, #mainDropdown a {
