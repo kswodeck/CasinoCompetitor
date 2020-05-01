@@ -98,22 +98,28 @@ function validateInputs(invalidList, inputs) {
   clearValidityMessages();
   let validity = true;
   let empty = false;
-    for (let i = 0; i < inputs.length; i++) {
-      if (!inputs[i].checkValidity()) {
-        if (!inputs[i].value) {
-          empty = true;
-        }
+  for (let i = 0; i < inputs.length; i++) {
+    if (!inputs[i].checkValidity()) {
+      if (!inputs[i].value) {
+        empty = true;
+      }
+      validity = false;
+    } else if (inputs[i].type == 'email') {
+      if (!emailIsValid(inputs[i].value)) {
+        inputs[i].style.borderColor = 'crimson';
         validity = false;
       }
-      inputs[i].style.borderWidth = '0.06em';
     }
-    if (empty == true) {
-      addToInvalidList('* please fill out all fields', inputs[inputs.length-1], invalidList);
-      return false;
-    } else if (!validity) {
-      addToInvalidList('* all fields must be valid', inputs[inputs.length-1], invalidList);
-      return false;
-    }
+    inputs[i].style.borderWidth = '0.06em';
+  }
+  if (empty == true) {
+    addToInvalidList('* please fill out all fields', inputs[inputs.length-1], invalidList);
+    return false;
+  } else if (!validity) {
+    addToInvalidList('* all fields must be valid', inputs[inputs.length-1], invalidList);
+    return false;
+  }
+  
   return validity;
 }
 
@@ -124,6 +130,10 @@ function validatePassMatch(password, repeatPassword, invalidList) {
       return false;
   }
   return true;
+}
+
+function emailIsValid(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 function addToInvalidList(str, el, invalidList) {

@@ -226,9 +226,9 @@ router.get('/forgotuser', isLoggedOut, function(req, res){
 router.post('/forgotuser', function(req, res){
   var userBirthday = req.body.forgotUser.birthday;
   var msg = 'No match found';
-  User.find({email: req.body.forgotUser.email}, function(err, users) {
+  User.find({email: req.body.forgotUser.email, phone: req.body.forgotUser.phone}, function(err, users) {
     if (err || users.length < 1) {
-      console.log("email doesn't exist");
+      console.log("email and phone combination doesn't exist");
     } else {
       for (let i = 0; i < users.length; i++) {
         let storedBirthday = formatDate(users[i].birthday);
@@ -251,9 +251,8 @@ router.get('/forgotpass', function(req, res){
 });
 router.post('/forgotpass', function(req, res){
   var userBirthday = req.body.forgotPW.birthday;
-  User.find({email: req.body.forgotPW.email, username: req.body.forgotPW.username}, function(err, users) {
+  User.find({email: req.body.forgotPW.email, phone: req.body.forgotPW.phone}, function(err, users) {
     if (err || users.length < 1) {
-      console.log("Could not find user with given details");
       req.flash('error', 'No match found');
       return res.redirect('/forgotpass');
     } else {
@@ -272,7 +271,6 @@ router.post('/forgotpass', function(req, res){
           });
           break;
         } else {
-          console.log('birthday not a match');
           req.flash('error', 'No match found');
           return res.redirect('/forgotpass');
         }
@@ -280,7 +278,6 @@ router.post('/forgotpass', function(req, res){
     }
   });
 });
-
 router.put('/forgotpass', isLoggedIn, function(req, res){
   req.user.setPassword(req.body.password, function(err, user) {
     if(err){

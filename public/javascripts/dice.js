@@ -84,7 +84,7 @@ function diceRoll () {
   if (diceQuantity > 5) {
     var diceWidth = '0.6%';
     var diceMinWidth = '5px';
-    var diceMargin = 'calc(18px + 1.8%)';
+    var diceMargin = 'calc(15px + 2.2%)';
     if (diceQuantity > 10) {
       diceWidth = '0.4%';
       diceMargin = 'calc(12px + 1.5%)';

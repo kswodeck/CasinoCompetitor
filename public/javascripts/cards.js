@@ -198,7 +198,7 @@ class Card {
 
 function getFirstHand(currentCard, holdCurrentCard, currentValues) {
   let currentCardElement = document.getElementsByClassName('cards')[currentCard];
-  currentCardElement.classList.add('interactive-card');
+  currentCardElement.classList.add('interactive-img');
   holdCurrentCard.classList.add('text-opacity');
   let curCard = document.getElementsByClassName('cards')[currentCard];
   curCard.classList.add('flip');
@@ -219,7 +219,7 @@ function getFirstHand(currentCard, holdCurrentCard, currentValues) {
 function getSecondHand(currentCard, holdCurrentCard, currentValues) {
   holdCurrentCard.classList.add('text-opacity');
   let currentCardElement = document.getElementsByClassName('cards')[currentCard];
-  currentCardElement.classList.remove('interactive-card');
+  currentCardElement.classList.remove('interactive-img');
   let isSameIdentity = true;
   while (isSameIdentity) {
     currentValues = getRandomCardValues();

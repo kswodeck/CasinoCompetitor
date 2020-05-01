@@ -85,7 +85,7 @@ svg.back-icon:active, #dicequantity:hover, #dicequantity:focus, .invalid-list, #
 .blue-text, a.link-text {
   color: darkblue;
 }
-.green-text .valid-list {
+.green-text, .valid-list {
   color: green;
 }
 
@@ -203,12 +203,12 @@ input:invalid, #tableSearch:active {
 	animation: 0.4s ease-in-out 0s 1 forwards flipCard;
 }
 
-.card-slot-div .interactive-card:hover {
+.card-slot-div .interactive-img:hover {
   border: 0.06rem solid lightsteelblue;
   border-radius: 15px;
   cursor: pointer;
 }
-.card-slot-div .interactive-card:active, #dicequantity:active, #dicequantity:focus, #table-search-cell {
+.card-slot-div .interactive-img:active, #dicequantity:active, #dicequantity:focus, #table-search-cell {
   border: 0.1rem solid darkblue;
 }
 .card-slot-div {
