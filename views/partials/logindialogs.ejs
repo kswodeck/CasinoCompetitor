@@ -7,7 +7,7 @@
       <label for="username" class="account-label sm-txt">Username</label><br>
       <input type="text" name="username" id="loginUsername" class="login-input user-input" minlength="5" maxlength="20" placeholder="username" size="25" autocomplete="username" required><br>
       <label for="password" class="account-label sm-txt">Password</label><br>
-      <input type="password" name="password" id="loginPassword" class="login-input password user-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="loginPassIcon" onclick="togglePasswordVisibility('loginPassword', 'loginPassIcon')" class="show-hide input-icon fas fa-eye-slash"></i><br>
+      <input type="password" name="password" id="loginPassword" class="login-input password user-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="loginPassIcon" onclick="togglePasswordVisibility('loginPassword', 'loginPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
       <ul id="invalid-login" class="invalid-fields-list"></ul>
       <input type="submit" name="login-submit" role="button" value="Log In" onclick="return validatePreLogin('login-input', 'invalid-login')" class="btn md-text blue-bg gold-text btn-style account-button" id="login-button">
     </form>

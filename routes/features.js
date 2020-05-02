@@ -5,6 +5,10 @@ router.get('/casual-cards', function(req, res){
     res.render('casual-cards', {pageTitle: 'Casual Poker'});
 });
 
+router.get('/casual-farkle', function(req, res){
+    res.render('casual-farkle', {pageTitle: 'Casual Farkle'});
+});
+
 router.get('/dice', function(req, res){
     res.render('dice', {pageTitle: 'Dice'});
 });

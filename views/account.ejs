@@ -19,7 +19,7 @@
           <label for="username" class="account-label sm-txt">Username</label><br>
           <input type="text" name="updateUser[username]" id="updateUsername" class="my-account user-input" minlength="5" maxlength="20" value="<%= currentUser.username %>" size="25" autocomplete="username" required><br>
           <label for="accountPassword" class="account-label sm-txt">Password</label><br>
-          <input type="password" id="accountPassword" class="placeholderPassword user-input" value="password" size="25" disabled><i class="fas fa-pencil-alt edit-icon input-icon" onclick="displayPasswordDialog('updatePWDialog')"></i><br>
+          <input type="password" id="accountPassword" class="placeholderPassword user-input" value="password" size="25" disabled><i class="fas fa-pencil-alt edit-icon input-icon" onclick="displayDialog('updatePWDialog')"></i><br>
           <label for="phone" class="account-label sm-txt">Phone Number</label><br> <!-- phone number validations aren't sufficient, complex -->
           <input type="tel" name="updateUser[phone]" id="updatePhone" class="my-account user-input" minlength="10" maxlength="16" value="<%= currentUser.phone %>" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXXXXXXXXX" autocomplete="tel" required><br>
           <label for="birthday" class="account-label sm-txt">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
@@ -31,11 +31,13 @@
             <li class="invalid-list"><%= invalidEmail %></li>
           <% } else if (success && success.length > 0) { %>
             <li class="valid-list"><%= success %></li>
-          <% } %>
+          <% } else if (invalidPW && invalidPW.length > 0) { %>
+            <li class="invalid-list"><%= invalidPW %></li>
+          <% } %>%>
           </ul>
           <input type="submit" role="button" name="account-update" onclick="return validateAccountUpdate()" value="Update Account" class="btn md-text blue-bg gold-text btn-style account-button" id="accountUpdateButton">
         </form>
-        <input type="submit" role="button" name="account-delete" onclick="displayPasswordDialog('confirmDialog')" value="Delete Account" class="btn sm-text red-bg gold-text btn-style account-button" id="accountDelete">
+        <input type="submit" role="button" name="account-delete" onclick="displayDialog('confirmDialog')" value="Delete Account" class="btn sm-text red-bg gold-text btn-style account-button" id="accountDelete">
       </div>
     </div>
 </div>
@@ -46,7 +48,7 @@
   <h4 id="confirmHeading" class="md-text blue-text login-heading">Are you sure you want to delete your account?</h4>
   <div id="confirmDialogDiv" class="row justify-content-around">
     <div class="col">
-      <button id="confirmButton" class="btn sm-text red-bg gold-text btn-style" onclick="exitDialog('confirmDialog'); displayPasswordDialog('verifyPWDialog')">Yes</button>
+      <button id="confirmButton" class="btn sm-text red-bg gold-text btn-style" onclick="exitDialog('confirmDialog'); displayDialog('verifyPWDialog')">Yes</button>
     </div>
     <div class="col">
       <button id="cancelButton" class="btn sm-text blue-bg gold-text btn-style" onclick="location.href='/account'">No</button>
@@ -58,13 +60,11 @@
     <button id="verifyPWDialogExit" class="exit-dialog-button md-text" onclick="window.location.href = '/account'">✖</button>
   </div>
   <h2 id="verifyPWHeading" class="login-heading blue-text">Delete Account</h2>
-  <form action="/forgotpass/?_method=DELETE" method="POST">
+  <form action="/account/?_method=DELETE" method="POST">
     <label for="password" class="account-label sm-txt">Current Password</label><br>
-    <input type="password" name="password" id="verifyPassword" class="verifyPassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" required><i id="verifyPassIcon" onclick="togglePasswordVisibility('verifyPassword', 'verifyPassIcon')" class="show-hide input-icon fas fa-eye-slash"></i><br>
-    <!-- <label for="repeatChangePassword" class="account-label sm-txt">Delete Password</label><br>
-    <input type="password" name="repeatChangePassword" id="repeatVerifyPassword" class="verifyPassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" required><i id="verifyPassIcon" onclick="togglePasswordVisibility('repeatVerifyPassword', 'repeatVerifyPassIcon')" class="show-hide input-icon fas fa-eye-slash"></i><br> -->
+    <input type="password" name="password" id="verifyPassword" class="verifyPassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" required><i id="verifyPassIcon" onclick="togglePasswordVisibility('verifyPassword', 'verifyPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
     <ul id="invalid-verify-password" class="invalid-fields-list"></ul>
-    <input type="submit" name="password-verify" onclick="return validatePasswordChange()" role="button" value="Delete Account" class="btn md-text red-bg gold-text btn-style account-button" id="passwordVerifyDeleteButton">
+    <input type="submit" name="password-verify" role="button" value="Delete Account" class="btn md-text red-bg gold-text btn-style account-button" id="passwordVerifyDeleteButton">
   </form>
 </dialog>
 <dialog id="updatePWDialog" class="container-fluid account-form-div account-dialog">
@@ -74,11 +74,11 @@
   <h2 id="updatePWHeading" class="login-heading blue-text">Update Password</h2>
   <form action="/account/?_method=PUT" method="POST">
     <label for="oldPassword" id="oldPassLabel" class="account-label sm-txt">Current Password</label><br>
-    <input type="password" name="oldPassword" id="oldPassword" class="updatePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="oldPassIcon" onclick="togglePasswordVisibility('oldPassword', 'oldPassIcon')" class="show-hide input-icon fas fa-eye-slash"></i><br>
+    <input type="password" name="oldPassword" id="oldPassword" class="updatePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="current-password" required><i id="oldPassIcon" onclick="togglePasswordVisibility('oldPassword', 'oldPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
     <label for="updatePassword" class="account-label sm-txt">New Password</label><br> <!-- password validations aren't fully sufficient -->
-    <input type="password" name="updatePassword" id="updatePassword" class="updatePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" required><i id="updatePassIcon" onclick="togglePasswordVisibility('updatePassword', 'updatePassIcon')" class="show-hide input-icon fas fa-eye-slash"></i><br>
+    <input type="password" name="updatePassword" id="updatePassword" class="updatePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" required><i id="updatePassIcon" onclick="togglePasswordVisibility('updatePassword', 'updatePassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
     <label for="repeatNewPassword" class="account-label sm-txt">Repeat Password</label><br>
-    <input type="password" name="repeatNewPassword" id="repeatNewPassword" class="updatePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" required><i id="repeatNewPassIcon" onclick="togglePasswordVisibility('repeatNewPassword', 'repeatNewPassIcon')" class="show-hide input-icon fas fa-eye-slash"></i><br>
+    <input type="password" name="repeatNewPassword" id="repeatNewPassword" class="updatePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" required><i id="repeatNewPassIcon" onclick="togglePasswordVisibility('repeatNewPassword', 'repeatNewPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
     <ul id="invalid-update-password" class="invalid-fields-list"></ul>
     <input type="submit" name="password-update" role="button" onclick="return validatePasswordUpdate()" value="Update Password" class="btn md-text blue-bg gold-text btn-style" id="passwordUpdateButton">
   </form>

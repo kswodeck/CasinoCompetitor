@@ -65,7 +65,22 @@ router.get('/', function(req, res){
 router.get('/cards', isLoggedIn, function(req, res){
   res.render('cards', {pageTitle: 'Competitive Poker', currentCoins: req.user.coins});
 });
-router.put('/cards', function(req, res){
+router.put('/cards', isLoggedIn, function(req, res){
+  if (req.body.userCoins != req.user.coins) { //update coins
+    console.log('updating coins: ' + req.user.coins + ' to ' + req.body.userCoins);
+    User.findOneAndUpdate({username: req.user.username}, {$set: {coins: req.body.userCoins}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
+  }
+  if (req.body.currentWin > req.user.highestWin) { //update highestWin
+    console.log('updating highestWin: ' + req.user.highestWin + ' to ' + req.body.currentWin);
+    User.findOneAndUpdate({username: req.user.username}, {$set: {highestWin: req.body.currentWin}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
+  }
+  return res.status(204).send();
+});
+
+router.get('/farkle', function(req, res){ //add isLoggedIn after created
+  res.render('farkle', {pageTitle: 'Competitive Farkle'}); // add , currentCoins: req.user.coins after ready
+});
+router.put('/farkle', isLoggedIn, function(req, res){
   if (req.body.userCoins != req.user.coins) { //update coins
     console.log('updating coins: ' + req.user.coins + ' to ' + req.body.userCoins);
     User.findOneAndUpdate({username: req.user.username}, {$set: {coins: req.body.userCoins}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
@@ -125,7 +140,7 @@ router.post('/register', isLoggedOut, function(req, res){
 router.get('/login', isLoggedOut, function(req, res){
   res.render('login', {pageTitle: 'Login'});
 });
-router.post('/login', passport.authenticate('local', {
+router.post('/login', isLoggedOut, passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: 'Incorrect username or password',
 }), function(req, res){
@@ -144,7 +159,7 @@ router.get('/account', isLoggedIn, function(req, res){
   }
   res.redirect('/login');
 });
-router.put('/account', function(req, res){
+router.put('/account', isLoggedIn, function(req, res){
   var curUser = req.user, updated = req.body.updateUser;
   if (req.body.updatePassword) {
       curUser.changePassword(req.body.oldPassword, req.body.updatePassword, function(err, user) { // will use email instead
@@ -219,11 +234,29 @@ router.put('/account', function(req, res){
     }
   }
 });
+router.delete('/account', isLoggedIn, function(req, res){
+  req.user.changePassword(req.body.password, req.body.password, function(err, user) {
+    if (err){
+      req.flash('invalidPW', 'You entered an incorrect password');
+      res.redirect('/account');
+    } else {
+      User.findByIdAndDelete(req.user._id, function(err, users) {
+        if (err) {
+          req.flash('invalidPW', err);
+          res.redirect('/account');
+        } else {
+          req.flash('error', 'Successfully deleted your account');
+          res.redirect('/login');
+        }
+      });
+    }
+  });
+});
 
 router.get('/forgotuser', isLoggedOut, function(req, res){
   res.render('forgotuser', {pageTitle: 'Forgot Username'});
 });
-router.post('/forgotuser', function(req, res){
+router.post('/forgotuser', isLoggedOut, function(req, res){
   var userBirthday = req.body.forgotUser.birthday;
   var msg = 'No match found';
   User.find({email: req.body.forgotUser.email, phone: req.body.forgotUser.phone}, function(err, users) {
@@ -247,7 +280,11 @@ router.post('/forgotuser', function(req, res){
 });
 
 router.get('/forgotpass', function(req, res){
-  res.render('forgotpass', {pageTitle: 'Forgot Password'});
+  let changePW = false;
+  if (req.query.changePW) {
+    changePW = true;
+  }
+  res.render('forgotpass', {pageTitle: 'Forgot Password', changePW: changePW});
 });
 router.post('/forgotpass', function(req, res){
   var userBirthday = req.body.forgotPW.birthday;
@@ -267,7 +304,7 @@ router.post('/forgotpass', function(req, res){
               // eslint-disable-next-line no-undef
               return next(err);
             }
-            return res.redirect('/forgotpass');
+            return res.redirect('/forgotpass?changePW=' + true);
           });
           break;
         } else {

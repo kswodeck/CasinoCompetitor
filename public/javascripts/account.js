@@ -92,16 +92,16 @@ function togglePasswordVisibility(passwordId, iconId){
   const passwordIcon = document.getElementById(iconId);
   if (passwordInput.type === 'password') {
     passwordInput.type = 'text';
-    passwordIcon.classList.remove('fa-eye-slash');
-    passwordIcon.classList.add('fa-eye');
-  } else {
-    passwordInput.type = 'password';
     passwordIcon.classList.remove('fa-eye');
     passwordIcon.classList.add('fa-eye-slash');
+  } else {
+    passwordInput.type = 'password';
+    passwordIcon.classList.remove('fa-eye-slash');
+    passwordIcon.classList.add('fa-eye');
   }
 }
 
-function displayPasswordDialog(dialog) {
+function displayDialog(dialog) {
   const passDialog = document.getElementById(dialog);
   if (typeof passDialog.showModal == 'function') {
     passDialog.showModal();
@@ -112,7 +112,6 @@ function displayPasswordDialog(dialog) {
 }
 
 function displayStreakDialog(streak){
-  console.log('showing login streak modal');
   const dialog = document.getElementById('loginStreakDialog');
   const streakHeading = document.getElementById('streakHeading');
   const loginCoinSpan = document.getElementById('login-streak-win');
