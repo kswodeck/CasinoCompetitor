@@ -101,20 +101,10 @@ function togglePasswordVisibility(passwordId, iconId){
   }
 }
 
-function displayEditPassword(updateDialog){
-  const editDialog = document.getElementById(updateDialog);
-  if (typeof editDialog.showModal == 'function') {
-    editDialog.showModal();
-    document.getElementById('mid-container').style.display = 'none';
-  } else {
-    console.log('The <dialog> API is not supported by this browser');
-  }
-}
-
-function displayChangePassword(){
-  const editDialog = document.getElementById('changePWDialog');
-  if (typeof editDialog.showModal == 'function') {
-    editDialog.showModal();
+function displayPasswordDialog(dialog) {
+  const passDialog = document.getElementById(dialog);
+  if (typeof passDialog.showModal == 'function') {
+    passDialog.showModal();
     document.getElementById('mid-container').style.display = 'none';
   } else {
     console.log('The <dialog> API is not supported by this browser');

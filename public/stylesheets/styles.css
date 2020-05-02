@@ -43,7 +43,7 @@ body {
 .lg-text {
   font-size: calc(20px + 0.9vw);
 }
-.md-text {
+.md-text, #confirmHeading {
   font-size: calc(15px + 0.5vw);
 }
 .sm-text {
@@ -643,7 +643,7 @@ a.page-link {
   text-decoration: none;
 }
 
-#dialogButtonDiv, #logoutDialogDiv, #accountUpdateDiv {
+#dialogButtonDiv, #logoutDialogDiv, #accountUpdateDiv, #confirmDialogDiv {
   margin: 4% auto 2.5% auto;
 }
 #coinDialogDiv {
