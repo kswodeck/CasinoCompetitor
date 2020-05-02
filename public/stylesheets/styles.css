@@ -174,7 +174,7 @@ input:invalid, #tableSearch:active {
   text-decoration: underline;
 }
 
-#dice-quantity-input-div, #dice-clear-tally-row, #dealt-cards-div, #dialogButtonDiv {
+#dice-quantity-input-div, #dice-clear-tally-row, #dealt-cards-div, #dialogButtonDiv, #farkle-roll-div, #dice-roll-div {
   justify-content: center;
 }
 
@@ -239,6 +239,10 @@ input:invalid, #tableSearch:active {
   margin: calc(28px + 2%);
   min-width: 7px;
   max-width: 100px;
+}
+#farkle-roll-div .dice {
+  width: 7%;
+  margin: calc(25px + 1.5%);
 }
 #coin.spin-grow, .dice.spin-grow {
   animation: 0.5s ease-out 0s 1 forwards spinGrow;
@@ -438,7 +442,7 @@ div.top-menu-div > a {
   justify-content: space-between;
   align-items: center;
 }
-#main-links-row {
+#main-links-row, #farkle-roll-div {
   display: flex;
 }
 .main-heading {
@@ -494,7 +498,7 @@ div.top-menu-div > a {
   text-align: center;
 }
 
-.account-heading {
+.account-heading, #farkle-roll-div {
   margin: 3% auto 2% auto;
 }
 
@@ -703,6 +707,10 @@ a.page-link {
   }
   #cardsDropdown, #farkleDropdown {
     min-width: 100px;
+  }
+  #farkle-roll-div .dice {
+    width: 6%;
+    margin: 0;
   }
 }
 /* medium breakpoint */
