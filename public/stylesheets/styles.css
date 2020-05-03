@@ -512,7 +512,7 @@ div.top-menu-div > a {
   text-align: center;
 }
 
-.account-heading, #farkle-roll-div {
+.account-heading, #farkle-roll-div, #hand-ranking-heading {
   margin: 3% auto 2% auto;
 }
 
@@ -639,7 +639,7 @@ a.page-link {
 }
 
 #mid-container, #dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv,
-.account-form-div, #show-hide-odds-div, #leaderboard-div, #tableSearch, #leaderboardLink, .farkle-slot-div, #farkle-roll-div {
+.account-form-div, #show-hide-odds-div, #leaderboard-div, #tableSearch, #leaderboardLink, #farkle-container {
   text-align: center;
 }
 
