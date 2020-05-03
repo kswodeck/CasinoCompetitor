@@ -174,7 +174,7 @@ input:invalid, #tableSearch:active {
   text-decoration: underline;
 }
 
-#dice-quantity-input-div, #dice-clear-tally-row, #dealt-cards-div, #dialogButtonDiv, #farkle-roll-div, #dice-roll-div {
+#dice-quantity-input-div, #dice-clear-tally-row, #dealt-cards-div, #dialogButtonDiv, #farkle-roll-div {
   justify-content: center;
 }
 
@@ -203,14 +203,24 @@ input:invalid, #tableSearch:active {
 	animation: 0.4s ease-in-out 0s 1 forwards flipCard;
 }
 
+.card-slot-div .interactive-img:hover, .farkle-slot-div .interactive-img:hover {
+  cursor: pointer;
+}
 .card-slot-div .interactive-img:hover {
   border: 0.06rem solid lightsteelblue;
   border-radius: 15px;
-  cursor: pointer;
+}
+.farkle-slot-div .interactive-img:hover {
+  border: 0.04em solid lightsteelblue;
+  border-radius: 20%;
 }
 .card-slot-div .interactive-img:active, #dicequantity:active, #dicequantity:focus, #table-search-cell {
   border: 0.1rem solid darkblue;
 }
+.farkle-slot-div .interactive-img:active {
+  border: 0.05em solid darkblue;
+}
+
 .card-slot-div {
   padding: 0 1%;
 }
@@ -242,7 +252,11 @@ input:invalid, #tableSearch:active {
 }
 #farkle-roll-div .dice {
   width: 7%;
-  margin: calc(25px + 1.5%);
+  max-width: 200px;
+  margin: calc(28px + 2%) 0;
+}
+.hold-dice-text {
+  margin-bottom: 15%;
 }
 #coin.spin-grow, .dice.spin-grow {
   animation: 0.5s ease-out 0s 1 forwards spinGrow;
@@ -304,7 +318,7 @@ button.poker-button:active {
   text-align: center;
 }
 
-.winner, #winner, #final_winner, .hold-card-text {
+.winner, #winner, #final_winner, .hold-card-text, .hold-dice-text {
   font-size: calc(9px + 0.6vw);
   font-weight: bold;
   color: darkblue;
@@ -625,7 +639,7 @@ a.page-link {
 }
 
 #mid-container, #dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv,
-.account-form-div, #show-hide-odds-div, #leaderboard-div, #tableSearch, #leaderboardLink {
+.account-form-div, #show-hide-odds-div, #leaderboard-div, #tableSearch, #leaderboardLink, .farkle-slot-div, #farkle-roll-div {
   text-align: center;
 }
 
@@ -708,10 +722,6 @@ a.page-link {
   #cardsDropdown, #farkleDropdown {
     min-width: 100px;
   }
-  #farkle-roll-div .dice {
-    width: 6%;
-    margin: 0;
-  }
 }
 /* medium breakpoint */
 @media (max-width: 767px) {
@@ -761,6 +771,13 @@ a.page-link {
   }
   div.top-menu-div a, #mainDropdown a {
     font-size: calc(10px + 0.6vw);
+  }
+  #farkle-roll-div .dice {
+    width: 6%;
+    margin: calc(20px + 0.5%) 0;
+  }
+  .farkle-slot-div .interactive-img:hover {
+    border-radius: 1.6px;
   }
 }
 @media (max-width: 767px) and (min-width: 575px) {

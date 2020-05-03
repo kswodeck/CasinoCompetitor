@@ -286,7 +286,6 @@ function getHandRanking(hand) {
   const isFlush = isFlushHand(hand);
   const isRoyal = isRoyalHand(hand);
   const isStraight = isStraightHand(hand[0].numValue, hand[1].numValue, hand[2].numValue, hand[3].numValue, hand[4].numValue);
-  // let result = 'Game Over';
   if (isTwoPairHand(hand)) {
     resultText = 'Two Pair';
   } else if (isJackOrBetterHand(hand) && highestSameKindCount === 2) {
