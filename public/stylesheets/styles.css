@@ -143,7 +143,7 @@ input:invalid, #tableSearch:active {
   padding: 0.5% 0.4%;
 }
 
-#coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
+#coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div, #farkle-roll-score-div {
   margin: 2% auto;
   border: calc(1px + 0.2vw) solid darkblue;
   line-height: 1.25;
@@ -430,7 +430,7 @@ div.top-menu-div > a {
 
 #dropdownCardsLink #dropdownMainLink, li a, #main-container, #dice-col, #dice-current-col, #dice-roll-tally-div,
 #dice-roll-current-div, #table-search-cell, .name-col, #leaderboard-div, #tableSearch, button.back-arrow, #search-button,
-#main-navbar, #main-links-row, a.dropdown-item, #linksDiv, div.top-menu-div {
+#main-navbar, #main-links-row, a.dropdown-item, #linksDiv, div.top-menu-div, #farkle-roll-score-div {
   padding: 0;
 } 
 
@@ -523,7 +523,7 @@ div.top-menu-div > a {
   margin: 1% auto 0 auto;
 }
 #roll-score-heading {
-  margin: 1% auto 2% auto;
+  margin-top: 0.5%;
 }
 #farkle-end-button:disabled {
   opacity: 0.5;
@@ -645,14 +645,19 @@ a.page-link {
   font-weight: bold;
 }
 
-#coin-win-popup-span, #number-coins-won, #hand-win-popup-span {
+#coin-win-popup-span, #number-coins-won, #hand-win-popup-span, #endTurnPopupSpan {
   color: darkblue;
   font-weight: bold;
   font-size:calc(14px + 0.6vw);
 }
 
+#confirmDialog {
+  background: white;
+}
+
 #mid-container, #dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv,
-.account-form-div, #show-hide-odds-div, #leaderboard-div, #tableSearch, #leaderboardLink, #farkle-container {
+.account-form-div, #show-hide-odds-div, #leaderboard-div, #tableSearch, #leaderboardLink, #farkle-container,
+#endTurnDialog, #endTurnDiv {
   text-align: center;
 }
 
@@ -664,7 +669,7 @@ a.page-link {
   margin: 0 1px 0 4px;
 }
 
-#outOfCoinsDialog, #winCoinsDialog, #winHandDialog {
+#outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #endTurnDialog, #confirmDialog {
   border: 3px solid darkblue;
   border-radius: 10px;
   top: calc(10vh + 20%);
@@ -708,7 +713,7 @@ a.page-link {
   #total-coins-span, #coins-img {
     display: none;
   }
-  #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div {
+  #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div, #farkle-roll-score-div {
     width: 105px;
     line-height: 1;
   }
