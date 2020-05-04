@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/casual-cards', function(req, res){
-    res.render('casual-cards', {pageTitle: 'Casual Poker'});
+    res.render('casual-cards', {pageTitle: 'Poker'});
 });
 
 router.get('/casual-farkle', function(req, res){
-    res.render('casual-farkle', {pageTitle: 'Casual Farkle'});
+    res.render('casual-farkle', {pageTitle: 'Farkle'});
 });
 
 router.get('/dice', function(req, res){

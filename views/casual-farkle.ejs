@@ -1,38 +1,40 @@
 <%- include('partials/header') %>
 
 <div id="mid-container">
-  <h1 id="page-heading">Casual Farkle</h1>
+  <h1 id="page-heading">Farkle</h1>
   <div class="dice-prep-div">
     <button type="submit" role="button" id="farkle-roll-button" class="btn lg-text gold-bg red-text btn-style" onclick="farkleRoll()">Roll Dice</button>
+    <button type="submit" role="button" id="farkle-end-button" class="btn lg-text red-bg gold-text btn-style" onclick="" disabled>End Turn</button>
   </div>
   <div id="farkle-container">
     <div id="farkle-roll-div">
       <div class="farkle-slot-div" id="dice-0-div" onclick="toggleDiceHold('hold0')">
         <figcaption class="hold-dice-text text-opacity" id="hold0">HOLD</figcaption>
-        <img class ="dice interactive-img" src="" id="dice0" onclick="toggleDiceHold('hold0')">
+        <img class ="dice" src="" id="dice0">
       </div>
       <div class="farkle-slot-div" id="dice-1-div" onclick="toggleDiceHold('hold1')">
         <figcaption class="hold-dice-text text-opacity" id="hold1">HOLD</figcaption>
-        <img class ="dice interactive-img" src="" id="dice1" onclick="toggleDiceHold('hold1')">
+        <img class ="dice" src="" id="dice1">
       </div>
       <div class="farkle-slot-div" id="dice-2-div" onclick="toggleDiceHold('hold2')">
         <figcaption class="hold-dice-text text-opacity" id="hold2">HOLD</figcaption>
-        <img class ="dice interactive-img" src="" id="dice2" onclick="toggleDiceHold('hold2')">
+        <img class ="dice" src="" id="dice2">
       </div>
       <div class="farkle-slot-div" id="dice-3-div" onclick="toggleDiceHold('hold3')">
         <figcaption class="hold-dice-text text-opacity" id="hold3">HOLD</figcaption>
-        <img class ="dice interactive-img" src="" id="dice3" onclick="toggleDiceHold('hold3')">
+        <img class ="dice" src="" id="dice3">
       </div>
       <div class="farkle-slot-div" id="dice-4-div" onclick="toggleDiceHold('hold4')">
         <figcaption class="hold-dice-text text-opacity" id="hold4">HOLD</figcaption>
-        <img class ="dice interactive-img" src="" id="dice4" onclick="toggleDiceHold('hold4')">
+        <img class ="dice" src="" id="dice4">
       </div>
       <div class="farkle-slot-div" id="dice-5-div" onclick="toggleDiceHold('hold5')">
         <figcaption class="hold-dice-text text-opacity" id="hold5">HOLD</figcaption>
-        <img class ="dice interactive-img" src="" id="dice5" onclick="toggleDiceHold('hold5')">
+        <img class ="dice" src="" id="dice5">
       </div>
     </div>
-    <h3 id="hand-ranking-heading"></h3>
+    <h3 id="roll-ranking-heading"></h3>
+    <h3 id="roll-score-heading" class="green-text"></h3>
   </div>
 </div>
 

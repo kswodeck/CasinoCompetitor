@@ -79,7 +79,7 @@ button.btn-style, input.btn-style {
   color: gold;
 }
 .red-text, .input-icon:hover, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active,
-svg.back-icon:active, #dicequantity:hover, #dicequantity:focus, .invalid-list, #table-search-icon:active, #hand-ranking-heading {
+svg.back-icon:active, #dicequantity:hover, #dicequantity:focus, .invalid-list, #table-search-icon:active, #hand-ranking-heading, #roll-ranking-heading {
   color: crimson;
 }
 .blue-text, a.link-text {
@@ -163,7 +163,7 @@ input:invalid, #tableSearch:active {
   text-align: center;
 }
 
-#dice-clear-tally-col, #hand-ranking-heading {
+#dice-clear-tally-col, #hand-ranking-heading, #roll-ranking-heading, #roll-score-heading {
   display: none;
 }
 
@@ -220,7 +220,11 @@ input:invalid, #tableSearch:active {
 .farkle-slot-div .interactive-img:active {
   border: 0.05em solid darkblue;
 }
-
+.farkle-slot-div {
+  min-height: 140px;
+  max-height: 200px;
+  height: calc(20px + 6vh + 5vw);
+}
 .card-slot-div {
   padding: 0 1%;
 }
@@ -342,7 +346,7 @@ button.poker-button:active {
   text-shadow: 7px 2px 7px lightsteelblue, 7px 6px 7px lightsteelblue, 7px 10px 7px lightsteelblue;
 }
 
-#page-heading, #hand-ranking-heading {
+#page-heading, #hand-ranking-heading, #roll-ranking-heading, #roll-score-heading {
   text-transform: uppercase;
   font-size: calc(18px + 0.9vw);
   text-shadow: 5px 10px 9px lightsteelblue;
@@ -514,6 +518,15 @@ div.top-menu-div > a {
 
 .account-heading, #farkle-roll-div, #hand-ranking-heading {
   margin: 3% auto 2% auto;
+}
+#roll-ranking-heading {
+  margin: 1% auto 0 auto;
+}
+#roll-score-heading {
+  margin: 1% auto 2% auto;
+}
+#farkle-end-button:disabled {
+  opacity: 0.5;
 }
 
 .input-icon {
@@ -778,6 +791,9 @@ a.page-link {
   }
   .farkle-slot-div .interactive-img:hover {
     border-radius: 1.6px;
+  }
+  .farkle-slot-div {
+    min-height: 100px;
   }
 }
 @media (max-width: 767px) and (min-width: 575px) {
