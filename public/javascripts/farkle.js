@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-vars */
 var diceArr = [];
 var holdArr = [];
-var rollRemaining = true;
+var hotDice = false;
 var diceRolls = 0;
 var diceHeld = 0;
+var diceHeldThisRoll = 0;
+var heldDiceScore = 0;
 var currentRollScore = 0;
 var currentBet = 50;
 var diceRollDiv = document.getElementById('farkle-roll-div');
@@ -12,46 +14,53 @@ var farkleEndButton = document.getElementById('farkle-end-button');
 var rollRankingHeading = document.getElementById('roll-ranking-heading');
 var rollScoreHeading = document.getElementById('roll-score-heading');
 var rollScoreDiv = document.getElementById('farkle-roll-score-div');
+var totalScoreDiv = document.getElementById('farkle-total-score-div');
 
 
 function farkleRoll() {
-  diceRollButton.disabled = true;
+  diceRollButton.setAttribute('disabled', 'disabled');
   if (diceRolls > 0) {
-    var heldDice = 0;
+    var totalDiceHeld = 0;
     for (let curDice = 0; curDice < 6; curDice++) {
       if (diceArr[curDice].isHeld) {
         holdArr.push(diceArr[curDice]);
         document.getElementById('hold' + curDice).classList.add('text-opacity');
-        heldDice++;
+        totalDiceHeld++;
       }
     }
-    if (heldDice == diceHeld) { //this means no additional dice were held this round
-      diceRolls == 1;
-      diceRollButton.disabled = false;
-      return; //display a popup here. Exit the function
+    if (totalDiceHeld == diceHeld && !hotDice) { //this means no additional dice were held this round
+      diceRollButton.removeAttribute('disabled');
+      return displayFarkleDialog('mustHoldDialog', 'mustHoldCancel');
     }
-    diceHeld = heldDice;
-    console.log('holdArr');
-    console.log(holdArr);
+    diceHeldThisRoll = diceHeld;
+    diceHeld = totalDiceHeld;
     diceArr = [];
     diceArr.push.apply(diceArr, holdArr);
     holdArr = [];
-    console.log('diceArr');
-    console.log(diceArr);
-    for (let curDice = 0; curDice < diceHeld; curDice++) {
-      console.log('curDice: ' + curDice + ' diceHeld: ' + diceHeld);
-      let curDiceElement = document.getElementsByClassName('dice')[curDice];
-      curDiceElement.src = diceArr[curDice].imgSrc;
-      console.log('Slot ' + curDice + ' changed to ' + curDice + "'s img");
-      // document.getElementById('hold' + curDice).classList.remove('text-opacity');
-      disableDiceHold(diceArr[curDice]);
+    if (!hotDice) {
+      for (let curDice = 0; curDice < diceHeld; curDice++) {
+        let curDiceElement = document.getElementsByClassName('dice')[curDice];
+        curDiceElement.src = diceArr[curDice].imgSrc;
+        document.getElementById('hold' + curDice).classList.remove('text-opacity');
+        disableDiceHold(diceArr[curDice]);
+      }
     }
-  } else if (rollRemaining == true) {
+  } else {
     farkleEndButton.removeAttribute('disabled');
   }
-  if (rollScoreHeading.innerText != '0') {
-    saveCurrentRollScore(rollScoreHeading.innerText);
-    console.log('saved score');
+  if (rollScoreHeading.innerText != '0' || hotDice) {
+    console.log('rollScoreHeading.innerText: ' + rollScoreHeading.innerText);
+    heldDiceScore = saveCurrentRollScore();
+    console.log('heldDiceScore after saveCurrentRoll: ' + heldDiceScore);
+    currentRollScore = currentRollScore + heldDiceScore;
+    saveTotalScore();
+  }
+  if (hotDice) {
+    diceHeld = 0;
+    diceHeldThisRoll = 0;
+    diceArr = [];
+    hotDice = false;
+    farkleEndButton.removeAttribute('disabled');
   }
   rollRankingHeading.style.display = 'none';
   rollScoreHeading.style.display = 'none';
@@ -66,7 +75,6 @@ function farkleRoll() {
   }
   rollRankingHeading.innerText = getRollValues();
   rollScoreHeading.innerText = getRollScore();
-  currentRollScore = currentRollScore + parseInt(rollScoreHeading.innerText);
   setTimeout(function() {
     if (rollRankingHeading.innerText == 'Farkle') {
       rollRankingHeading.style.color = 'crimson';
@@ -83,12 +91,29 @@ function farkleRoll() {
   }, 350);
   diceRolls++;
   if (rollRankingHeading.innerText == 'Farkle') {
-    rollRemaining = false;
     diceRollButton.innerText = 'Play Again';
     farkleEndButton.setAttribute('disabled', 'disabled');
     diceRollButton.onclick = function() {window.location.reload();}
+  } else {
+    diceRollButton.innerText = 'Roll Again';
   }
-  setTimeout(function() {diceRollButton.disabled = false;}, 300);
+  var totalDiceCanHold = 0;
+  for (let curDice = 0; curDice < 6; curDice++) {
+    if (diceArr[curDice].canHold) {
+      totalDiceCanHold++;
+    }
+  }
+  if (totalDiceCanHold >= 6) {
+    hotDice = true;
+    displayFarkleDialog('hotDiceDialog', 'hotDiceCancel');
+    for (let curDice = 0; curDice < 6; curDice++) {
+      diceArr[curDice].isHeld = true;
+      document.getElementById('hold' + curDice).classList.remove('text-opacity');
+      disableDiceHold(diceArr[curDice]);
+      farkleEndButton.setAttribute('disabled', 'disabled');
+    }
+  }
+  setTimeout(function() {diceRollButton.removeAttribute('disabled');}, 300);
 }
 
 class Dice {
@@ -202,7 +227,11 @@ function getRollValues() {
     let scoringDiceExists = false;
     for (let i = 0 + diceHeld; i < 6; i++) {
       if (highestSameKind < 3) {
-        if (diceArr[i].numValue == 1 || diceArr[i].numValue == 5) {
+        if (isStraight == true || isAllPairs) {
+          enableDiceHold(diceArr[i]);
+          scoringDiceExists = true;
+          diceArr[i].allDiceWorth = 30 * currentBet;
+        } else if (diceArr[i].numValue == 1 || diceArr[i].numValue == 5) {
           enableDiceHold(diceArr[i]);
           scoringDiceExists = true;
           if (diceArr[i].numValue == 1) {
@@ -210,11 +239,6 @@ function getRollValues() {
           } else {
             diceArr[i].singleDiceWorth = 1 * currentBet;
           }
-        } else if (isStraight == true || isAllPairs) {
-          enableDiceHold(diceArr[i]);
-          scoringDiceExists = true;
-          diceArr[i].allDiceWorth = 30 * currentBet;
-          diceArr[i].multipleDiceWorth = 30 * currentBet;
         } else {
           disableDiceHold(diceArr[i]);
         }
@@ -273,6 +297,8 @@ function getRollScore() {
     } else if (diceArr[i].singleDiceWorth != 0) {
       if (diceArr[i].numValue == 5 && diceArr[i].sameKindCount > 2) {
         console.log('already counted fives as a group');
+      } else if (diceArr[i].numValue == 1 && diceArr[i].sameKindCount > 3) {
+        console.log('already counted ones as a group');
       } else {
         score = score + diceArr[i].singleDiceWorth;
       }
@@ -281,16 +307,58 @@ function getRollScore() {
   return score;
 }
 
-function saveCurrentRollScore(score) {
+function saveCurrentRollScore() {
+  var score = 0;
   if (diceRolls > 0) {
+    let multipleDiceScored = false;
+    let fivesHeld = 0, onesHeld = 0;
+    let fivesScore = 0, onesScore = 0;
+    for (let i = diceHeldThisRoll; i < diceArr.length; i++) {
+      if (diceArr[i].allDiceWorth != 0) {
+        return diceArr[i].allDiceWorth;
+      } else if (diceArr[i].multipleDiceWorth != 0 && multipleDiceScored == false) {
+        if (diceArr[i].numValue == 5) {
+          fivesHeld++; //detecting how many held
+          fivesScore = diceArr[i].multipleDiceWorth; //save score of combo
+        } else if (diceArr[i].numValue == 1) {
+          onesHeld++; //detecting how many held
+          onesScore = diceArr[i].multipleDiceWorth; //save score of combo
+        } else {
+          score = score + diceArr[i].multipleDiceWorth;
+          multipleDiceScored = true;
+        }
+      } else if (diceArr[i].singleDiceWorth != 0) {
+        if (diceArr[i].numValue == 5 && diceArr[i].sameKindCount > 2) {
+          console.log('already counted fives as a group');
+        } else if (diceArr[i].numValue == 1 && diceArr[i].sameKindCount > 3) {
+          console.log('already counted ones as a group');
+        } else {
+          score = score + diceArr[i].singleDiceWorth;
+        }
+      }
+    }
+    if (fivesHeld > 2) {
+      score = score + fivesScore;
+    } else if (onesHeld > 3) {
+      score = score + onesScore;
+    }
     const span1 = document.createElement('span'), span2 = document.createElement('span');
-    span1.className = 'sm-text farkle-turn-tally'; span2.className = 'result sm-text farkle-turn-tally';
+    span1.className = 'md-text farkle-turn-tally'; span2.className = 'turn-score roll-score md-text farkle-turn-tally';
     rollScoreDiv.appendChild(span1);
     rollScoreDiv.appendChild(span2);
-    span1.innerText = document.getElementsByClassName('result').length + ': ';
+    span1.innerText = document.getElementsByClassName('turn-score').length + ': ';
     span2.innerHTML = score + '<br>';
     rollScoreDiv.style.display = 'block';
   }
+  console.log('current dice score saved');
+  return score;
+}
+
+function saveTotalScore() {
+  if (diceRolls == 1) {
+    totalScoreDiv.style.display = 'block';
+  }
+  document.getElementById('total-score-text').innerText = currentRollScore;
 }
 
 function endTurn() {
@@ -326,11 +394,23 @@ function endTurnDialog(score) {
   }
 }
 
+function displayFarkleDialog(dialog, cancel) {
+  const curDialog = document.getElementById(dialog);
+  if (typeof curDialog.showModal === 'function') {
+    curDialog.showModal();
+    setTimeout(function() {curDialog.close();}, 8000);
+  } else {
+    console.log('The <dialog> API is not supported by this browser');
+  }
+  document.getElementById(cancel).onclick = function() {
+    curDialog.close();
+  }
+}
+
 function disableDiceHold(...args) {
   for (let i = 0; i < args.length; i++) {
     args[i].canHold = false;
     args[i].diceElement.classList.remove('interactive-img');
-    // args[i].diceElement.removeAttribute('onclick');
     args[i].diceElement.parentElement.removeAttribute('onclick');
   }
 }
@@ -340,7 +420,6 @@ function enableDiceHold(...args) {
     args[i].canHold = true;
     let holdId = args[i].diceElement.parentElement.childNodes[1].getAttribute('id');
     args[i].diceElement.classList.add('interactive-img');
-    // args[i].diceElement.setAttribute('onclick', "toggleDiceHold('" + holdId + "')");
     args[i].diceElement.parentElement.setAttribute('onclick', "toggleDiceHold('" + holdId + "')");
   }
 }
@@ -349,9 +428,29 @@ function toggleDiceHold(currentHoldElement) {
   const holdElement = document.getElementById(currentHoldElement);
   const diceNum = parseInt(currentHoldElement.replace(/hold/, ''));
   if (!diceArr[diceNum].isHeld) {
+    if ((diceArr[diceNum].multipleDiceWorth != 0 || diceArr[diceNum].allDiceWorth) != 0 && diceArr[diceNum].numValue != 5 && diceArr[diceNum].numValue != 1) {
+      for (let i = 0 + diceHeld; i < 6; i++) {
+        if (diceArr[i].multipleDiceWorth != 0 || diceArr[i].allDiceWorth != 0) {
+          diceArr[i].isHeld = true;
+          document.getElementById('hold' + i).classList.remove('text-opacity');
+        }
+      }
+    } else {
+      diceArr[diceNum].isHeld = true;
+      holdElement.classList.remove('text-opacity');
+    }
     diceArr[diceNum].isHeld = true;
-    holdElement.classList.toggle('text-opacity');
   } else {
-    diceArr[diceNum].isHeld = false;
+    if ((diceArr[diceNum].multipleDiceWorth != 0 && diceArr[diceNum].numValue != 5 && diceArr[diceNum].numValue != 1) || diceArr[diceNum].allDiceWorth != 0) {
+      for (let i = 0 + diceHeld; i < 6; i++) {
+        if (diceArr[i].multipleDiceWorth != 0 || diceArr[i].allDiceWorth != 0) {
+          diceArr[i].isHeld = false;
+          document.getElementById('hold' + i).classList.add('text-opacity');
+        }
+      }
+    } else {
+      diceArr[diceNum].isHeld = false;
+      holdElement.classList.add('text-opacity');
+    }
   }
 }

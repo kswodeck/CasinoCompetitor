@@ -35,10 +35,15 @@
     </div>
     <h3 id="roll-ranking-heading"></h3>
     <h3 id="roll-score-heading" class="green-text">0</h3>
-    <div id="farkle-roll-score-div">
-      <span id="current-dice-heading" class="table-heading">Score</span>
-     </div>
+    <div id="farkle-roll-score-div" class="farkle-score-div">
+      <span id="current-dice-heading" class="current-table-heading md-text">Score</span>
+    </div>
+    <div id="farkle-total-score-div" class="farkle-score-div">
+      <span id="total-dice-heading" class="table-heading md-text">Total</span>
+      <span id="total-score-text" class="roll-score md-text farkle-turn-tally"></span>
+    </div>
   </div>
+</div>
 </div>
 <dialog id="confirmDialog" class="container-fluid account-form-div account-dialog">
   <h4 id="confirmHeading" class="md-text blue-text">Are you sure you want to end your turn?</h4>
@@ -52,9 +57,22 @@
   </div>
 </dialog>
 <dialog id="endTurnDialog">
-  <span class="sm-text">Points scored: </span><span id="endTurnPopupSpan" class="blue-text sm-text"></span>
+  <span class="sm-text">Points scored: </span><span id="endTurnPopupSpan"></span>
   <div id="endTurnDiv">
       <button id="endTurnCancel" class="btn sm-text red-bg gold-text btn-style">OK</button>
+    </div>
+</dialog>
+<dialog id="mustHoldDialog">
+  <span class="blue-text sm-text">You must hold dice to roll again</span>
+  <div id="mustHoldDiv">
+      <button id="mustHoldCancel" class="btn sm-text red-bg gold-text btn-style">OK</button>
+    </div>
+</dialog>
+<dialog id="hotDiceDialog">
+  <span class="red-text md-text">HOT DICE</span><br>
+  <span class="blue-text sm-text">Roll all your dice again for extra winnings</span>
+  <div id="hotDiceDiv">
+      <button id="hotDiceCancel" class="btn sm-text blue-bg gold-text btn-style">OK</button>
     </div>
 </dialog>
 
