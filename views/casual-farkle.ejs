@@ -45,9 +45,9 @@
   </div>
 </div>
 </div>
-<dialog id="confirmDialog" class="container-fluid account-form-div account-dialog">
+<dialog id="confirmDialog" class="container-fluid account-form-div account-dialog farkle-dialog">
   <h4 id="confirmHeading" class="md-text blue-text">Are you sure you want to end your turn?</h4>
-  <div id="confirmDialogDiv" class="row justify-content-around">
+  <div id="confirmDialogDiv" class="row justify-content-around farkle-div">
     <div class="col">
       <button id="confirmButton" class="btn sm-text red-bg gold-text btn-style">Yes</button>
     </div>
@@ -56,23 +56,31 @@
     </div>
   </div>
 </dialog>
-<dialog id="endTurnDialog">
+<dialog id="endTurnDialog" class="farkle-dialog">
+  <span class="blue-text md-text">Turn Ended</span><br>
   <span class="sm-text">Points scored: </span><span id="endTurnPopupSpan"></span>
-  <div id="endTurnDiv">
+  <div id="endTurnDiv" class="farkle-div">
       <button id="endTurnCancel" class="btn sm-text red-bg gold-text btn-style">OK</button>
     </div>
 </dialog>
-<dialog id="mustHoldDialog">
+<dialog id="mustHoldDialog" class="farkle-dialog">
   <span class="blue-text sm-text">You must hold dice to roll again</span>
-  <div id="mustHoldDiv">
+  <div id="mustHoldDiv" class="farkle-div">
       <button id="mustHoldCancel" class="btn sm-text red-bg gold-text btn-style">OK</button>
     </div>
 </dialog>
-<dialog id="hotDiceDialog">
-  <span class="red-text md-text">HOT DICE</span><br>
+<dialog id="hotDiceDialog" class="farkle-dialog">
+  <span class="green-text md-text">HOT DICE</span><br>
   <span class="blue-text sm-text">Roll all your dice again for extra winnings</span>
-  <div id="hotDiceDiv">
+  <div id="hotDiceDiv" class="farkle-div">
       <button id="hotDiceCancel" class="btn sm-text blue-bg gold-text btn-style">OK</button>
+    </div>
+</dialog>
+<dialog id="farkleDialog" class="farkle-dialog">
+  <span class="red-text md-text">FARKLE</span><br>
+  <span class="blue-text sm-text">Your turn has ended with a score of </span><span id="farklePopupSpan">0</span>
+  <div id="farkleDiv" class="farkle-div">
+      <button id="farkleCancel" class="btn sm-text blue-bg gold-text btn-style">OK</button>
     </div>
 </dialog>
 
