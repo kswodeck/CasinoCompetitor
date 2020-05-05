@@ -6,7 +6,7 @@ var diceRolls = 0;
 var diceHeld = 0;
 var diceHeldThisRoll = 0;
 var heldDiceScore = 0;
-var currentRollScore = 0;
+var totalScore = 0;
 var currentBet = 50;
 var diceRollDiv = document.getElementById('farkle-roll-div');
 var diceRollButton = document.getElementById('farkle-roll-button');
@@ -52,7 +52,7 @@ function farkleRoll() {
   }
   if (diceRolls > 0 || hotDice) {
     heldDiceScore = saveCurrentRollScore();
-    currentRollScore = heldDiceScore + currentRollScore;
+    totalScore = heldDiceScore + totalScore;
     saveTotalScore();
   }
   if (hotDice) {
@@ -363,11 +363,11 @@ function saveTotalScore() {
   if (diceRolls == 1) {
     totalScoreDiv.style.display = 'block';
   }
-  totalScoreText.innerText = currentRollScore;
+  totalScoreText.innerText = totalScore;
 }
 
 function endTurn() {
-  let score = parseInt(rollScoreHeading.innerText) + currentRollScore;
+  let score = parseInt(rollScoreHeading.innerText) + totalScore;
   endTurnConfirm(score);
 }
 
