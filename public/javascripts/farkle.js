@@ -70,7 +70,7 @@ function farkleRoll() {
     currentDiceElement.classList.remove('spin-grow');
     holdCurrentDice.classList.add('text-opacity');
     diceArr.push(new Dice(roll(), currentDiceElement));
-    setTimeout(function() {animateDice(currentDiceElement);}, 20);
+    setTimeout(animateDice(currentDiceElement), 20);
     currentDiceElement.src = diceArr[currentDice].imgSrc;
   }
   rollRankingHeading.innerText = getRollValues();
@@ -94,9 +94,7 @@ function farkleRoll() {
     diceRollButton.innerText = 'Play Again';
     farkleEndButton.setAttribute('disabled', 'disabled');
     diceRollButton.onclick = function() {window.location.reload();}
-    setTimeout(function() {
-      displayFarkleDialog('farkleDialog', 'farkleCancel');
-    }, 300);
+    setTimeout(displayFarkleDialog('farkleDialog', 'farkleCancel'), 300);
     totalScoreText.innerText = 0;
   } else {
     diceRollButton.innerText = 'Roll Again';
@@ -109,9 +107,7 @@ function farkleRoll() {
   }
   if (totalDiceCanHold >= 6) {
     hotDice = true;
-    setTimeout(function() {
-      displayFarkleDialog('hotDiceDialog', 'hotDiceCancel');
-    }, 300);
+    setTimeout(displayFarkleDialog('hotDiceDialog', 'hotDiceCancel'), 300);
     for (let curDice = 0; curDice < 6; curDice++) {
       diceArr[curDice].isHeld = true;
       document.getElementById('hold' + curDice).classList.remove('text-opacity');

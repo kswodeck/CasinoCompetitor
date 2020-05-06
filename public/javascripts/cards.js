@@ -242,9 +242,7 @@ function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunct
     } else {
       handRankingHeading.style.color = 'darkblue'; // if a hand category has been acheived, blue text
       if (handsDealt === 1) {
-        setTimeout(function() {
-          winFunction(resultText);
-        }, 300);
+        setTimeout(winFunction(resultText), 300);
       }
     }
     if (handsDealt === 1 || resultText !== 'Game Over') {
