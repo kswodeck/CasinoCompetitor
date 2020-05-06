@@ -37,18 +37,18 @@
           </ul>
           <input type="submit" role="button" name="account-update" onclick="return validateAccountUpdate()" value="Update Account" class="btn md-text blue-bg gold-text btn-style account-button" id="accountUpdateButton">
         </form>
-        <input type="submit" role="button" name="account-delete" onclick="displayDialog('confirmDialog')" value="Delete Account" class="btn sm-text red-bg gold-text btn-style account-button" id="accountDelete">
+        <input type="submit" role="button" name="account-delete" onclick="displayDialog('confirmDeleteDialog')" value="Delete Account" class="btn sm-text red-bg gold-text btn-style account-button" id="accountDelete">
       </div>
     </div>
 </div>
-<dialog id="confirmDialog" class="container-fluid account-form-div account-dialog">
+<dialog id="confirmDeleteDialog" class="container-fluid account-form-div account-dialog">
   <div class ="exit-button-div">
-    <button id="confirmDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('confirmDialog')">✖</button>
+    <button id="confirmDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('confirmDeleteDialog')">✖</button>
   </div>
   <h4 id="confirmHeading" class="md-text blue-text login-heading">Are you sure you want to delete your account?</h4>
   <div id="confirmDialogDiv" class="row justify-content-around">
     <div class="col">
-      <button id="confirmButton" class="btn sm-text red-bg gold-text btn-style" onclick="exitDialog('confirmDialog'); displayDialog('verifyPWDialog')">Yes</button>
+      <button id="confirmButton" class="btn sm-text red-bg gold-text btn-style" onclick="exitDialog('confirmDeleteDialog'); displayDialog('verifyPWDialog')">Yes</button>
     </div>
     <div class="col">
       <button id="cancelButton" class="btn sm-text blue-bg gold-text btn-style" onclick="location.href='/account'">No</button>

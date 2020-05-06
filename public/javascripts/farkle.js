@@ -116,7 +116,6 @@ function farkleRoll() {
       diceArr[curDice].isHeld = true;
       document.getElementById('hold' + curDice).classList.remove('text-opacity');
       disableDiceHold(diceArr[curDice]);
-      rollRankingHeading.innerText = 'Hot Dice';
       farkleEndButton.setAttribute('disabled', 'disabled');
     }
   }

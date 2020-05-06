@@ -3,17 +3,17 @@
     <h1 id="page-heading">Competitive Poker</h1>
     <div id = "card-prep-row" class="row">
       <div id="current-bet-div" class="col">
-        <button id="bet-button" class="btn poker-button md-text gold-text" type="button" name="bet-button" onclick="toggleBet()">bet<span id ="current-bet-span">{{currentBet}}</span></button>
+        <button id="bet-button" class="btn poker-button md-text gold-text" type="button" name="bet-button" onclick="toggleBet()">bet<span id ="current-bet-span">1</span></button>
       </div>
       <div id="card-play-div" class="col">
         <form action="/cards/?_method=PUT" method="POST" id="cardsForm">
           <input value= "<%= currentCoins %>" name="userCoins" id="coinsInput" class="card-coins-data" type="number">
           <input value="0" name="currentWin" id="currentWinInput" class="card-coins-data">
-          <button type="submit" role="button" id="card-deal-button" form="cardsForm" class="btn lg-text gold-bg red-text btn-style" name="deal-button" onclick="getCards(); return updateStoredCoins()">{{dealButtonText}}</button>
+          <button type="submit" role="button" id="card-deal-button" form="cardsForm" class="btn lg-text gold-bg red-text btn-style" name="deal-button" onclick="getCards()">Deal Cards</button>
         </form>
       </div>
       <div id="current-win-div" class="col">
-        <button id="win-button" class="btn poker-button md-text gold-text" type="button" name="win-button" disabled>win<span id="current-win-span">{{currentWin}}</span></button>
+        <button id="win-button" class="btn poker-button md-text gold-text" type="button" name="win-button" disabled>win<span id="current-win-span">0</span></button>
       </div>
     </div>
     <div class="container" id="play-container">
@@ -39,7 +39,7 @@
           <img class ="cards img-fluid" src="images/cards/card_standard_blue_back.png" id="card4">
         </div>
       </div>
-      <h3 id="hand-ranking-heading">{{resultText}}</h3>
+      <h3 id="hand-ranking-heading"></h3>
     </div>
 </div>
 <dialog id="outOfCoinsDialog">
@@ -55,8 +55,8 @@
   </div>
 </dialog>
 <dialog id="winCoinsDialog">
-<span id="coin-win-popup-span">{{resultText}}</span><br />
-<span id="coin-win-popup-text" class="dialog-popup-text">You win</span><span id="number-coins-won">{{currentWin}}</span><img id="coins-popup-img" src="images/coins.png">
+<span id="coin-win-popup-span"></span><br />
+<span id="coin-win-popup-text" class="dialog-popup-text">You win</span><span id="number-coins-won"></span><img id="coins-popup-img" src="images/coins.png">
   <div id="coinDialogDiv" class="row">
     <div class="col">
       <button id="winCoinsCancel" class="btn sm-text red-bg gold-text btn-style">OK</button>
@@ -65,6 +65,5 @@
 </dialog>
 <%- include('partials/logindialogs') %>
 <%- include('partials/footer') %>
-<script src="\javascripts\vue\dist\vue.min.js"></script>
 <script src="javascripts\cards.js" type="text/javascript" ></script>
 <%- include('partials/javascripts') %>
