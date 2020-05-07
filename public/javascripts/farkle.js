@@ -409,20 +409,20 @@ function displayFarkleDialog(dialog, cancel) {
 }
 
 function disableDiceHold(...args) {
-  for (let i = 0; i < args.length; i++) {
-    args[i].canHold = false;
-    args[i].diceElement.classList.remove('interactive-img');
-    args[i].diceElement.parentElement.removeAttribute('onclick');
-  }
+  args.forEach(function(element) {
+    element.canHold = false;
+    element.diceElement.classList.remove('interactive-img');
+    element.diceElement.parentElement.removeAttribute('onclick');
+  });
 }
 
 function enableDiceHold(...args) {
-  for (let i = 0; i < args.length; i++) {
-    args[i].canHold = true;
-    let holdId = args[i].diceElement.parentElement.childNodes[1].getAttribute('id');
-    args[i].diceElement.classList.add('interactive-img');
-    args[i].diceElement.parentElement.setAttribute('onclick', "toggleDiceHold('" + holdId + "')");
-  }
+  args.forEach(function(element) {
+    element.canHold = true;
+    let holdId = element.diceElement.parentElement.childNodes[1].getAttribute('id');
+    element.diceElement.classList.add('interactive-img');
+    element.diceElement.parentElement.setAttribute('onclick', "toggleDiceHold('" + holdId + "')");
+  });
 }
 
 function toggleDiceHold(currentHoldElement) {
