@@ -338,10 +338,6 @@ button.poker-button:active {
   opacity: 0.0001;
 }
 
-#card-deal-button, #current-bet-span, #current-win-span {
-  visibility: hidden;
-}
-
 #home-heading {
   font-size: calc(23px + 1vw);
   text-transform: uppercase;

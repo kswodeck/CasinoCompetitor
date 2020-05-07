@@ -5,22 +5,19 @@ var cards = [];
 var cards2 = [];
 var currentHand = 0;
 var currentWin = 0;
-var pageTitle = document.getElementsByTagName('title')[0];
-if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-heading').innerText == 'COMPETITIVE POKER') {
+const pageTitle = document.getElementsByTagName('title')[0];
+if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-heading').innerText == 'Competitive Poker') {
   var coinsInput = document.getElementById('coinsInput');
   var totalCoinsSpan = document.getElementById('total-coins-span');
   var currentBetSpan = document.getElementById('current-bet-span');
   var totalCoins = totalCoinsSpan.innerText;
   var currentBet = 1;
-  document.getElementById('current-bet-span').style.visibility = 'visible';
-  document.getElementById('current-win-span').style.visibility = 'visible';
   if (coinsInput.value < 1 || coinsInput.value == null) {
     outOfCoinsDialog();
   }
 }
 const cardDealButton = document.getElementById('card-deal-button');
 const handRankingHeading = document.getElementById('hand-ranking-heading');
-cardDealButton.style.visibility = 'visible';
 
 function getCards() {
   cardDealButton.disabled = true;
@@ -242,7 +239,7 @@ function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunct
     } else {
       handRankingHeading.style.color = 'darkblue'; // if a hand category has been acheived, blue text
       if (handsDealt === 1) {
-        setTimeout(winFunction(resultText), 300);
+        setTimeout(function() {winFunction(resultText);}, 300);
       }
     }
     if (handsDealt === 1 || resultText !== 'Game Over') {
