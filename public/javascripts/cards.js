@@ -1,10 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-var handsDealt = 0;
-var cards = [];
-var cards2 = [];
-var currentHand = 0;
-var currentWin = 0;
+var cards = [], cards2 = [];
+var handsDealt = 0, currentHand = 0, currentWin = 0;
 const pageTitle = document.getElementsByTagName('title')[0];
 if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-heading').innerText == 'Competitive Poker') {
   var coinsInput = document.getElementById('coinsInput');
@@ -12,6 +9,7 @@ if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-
   var currentBetSpan = document.getElementById('current-bet-span');
   var totalCoins = totalCoinsSpan.innerText;
   var currentBet = 1;
+  var updateCoinsStart, updateCoinsEnd;
   if (coinsInput.value < 1 || coinsInput.value == null) {
     outOfCoinsDialog();
   }
@@ -46,8 +44,13 @@ function getCards() {
     }
   }
   if (handsDealt === 0) {
+    updateCoinsStart = new Promise(function(resolve, reject) {
     totalCoins = totalCoins - currentBet;
     totalCoinsSpan.innerText = totalCoins;
+    resolve(5);
+    });
+    // totalCoins = totalCoins - currentBet;
+    // totalCoinsSpan.innerText = totalCoins;
   }
   getGameResults(handsDealt, handRankingHeading, cardDealButton, collectCoins);
   if (handsDealt === 2) {
@@ -95,12 +98,16 @@ function getCards() {
         currentWin = 4000;
       }
     }
-    totalCoins = totalCoins + currentWin;
+    updateCoinsEnd = new Promise(function(resolve, reject) {
+      totalCoins = totalCoins + currentWin;
+      totalCoinsSpan.innerText = totalCoins;
+      resolve(5);
+    });
     winButton.style.backgroundColor = 'darkblue';
     winButton.style.boxShadow = '0 6px var(--darkerblue)';
-    totalCoinsSpan.innerText = totalCoins;
     currentWinSpan.innerText = currentWin;
     winCoinsDialog(resultText);
+    updateStoredCoins(updateCoinsEnd);
   }
 }
 
@@ -216,7 +223,7 @@ function getSecondHand(currentCard, holdCurrentCard, currentValues) {
       currentCardElement.classList.add('fadeInOut-card');
     setTimeout(function() {
       document.getElementsByClassName('cards')[currentCard].src = cards2[currentCard].imgSrc;
-    }, 300);
+    }, 200);
   }
   cardDealButton.innerText = 'Play Again';
   return cards2;
@@ -233,7 +240,7 @@ function lastHandTeardown(holdCurrentCard, currentCard) {
 
 function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunction){
   if (handsDealt < 2) {
-    resultText = getHandRanking(currentHand); // handRankingHeading.innerText = resultText;
+    resultText = getHandRanking(currentHand);
     if (resultText === 'Game Over') {
       handRankingHeading.style.color = 'crimson'; // if no hand category has been acheived, red text
     } else {
@@ -249,12 +256,14 @@ function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunct
       }, 250);
     }
   }
-  setTimeout(function() {
-    if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-heading').innerText == 'COMPETITIVE POKER') {
-      updateStoredCoins();
+  if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-heading').innerText == 'COMPETITIVE POKER') {
+    if (handsDealt == 0) {
+      updateStoredCoins(updateCoinsStart);
     }
+  }
+  setTimeout(function() {
     cardDealButton.disabled = false;
-  }, 350);
+  }, 400);
 }
 
 function getHandRanking(hand) {
@@ -418,7 +427,7 @@ function winHandDialog(result) {
   if (typeof winDialog.showModal === 'function') {
     document.getElementById('hand-win-popup-span').innerText = result;
     winDialog.showModal();
-    setTimeout(function() { winDialog.close() }, 2000);
+    setTimeout(function() { winDialog.close() }, 2500);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
@@ -439,12 +448,14 @@ function toggleOddsTable() {
   }
 }
 
-function updateStoredCoins() {
-  if (totalCoins != parseInt(coinsInput.value)) {
-    coinsInput.value = totalCoins;
-  } else {
-    return false;
-  }
-  document.getElementById('currentWinInput').value = currentWin;
-  document.getElementById('cardsForm').submit();
+function updateStoredCoins(updateCoins) {
+  updateCoins.then(function() {
+    if (totalCoins != parseInt(coinsInput.value)) {
+      coinsInput.value = totalCoins;
+    } else {
+      return false;
+    }
+    document.getElementById('currentWinInput').value = currentWin;
+    document.getElementById('cardsForm').submit();
+  });
 }

@@ -1,12 +1,8 @@
 /* eslint-disable no-unused-vars */
 var diceArr = [];
 var holdArr = [];
-var diceRolls = 0;
-var diceHeld = 0;
-var diceHeldThisRoll = 0;
-var totalScore = 0;
-var heldDiceScore = 0;
-var currentBet = 50;
+var diceRolls = 0, diceHeld = 0, diceHeldThisRoll = 0, heldDiceScore = 0, totalScore = 0;
+var currentBet = 50, currentCoinsBet = 0;
 var hotDice = false;
 const diceRollDiv = document.getElementById('farkle-roll-div');
 const diceRollButton = document.getElementById('farkle-roll-button');
@@ -18,29 +14,89 @@ const totalScoreDiv = document.getElementById('farkle-total-score-div');
 const totalScoreText = document.getElementById('total-score-text');
 const pageTitle = document.getElementsByTagName('title')[0];
 if (pageTitle.innerText == 'Competitive Farkle' || document.getElementById('page-heading').innerText == 'Competitive Farkle') {
-  var coinsInput = document.getElementById('coinsInput');
   var totalCoinsSpan = document.getElementById('total-coins-span');
+  var coinsInput = document.getElementById('coinsInput');
   var currentBetSpan = document.getElementById('current-bet-span');
+  var winButton = document.getElementById('win-button');
+  var currentWinSpan = document.getElementById('current-win-span');
+  var betButton = document.getElementById('bet-button');
   var totalCoins = totalCoinsSpan.innerText;
-  if (coinsInput.value < 1 || coinsInput.value == null) {
+  currentCoinsBet = 10;
+  currentBet = 1;
+  var updateCoinsStart, updateCoinsEnd;
+  if (coinsInput.value <= 9 || coinsInput.value == null) {
     outOfCoinsDialog();
   }
 }
 
 function farkleRoll() {
   diceRollButton.setAttribute('disabled', 'disabled');
+  currentBet = parseInt(currentBetSpan.innerText) / 10;
+  if (totalCoins <= 9 && diceRolls === 0) {
+    outOfCoinsDialog();
+    return false;
+  }
+  currentWinSpan.innerText = 0;
+  betButton.disabled = true;
+  winButton.style.backgroundColor = 'crimson';
+  winButton.style.boxShadow = '0 6px var(--darkcrimson)';
+  if (diceRolls === 0) {
+    updateCoinsStart = new Promise(function(resolve, reject) {
+      totalCoins = totalCoins - currentCoinsBet;
+      totalCoinsSpan.innerText = totalCoins;
+      resolve(5);
+    });
+    updateStoredCoins(updateCoinsStart);
+  }
+  let continueRoll = farkleRollSetup();
+  if (continueRoll == false) {
+    return;
+  }
+  for (var currentDice = 0 + diceHeld; currentDice < 6; currentDice++) {
+    let currentDiceElement = document.getElementsByClassName('dice')[currentDice];
+    let holdCurrentDice = document.getElementById('hold' + currentDice);
+    currentDiceElement.classList.remove('spin-grow');
+    holdCurrentDice.classList.add('text-opacity');
+    diceArr.push(new Dice(roll(), currentDiceElement));
+    setTimeout(function() {animateDice(currentDiceElement);}, 10);
+    currentDiceElement.src = diceArr[currentDice].imgSrc;
+  }
+  farkleRollTeardown();
+  setTimeout(function() {diceRollButton.removeAttribute('disabled');}, 400);
+}
+
+function casualFarkleRoll() {
+  diceRollButton.setAttribute('disabled', 'disabled');
+  let continueRoll = farkleRollSetup();
+  if (continueRoll == false) {
+    return;
+  }
+  for (var currentDice = 0 + diceHeld; currentDice < 6; currentDice++) {
+    let currentDiceElement = document.getElementsByClassName('dice')[currentDice];
+    let holdCurrentDice = document.getElementById('hold' + currentDice);
+    currentDiceElement.classList.remove('spin-grow');
+    holdCurrentDice.classList.add('text-opacity');
+    diceArr.push(new Dice(roll(), currentDiceElement));
+    setTimeout(function() {animateDice(currentDiceElement);}, 10);
+    currentDiceElement.src = diceArr[currentDice].imgSrc;
+  }
+  farkleRollTeardown();
+  setTimeout(function() {diceRollButton.removeAttribute('disabled');}, 400);
+}
+
+function farkleRollSetup() {
   if (diceRolls > 0) {
     var totalDiceHeld = 0;
     for (let curDice = 0; curDice < 6; curDice++) {
       if (diceArr[curDice].isHeld) {
         holdArr.push(diceArr[curDice]);
-        document.getElementById('hold' + curDice).classList.add('text-opacity');
         totalDiceHeld++;
       }
     }
     if (totalDiceHeld == diceHeld && !hotDice) { //this means no additional dice were held this round
       diceRollButton.removeAttribute('disabled');
-      return displayFarkleDialog('mustHoldDialog', 'mustHoldCancel');
+      displayFarkleDialog('mustHoldDialog', 'mustHoldCancel');
+      return false;
     }
     diceHeldThisRoll = diceHeld;
     diceHeld = totalDiceHeld;
@@ -73,22 +129,23 @@ function farkleRoll() {
   }
   rollRankingHeading.style.display = 'none';
   rollScoreHeading.style.display = 'none';
-  for (var currentDice = 0 + diceHeld; currentDice < 6; currentDice++) {
-    let currentDiceElement = document.getElementsByClassName('dice')[currentDice];
-    let holdCurrentDice = document.getElementById('hold' + currentDice);
-    currentDiceElement.classList.remove('spin-grow');
-    holdCurrentDice.classList.add('text-opacity');
-    diceArr.push(new Dice(roll(), currentDiceElement));
-    setTimeout(function() {animateDice(currentDiceElement);}, 10);
-    currentDiceElement.src = diceArr[currentDice].imgSrc;
-  }
+  return true;
+}
+
+function farkleRollTeardown() {
   rollRankingHeading.innerText = getRollValues();
   rollScoreHeading.innerText = getRollScore();
   setTimeout(function() {
     if (rollRankingHeading.innerText == 'FARKLE') {
       rollRankingHeading.style.color = 'crimson';
+      diceRollButton.innerText = 'Play Again';
+      farkleEndButton.setAttribute('disabled', 'disabled');
+      diceRollButton.setAttribute('onclick', 'window.location.reload(); return false');
+      totalScoreText.innerText = 0;
+      displayFarkleDialog('farkleDialog', 'farkleCancel');
     } else {
       rollRankingHeading.style.color = 'darkblue';
+      diceRollButton.innerText = 'Roll Again';
     }
     rollRankingHeading.style.display = 'block';
 
@@ -99,32 +156,28 @@ function farkleRoll() {
     }
   }, 350);
   diceRolls++;
-  if (rollRankingHeading.innerText == 'FARKLE') {
-    diceRollButton.innerText = 'Play Again';
-    farkleEndButton.setAttribute('disabled', 'disabled');
-    diceRollButton.onclick = function() {window.location.reload();}
-    setTimeout(function() {displayFarkleDialog('farkleDialog', 'farkleCancel');}, 300);
-    totalScoreText.innerText = 0;
-  } else {
-    diceRollButton.innerText = 'Roll Again';
-  }
   var totalDiceCanHold = 0;
-  for (let curDice = 0; curDice < 6; curDice++) {
-    if (diceArr[curDice].canHold) {
-      totalDiceCanHold++;
-    }
-  }
-  if (totalDiceCanHold >= 6) {
-    hotDice = true;
-    setTimeout(function() {displayFarkleDialog('hotDiceDialog', 'hotDiceCancel');}, 300);
+  new Promise(function(resolve, reject) {
     for (let curDice = 0; curDice < 6; curDice++) {
-      diceArr[curDice].isHeld = true;
-      document.getElementById('hold' + curDice).classList.remove('text-opacity');
-      disableDiceHold(diceArr[curDice]);
-      farkleEndButton.setAttribute('disabled', 'disabled');
+      if (diceArr[curDice].canHold) {
+        totalDiceCanHold++;
+      }
     }
-  }
-  setTimeout(function() {diceRollButton.removeAttribute('disabled');}, 400);
+    resolve(5);
+  }).then(function() {
+    if (totalDiceCanHold >= 6) {
+      hotDice = true;
+      for (let curDice = 0; curDice < 6; curDice++) {
+          diceArr[curDice].isHeld = true;
+          disableDiceHold(diceArr[curDice]);
+          farkleEndButton.setAttribute('disabled', 'disabled');
+          document.getElementById('hold' + curDice).classList.remove('text-opacity');
+      }
+      setTimeout(function() {
+        displayFarkleDialog('hotDiceDialog', 'hotDiceCancel');
+      }, 200);
+    }
+  });
 }
 
 class Dice {
@@ -317,7 +370,7 @@ function getRollScore() {
 }
 
 function saveCurrentRollScore() {
-  var score = 0;
+  let score = 0;
   if (diceRolls > 0) {
     let multipleDiceScored = false;
     let fivesHeld = 0, onesHeld = 0;
@@ -370,12 +423,19 @@ function saveTotalScore() {
   totalScoreText.innerText = totalScore;
 }
 
-function endTurn() {
-  let score = parseInt(rollScoreHeading.innerText) + totalScore;
-  endTurnConfirm(score);
+function endCasualTurn() {
+  totalScore = parseInt(rollScoreHeading.innerText) + totalScore;
+  endCasualTurnConfirm();
+  document.getElementById('endTurnPopupSpan').innerText = totalScore;
 }
 
-function endTurnConfirm(score) {
+function endTurn() {
+  totalScore = parseInt(rollScoreHeading.innerText) + totalScore;
+  endTurnConfirm();
+  document.getElementById('number-coins-won').innerText = ' ' + totalScore + ' ';
+}
+
+function endTurnConfirm() {
   const dialog = document.getElementById('confirmDialog');
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
@@ -385,13 +445,49 @@ function endTurnConfirm(score) {
   }
   document.getElementById('confirmButton').onclick = function() {
     dialog.close();
-    endTurnDialog(score);
+    endTurnDialog();
   }
 }
 
-function endTurnDialog(score) {
+function endCasualTurnConfirm() {
+  const dialog = document.getElementById('confirmDialog');
+  if (typeof dialog.showModal === 'function') {
+    dialog.showModal();
+    setTimeout(function() {dialog.close()}, 20000);
+  } else {
+    console.log('The <dialog> API is not supported by this browser');
+  }
+  document.getElementById('confirmButton').onclick = function() {
+    dialog.close();
+    endCasualTurnDialog();
+  }
+}
+
+function endTurnDialog() {
+  winButton.style.backgroundColor = 'darkblue';
+  winButton.style.boxShadow = '0 6px var(--darkerblue)';
+  updateCoinsEnd = new Promise(function(resolve, reject) {
+    totalCoins = totalCoins + totalScore;
+    currentWinSpan.innerText = totalScore;
+    totalCoinsSpan.innerText = totalCoins;
+    resolve(5);
+  });
+  updateStoredCoins(updateCoinsEnd);
   const dialog = document.getElementById('endTurnDialog');
-  document.getElementById('endTurnPopupSpan').innerText = score;
+  if (typeof dialog.showModal === 'function') {
+    dialog.showModal();
+    setTimeout(function() {dialog.close(); window.location.reload();}, 10000);
+  } else {
+    console.log('The <dialog> API is not supported by this browser');
+  }
+  document.getElementById('endTurnCancel').onclick = function() {
+    dialog.close();
+    window.location.reload();
+  }
+}
+
+function endCasualTurnDialog() {
+  const dialog = document.getElementById('endTurnDialog');
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
     setTimeout(function() {dialog.close(); window.location.reload();}, 10000);
@@ -469,14 +565,14 @@ function toggleDiceHold(currentHoldElement) {
 
 function toggleBet() {
   if (diceRolls === 0) {
-    if (totalCoins - currentBet <= 0) {
-      currentBet = 1;
-    } else if (currentBet < 5) {
-      currentBet++;
+    if (totalCoins - currentCoinsBet <= 0) {
+      currentCoinsBet = 10;
+    } else if (currentCoinsBet < 50) {
+      currentCoinsBet = currentCoinsBet + 10;
     } else {
-      currentBet = 1;
+      currentCoinsBet = 10;
     }
-    currentBetSpan.innerText = currentBet;
+    currentBetSpan.innerText = currentCoinsBet;
   }
 }
 
@@ -490,6 +586,7 @@ function outOfCoinsDialog() {
   document.getElementById('outOfCoinsCancel').onclick = function() {
     outOfCoinsDialog.close();
   }
+  diceRollButton.disabled = false;
 }
 
 // function winCoinsDialog(result) { //for ending turn and cashing in coins
@@ -507,12 +604,15 @@ function outOfCoinsDialog() {
 //   }
 // }
 
-// function updateStoredCoins() {
-//   if (totalCoins != parseInt(coinsInput.value)) {
-//     coinsInput.value = totalCoins;
-//   } else {
-//     return false;
-//   }
-//   document.getElementById('currentWinInput').value = currentWin;
-//   document.getElementById('cardsForm').submit();
-// }
+function updateStoredCoins(updateCoins) {
+  updateCoins.then(function() {
+    if (totalCoins != parseInt(coinsInput.value)) {
+      coinsInput.value = totalCoins;
+    } else {
+      return false;
+    }
+    console.log('totalScore: ' + totalScore);
+    document.getElementById('currentWinInput').value = totalScore;
+    document.getElementById('farkleForm').submit();
+  });
+}

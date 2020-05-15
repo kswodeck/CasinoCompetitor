@@ -199,7 +199,7 @@ input:invalid, #tableSearch:active {
   margin: auto;
 }
 .cards.fadeInOut-card {
-  animation: 0.5s ease-in 0s 1 forwards fadeInOut;
+  animation: 0.4s ease-in-out 0s 1 forwards fadeInOut;
 }
 .cards.flip {
 	animation: 0.4s ease-in-out 0s 1 forwards flipCard;
@@ -230,17 +230,30 @@ input:invalid, #tableSearch:active {
 .card-slot-div {
   padding: 0 1%;
 }
-.card-coins-data, #userIdInput {
+.card-coins-data, #userIdInput, .farkle-coins-data {
   display: none;
   padding: 0;
   border: 0;
 }
-#card-prep-row {
+#card-prep-row, #farkle-prep-row {
   margin: calc(4px + 0.8%) auto calc(1px + 0.2%) auto;
 }
-#dealt-cards-div, .dice-prep-div {
+#dealt-cards-div{
   margin: 0 auto calc(4px + 0.8%) auto;
 }
+
+#dice-prep-div {
+  white-space: nowrap;
+  margin: 0 auto;
+}
+
+form > #farkle-roll-button, form > #farkle-end-button {
+  margin-left: 0.5%;
+  margin-right: 0.5%;
+  padding: 0.3% 3%;
+}
+
+
 
 #coin {
   width: 1%;
@@ -293,7 +306,7 @@ input:invalid, #tableSearch:active {
   margin: 0.2% 0.3%;
 }
 
-button.poker-button, button.poker-button:focus {
+button.betWinButton, button.betWinButton:focus {
   background-color: crimson;
   box-shadow: 0 6px var(--darkcrimson);
   font-weight: bold;
@@ -308,12 +321,12 @@ button.poker-button, button.poker-button:focus {
   box-sizing: border-box;
   opacity: 1;
 }
-button.poker-button:hover {
+button.betWinButton:hover {
   color: gold;
   box-shadow: 0 4px var(--darkcrimson);
   top: 2px;
 }
-button.poker-button:active {
+button.betWinButton:active {
   box-shadow: 0 0 var(--darkcrimson);
   top: 6px;
 }
@@ -667,7 +680,7 @@ dialog.farkle-dialog, div.farkle-div {
   text-align: center;
 }
 
-#coins-popup-img, #search-button {
+#coins-popup-img, #search-button, #coins-farkle-img {
   width: calc(18px + 0.8vw)
 }
 

@@ -65,7 +65,7 @@ router.get('/', function(req, res){
 router.get('/cards', isLoggedIn, function(req, res){
   res.render('cards', {pageTitle: 'Competitive Poker', currentCoins: req.user.coins});
 });
-router.put('/cards', isLoggedIn, function(req, res){
+router.put('/cards', isLoggedIn, function(req, res){ //possibly combine into function
   if (req.body.userCoins != req.user.coins) { //update coins
     console.log('updating coins: ' + req.user.coins + ' to ' + req.body.userCoins);
     User.findOneAndUpdate({username: req.user.username}, {$set: {coins: req.body.userCoins}}, {useFindAndModify: false, rawResult: true}, function(req, res){});
@@ -77,10 +77,10 @@ router.put('/cards', isLoggedIn, function(req, res){
   return res.status(204).send();
 });
 
-router.get('/farkle', function(req, res){ //add isLoggedIn after created
-  res.render('farkle', {pageTitle: 'Competitive Farkle'}); // add , currentCoins: req.user.coins after ready
+router.get('/farkle', isLoggedIn, function(req, res){
+  res.render('farkle', {pageTitle: 'Competitive Farkle', currentCoins: req.user.coins});
 });
-router.put('/farkle', isLoggedIn, function(req, res){
+router.put('/farkle', isLoggedIn, function(req, res){ //possibly combine into function
   if (req.body.userCoins != req.user.coins) { //update coins
     console.log('updating coins: ' + req.user.coins + ' to ' + req.body.userCoins);
     User.findOneAndUpdate({username: req.user.username}, {$set: {coins: req.body.userCoins}}, {useFindAndModify: false, rawResult: true}, function(req, res){});

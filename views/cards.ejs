@@ -3,7 +3,7 @@
     <h1 id="page-heading">Competitive Poker</h1>
     <div id = "card-prep-row" class="row">
       <div id="current-bet-div" class="col">
-        <button id="bet-button" class="btn poker-button md-text gold-text" type="button" name="bet-button" onclick="toggleBet()">bet<span id ="current-bet-span">1</span></button>
+        <button id="bet-button" class="btn betWinButton md-text gold-text" type="button" name="bet-button" onclick="toggleBet()">bet<span id ="current-bet-span">1</span></button>
       </div>
       <div id="card-play-div" class="col">
         <form action="/cards/?_method=PUT" method="POST" id="cardsForm">
@@ -13,7 +13,7 @@
         </form>
       </div>
       <div id="current-win-div" class="col">
-        <button id="win-button" class="btn poker-button md-text gold-text" type="button" name="win-button" disabled>win<span id="current-win-span">0</span></button>
+        <button id="win-button" class="btn betWinButton md-text gold-text" type="button" name="win-button" disabled>win<span id="current-win-span">0</span></button>
       </div>
     </div>
     <div class="container" id="play-container">
@@ -44,13 +44,13 @@
 </div>
 <dialog id="outOfCoinsDialog">
   <p class="dialog-popup-text">You ran out of coins!<br />
-  <a id="practice-mode-link" class="sm-text blue-bg blue-text link-text" href="practice-cards.html">Play Practice Mode</a></p>
+  <a id="practice-mode-link" class="sm-text blue-bg blue-text link-text" href="/casual-cards">Play Casual Mode</a></p>
   <div id="dialogButtonDiv" class="row">
     <div class="col">
       <button id="outOfCoinsCancel" class="btn sm-text red-bg gold-text btn-style" value="cancel" onclick="exitDialog('outOfCoinsDialog')">Cancel</button>
     </div>
     <div class="col">
-     <button id="confirmBtn" class="btn sm-text blue-bg gold-text btn-style"><a id="go-button-link" role="button" href="/practice-cards">Go</a></button>
+     <button id="confirmBtn" class="btn sm-text blue-bg gold-text btn-style"><a id="go-button-link" role="button" href="/casual-cards">Go</a></button>
     </div>
   </div>
 </dialog>
