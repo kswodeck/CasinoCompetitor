@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+
 function displayLoginDialog(message){
     const loginDialog = document.getElementById('loginDialog');
     const pageTitle = document.getElementsByTagName('title')[0];

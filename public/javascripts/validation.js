@@ -11,6 +11,7 @@ if (titleTag.innerText == 'My Account') {
 }
 
 function validateAccountCreate() {
+  disableAfterSubmit('accountCreate');
   const inputs = document.getElementsByClassName('account-input');
   removeWhiteSpace(inputs);
   const invalidList = document.getElementById('invalid-fields-list');
@@ -24,6 +25,7 @@ function validateAccountCreate() {
 }
 
 function validateAccountUpdate() {
+  disableAfterSubmit('accountUpdateButton');
   const inputs = document.getElementsByClassName('account-input');
   const invalidList = document.getElementById('invalid-fields-list');
   const item = document.createElement('li');
@@ -43,6 +45,7 @@ function validateAccountUpdate() {
 }
 
 function validatePasswordUpdate() {
+  disableAfterSubmit('passwordUpdateButton');
   let inputs = document.getElementsByClassName('updatePassInput');
   var invalidList = document.getElementById('invalid-update-password');
   var oldPassword = document.getElementById('oldPassword');
@@ -68,6 +71,7 @@ function validatePasswordUpdate() {
 }
 
 function validatePasswordChange() {
+  disableAfterSubmit('passwordChangeButton')
   let inputs = document.getElementsByClassName('changePassInput');
   let invalidList = document.getElementById('invalid-change-password');
   let updatePassword = document.getElementById('changePassword');
@@ -167,6 +171,17 @@ function removeWhiteSpace(inputs) {
       inputs[i].value = inputs[i].value.replace(inputs[i].value.slice(-1),'');
     }
   }
+}
+
+function disableAfterSubmit(button) {
+  console.log('disabled button');
+  let element = document.getElementById(button);
+  setTimeout(function() {
+    element.disabled = true;
+  }, 20);
+  setTimeout(function() {
+    element.disabled = false;
+  }, 2000);
 }
 
 function validateKeys(evt, type) {
