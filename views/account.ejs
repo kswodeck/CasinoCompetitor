@@ -64,7 +64,7 @@
     <label for="password" class="account-label sm-txt">Current Password</label><br>
     <input type="password" name="password" id="verifyPassword" class="verifyPassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" required><i id="verifyPassIcon" onclick="togglePasswordVisibility('verifyPassword', 'verifyPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
     <ul id="invalid-verify-password" class="invalid-fields-list"></ul>
-    <input type="submit" name="password-verify" role="button" value="Delete Account" class="btn md-text red-bg gold-text btn-style account-button" id="passwordVerifyDeleteButton" onclick="disableAfterSubmit('passwordVerifyDeleteButton')">
+    <input type="submit" name="password-verify" role="button" value="Delete Account" class="btn md-text red-bg gold-text btn-style account-button" id="passwordVerifyDeleteButton" onclick="disableAfterSubmit('passwordVerifyDeleteButton', 1000)">
   </form>
 </dialog>
 <dialog id="updatePWDialog" class="container-fluid account-form-div account-dialog">

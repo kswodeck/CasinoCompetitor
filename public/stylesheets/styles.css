@@ -116,6 +116,13 @@ button.blue-bg:active, input.blue-bg.btn:active {
   box-shadow: 0 0 var(--darkerblue);
   top: 6px;
 }
+button.gold-bg:disabled, input.gold-bg.btn:disabled {
+  color: crimson;
+}
+button.red-bg:disabled, input.red-bg.btn:disabled, button.blue-bg:disabled, input.blue-bg.btn:disabled {
+  color: gold;
+}
+
 button.btn:disabled, input.btn:disabled {
   opacity: 1;
   cursor: default;

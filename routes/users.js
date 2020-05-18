@@ -207,28 +207,28 @@ router.put('/account', isLoggedIn, function(req, res){
       User.find({username: updated.username}, function(err, result) {
         if (err || result.length > 0) {
           console.log('Username Num Results: ' + result.length + ', Error: ' + err);
-          res.setTimeout(function(){
+          res.setTimeout(500, function(){
             if (!res.headersSent) {
               req.flash('invalidUser', 'Username "' + updated.username + '" already exists');
               res.redirect('/account');
             }
-          }, 500);
+          });
         } else {
           User.findOneAndUpdate({_id: curUser._id}, {$set: {username: updated.username}}, {runValidators: true, useFindAndModify: false, rawResult: true}, function(req, res){});
           console.log('username updated from: ' + curUser.username + ' to ' + updated.username);
-          res.setTimeout(function(){
+          res.setTimeout(700, function(){
             if (!res.headersSent) {
               req.flash('error', 'Please login with your new username');
               res.redirect('/login');
             }
-          }, 700);
+          });
         }
       });
     } else {
-      res.setTimeout(function(){
+      res.setTimeout(400, function(){
           req.flash('success', 'Account has been updated');
           res.redirect('/account');
-      }, 400);
+      });
     }
   }
 });
