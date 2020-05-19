@@ -18,9 +18,8 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="main-navbar" role="navigation">
           <div id="main-links-row">
             <div id="mainDropdownDiv" class="col-md-3 col-4 main-dropdown header-div">
-              <a class="gold-text" href="/" role="button" id="dropdownMainLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pocket Poker<i class="fas fa-caret-down"></i></a>
+              <a class="gold-text" href="/" role="button" id="dropdownMainLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home<i class="fas fa-caret-down"></i></a>
               <div class="dropdown-menu" id="mainDropdown" aria-labelledby="dropdownMainLink">
-                <a class="gold-text dropdown-item" role="button" href="/">Home</a>
                 <% if (!currentUser){ %>
                 <a class="gold-text dropdown-item" href="register">Sign Up</a>
                 <a class="gold-text dropdown-item" onclick="displayLoginDialog('<%= error %>')" href="#">Log In</a>

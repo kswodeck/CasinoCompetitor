@@ -51,14 +51,14 @@ router.get('/', function(req, res){
     } else {
       changedLastLogin = true;
     }
-    res.render('index', {pageTitle: 'Pocket Poker', fromLogout: false, loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins});
+    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins});
   } else {
     var streak, coins;
     if (req.user) {
       streak = req.user.loginStreak;
       coins = req.user.coins;
     }
-    res.render('index', {pageTitle: 'Pocket Poker', fromLogout: false, loggedInToday: true, streak: streak, coins: coins});
+    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: true, streak: streak, coins: coins});
   }
 });
 
