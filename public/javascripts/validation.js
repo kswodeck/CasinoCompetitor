@@ -166,12 +166,10 @@ function removeWhiteSpace(inputs) {
   console.log('in remove space, inputs.length: ' + inputs.length);
   for (let i = 0; i < inputs.length; i++) {
     let inputType = inputs[i].getAttribute('type');
-    while (inputs[i].value.startsWith(' ') && inputType != 'password') { //try startsWith() was: [0] == ' '
-      console.log('space at begining');
-      inputs[i].value = inputs[i].value.substr(1); // inputs[i].value.replace(inputs[i].value[0],'');
+    while (inputs[i].value.startsWith(' ') && inputType != 'password') {
+      inputs[i].value = inputs[i].value.substr(1);
     }
-    while (inputs[i].value.endsWith(' ') && inputType != 'password') { //try endsWith() was: slice(-1) == ' '
-    console.log('space at end');
+    while (inputs[i].value.endsWith(' ') && inputType != 'password') {
       inputs[i].value = inputs[i].value.replace(inputs[i].value.slice(-1),'');
     }
   }
