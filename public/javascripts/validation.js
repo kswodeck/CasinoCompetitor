@@ -26,7 +26,8 @@ function validateAccountCreate() {
 
 function validateAccountUpdate() {
   disableAfterSubmit('accountUpdateButton', 1500);
-  const inputs = document.getElementsByClassName('account-input');
+  const inputs = document.getElementsByClassName('my-account');
+  console.log('length in create function: ' + inputs.length);
   const invalidList = document.getElementById('invalid-fields-list');
   const item = document.createElement('li');
   removeWhiteSpace(inputs);
@@ -162,12 +163,15 @@ function clearValidityMessages() {
 }
 
 function removeWhiteSpace(inputs) {
+  console.log('in remove space, inputs.length: ' + inputs.length);
   for (let i = 0; i < inputs.length; i++) {
-    let curId = inputs[i].getAttribute('id');
-    while (inputs[i].value[0] == ' ' && !curId.includes('word')) {
-      inputs[i].value = inputs[i].value.replace(inputs[i].value[0],'');
+    let inputType = inputs[i].getAttribute('type');
+    while (inputs[i].value.startsWith(' ') && inputType != 'password') { //try startsWith() was: [0] == ' '
+      console.log('space at begining');
+      inputs[i].value = inputs[i].value.substr(1); // inputs[i].value.replace(inputs[i].value[0],'');
     }
-    while (inputs[i].value.slice(-1) == ' ' && !curId.includes('word')) {
+    while (inputs[i].value.endsWith(' ') && inputType != 'password') { //try endsWith() was: slice(-1) == ' '
+    console.log('space at end');
       inputs[i].value = inputs[i].value.replace(inputs[i].value.slice(-1),'');
     }
   }
