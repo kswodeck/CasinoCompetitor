@@ -54,7 +54,7 @@ function displayForgotDialog(newDialog, message){
     }
     if (message && message != false && message != undefined) {
       const item = document.createElement('li');
-      if (!message.includes('Username')) {
+      if (!message.includes('Username') && !message.includes('email')) {
         item.className = 'invalid-list';
       } else {
         item.className = 'valid-list';
@@ -141,4 +141,20 @@ function clearValidityMessages() {
     invalidMessages[i].remove;
     invalidMessages[i].style.display = 'none';
   }
+}
+
+function sendForgotPWEmail(email, id) {
+  let link = '127.0.0.1:3000/forgotpass/' + id;
+  // eslint-disable-next-line no-undef
+  Email.send({
+    Host : "smtp.elasticemail.com",
+    Username : "kswodeck@yahoo.com",
+    Password : "F4382D25C5C4A0AA224EFC64D8C120EC5082",
+    To : email,
+    From : "kswodeck@yahoo.com",
+    Subject : "Forgotten Password Recovery",
+    Body : '<html style="text-align: center"><h1 style="color: darkblue; font-size: 25px">Casino Competitor</h1><p>Click the link below to create a new password for your account</p><a style="color: darkblue; font-size: 20px" href="' + link + '">Set New Password</a><br></html>'
+  }).then(
+  message => console.log('Email sent: ' + message)
+  );
 }

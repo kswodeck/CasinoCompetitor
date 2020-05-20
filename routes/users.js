@@ -51,14 +51,14 @@ router.get('/', function(req, res){
     } else {
       changedLastLogin = true;
     }
-    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins});
+    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins, updatePW: false});
   } else {
     var streak, coins;
     if (req.user) {
       streak = req.user.loginStreak;
       coins = req.user.coins;
     }
-    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: true, streak: streak, coins: coins});
+    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: true, streak: streak, coins: coins, updatePW: false});
   }
 });
 
@@ -278,11 +278,15 @@ router.post('/forgotuser', isLoggedOut, function(req, res){
 });
 
 router.get('/forgotpass', function(req, res){
-  let changePW = false;
-  if (req.query.changePW) {
-    changePW = true;
+  let emailSent = false;
+  let userId = false;
+  if (req.query.emailSent) {
+    emailSent = req.query.emailSent;
   }
-  res.render('forgotpass', {pageTitle: 'Forgot Password', changePW: changePW});
+  if (req.query.userId) {
+    userId = req.query.userId;
+  }
+  res.render('forgotpass', {pageTitle: 'Forgot Password', emailSent: emailSent, userId: userId, updatePW: false});
 });
 router.post('/forgotpass', function(req, res){
   var userBirthday = req.body.forgotPW.birthday;
@@ -296,14 +300,16 @@ router.post('/forgotpass', function(req, res){
         console.log('storedBirthday: ' + storedBirthday + ', userBirthday: ' + userBirthday);
         if (storedBirthday.includes(userBirthday)) {
           let curUser = users[i];
-          console.log('Match found, logging in');
-          req.login(curUser, function(err) {
-            if (err) {
-              // eslint-disable-next-line no-undef
-              return next(err);
-            }
-            return res.redirect('/forgotpass?changePW=' + true);
-          });
+          console.log('Match found, sending email');
+          req.flash('success', 'password recovery email sent');
+          res.redirect('/forgotpass?emailSent=' + req.body.forgotPW.email + '&userId=' + curUser._id);
+          // req.login(curUser, function(err) {
+          //   if (err) {
+          //     // eslint-disable-next-line no-undef
+          //     return next(err);
+          //   }
+          //   return res.redirect('/forgotpass?changePW=' + true);
+          // });
           break;
         } else {
           req.flash('error', 'No match found');
@@ -313,17 +319,39 @@ router.post('/forgotpass', function(req, res){
     }
   });
 });
-router.put('/forgotpass', isLoggedIn, function(req, res){
-  req.user.setPassword(req.body.password, function(err, user) {
-    if(err){
-      console.log(err);
+router.get('/forgotpass/:id', isLoggedOut, function(req, res){
+  User.findById(req.params.id, function(err, user) {
+    if (err) {
+      res.redirect('/');
     } else {
-      console.log(user);
-      console.log('Password changed to: ' + req.body.password);
-      req.user.save(); //have to use .save on the user when using .setPassword
-      req.logout();
-      req.flash('error', 'Password has been updated');
-      res.redirect('/login');
+      res.render('forgotpass', {pageTitle: 'Update Password', updatePW: true, emailSent: false, userId: req.params.id});
+    }
+  });
+});
+router.put('/forgotpass/:id', isLoggedOut, function(req, res){
+  User.findById(req.params.id, function(error, user) {
+    if (error) {
+      res.redirect('/forgotpass');
+    } else {
+      req.login(user, function(err) {
+        if (err) {
+          return err;
+        } else {
+          res.setTimeout(200, function(){
+            req.user.setPassword(req.body.password, function(e, user) {
+              if(e){
+                console.log(e);
+              } else {
+                console.log('Password changed to: ' + req.body.password);
+                req.user.save();
+                req.logout();
+                req.flash('error', 'Password has been updated');
+                res.redirect('/login');
+              }
+            });
+        });
+        }
+      });
     }
   });
 });

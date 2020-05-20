@@ -2,28 +2,46 @@
 
 <div id="mid-container">
 </div>
-
-<% if (currentUser && changePW){ %>
+<% if (success && emailSent){ %>
 <script>
   window.onload = function() {
-    displayDialog('changePWDialog');
+    sendForgotPWEmail('<%= emailSent %>', '<%= userId %>');
+    displayForgotDialog('forgotPWDialog', '<%= success %>'); // displayDialog('changePWDialog');
+    var uri = window.location.toString();
+    if (uri.indexOf("?") > 0) {
+      var clean_uri = uri.substring(0, uri.indexOf("?"));
+      window.history.replaceState({}, document.title, clean_uri);
+    }
   };
 </script>
-<% } else { %>
+<% } else if (!currentUser) { %>
   <script>
     window.onload = function() {
       displayForgotDialog('forgotPWDialog', '<%= error %>');
     };
   </script>
+<% } else { %>
+  <script>
+    window.onload = function() {
+      displayForgotDialog('forgotPWDialog', false);
+    };
+  </script>
 <% } %>
 
-<!-- won't care about all this after emails are implemented -->
+<% if (!currentUser && updatePW){ %>
+  <script>
+      window.onload = function() {
+      displayDialog('changePWDialog');
+    };
+  </script>
+  <% } %>
+
 <dialog id="changePWDialog" class="container-fluid account-form-div account-dialog">
   <div class ="exit-button-div">
     <button id="changePWDialogExit" class="exit-dialog-button md-text" onclick="window.location.href = '/logout'">✖</button>
   </div>
   <h2 id="changePWHeading" class="login-heading blue-text">Update Password</h2>
-  <form action="/forgotpass/?_method=PUT" method="POST">
+  <form action="/forgotpass/<%= userId %>/?_method=PUT" method="POST">
     <label for="password" class="account-label sm-txt">New Password</label><br>
     <input type="password" name="password" id="changePassword" class="changePassInput password user-input" minlength="5" maxlength="20" placeholder="password" size="25" autocomplete="new-password" required><i id="changePassIcon" onclick="togglePasswordVisibility('changePassword', 'changePassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
     <label for="repeatChangePassword" class="account-label sm-txt">Repeat Password</label><br>

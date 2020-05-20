@@ -27,7 +27,6 @@ function validateAccountCreate() {
 function validateAccountUpdate() {
   disableAfterSubmit('accountUpdateButton', 1500);
   const inputs = document.getElementsByClassName('my-account');
-  console.log('length in create function: ' + inputs.length);
   const invalidList = document.getElementById('invalid-fields-list');
   const item = document.createElement('li');
   removeWhiteSpace(inputs);
@@ -163,7 +162,6 @@ function clearValidityMessages() {
 }
 
 function removeWhiteSpace(inputs) {
-  console.log('in remove space, inputs.length: ' + inputs.length);
   for (let i = 0; i < inputs.length; i++) {
     let inputType = inputs[i].getAttribute('type');
     while (inputs[i].value.startsWith(' ') && inputType != 'password') {
