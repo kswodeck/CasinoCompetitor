@@ -38,7 +38,7 @@
 
 <dialog id="changePWDialog" class="container-fluid account-form-div account-dialog">
   <div class ="exit-button-div">
-    <button id="changePWDialogExit" class="exit-dialog-button md-text" onclick="window.location.href = '/logout'">✖</button>
+    <button id="changePWDialogExit" class="exit-dialog-button md-text" onclick="window.location.href = '/login'">✖</button>
   </div>
   <h2 id="changePWHeading" class="login-heading blue-text">Update Password</h2>
   <form action="/forgotpass/<%= userId %>/?_method=PUT" method="POST">
