@@ -278,15 +278,18 @@ router.post('/forgotuser', isLoggedOut, function(req, res){
 });
 
 router.get('/forgotpass', function(req, res){
-  let emailSent = false;
-  let userId = false;
+  let emailSent = false, userId = false, username = false;
+
   if (req.query.emailSent) {
     emailSent = req.query.emailSent;
   }
   if (req.query.userId) {
     userId = req.query.userId;
   }
-  res.render('forgotpass', {pageTitle: 'Forgot Password', emailSent: emailSent, userId: userId, updatePW: false});
+  if (req.query.username) {
+    username = req.query.username;
+  }
+  res.render('forgotpass', {pageTitle: 'Forgot Password', emailSent: emailSent, userId: userId, username: username, updatePW: false});
 });
 router.post('/forgotpass', function(req, res){
   var userBirthday = req.body.forgotPW.birthday;
@@ -306,7 +309,7 @@ router.post('/forgotpass', function(req, res){
             } else {
               console.log('Match found, sending email');
               req.flash('success', 'password recovery email sent');
-              res.redirect('/forgotpass?emailSent=' + req.body.forgotPW.email + '&userId=' + curUser._id);
+              res.redirect('/forgotpass?emailSent=' + req.body.forgotPW.email + '&userId=' + curUser._id + '&username=' + curUser.username);
             }
           });
           break;
@@ -323,7 +326,7 @@ router.get('/forgotpass/:id', isLoggedOut, function(req, res){ //route to update
     if (err || !user) {
       res.redirect('/');
     } else {
-      res.render('forgotpass', {pageTitle: 'Update Password', updatePW: true, emailSent: false, userId: req.params.id});
+      res.render('forgotpass', {pageTitle: 'Update Password', updatePW: true, emailSent: false, userId: req.params.id, username: req.params.username});
     }
   });
 });
