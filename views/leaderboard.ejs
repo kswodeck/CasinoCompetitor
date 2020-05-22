@@ -24,7 +24,7 @@
           <!-- must delete all kswodecks, duplicates and such after going live -->
           <% for (let i = 0; i < pageUsers.length; i++) { %>
             <tr class ="leaderboard-row normal-row">
-              <td class ="leaderboard-cell leaderboard-rank"><%= ranks[i] %></td> <!-- ranks should be the same for each user (don't change depending on search) -->
+              <td class ="leaderboard-cell leaderboard-rank"><%= ranks[i] %></td>
               <td class ="leaderboard-cell leaderboard-username"><%= pageUsers[i].username %></td>
               <td class ="leaderboard-cell leaderboard-highest"><%= pageUsers[i].highestWin %></td>
               <td class ="leaderboard-cell leaderboard-coins"><%= pageUsers[i].coins %></td>
@@ -42,7 +42,7 @@
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-            <% while (page <= numPages) { %>
+            <% while (page <= numPages) { %> <!-- refactor page numbers depending on what page you're on (9 page numbers max, 4 before, 1 current, 4 after) -->
               <li class="page-item"><a class="page-link blue-text" onclick="changePage('<%= page %>', '<%= search %>')"><%= page %></a></li>
             <% page++; %>
             <% } %>
