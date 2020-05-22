@@ -93,7 +93,6 @@ router.put('/farkle', isLoggedIn, function(req, res){ //possibly combine into fu
 });
 
 router.get('/leaderboard', isLoggedIn, function(req, res){
-<<<<<<< HEAD
   var search = "", page = 1;
   if (req.query.page) {
     page = req.query.page; //gets the page number from query string
@@ -102,18 +101,14 @@ router.get('/leaderboard', isLoggedIn, function(req, res){
     search = req.query.search; //gets the search text from query string
     console.log(search); //THIS DOES NOT WORK YET
   }
-  User.find({username: new RegExp(search, 'i')}).sort({coins: -1}).exec(function(err, allUsers) {
-    if (err) {
-=======
-  User.find({}).sort({coins: -1}).exec(function(err, allUsers) {
-    if (err || !allUsers) {
->>>>>>> 4b24c72aa2df378558d199ea4f2e6adc1718fbef
+  User.find({username: new RegExp(search, 'i')}).sort({coins: -1}).exec(function(err, users) {
+    if (err || !users) {
       console.log(err);
     } else {
       let topUsers = [], userRanks = [];
       let cur = (page-1)*100;
-        for (let i = cur; i < cur+100 && i < allUsers.length; i++) { // gets the first 100 users on initial leaderboard
-          topUsers.push(allUsers[i]);
+        for (let i = cur; i < cur+100 && i < users.length; i++) { // gets the first 100 users on initial leaderboard
+          topUsers.push(users[i]);
           userRanks.push(i+1);
       }
       return res.render('leaderboard', {pageTitle: 'Leaderboard', users: topUsers, ranks: userRanks});
