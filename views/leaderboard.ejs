@@ -7,9 +7,9 @@
         <thead id ="leaderboard-heading">
           <tr id="table-search-row">
             <th id="table-search-cell" class="leaderboard-cell" colspan="4" scope="colgroup">
-              <form action="#" onsubmit="searchLeaderboard();return false">
+              <form action="/leaderboard" method="GET" action="#" onsubmit="searchLeaderboard(); return false" id="leaderboardSearchForm">
                 <button id="search-button" class="btn sm-text" name="search-submit" type="submit" onclick="restoreLeaderboard()"><i id="table-search-icon" class="fas fa-search"></i></button>
-                <input type="search" id="tableSearch" class="table-search" name="table-search" size="22" maxlength="20" placeholder="search by username..." incremental>
+                <input type="search" id="tableSearch" class="table-search" name="search" size="22" maxlength="20" placeholder="search by username..." incremental>
               </form>
             </th>
           </tr>
@@ -22,34 +22,32 @@
             <td class="leaderboard-head">Total Coins</td>
           </tr>
           <!-- must delete all kswodecks, duplicates and such after going live -->
-          <% let numPages = 1, currentRank = 0, rowsPerPage = 200, totalRows = 1 %>
-          <% users.forEach(function(user){ %>
+          <% for (let i = 0; i < pageUsers.length; i++) { %>
             <tr class ="leaderboard-row normal-row">
-              <td class ="leaderboard-cell leaderboard-rank"><%= ranks[currentRank] %></td>
-              <td class ="leaderboard-cell leaderboard-username"><%= user.username %></td>
-              <td class ="leaderboard-cell leaderboard-highest"><%= user.highestWin %></td>
-              <td class ="leaderboard-cell leaderboard-coins"><%= user.coins %></td>
+              <td class ="leaderboard-cell leaderboard-rank"><%= ranks[i] %></td> <!-- ranks should be the same for each user (don't change depending on search) -->
+              <td class ="leaderboard-cell leaderboard-username"><%= pageUsers[i].username %></td>
+              <td class ="leaderboard-cell leaderboard-highest"><%= pageUsers[i].highestWin %></td>
+              <td class ="leaderboard-cell leaderboard-coins"><%= pageUsers[i].coins %></td>
             </tr>
-            <% currentRank++; %>
-            <% totalRows++; %>
-        <% }); %>
+        <% } %>
         </tbody>
       </table>
-        <% if (numPages >= 2) { %>
+      <% let numPages = Math.ceil(users.length / 100) %>
+      <% let page = 1 %>
+        <% if (numPages > 1) { %>
         <nav id="leaderboard-pagination" aria-label="Page navigation">
           <ul id="pagination-list" class="pagination sm-text">
             <li class="page-item">
-              <a class="page-link blue-text" href="#" aria-label="Previous">
+              <a class="page-link blue-text" onclick="changePage(1, '<%= search %>')" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-            <li class="page-item"><a class="page-link blue-text" href="#"><%= numPages %></a></li>
-            <% while (numPages*rowsPerPage < totalRows ) { %>
-              <li class="page-item"><a class="page-link blue-text" href="#"><%= numPages %></a></li>
-            <% numPages++; %>
+            <% while (page <= numPages) { %>
+              <li class="page-item"><a class="page-link blue-text" onclick="changePage('<%= page %>', '<%= search %>')"><%= page %></a></li>
+            <% page++; %>
             <% } %>
             <li class="page-item">
-              <a class="page-link blue-text" href="#" aria-label="Next">
+              <a class="page-link blue-text" onclick="changePage('<%= numPages %>', '<%= search %>')" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>

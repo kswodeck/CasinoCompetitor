@@ -99,19 +99,19 @@ router.get('/leaderboard', isLoggedIn, function(req, res){
   }
   if (req.query.search) {
     search = req.query.search; //gets the search text from query string
-    console.log(search); //THIS DOES NOT WORK YET
   }
   User.find({username: new RegExp(search, 'i')}).sort({coins: -1}).exec(function(err, users) {
+    //need to find a way to assign ranks accordingly no matter what the search term is (ranks will be skipped when using searches)
     if (err || !users) {
       console.log(err);
     } else {
-      let topUsers = [], userRanks = [];
+      let pageUsers = [], userRanks = [];
       let cur = (page-1)*100;
         for (let i = cur; i < cur+100 && i < users.length; i++) { // gets the first 100 users on initial leaderboard
-          topUsers.push(users[i]);
+          pageUsers.push(users[i]);
           userRanks.push(i+1);
       }
-      return res.render('leaderboard', {pageTitle: 'Leaderboard', users: topUsers, ranks: userRanks});
+      return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: users, ranks: userRanks, search: search});
     }
   });
 });
