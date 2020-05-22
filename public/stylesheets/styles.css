@@ -663,6 +663,7 @@ button.back-arrow, #search-button {
   justify-content: flex-end!important;
 }
 a.page-link:hover, a.page-link:active {
+  cursor: pointer;
   background-color: crimson;
 }
 a.page-link {

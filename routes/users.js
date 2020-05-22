@@ -100,19 +100,51 @@ router.get('/leaderboard', isLoggedIn, function(req, res){
   if (req.query.search) {
     search = req.query.search; //gets the search text from query string
   }
-  User.find({username: new RegExp(search, 'i')}).sort({coins: -1}).exec(function(err, users) {
-    //need to find a way to assign ranks accordingly no matter what the search term is (ranks will be skipped when using searches)
-    if (err || !users) {
+  var cur = (page-1)*100;
+  var everyUser = [], pageUsers = [], userRanks = [];
+  new Promise(function(resolve, reject) {
+  User.find({}).sort({coins: -1}).exec(function(err, allUsers) {
+    if (err || !allUsers) {
       console.log(err);
     } else {
-      let pageUsers = [], userRanks = [];
-      let cur = (page-1)*100;
-        for (let i = cur; i < cur+100 && i < users.length; i++) { // gets the first 100 users on initial leaderboard
-          pageUsers.push(users[i]);
+      everyUser.push.apply(everyUser, allUsers);
+      if (search == "") {
+        for (let i = cur; i < cur+100 && i < allUsers.length; i++) { // gets the first 100 users on initial leaderboard
+          pageUsers.push(allUsers[i]);
           userRanks.push(i+1);
+        }
+      } else {
+        User.find({username: new RegExp(search, 'i')}).sort({coins: -1}).exec(function(err, users) {
+          if (err || !users) {
+            console.log(err);
+          } else {
+            var i = cur, j = 0;
+            var numUsers = users.length, numAll = allUsers.length;
+            console.log('users.length: ' + numUsers);
+            while (i < cur+100 && i < numAll && j < numUsers) {
+              let usersId = users[i]._id.toString(), allId = allUsers[j]._id.toString();
+              if (usersId == allId) {
+                console.log('j before: ' + j);
+                pageUsers.push(users[i]);
+                userRanks.push(i+1);
+                j++;
+                console.log('j after: ' + j);
+              }
+              console.log('i incrementing from ' + i);
+              i++;
+            }
+          }
+        });
       }
-      return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: users, ranks: userRanks, search: search});
+      console.log('pageUsers.length: ' + pageUsers.length);
+      console.log('userRanks.length: ' + everyUser.length);
+      console.log('userRanks.length: ' + userRanks.length);
+      // return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: allUsers, ranks: userRanks, search: search});
     }
+  });
+  resolve(5);
+  }).then(function () {
+    return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: everyUser, ranks: userRanks, search: search});
   });
 });
 
