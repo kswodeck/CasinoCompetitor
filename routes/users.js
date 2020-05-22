@@ -93,11 +93,25 @@ router.put('/farkle', isLoggedIn, function(req, res){ //possibly combine into fu
 });
 
 router.get('/leaderboard', isLoggedIn, function(req, res){
-  User.find({}).sort({coins: -1}).exec(function(err, allUsers) {
+  var search = "", page = 1;
+  if (req.query.page) {
+    page = req.query.page; //gets the page number from query string
+  }
+  if (req.query.search) {
+    search = req.query.search; //gets the search text from query string
+    console.log(search); //THIS DOES NOT WORK YET
+  }
+  User.find({username: new RegExp(search, 'i')}).sort({coins: -1}).exec(function(err, allUsers) {
     if (err) {
       console.log(err);
     } else {
-      return res.render('leaderboard', {pageTitle: 'Leaderboard', users: allUsers});
+      let topUsers = [], userRanks = [];
+      let cur = (page-1)*100;
+        for (let i = cur; i < cur+100 && i < allUsers.length; i++) { // gets the first 100 users on initial leaderboard
+          topUsers.push(allUsers[i]);
+          userRanks.push(i+1);
+      }
+      return res.render('leaderboard', {pageTitle: 'Leaderboard', users: topUsers, ranks: userRanks});
     }
   });
 });
