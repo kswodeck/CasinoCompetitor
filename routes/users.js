@@ -93,6 +93,7 @@ router.put('/farkle', isLoggedIn, function(req, res){ //possibly combine into fu
 });
 
 router.get('/leaderboard', isLoggedIn, function(req, res){
+<<<<<<< HEAD
   var search = "", page = 1;
   if (req.query.page) {
     page = req.query.page; //gets the page number from query string
@@ -103,6 +104,10 @@ router.get('/leaderboard', isLoggedIn, function(req, res){
   }
   User.find({username: new RegExp(search, 'i')}).sort({coins: -1}).exec(function(err, allUsers) {
     if (err) {
+=======
+  User.find({}).sort({coins: -1}).exec(function(err, allUsers) {
+    if (err || !allUsers) {
+>>>>>>> 4b24c72aa2df378558d199ea4f2e6adc1718fbef
       console.log(err);
     } else {
       let topUsers = [], userRanks = [];
@@ -135,7 +140,7 @@ router.post('/register', isLoggedOut, function(req, res){
           let momentBirthday = getLocalNoonDate(req.body.birthday);
           var newUser = new User({email: req.body.email, username: req.body.username, firstName: req.body.firstName, lastName: req.body.lastName, phone: req.body.phone, birthday: momentBirthday});
           User.register(newUser, req.body.password, function(err, user){
-              if (err){
+              if (err || !user){
                 req.flash('error', err);
                 res.redirect('/register');
               } else {
@@ -177,7 +182,7 @@ router.put('/account', isLoggedIn, function(req, res){
   var curUser = req.user, updated = req.body.updateUser;
   if (req.body.updatePassword) {
       curUser.changePassword(req.body.oldPassword, req.body.updatePassword, function(err, user) { // will use email instead
-        if (err){
+        if (err || !user){
           console.log(err);
           return res.status(204).send();
         } else {
@@ -248,12 +253,12 @@ router.put('/account', isLoggedIn, function(req, res){
 });
 router.delete('/account', isLoggedIn, function(req, res){
   req.user.changePassword(req.body.password, req.body.password, function(err, user) {
-    if (err){
+    if (err || !user){
       req.flash('invalidPW', 'You entered an incorrect password');
       res.redirect('/account');
     } else {
       User.findByIdAndDelete(req.user._id, function(err, users) {
-        if (err) {
+        if (err || !users) {
           req.flash('invalidPW', err);
           res.redirect('/account');
         } else {
@@ -292,15 +297,18 @@ router.post('/forgotuser', isLoggedOut, function(req, res){
 });
 
 router.get('/forgotpass', function(req, res){
-  let emailSent = false;
-  let userId = false;
+  let emailSent = false, userId = false, username = false;
+
   if (req.query.emailSent) {
     emailSent = req.query.emailSent;
   }
   if (req.query.userId) {
     userId = req.query.userId;
   }
-  res.render('forgotpass', {pageTitle: 'Forgot Password', emailSent: emailSent, userId: userId, updatePW: false});
+  if (req.query.username) {
+    username = req.query.username;
+  }
+  res.render('forgotpass', {pageTitle: 'Forgot Password', emailSent: emailSent, userId: userId, username: username, updatePW: false});
 });
 router.post('/forgotpass', function(req, res){
   var userBirthday = req.body.forgotPW.birthday;
@@ -311,19 +319,18 @@ router.post('/forgotpass', function(req, res){
     } else {
       for (let i = 0; i < users.length; i++) {
         let storedBirthday = formatDate(users[i].birthday);
-        console.log('storedBirthday: ' + storedBirthday + ', userBirthday: ' + userBirthday);
         if (storedBirthday.includes(userBirthday)) {
           let curUser = users[i];
-          console.log('Match found, sending email');
-          req.flash('success', 'password recovery email sent');
-          res.redirect('/forgotpass?emailSent=' + req.body.forgotPW.email + '&userId=' + curUser._id);
-          // req.login(curUser, function(err) {
-          //   if (err) {
-          //     // eslint-disable-next-line no-undef
-          //     return next(err);
-          //   }
-          //   return res.redirect('/forgotpass?changePW=' + true);
-          // });
+          User.findByIdAndUpdate(curUser._id, {passwordRecoveryActive: true}, {useFindAndModify: false}, function(error, user) {
+            if (error || !user) {
+              req.flash('error', 'An error occured');
+              res.redirect('/forgotpass');
+            } else {
+              console.log('Match found, sending email');
+              req.flash('success', 'password recovery email sent');
+              res.redirect('/forgotpass?emailSent=' + req.body.forgotPW.email + '&userId=' + curUser._id + '&username=' + curUser.username);
+            }
+          });
           break;
         } else {
           req.flash('error', 'No match found');
@@ -333,18 +340,18 @@ router.post('/forgotpass', function(req, res){
     }
   });
 });
-router.get('/forgotpass/:id', isLoggedOut, function(req, res){
-  User.findById(req.params.id, function(err, user) {
-    if (err) {
+router.get('/forgotpass/:id', isLoggedOut, function(req, res){ //route to update password page for forgot password update
+  User.findOne({_id: req.params.id, passwordRecoveryActive: true}, function(err, user) {
+    if (err || !user) {
       res.redirect('/');
     } else {
-      res.render('forgotpass', {pageTitle: 'Update Password', updatePW: true, emailSent: false, userId: req.params.id});
+      res.render('forgotpass', {pageTitle: 'Update Password', updatePW: true, emailSent: false, userId: req.params.id, username: req.params.username});
     }
   });
 });
-router.put('/forgotpass/:id', isLoggedOut, function(req, res){
-  User.findById(req.params.id, function(error, user) {
-    if (error) {
+router.put('/forgotpass/:id', isLoggedOut, function(req, res){ //route for forgotten password update
+  User.findByIdAndUpdate(req.params.id, {passwordRecoveryActive: false}, {useFindAndModify: false}, function(error, user) {
+    if (error || !user) {
       res.redirect('/forgotpass');
     } else {
       req.login(user, function(err) {
@@ -353,7 +360,7 @@ router.put('/forgotpass/:id', isLoggedOut, function(req, res){
         } else {
           res.setTimeout(200, function(){
             req.user.setPassword(req.body.password, function(e, user) {
-              if(e){
+              if (e || !user){
                 console.log(e);
               } else {
                 console.log('Password changed to: ' + req.body.password);

@@ -143,7 +143,7 @@ function clearValidityMessages() {
   }
 }
 
-function sendForgotPWEmail(email, id) {
+function sendForgotPWEmail(email, id, username) {
   let link = '127.0.0.1:3000/forgotpass/' + id;
   // eslint-disable-next-line no-undef
   Email.send({
@@ -153,7 +153,7 @@ function sendForgotPWEmail(email, id) {
     To : email,
     From : "kswodeck@yahoo.com",
     Subject : "Forgotten Password Recovery",
-    Body : '<html style="text-align: center"><h1 style="color: darkblue; font-size: 25px">Casino Competitor</h1><p>Click the link below to create a new password for your account</p><a style="color: darkblue; font-size: 20px" href="' + link + '">Set New Password</a><br></html>'
+    Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 200px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: crimson; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><p>Hi <strong>' + username + '!</strong> You requested to recover a misplaced password<br>Click the link below to create a new password for your account</p><a style="color: darkblue; font-size: 20px" href="' + link + '">Create New Password</a></div></html>'
   }).then(
   message => console.log('Email sent: ' + message)
   );
