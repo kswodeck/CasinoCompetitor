@@ -667,6 +667,7 @@ a.page-link:hover, a.page-link:active {
   background-color: crimson;
 }
 a.page-link {
+  padding: calc(4px + 0.3vw) calc(5px + 0.4vw);
   border: none;
   font-weight: bold;
 }
@@ -807,7 +808,7 @@ dialog.farkle-dialog, div.farkle-div {
     width: 100%;
   }
   #hamburger-button {
-    margin-right: 2px;
+    margin-right: 0px;
   }
   #mainDropdownDiv {
     padding: 0.8% 0 0 0.4%;

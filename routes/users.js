@@ -107,20 +107,25 @@ router.get('/leaderboard', isLoggedIn, function(req, res){
       console.log(err);
     } else {
       if (search == "") {
+        if (cur >= allUsers.length || page < 1 || isNaN(page)) {
+          return res.status(204).send();
+        }
         for (let i = cur; i < cur+100 && i < allUsers.length; i++) { // gets the first 100 users on initial leaderboard
           pageUsers.push(allUsers[i]);
           userRanks.push(i+1);
         }
-          return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: allUsers, ranks: userRanks, search: search});
+          return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: allUsers, ranks: userRanks, search: search, curPage: page});
       } else {
         User.find({username: new RegExp(search, 'i')}).sort({coins: -1}).exec(function(err, users) {
           if (err || !users) {
             console.log(err);
           } else {
+            if (cur >= users.length || page < 1 || isNaN(page)) {
+              return res.status(204).send();
+            }
             var i = cur, j = cur;
             var numUsers = users.length, numAll = allUsers.length;
-            var waitTime = (allUsers.length + users.length) / 2;
-            while (i < cur+100 && i < numAll && j < numUsers) { // sorts and ranked the searched leaderboard
+            while (i < cur+100 && i < numAll && j < numUsers) { // sorts and ranks the searched leaderboard
               let allId = allUsers[i]._id.toString(), usersId = users[j]._id.toString();
               if (usersId == allId) {
                 pageUsers.push(users[j]);
@@ -130,9 +135,7 @@ router.get('/leaderboard', isLoggedIn, function(req, res){
               i++;
             }
           }
-          res.setTimeout(waitTime, function() { // dynamic wait based on the number of users in db and number of users resulted from search
-            return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: users, ranks: userRanks, search: search});
-          });
+          return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: users, ranks: userRanks, search: search, curPage: page});
         });
       }
     }
