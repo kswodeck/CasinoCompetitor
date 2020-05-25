@@ -40,6 +40,33 @@ body {
   background-color: darkblue;
 }
 
+#main-container {
+  transition: all 0.2s;
+}
+
+#loadContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#loader {
+  position: absolute;
+  top: 40%;
+  z-index: 10;
+  width: calc(40px + 2vh + 2vw);
+  height: calc(40px + 2vh + 2vw);
+  border-radius: 50%;
+  border-top: calc(5px + 0.3vh + 0.5vw) solid darkblue;
+  border-bottom: calc(5px + 0.3vh + 0.5vw) solid darkblue;
+  border-left: calc(5px + 0.3vh + 0.5vw) solid crimson;
+  border-right: calc(5px + 0.3vh + 0.5vw) solid gold;
+  display: none;
+}
+
+.animateLoad {
+  animation: spin 1s linear infinite;
+}
+
 .lg-text {
   font-size: calc(20px + 0.9vw);
 }
@@ -733,6 +760,11 @@ dialog.farkle-dialog, div.farkle-div {
 @keyframes flipCard {
   from {transform: rotateY(180deg);}
   to {transform: rotateY(0deg);}
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* small breakpoint */

@@ -1,61 +1,44 @@
 /* eslint-disable no-unused-vars */
 var searchForm = document.getElementById('leaderboardSearchForm');
-// var rowsPerPage = 50;
-// var rowsOfData = 0; // total number of rows of data. Get from db
-// var totalPages = rowsOfData/rowsPerPage; // total number of pages variable. Based on rowsOfData & rowsPerPage
+var loading;
+var loader = document.getElementById("loader");
+var mainContainer = document.getElementById("main-container");
+var pageBody = document.getElementById("pageBody");
 
-// function loadInitialLeaderboard(users) {
-//     console.log("loading initial leaderboard");
-//     for (let i=0; i<rowsPerPage; i++) {
-//         let rank = 1;
-//         createRowOfLeaderboard(users[i], rank);
-//         rank++;
-//     }
-//     return users.length;
-// }
-
-// function createRowOfLeaderboard(user, rank) {
-//     const leaderboardBody = document.getElementById('leaderboard-body');
-//     console.log("creating a row");
-//     const newRow = document.createElement('tr');
-//     newRow.className = 'leaderboard-row normal-row';
-//     const newRank = document.createElement('td');
-//     newRank.className = 'leaderboard-cell leaderboard-rank';
-//     newRank.innerText = rank;
-//     const newUsername = document.createElement('td');
-//     newRank.className = 'leaderboard-cell leaderboard-username';
-//     newRank.innerText = user.username;
-//     const newHighest = document.createElement('td');
-//     newRank.className = 'leaderboard-cell leaderboard-highest';
-//     newRank.innerText = user.highestWin;
-//     const newCoins = document.createElement('td');
-//     newRank.className = 'leaderboard-cell leaderboard-coins';
-//     newRank.innerText = user.coins;
-//     leaderboardBody.appendChild(newRow);
-//     newRow.appendChild(newRank);
-//     newRow.appendChild(newUsername);
-//     newRow.appendChild(newHighest);
-//     newRow.appendChild(newCoins);
-// }
-
-function searchLeaderboard() {
-    const searchValue = document.getElementById('tableSearch').value;
-    if (searchValue.length > 0) {
-      window.location.href = '/leaderboard?search=' + searchValue;
-        return true;
-    } else {
-      return false;
-    }
+function startLoading() {
+  loader.classList.add('animateLoad');
+  loader.style.display = 'block';  
+  mainContainer.style.pointerEvents = 'none'
+  mainContainer.style.opacity = 0.5;
+  loading = setInterval(function() {console.log('loading content');}, 1000);
 }
 
-function restoreLeaderboard() {
-    const searchValue = document.getElementById('tableSearch').value;
-    if (searchValue.length < 1) {
-      window.location.href = '/leaderboard';
-      return false;
-    } else {
+function clearLoading() {
+  clearInterval(loading);
+  loader.classList.remove('animateLoad');
+}
+
+function searchLeaderboard(page) {
+  const searchValue = document.getElementById('tableSearch').value;
+  if (searchValue.length > 0) {
+    startLoading();
+    window.location.href = '/leaderboard?search=' + searchValue;
       return true;
-    }
+  } else {
+    return false;
+  }
+}
+
+function restoreLeaderboard(page) {
+  const searchValue = document.getElementById('tableSearch').value;
+  if (searchValue.length < 1 && (page != 1 || window.location.href.includes('search='))) {
+    console.log(window.location.href);
+    startLoading();
+    window.location.href = '/leaderboard';
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function changePage(page, search) {
@@ -69,4 +52,5 @@ function changePage(page, search) {
   } else {
     window.location.href = '/leaderboard?page=' + page;
   }
+  startLoading();
 }
