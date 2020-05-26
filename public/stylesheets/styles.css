@@ -51,20 +51,19 @@ body {
 }
 #loader {
   position: absolute;
-  top: 40%;
+  top: 30%;
   z-index: 10;
-  width: calc(40px + 2vh + 2vw);
-  height: calc(40px + 2vh + 2vw);
-  border-radius: 50%;
-  border-top: calc(5px + 0.3vh + 0.5vw) solid darkblue;
-  border-bottom: calc(5px + 0.3vh + 0.5vw) solid darkblue;
-  border-left: calc(5px + 0.3vh + 0.5vw) solid crimson;
-  border-right: calc(5px + 0.3vh + 0.5vw) solid gold;
   display: none;
+  font-size: calc(50px + 6vw + 5vh);
+  font-weight: 800;
+  color: darkblue;
 }
-
+.animateLoad::after {
+  content:'';
+  animation: loadDice 2s linear infinite;
+}
 .animateLoad {
-  animation: spin 1s linear infinite;
+  animation: loadSpin 1s linear infinite;
 }
 
 .lg-text {
@@ -762,9 +761,17 @@ dialog.farkle-dialog, div.farkle-div {
   to {transform: rotateY(0deg);}
 }
 
-@keyframes spin {
+@keyframes loadSpin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+@keyframes loadDice {
+  0% {content:'\2680';}
+  20% {content:'\2681';}
+  40% {content:'\2682';}
+  60% {content:'\2683';}
+  80% {content:'\2684';}
+  100% {content:'\2685';}
 }
 
 /* small breakpoint */

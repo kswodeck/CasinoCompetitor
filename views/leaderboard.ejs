@@ -51,7 +51,7 @@
               </a>
             </li>
             <% let page = startPage %>
-            <% for (let i = 1; i < 10; i++) { %>
+            <% for (let i = 1; i < 10 && i < numPages+1; i++) { %>
               <li class="page-item"><a class="page-link blue-text" onclick="changePage('<%= page %>', '<%= search %>')"><%= page %></a></li>
             <% page++; %>
             <% } %>

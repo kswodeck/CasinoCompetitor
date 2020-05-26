@@ -42,12 +42,13 @@ function restoreLeaderboard(page) {
 }
 
 function changePage(page, search) {
-  if (window.location.href.includes('page='+ page)) {
+  let url = window.location.href;
+  if (url.includes('page='+ page + '&') || url.includes('&page='+ page)) {
     return false;
-  } else if (!window.location.href.includes('page=') && page == 1) {
+  } else if (!url.includes('page=') && page == 1) {
     return false;
   }
-  if (window.location.href.includes('search')) {
+  if (url.includes('search')) {
     window.location.href = '/leaderboard?page=' + page + '&search=' + search;
   } else {
     window.location.href = '/leaderboard?page=' + page;

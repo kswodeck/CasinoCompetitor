@@ -125,7 +125,7 @@ router.get('/leaderboard', isLoggedIn, function(req, res){
             }
             var i = cur, j = cur;
             var numUsers = users.length, numAll = allUsers.length;
-            while (i < cur+100 && i < numAll && j < numUsers) { // sorts and ranks the searched leaderboard
+            while (j < cur+100 && i < numAll && j < numUsers) { // sorts and ranks the searched leaderboard
               let allId = allUsers[i]._id.toString(), usersId = users[j]._id.toString();
               if (usersId == allId) {
                 pageUsers.push(users[j]);
