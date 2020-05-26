@@ -357,10 +357,8 @@ function getRollScore() {
       score = score + diceArr[i].multipleDiceWorth;
       multipleDiceScored = true;
     } else if (diceArr[i].singleDiceWorth != 0) {
-      if (diceArr[i].numValue == 5 && diceArr[i].sameKindCount > 2) {
-        console.log('already counted fives as a group');
-      } else if (diceArr[i].numValue == 1 && diceArr[i].sameKindCount > 3) {
-        console.log('already counted ones as a group');
+      if ((diceArr[i].numValue == 5 && diceArr[i].sameKindCount > 2) || (diceArr[i].numValue == 1 && diceArr[i].sameKindCount > 3)) {
+        console.log('already counted as a group');
       } else {
         score = score + diceArr[i].singleDiceWorth;
       }
@@ -391,10 +389,8 @@ function saveCurrentRollScore() {
           multipleDiceScored = true;
         }
       } else if (diceArr[i].singleDiceWorth != 0) {
-        if (diceArr[i].numValue == 5 && diceArr[i].sameKindCount > 2) {
-          console.log('already counted fives as a group');
-        } else if (diceArr[i].numValue == 1 && diceArr[i].sameKindCount > 3) {
-          console.log('already counted ones as a group');
+        if ((diceArr[i].numValue == 5 && diceArr[i].sameKindCount > 2) || (diceArr[i].numValue == 1 && diceArr[i].sameKindCount > 3)) {
+          console.log('already counted as a group');
         } else {
           score = score + diceArr[i].singleDiceWorth;
         }
@@ -588,21 +584,6 @@ function outOfCoinsDialog() {
   }
   diceRollButton.disabled = false;
 }
-
-// function winCoinsDialog(result) { //for ending turn and cashing in coins
-//   const coinsDialog = document.getElementById('winCoinsDialog');
-//   if (typeof coinsDialog.showModal === 'function') {
-//     document.getElementById('coin-win-popup-span').innerText = result;
-//     document.getElementById('number-coins-won').innerText = ' ' + currentWin + ' ';
-//     coinsDialog.showModal();
-//     setTimeout(function() { coinsDialog.close() }, 2500);
-//   } else {
-//     console.log('The <dialog> API is not supported by this browser');
-//   }
-//   document.getElementById('winCoinsCancel').onclick = function() {
-//     coinsDialog.close();
-//   }
-// }
 
 function updateStoredCoins(updateCoins) {
   updateCoins.then(function() {

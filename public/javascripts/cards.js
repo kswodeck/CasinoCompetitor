@@ -189,9 +189,9 @@ function getFirstHand(currentCard, holdCurrentCard, currentValues) {
   let isSameIdentity = true;
   while (isSameIdentity) {
     currentValues = getRandomCardValues();
-    if (cards.filter(x => (x.identity === currentValues[2])).length === 0 || currentCard === 0) {
-      isSameIdentity = false;
-    }
+    isSameIdentity = cards.some(function(value){
+      return value.identity == currentValues[2];
+    });
   }
   cards.push(new Card(currentValues[0], currentValues[1], currentValues[2]));
   setTimeout(function() {
@@ -204,16 +204,15 @@ function getSecondHand(currentCard, holdCurrentCard, currentValues) {
   holdCurrentCard.classList.add('text-opacity');
   let currentCardElement = document.getElementsByClassName('cards')[currentCard];
   currentCardElement.classList.remove('interactive-img');
-  let isSameIdentity = true;
-  while (isSameIdentity) {
+  let isSameIdHand1 = true, isSameIdHand2 = true;
+  while (isSameIdHand1 || isSameIdHand2) {
     currentValues = getRandomCardValues();
-    if (cards.filter(x => (x.identity === currentValues[2])).length === 0) {
-      if (currentCard === 0) {
-        isSameIdentity = false;
-      } else if (cards2.filter(y => (y.identity === currentValues[2])).length === 0) {
-        isSameIdentity = false;
-      }
-    }
+    isSameIdHand1 = cards.some(function(value){
+      return value.identity == currentValues[2];
+    });
+    isSameIdHand2 = cards2.some(function(value){
+      return value.identity == currentValues[2];
+    });
   }
   currentCardElement.classList.remove('flip');
   if (cards[currentCard].isHeld) {

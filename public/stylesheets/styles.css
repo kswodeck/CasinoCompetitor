@@ -421,15 +421,16 @@ button.betWinButton:active {
 
 #dropdownMainLink {
   margin-left: 5%;
-  font-size: 120%;
+  font-size: 130%;
   color: gold;
   font-weight: bold;
   text-decoration: underline;
-  text-transform: uppercase;
 }
-#main-navbar a, .farkle-table-heading {
+#navbar-content a, #mainDropdown a, .farkle-table-heading {
   font-weight: bold;
   text-decoration: underline;
+}
+.farkle-table-heading {
   text-transform: uppercase;
 }
 
@@ -453,7 +454,6 @@ div.dropdown-menu {
   top: 30px;
 }
 #mainDropdown {
-  right: 10px;
   margin: 0 -1px;
 }
 #cardsDropdown {
