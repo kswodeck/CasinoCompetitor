@@ -104,7 +104,7 @@ function farkleRollSetup() {
     diceArr.push.apply(diceArr, holdArr);
     holdArr = [];
     if (!hotDice) {
-      for (let curDice = 0; curDice < diceHeld; curDice++) {
+      for (let curDice = 0; curDice < diceHeld && curDice < 6; curDice++) {
         let curDiceElement = document.getElementsByClassName('dice')[curDice];
         curDiceElement.src = diceArr[curDice].imgSrc;
         document.getElementById('hold' + curDice).classList.remove('text-opacity');
@@ -373,7 +373,7 @@ function saveCurrentRollScore() {
     let multipleDiceScored = false;
     let fivesHeld = 0, onesHeld = 0;
     let fivesScore = 0, onesScore = 0;
-    for (let i = diceHeldThisRoll; i < diceArr.length; i++) {
+    for (let i = diceHeldThisRoll; i < diceArr.length && i < 6; i++) {
       if (diceArr[i].allDiceWorth != 0 && multipleDiceScored == false) {
         score = score + diceArr[i].allDiceWorth;
         multipleDiceScored = true;
@@ -592,7 +592,6 @@ function updateStoredCoins(updateCoins) {
     } else {
       return false;
     }
-    console.log('totalScore: ' + totalScore);
     document.getElementById('currentWinInput').value = totalScore;
     document.getElementById('farkleForm').submit();
   });
