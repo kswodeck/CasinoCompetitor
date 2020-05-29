@@ -35,9 +35,9 @@ function coinFlip () {
   headWin.className = 'result-tally';
   tailWin.className = 'result-tally';
   animateCoin();
-  setTimeout(function() {document.getElementById('coin').src = 'images/' + coin + '.png';}, 350);
+  setTimeout(() => {document.getElementById('coin').src = 'images/' + coin + '.png';}, 350);
   displayWinText(winner, winnerDiv);
-  setTimeout(function() {coinFlipButton.disabled = false;}, 500);
+  setTimeout(() => {coinFlipButton.disabled = false;}, 500);
 }
 
 function createCoin(coin) {
@@ -58,7 +58,7 @@ function animateCoin() {
 }
 
 function displayWinText(winner, winnerDiv) {
-  setTimeout(function() {
+  setTimeout(() => {
     const text = document.createElement('span');
     text.innerText = winner;
     winnerDiv.appendChild(text);

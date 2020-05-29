@@ -1,4 +1,7 @@
 /* eslint-disable no-unused-vars */
+// THERE ARE SOME BUGS IN FARKLE GAME, FIX THEM
+// bug where dice don't spin after a few rolls
+// bug where scoring dice was not interactive/holdable and didn't say "HELD"
 var diceArr = [];
 var holdArr = [];
 var diceRolls = 0, diceHeld = 0, diceHeldThisRoll = 0, heldDiceScore = 0, totalScore = 0;
@@ -41,7 +44,7 @@ function farkleRoll() {
   winButton.style.backgroundColor = 'crimson';
   winButton.style.boxShadow = '0 6px var(--darkcrimson)';
   if (diceRolls === 0) {
-    updateCoinsStart = new Promise(function(resolve, reject) {
+    updateCoinsStart = new Promise((resolve, reject) => {
       totalCoins = totalCoins - currentCoinsBet;
       totalCoinsSpan.innerText = totalCoins;
       resolve(5);
@@ -58,11 +61,11 @@ function farkleRoll() {
     currentDiceElement.classList.remove('spin-grow');
     holdCurrentDice.classList.add('text-opacity');
     diceArr.push(new Dice(roll(), currentDiceElement));
-    setTimeout(function() {animateDice(currentDiceElement);}, 10);
+    setTimeout(() => {animateDice(currentDiceElement);}, 10);
     currentDiceElement.src = diceArr[currentDice].imgSrc;
   }
   farkleRollTeardown();
-  setTimeout(function() {diceRollButton.removeAttribute('disabled');}, 400);
+  setTimeout(() => {diceRollButton.removeAttribute('disabled');}, 400);
 }
 
 function casualFarkleRoll() {
@@ -77,11 +80,11 @@ function casualFarkleRoll() {
     currentDiceElement.classList.remove('spin-grow');
     holdCurrentDice.classList.add('text-opacity');
     diceArr.push(new Dice(roll(), currentDiceElement));
-    setTimeout(function() {animateDice(currentDiceElement);}, 10);
+    setTimeout(() => {animateDice(currentDiceElement);}, 10);
     currentDiceElement.src = diceArr[currentDice].imgSrc;
   }
   farkleRollTeardown();
-  setTimeout(function() {diceRollButton.removeAttribute('disabled');}, 400);
+  setTimeout(() => {diceRollButton.removeAttribute('disabled');}, 400);
 }
 
 function farkleRollSetup() {
@@ -135,7 +138,7 @@ function farkleRollSetup() {
 function farkleRollTeardown() {
   rollRankingHeading.innerText = getRollValues();
   rollScoreHeading.innerText = getRollScore();
-  setTimeout(function() {
+  setTimeout(() => {
     if (rollRankingHeading.innerText == 'FARKLE') {
       rollRankingHeading.style.color = 'crimson';
       diceRollButton.innerText = 'Play Again';
@@ -157,14 +160,14 @@ function farkleRollTeardown() {
   }, 350);
   diceRolls++;
   var totalDiceCanHold = 0;
-  new Promise(function(resolve, reject) {
+  new Promise((resolve, reject) => {
     for (let curDice = 0; curDice < 6; curDice++) {
       if (diceArr[curDice].canHold) {
         totalDiceCanHold++;
       }
     }
     resolve(5);
-  }).then(function() {
+  }).then(() => {
     if (totalDiceCanHold >= 6) {
       hotDice = true;
       for (let curDice = 0; curDice < 6; curDice++) {
@@ -173,7 +176,7 @@ function farkleRollTeardown() {
           farkleEndButton.setAttribute('disabled', 'disabled');
           document.getElementById('hold' + curDice).classList.remove('text-opacity');
       }
-      setTimeout(function() {
+      setTimeout(() => {
         displayFarkleDialog('hotDiceDialog', 'hotDiceCancel');
       }, 200);
     }
@@ -222,7 +225,11 @@ function getRollValues() {
   } else if (highestSameKindCount == 4) {
     resultText = '4 of a Kind';
   } else if (highestSameKindCount == 3) {
-    resultText = '3 of a Kind';
+    if (getQuantityOfNumber(1) == 3) { //if there are 3 ones they are seen like normal scoring dice
+      resultText = 'Scoring Dice Rolled';
+    } else {
+      resultText = '3 of a Kind';
+    }
   } else if (isRollScoring) {
     resultText = 'Scoring Dice Rolled';
   }
@@ -284,6 +291,15 @@ function getRollValues() {
       }
     }
     return true;
+  }
+  function getQuantityOfNumber(number) {
+    let numQuantity = 0;
+    diceArr.forEach(dice => {
+      if (dice.numValue === number) {
+        numQuantity++;
+      }
+    });
+    return numQuantity;
   }
   function classifyDiceWorth(highestSameKind, isAllPairs, isTriplets, isStraight) {
     let scoringDiceExists = false;
@@ -435,11 +451,11 @@ function endTurnConfirm() {
   const dialog = document.getElementById('confirmDialog');
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
-    setTimeout(function() {dialog.close()}, 20000);
+    setTimeout(() => {dialog.close()}, 20000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById('confirmButton').onclick = function() {
+  document.getElementById('confirmButton').onclick = () => {
     dialog.close();
     endTurnDialog();
   }
@@ -449,11 +465,11 @@ function endCasualTurnConfirm() {
   const dialog = document.getElementById('confirmDialog');
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
-    setTimeout(function() {dialog.close()}, 20000);
+    setTimeout(() => {dialog.close()}, 20000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById('confirmButton').onclick = function() {
+  document.getElementById('confirmButton').onclick = () => {
     dialog.close();
     endCasualTurnDialog();
   }
@@ -462,7 +478,7 @@ function endCasualTurnConfirm() {
 function endTurnDialog() {
   winButton.style.backgroundColor = 'darkblue';
   winButton.style.boxShadow = '0 6px var(--darkerblue)';
-  updateCoinsEnd = new Promise(function(resolve, reject) {
+  updateCoinsEnd = new Promise((resolve, reject) => {
     totalCoins = totalCoins + totalScore;
     currentWinSpan.innerText = totalScore;
     totalCoinsSpan.innerText = totalCoins;
@@ -472,11 +488,11 @@ function endTurnDialog() {
   const dialog = document.getElementById('endTurnDialog');
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
-    setTimeout(function() {dialog.close(); window.location.reload();}, 10000);
+    setTimeout(() => {dialog.close(); window.location.reload();}, 10000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById('endTurnCancel').onclick = function() {
+  document.getElementById('endTurnCancel').onclick = () => {
     dialog.close();
     window.location.reload();
   }
@@ -486,11 +502,11 @@ function endCasualTurnDialog() {
   const dialog = document.getElementById('endTurnDialog');
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
-    setTimeout(function() {dialog.close(); window.location.reload();}, 10000);
+    setTimeout(() => {dialog.close(); window.location.reload();}, 10000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById('endTurnCancel').onclick = function() {
+  document.getElementById('endTurnCancel').onclick = () => {
     dialog.close();
     window.location.reload();
   }
@@ -500,17 +516,17 @@ function displayFarkleDialog(dialog, cancel) {
   const curDialog = document.getElementById(dialog);
   if (typeof curDialog.showModal === 'function') {
     curDialog.showModal();
-    setTimeout(function() {curDialog.close();}, 8000);
+    setTimeout(() => {curDialog.close();}, 8000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById(cancel).onclick = function() {
+  document.getElementById(cancel).onclick = () => {
     curDialog.close();
   }
 }
 
 function disableDiceHold(...args) {
-  args.forEach(function(element) {
+  args.forEach((element) => {
     element.canHold = false;
     element.diceElement.classList.remove('interactive-img');
     element.diceElement.parentElement.removeAttribute('onclick');
@@ -518,7 +534,7 @@ function disableDiceHold(...args) {
 }
 
 function enableDiceHold(...args) {
-  args.forEach(function(element) {
+  args.forEach((element) => {
     element.canHold = true;
     let holdId = element.diceElement.parentElement.childNodes[1].getAttribute('id');
     element.diceElement.classList.add('interactive-img');
@@ -579,14 +595,17 @@ function outOfCoinsDialog() {
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById('outOfCoinsCancel').onclick = function() {
+  document.getElementById('outOfCoinsCancel').onclick = () => {
     outOfCoinsDialog.close();
   }
+  // document.getElementById('outOfCoinsCancel').onclick = function() {
+  //   outOfCoinsDialog.close();
+  // }
   diceRollButton.disabled = false;
 }
 
 function updateStoredCoins(updateCoins) {
-  updateCoins.then(function() {
+    updateCoins.then( () => {
     if (totalCoins != parseInt(coinsInput.value)) {
       coinsInput.value = totalCoins;
     } else {

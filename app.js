@@ -32,7 +32,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use(function(req, res, next){
+app.use((req, res, next) => {
   res.locals.currentUser = req.user; //set currentUser as a local variable
   res.locals.error = req.flash('error');
   res.locals.success = req.flash('success');
@@ -46,14 +46,14 @@ app.use(function(req, res, next){
 app.use('/', featureRoutes);
 app.use('/', userRoutes);
 
-app.use(function(req, res) {
+app.use((req, res) => {
   return res.status(404).render('error', {pageTitle: 'Page Not Found', message: 'Route '+req.url+' does not exist', status: 'Page Not Found: 404'});
 });
-app.use(function(err, res) {
+app.use((err, res) => {
   return res.status(500).render('error', {pageTitle: 'Server Error', message: err, status: 'Server Error: 500'});
 });
 
-app.listen(port, hostname, function(){
+app.listen(port, hostname, () =>{
   console.log('App running on ' + hostname + ':' + port)
 });
 

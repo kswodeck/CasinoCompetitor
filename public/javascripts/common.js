@@ -1,6 +1,8 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+
 function displayLoginDialog(message){
-    const loginDialog = document.getElementById('loginDialog');
+    const dialog = document.getElementById('loginDialog');
     const pageTitle = document.getElementsByTagName('title')[0];
     if (pageTitle.innerText == 'Login' || pageTitle.innerText == 'Forgot Username' || pageTitle.innerText == 'Forgot Password') {
       const exitButton = document.getElementById('loginDialogExit');
@@ -16,8 +18,8 @@ function displayLoginDialog(message){
         item.className = 'invalid-list';
       }
     }
-    if (typeof loginDialog.showModal === 'function') {
-      loginDialog.showModal();
+    if (typeof dialog.showModal === 'function') {
+      dialog.showModal();
       document.getElementById('mid-container').style.display = 'none';
     } else {
       console.log('The <dialog> API is not supported by this browser');
@@ -25,12 +27,12 @@ function displayLoginDialog(message){
 }
 
 function displayLogoutDialog(){
-  const logoutDialog = document.getElementById('logoutDialog');
+  const dialog = document.getElementById('logoutDialog');
   const container = document.getElementById('mid-container');
-  if (typeof logoutDialog.showModal === 'function') {
-    logoutDialog.showModal();
+  if (typeof dialog.showModal === 'function') {
+    dialog.showModal();
     container.style.display = 'none';
-    setTimeout(function() {
+    setTimeout(() => {
       window.location.href = '/';
     }, 8000);
   } else {
@@ -118,7 +120,7 @@ function displayStreakDialog(streak){
   if (typeof dialog.showModal == 'function') {
     dialog.showModal();
     document.getElementById('mid-container').style.display = 'none';
-    setTimeout(function() {
+    setTimeout(() => {
       document.getElementById('mid-container').style.display = 'block';
       dialog.close();
       window.location.href = '/';

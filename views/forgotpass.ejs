@@ -4,7 +4,7 @@
 </div>
 <% if (success && emailSent){ %>
 <script>
-  window.onload = function() {
+  window.onload = () => {
     sendForgotPWEmail('<%= emailSent %>', '<%= userId %>', '<%= username %>');
     displayForgotDialog('forgotPWDialog', '<%= success %>'); // displayDialog('changePWDialog');
     var uri = window.location.toString();
@@ -16,20 +16,20 @@
 </script>
 <% } else if (!currentUser) { %>
   <script>
-    window.onload = function() {
+    window.onload = () => {
       displayForgotDialog('forgotPWDialog', '<%= error %>');
     };
   </script>
 <% } else { %>
   <script>
-    window.onload = function() {
+    window.onload = () => {
       displayForgotDialog('forgotPWDialog', false);
     };
   </script>
 <% } %>
 <% if (!currentUser && updatePW){ %>
   <script>
-      window.onload = function() {
+      window.onload = () => {
       displayDialog('changePWDialog');
     };
   </script>

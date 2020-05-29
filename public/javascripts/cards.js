@@ -44,7 +44,7 @@ function getCards() {
     }
   }
   if (handsDealt === 0) {
-    updateCoinsStart = new Promise(function(resolve, reject) {
+    updateCoinsStart = new Promise((resolve, reject) => {
     totalCoins = totalCoins - currentBet;
     totalCoinsSpan.innerText = totalCoins;
     resolve(5);
@@ -98,7 +98,7 @@ function getCards() {
         currentWin = 4000;
       }
     }
-    updateCoinsEnd = new Promise(function(resolve, reject) {
+    updateCoinsEnd = new Promise((resolve, reject) => {
       totalCoins = totalCoins + currentWin;
       totalCoinsSpan.innerText = totalCoins;
       resolve(5);
@@ -189,12 +189,12 @@ function getFirstHand(currentCard, holdCurrentCard, currentValues) {
   let isSameIdentity = true;
   while (isSameIdentity) {
     currentValues = getRandomCardValues();
-    isSameIdentity = cards.some(function(value){
+    isSameIdentity = cards.some((value) => {
       return value.identity == currentValues[2];
     });
   }
   cards.push(new Card(currentValues[0], currentValues[1], currentValues[2]));
-  setTimeout(function() {
+  setTimeout(() => {
     curCard.src = cards[currentCard].imgSrc;
   }, 200);
   return cards;
@@ -207,10 +207,10 @@ function getSecondHand(currentCard, holdCurrentCard, currentValues) {
   let isSameIdHand1 = true, isSameIdHand2 = true;
   while (isSameIdHand1 || isSameIdHand2) {
     currentValues = getRandomCardValues();
-    isSameIdHand1 = cards.some(function(value){
+    isSameIdHand1 = cards.some((value) => {
       return value.identity == currentValues[2];
     });
-    isSameIdHand2 = cards2.some(function(value){
+    isSameIdHand2 = cards2.some((value) => {
       return value.identity == currentValues[2];
     });
   }
@@ -220,7 +220,7 @@ function getSecondHand(currentCard, holdCurrentCard, currentValues) {
   } else {
     cards2.push(new Card(currentValues[0], currentValues[1], currentValues[2]));
       currentCardElement.classList.add('fadeInOut-card');
-    setTimeout(function() {
+    setTimeout(() => {
       document.getElementsByClassName('cards')[currentCard].src = cards2[currentCard].imgSrc;
     }, 200);
   }
@@ -245,11 +245,11 @@ function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunct
     } else {
       handRankingHeading.style.color = 'darkblue'; // if a hand category has been acheived, blue text
       if (handsDealt === 1) {
-        setTimeout(function() {winFunction(resultText);}, 300);
+        setTimeout(() => {winFunction(resultText);}, 300);
       }
     }
     if (handsDealt === 1 || resultText !== 'Game Over') {
-      setTimeout(function() {
+      setTimeout(() => {
         handRankingHeading.innerText = resultText;
         handRankingHeading.style.display = 'block';
       }, 250);
@@ -260,7 +260,7 @@ function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunct
       updateStoredCoins(updateCoinsStart);
     }
   }
-  setTimeout(function() {
+  setTimeout(() => {
     cardDealButton.disabled = false;
   }, 400);
 }
@@ -401,7 +401,7 @@ function outOfCoinsDialog() {
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById('outOfCoinsCancel').onclick = function() {
+  document.getElementById('outOfCoinsCancel').onclick = () => {
     outOfCoinsDialog.close();
   }
 }
@@ -412,11 +412,11 @@ function winCoinsDialog(result) {
     document.getElementById('coin-win-popup-span').innerText = result;
     document.getElementById('number-coins-won').innerText = ' ' + currentWin + ' ';
     coinsDialog.showModal();
-    setTimeout(function() { coinsDialog.close() }, 2500);
+    setTimeout(() => {coinsDialog.close()}, 2500);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById('winCoinsCancel').onclick = function() {
+  document.getElementById('winCoinsCancel').onclick = () => {
     coinsDialog.close();
   }
 }
@@ -426,11 +426,11 @@ function winHandDialog(result) {
   if (typeof winDialog.showModal === 'function') {
     document.getElementById('hand-win-popup-span').innerText = result;
     winDialog.showModal();
-    setTimeout(function() { winDialog.close() }, 2500);
+    setTimeout(() => { winDialog.close() }, 2500);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById('winHandCancel').onclick = function() {
+  document.getElementById('winHandCancel').onclick = () => {
     winDialog.close();
   }
 }
@@ -448,7 +448,7 @@ function toggleOddsTable() {
 }
 
 function updateStoredCoins(updateCoins) {
-  updateCoins.then(function() {
+  updateCoins.then(() => {
     if (totalCoins != parseInt(coinsInput.value)) {
       coinsInput.value = totalCoins;
     } else {

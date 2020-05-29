@@ -62,7 +62,7 @@ function validatePasswordUpdate() {
     addToInvalidList('* old and new passwords must be different', updatePassword, invalidList);
     return false;
   } else {
-    setTimeout(function() { // good way of setting error message if there's only 1 more possible error
+    setTimeout(() => { // good way of setting error message if there's only 1 more possible error
       addToInvalidList('* current password is incorrect', oldPassword, invalidList);
       oldPassword.style.borderColor = 'crimson';
     }, 900);
@@ -175,10 +175,10 @@ function removeWhiteSpace(inputs) {
 
 function disableAfterSubmit(button, time) {
   let element = document.getElementById(button);
-  setTimeout(function() {
+  setTimeout(() => {
     element.disabled = true;
   }, 5);
-  setTimeout(function() {
+  setTimeout(() => {
     element.disabled = false;
   }, time);
 }

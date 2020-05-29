@@ -100,7 +100,7 @@ function diceRoll () {
   document.getElementById('dice-roll-tally-div').style.display = 'block';
   document.getElementById('dice-clear-tally-col').style.display = 'block';
   animateDice();
-  setTimeout(function() {diceRollButton.disabled = false;}, 10);
+  setTimeout(() => {diceRollButton.disabled = false;}, 10);
 }
 
 function animateDice() {
