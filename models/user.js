@@ -9,16 +9,16 @@ function getCurrentDate() {
     todayDate = (moment().date()-1);
     adjustedTime = (24 + adjustedTime);
   }
-  let dateReturned = moment().year() + '-'+ (moment().month()+1) + '-' + todayDate
-  + ' ' + adjustedTime + ':' + moment().minutes() + ':' + moment().seconds() + '.' + moment().milliseconds();
+  let dateReturned = moment().year() + '-'+ (moment().month()+1) + '-' + todayDate +
+  ' ' + adjustedTime + ':' + moment().minutes() + ':' + moment().seconds() + '.' + moment().milliseconds();
   return dateReturned;
 }
 
 let curDate = getCurrentDate();
 
-var UserSchema = new mongoose.Schema({
-  email: {type: String, minlength: 8, maxlength: 60}, //try to make unique, "unique :true" doesn't work
-  username: {type: String, minlength: 5, maxlength: 20}, //try to make unique, "unique :true" doesn't work
+var UserSchema = new mongoose.Schema({ // schema for user data
+  email: {type: String, minlength: 8, maxlength: 60},
+  username: {type: String, minlength: 5, maxlength: 20},
   password: {type: String, minlength: 5, maxlength: 20},
   firstName: {type: String, minlength: 1, maxlength: 30},
   lastName: {type: String, minlength: 1, maxlength: 50},

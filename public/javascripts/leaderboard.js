@@ -6,7 +6,7 @@ var mainContainer = document.getElementById("main-container");
 function startLoading() {
   loader.classList.add('animateLoad');
   loader.style.display = 'block';  
-  mainContainer.style.pointerEvents = 'none'
+  mainContainer.style.pointerEvents = 'none';
   mainContainer.style.opacity = 0.5;
 }
 

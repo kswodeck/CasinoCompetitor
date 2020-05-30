@@ -17,7 +17,7 @@ function coinFlip () {
     winnerDiv.removeChild(winnerDiv.lastChild);
   }
   function flip () {
-    return Math.floor((Math.random() * 2) + 1)
+    return Math.floor((Math.random() * 2) + 1);
   }
   var result = flip();
   var coin;

@@ -5,7 +5,7 @@ var passport = require('passport'),
     moment   = require('moment'),
     User     = require('../models/user');
 
-// User and authentication related routes
+// account, authentication, and routes only for logged in users
 router.get('/', (req, res) => {
   var afterLogin, changedLastLogin;
   if (req.query.afterLogin) {
@@ -65,33 +65,15 @@ router.get('/', (req, res) => {
 router.get('/cards', isLoggedIn, (req, res) => {
   res.render('cards', {pageTitle: 'Competitive Poker', currentCoins: req.user.coins});
 });
-router.put('/cards', isLoggedIn, (req, res) => { //possibly combine into function
+router.put('/cards', isLoggedIn, (req, res) => {
   updateCoins(req, res);
-  // if (req.body.userCoins != req.user.coins) { //update coins
-  //   console.log('updating coins: ' + req.user.coins + ' to ' + req.body.userCoins);
-  //   User.findOneAndUpdate({username: req.user.username}, {$set: {coins: req.body.userCoins}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
-  // }
-  // if (req.body.currentWin > req.user.highestWin) { //update highestWin
-  //   console.log('updating highestWin: ' + req.user.highestWin + ' to ' + req.body.currentWin);
-  //   User.findOneAndUpdate({username: req.user.username}, {$set: {highestWin: req.body.currentWin}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
-  // }
-  // return res.status(204).send();
 });
 
 router.get('/farkle', isLoggedIn, (req, res) => {
   res.render('farkle', {pageTitle: 'Competitive Farkle', currentCoins: req.user.coins});
 });
-router.put('/farkle', isLoggedIn, (req, res) => { //possibly combine into function
+router.put('/farkle', isLoggedIn, (req, res) => {
   updateCoins(req, res);
-  // if (req.body.userCoins != req.user.coins) { //update coins
-  //   console.log('updating coins: ' + req.user.coins + ' to ' + req.body.userCoins);
-  //   User.findOneAndUpdate({username: req.user.username}, {$set: {coins: req.body.userCoins}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
-  // }
-  // if (req.body.currentWin > req.user.highestWin) { //update highestWin
-  //   console.log('updating highestWin: ' + req.user.highestWin + ' to ' + req.body.currentWin);
-  //   User.findOneAndUpdate({username: req.user.username}, {$set: {highestWin: req.body.currentWin}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
-  // }
-  // return res.status(204).send();
 });
 
 router.get('/leaderboard', isLoggedIn, (req, res) => {
@@ -100,7 +82,7 @@ router.get('/leaderboard', isLoggedIn, (req, res) => {
     page = req.query.page; //gets the page number from query string
   }
   if (req.query.search) {
-    search = req.query.search; //gets the search text from query string
+    search = req.query.search; //gets the search term from query string
   }
   var cur = (page-1)*100;
   var pageUsers = [], userRanks = [];
@@ -112,7 +94,7 @@ router.get('/leaderboard', isLoggedIn, (req, res) => {
         if (cur >= allUsers.length || page < 1 || isNaN(page)) {
           return res.status(204).send();
         }
-        for (let i = cur; i < cur+100 && i < allUsers.length; i++) { // gets the first 100 users on initial leaderboard
+        for (let i = cur; i < cur+100 && i < allUsers.length; i++) { // gets 100 users on unsearched leaderboard
           pageUsers.push(allUsers[i]);
           userRanks.push(i+1);
         }
@@ -204,7 +186,7 @@ router.get('/account', isLoggedIn, (req, res) => {
 router.put('/account', isLoggedIn, (req, res) => {
   var curUser = req.user, updated = req.body.updateUser;
   if (req.body.updatePassword) {
-      curUser.changePassword(req.body.oldPassword, req.body.updatePassword, (err, user) => { // will use email instead
+      curUser.changePassword(req.body.oldPassword, req.body.updatePassword, (err, user) => {
         if (err || !user){
           console.log(err);
           return res.status(204).send();

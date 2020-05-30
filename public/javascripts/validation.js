@@ -21,7 +21,7 @@ function validateAccountCreate() {
   if (!isValid) {
     return false;
   } 
-  return validatePassMatch(newPassword, repeatPassword, invalidList)
+  return validatePassMatch(newPassword, repeatPassword, invalidList);
 }
 
 function validateAccountUpdate() {
@@ -30,7 +30,7 @@ function validateAccountUpdate() {
   const invalidList = document.getElementById('invalid-fields-list');
   const item = document.createElement('li');
   removeWhiteSpace(inputs);
-  let isValid = validateInputs(invalidList, accountInputs)
+  let isValid = validateInputs(invalidList, accountInputs);
   if (accountInputs[0].value == firstNameValue && accountInputs[1].value == lastNameValue && accountInputs[2].value == emailValue &&
     accountInputs[3].value == usernameValue && accountInputs[4].value == phoneValue && accountInputs[5].value == birthdayValue) {
       item.className = 'invalid-list';
@@ -71,7 +71,7 @@ function validatePasswordUpdate() {
 }
 
 function validatePasswordChange() {
-  disableAfterSubmit('passwordChangeButton', 800)
+  disableAfterSubmit('passwordChangeButton', 800);
   let inputs = document.getElementsByClassName('changePassInput');
   let invalidList = document.getElementById('invalid-change-password');
   let updatePassword = document.getElementById('changePassword');
@@ -184,11 +184,12 @@ function disableAfterSubmit(button, time) {
 }
 
 function validateKeys(evt, type) {
-  var theEvent = evt || window.event;
+  let key;
+  let theEvent = evt || window.event;
   if (theEvent.type === 'paste') {     // Handle paste
       key = event.clipboardData.getData('text/plain');
   } else {
-      var key = theEvent.keyCode || theEvent.which; // Handle key press
+      key = theEvent.keyCode || theEvent.which; // Handle key press
       key = String.fromCharCode(key);
   }
   var regex = /[0-9]|\./;

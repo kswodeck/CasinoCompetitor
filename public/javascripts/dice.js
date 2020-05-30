@@ -104,7 +104,7 @@ function diceRoll () {
 }
 
 function animateDice() {
-    let diceElements = document.getElementsByClassName('dice')
+    let diceElements = document.getElementsByClassName('dice');
     for (let i=0; i<diceElements.length; i++) {
       diceElements[i].classList.add('spin-grow');
     }

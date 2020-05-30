@@ -403,7 +403,7 @@ function outOfCoinsDialog() {
   }
   document.getElementById('outOfCoinsCancel').onclick = () => {
     outOfCoinsDialog.close();
-  }
+  };
 }
 
 function winCoinsDialog(result) {
@@ -412,13 +412,13 @@ function winCoinsDialog(result) {
     document.getElementById('coin-win-popup-span').innerText = result;
     document.getElementById('number-coins-won').innerText = ' ' + currentWin + ' ';
     coinsDialog.showModal();
-    setTimeout(() => {coinsDialog.close()}, 2500);
+    setTimeout(() => {coinsDialog.close();}, 2500);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
   document.getElementById('winCoinsCancel').onclick = () => {
     coinsDialog.close();
-  }
+  };
 }
 
 function winHandDialog(result) {
@@ -426,13 +426,13 @@ function winHandDialog(result) {
   if (typeof winDialog.showModal === 'function') {
     document.getElementById('hand-win-popup-span').innerText = result;
     winDialog.showModal();
-    setTimeout(() => { winDialog.close() }, 2500);
+    setTimeout(() => {winDialog.close();}, 2500);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
   document.getElementById('winHandCancel').onclick = () => {
     winDialog.close();
-  }
+  };
 }
 
 function toggleOddsTable() {

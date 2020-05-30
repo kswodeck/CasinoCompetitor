@@ -1,0 +1,24 @@
+<dialog id="confirmDialog" class="container-fluid account-form-div account-dialog farkle-dialog">
+  <h4 id="confirmHeading" class="md-text blue-text">Are you sure you want to end your turn?</h4>
+  <div id="confirmDialogDiv" class="row justify-content-around farkle-div">
+    <div class="col">
+      <button id="confirmButton" class="btn sm-text red-bg gold-text btn-style">Yes</button>
+    </div>
+    <div class="col">
+      <button id="cancelButton" class="btn sm-text blue-bg gold-text btn-style" onclick="exitDialog('confirmDialog')">No</button>
+    </div>
+  </div>
+</dialog>
+<dialog id="mustHoldDialog" class="farkle-dialog">
+  <span class="blue-text sm-text">You must hold new dice to roll again</span>
+  <div id="mustHoldDiv" class="farkle-div">
+      <button id="mustHoldCancel" class="btn sm-text red-bg gold-text btn-style">OK</button>
+    </div>
+</dialog>
+<dialog id="hotDiceDialog" class="farkle-dialog">
+  <b class="green-text md-text">HOT DICE</b><br>
+  <span class="blue-text sm-text">Roll all your dice again for extra winnings</span>
+  <div id="hotDiceDiv" class="farkle-div">
+      <button id="hotDiceCancel" class="btn sm-text blue-bg gold-text btn-style">OK</button>
+    </div>
+</dialog>
