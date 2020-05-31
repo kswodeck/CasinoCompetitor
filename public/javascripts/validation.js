@@ -145,15 +145,7 @@ function validateContactEmail() {
   if (!isValid) {
     return false;
   }
-  new Promise(() => {
-    sendContactEmail();
-    const item = document.createElement('li');
-    item.className = 'valid-list';
-    item.innerText = 'email sent';
-    invalidList.appendChild(item);
-  }).then(() => {
-    return true;
-  });
+  return sendContactEmail();
 }
 
 function emailIsValid(email) {
@@ -225,6 +217,7 @@ function validateKeys(evt, type) {
 }
 
 function sendContactEmail() {
+  console.log('started email send');
   let name = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value;
   let email = document.getElementById('contactEmail').value;
   let subject = document.getElementById('contactSubject').value;
@@ -243,5 +236,8 @@ function sendContactEmail() {
     //     name : "smtpjs.png",
     //     path:"https://networkprogramming.files.wordpress.com/2017/11/smtpjs.png"
     //   }]
-  }).then(message => console.log('Email sent: ' + message));
+  }).then(message => {
+    console.log('Email sent: ' + message);
+    return true;
+  });
 }

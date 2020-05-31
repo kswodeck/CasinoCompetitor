@@ -18,7 +18,10 @@ router.get('/coin', (req, res) => {
 });
 
 router.get('/contact', (req, res) => {
-  res.render('contact', {pageTitle: 'Contact Us'});
+  res.render('contact', {pageTitle: 'Contact Us', emailSent: false});
+});
+router.post('/contact', (req, res) => {
+  res.render('contact', {pageTitle: 'Contact Us', emailSent: true});
 });
 
 module.exports = router;
