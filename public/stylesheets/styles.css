@@ -218,7 +218,7 @@ input:invalid, #tableSearch:active {
 .result-tally, .odds-span, .result, .loss, .win, #dice-quantity-input-div {
   font-size: calc(10px + 0.35vw);
 }
-.result, #home-heading, #page-heading, .leaderboard-head, .main-heading, .roll-score {
+.result, #home-heading, #page-heading, .leaderboard-head, .main-heading, .roll-score, #leaderboard-heading {
   font-weight: bold;
   color: darkblue;
 }
@@ -390,7 +390,7 @@ button.betWinButton:active {
   opacity: 0.0001;
 }
 
-#home-heading {
+#home-heading, #leaderboard-heading {
   font-size: calc(23px + 1vw);
   text-transform: uppercase;
   text-shadow: 7px 2px 7px lightsteelblue, 7px 6px 7px lightsteelblue, 7px 10px 7px lightsteelblue;
@@ -536,7 +536,7 @@ div.top-menu-div > a {
   text-shadow: 2px 4px 5px lightsteelblue;
   font-size: calc(20px + 0.85vw)
 }
-.username-welcome {
+.username-welcome, #leaderboard-div {
   margin: 1.5% auto 0 auto;
 }
 .name-row {
@@ -688,7 +688,7 @@ button.back-arrow, #search-button {
   background-color: rgba(210, 210, 200, 0.3);
 }
 
-#leaderboard-pagination, .hold-card-text, input.account-button, #leaderboard-div, #dice-roll-div {
+#leaderboard-pagination, .hold-card-text, input.account-button, #dice-roll-div {
   margin: 2% auto;
 }
 #pagination-list {
@@ -818,6 +818,18 @@ dialog.farkle-dialog, div.farkle-div {
   #total-coins-span, #coins-img {
     display: none;
   }
+  div.account-form-div {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  div.name-row {
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+  div.name-col {
+    margin: 0;
+  }
   #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div, .farkle-score-div {
     width: 105px;
     line-height: 1;
@@ -835,12 +847,6 @@ dialog.farkle-dialog, div.farkle-div {
   }
   input.birthday {
     padding-left: calc(14px + 3%);
-  }
-  #firstNameCol {
-    margin-left: 5px;
-  }
-  #lastNameCol {
-    margin-right: 5px;
   }
   #cardsDropdown, #farkleDropdown {
     min-width: 100px;
