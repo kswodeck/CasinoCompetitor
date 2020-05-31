@@ -155,7 +155,5 @@ function sendForgotPWEmail(email, id, username) {
     From : "kswodeck@yahoo.com",
     Subject : "Forgotten Password Recovery",
     Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 200px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: crimson; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><p>Hi <strong>' + username + '!</strong> You requested to recover a misplaced password<br>Click the link below to create a new password for your account</p><a style="color: darkblue; font-size: 20px" href="' + link + '">Create New Password</a></div></html>'
-  }).then(
-  message => console.log('Email sent: ' + message)
-  );
+  }).then(message => console.log('Email sent: ' + message));
 }

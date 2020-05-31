@@ -290,8 +290,6 @@ form > #farkle-roll-button, form > #farkle-end-button {
   padding: 0.3% 3%;
 }
 
-
-
 #coin {
   width: 1%;
   margin: calc(40px + 3%) auto;
@@ -563,6 +561,10 @@ div.top-menu-div > a {
   max-width: 90%;
   min-width: 30%;
   text-align: center;
+}
+
+#contactFile {
+  border-radius: 0;
 }
 
 .account-heading, #farkle-roll-div, #hand-ranking-heading {

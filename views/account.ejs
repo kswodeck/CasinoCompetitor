@@ -14,15 +14,15 @@
               <input type="text" name="updateUser[lastName]" id="updateLastName" class="my-account user-input" minlength="1" maxlength="40" value="<%= currentUser.lastName %>" size="20" autocomplete="family-name" required>
             </div>
           </div>
-          <label for="email" class="account-label sm-txt">Email</label><br> <!-- email validations aren't fully sufficient. Make sure "." included with at least 1 character after -->
+          <label for="email" class="account-label sm-txt">Email</label><br>
           <input type="email" name="updateUser[email]" id="updateEmail" class="my-account user-input" minlength="8" maxlength="60" value="<%= currentUser.email %>" size="40" autocomplete="email" required><br>
           <label for="username" class="account-label sm-txt">Username</label><br>
           <input type="text" name="updateUser[username]" id="updateUsername" class="my-account user-input" minlength="5" maxlength="20" value="<%= currentUser.username %>" size="25" autocomplete="username" required><br>
           <label for="accountPassword" class="account-label sm-txt">Password</label><br>
           <input type="password" id="accountPassword" class="placeholderPassword user-input" value="password" size="25" autocomplete="off" disabled><i class="fas fa-pencil-alt edit-icon input-icon" onclick="displayDialog('updatePWDialog')"></i><br>
-          <label for="phone" class="account-label sm-txt">Phone Number</label><br> <!-- phone number validations aren't sufficient, complex -->
+          <label for="phone" class="account-label sm-txt">Phone Number</label><br>
           <input type="tel" name="updateUser[phone]" id="updatePhone" class="my-account user-input" minlength="10" maxlength="16" value="<%= currentUser.phone %>" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXXXXXXXXX" autocomplete="tel" required><br>
-          <label for="birthday" class="account-label sm-txt">Birthday</label><br> <!-- phone number XXX-XXX-XXXX pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
+          <label for="birthday" class="account-label sm-txt">Birthday</label><br>
           <input type="date" name="updateUser[birthday]" id="updateBirthday" class="my-account birthday user-input" size="8" min="1920-01-01" max="2019-12-31" value="<%= birthday %>" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" autocomplete="bday" required><br>
           <ul id="invalid-fields-list" class="invalid-fields-list">
           <% if (invalidUser && invalidUser.length > 0) { %>
