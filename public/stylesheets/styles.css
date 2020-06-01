@@ -272,7 +272,7 @@ input:invalid, #tableSearch:active {
   padding: 0;
   border: 0;
 }
-#card-prep-row, #farkle-prep-row {
+#card-prep-row, #dice-prep-row {
   margin: calc(4px + 0.8%) auto calc(1px + 0.2%) auto;
 }
 #dealt-cards-div{
@@ -923,5 +923,26 @@ dialog.farkle-dialog, div.farkle-div {
   }
   .farkle-slot-div {
     min-height: 100px;
+  }
+}
+/* small landscape mode breakpoint */
+@media (max-height: 500px) {
+  #farkle-roll-div, #card-prep-row {
+    margin: 0.5% auto 0.2% auto;
+  }
+  #roll-ranking-heading, #roll-score-heading {
+    margin: 0 auto;
+  }
+  #farkle-roll-score-div {
+    margin: 1% auto 0 auto;
+  }
+  #page-heading {
+    margin-bottom: 0.2rem;
+  }
+  #header {
+    margin-bottom: 0.5%;
+  }
+  #main-navbar, #header {
+    min-height: unset
   }
 }
