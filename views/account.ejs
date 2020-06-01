@@ -46,18 +46,18 @@
     <button id="confirmDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('confirmDeleteDialog')">✖</button>
   </div>
   <h4 id="confirmHeading" class="md-text blue-text login-heading">Are you sure you want to delete your account?</h4>
-  <div id="confirmDialogDiv" class="row justify-content-around">
+  <div id="confirmDialogDiv" class="row">
     <div class="col">
       <button id="confirmButton" class="btn sm-text red-bg gold-text btn-style" onclick="exitDialog('confirmDeleteDialog'); displayDialog('verifyPWDialog')">Yes</button>
     </div>
     <div class="col">
-      <button id="cancelButton" class="btn sm-text blue-bg gold-text btn-style" onclick="location.href='/account'">No</button>
+      <button id="cancelButton" class="btn sm-text blue-bg gold-text btn-style" onclick="window.location.reload();">No</button>
     </div>
   </div>
 </dialog>
 <dialog id="verifyPWDialog" class="container-fluid account-form-div account-dialog">
   <div class ="exit-button-div">
-    <button id="verifyPWDialogExit" class="exit-dialog-button md-text" onclick="window.location.href = '/account'">✖</button>
+    <button id="verifyPWDialogExit" class="exit-dialog-button md-text" onclick="window.location.reload();">✖</button>
   </div>
   <h2 id="verifyPWHeading" class="login-heading blue-text">Delete Account</h2>
   <form action="/account/?_method=DELETE" method="POST">

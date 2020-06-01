@@ -104,10 +104,11 @@ function togglePasswordVisibility(passwordId, iconId){
 }
 
 function displayDialog(dialog) {
-  const passDialog = document.getElementById(dialog);
-  if (typeof passDialog.showModal == 'function') {
-    passDialog.showModal();
+  const curDialog = document.getElementById(dialog);
+  if (typeof curDialog.showModal == 'function') {
+    curDialog.showModal();
     document.getElementById('mid-container').style.display = 'none';
+    setTimeout(() => {window.location.reload();}, 20000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }

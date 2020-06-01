@@ -1,7 +1,7 @@
 <%- include('partials/header') %>
 
 <div id="mid-container">
-  <h1 id="home-heading" class="mb-md-3 mb-sm-2 mb-1"><span id="welcome-home" class="italicized-subheading">Welcome to</span><br />Casino Competitor</h1>
+  <h1 id="home-heading"><span id="welcome-home" class="italicized-subheading">Welcome to</span><br />Casino Competitor</h1>
   <img src="images\pocket-poker.png" alt="CasinoCompetitor" id="home-logo">
   <% if (currentUser){ %>
   <h3 id="usernameHome" class="username-welcome blue-text"><%= currentUser.username %></h3>
@@ -14,7 +14,7 @@
     <button id="logoutDialogExit" class="exit-dialog-button md-text" onclick="window.location.href = '/'" >✖</button>
   </div>
   <h2 id="logoutHeading" class="account-heading login-heading blue-text">You've been logged out</h2>
-  <div id="logoutDialogDiv" class="row justify-content-around">
+  <div id="logoutDialogDiv" class="row">
     <div class="col">
       <button id="logoutLoginButton" class="btn sm-text red-bg gold-text btn-style" onclick="location.href='/login'">Log In</button>
     </div>

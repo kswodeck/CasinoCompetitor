@@ -275,7 +275,7 @@ input:invalid, #tableSearch:active {
 #card-prep-row, #dice-prep-row {
   margin: calc(4px + 0.8%) auto calc(1px + 0.2%) auto;
 }
-#dealt-cards-div{
+#dealt-cards-div, #home-heading {
   margin: 0 auto calc(4px + 0.8%) auto;
 }
 
@@ -741,6 +741,7 @@ dialog.farkle-dialog, div.farkle-div {
 }
 
 #dialogButtonDiv, #logoutDialogDiv, #accountUpdateDiv, #confirmDialogDiv {
+  justify-content: space-around;
   margin: 4% auto 2.5% auto;
 }
 #coinDialogDiv {
