@@ -217,7 +217,6 @@ function validateKeys(evt, type) {
 }
 
 function sendContactEmail() {
-  console.log('started email send');
   let name = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value;
   let email = document.getElementById('contactEmail').value;
   let subject = document.getElementById('contactSubject').value;
@@ -227,17 +226,22 @@ function sendContactEmail() {
     Host : "smtp.elasticemail.com",
     Username : "kswodeck@yahoo.com",
     Password : "F4382D25C5C4A0AA224EFC64D8C120EC5082",
-    To : "kswodeck@yahoo.com",
+    To : "kristofferswodeck@live.com",
     From : "kswodeck@yahoo.com",
     Subject : "Contact Us Submission - " + subject,
     Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 200px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: crimson; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><h3 style="color: darkblue; font-size: 20px; margin-bottom: 10px">From: ' + name + ' (' + email + ')</h3><p>You received a new contact us form submission:<br>' + '"' + text + '"' + '</p></div></html>'
-    // Attachments : [
-    //   {
-    //     name : "smtpjs.png",
-    //     path:"https://networkprogramming.files.wordpress.com/2017/11/smtpjs.png"
-    //   }]
   }).then(message => {
-    console.log('Email sent: ' + message);
     return true;
   });
 }
+
+// Attachments aren't working for now
+  // let file = document.getElementById('contactFile').files[0];
+  // let reader = new FileReader();
+  // reader.readAsBinaryString(file);
+  // let dataUri = "data:" + file.type + ";base64," + btoa(reader.result);
+// Attachments : [
+//   {
+//     name : file.name,
+//     data : dataUri
+//   }]
