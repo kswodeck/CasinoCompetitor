@@ -229,7 +229,7 @@ input:invalid, #tableSearch:active {
   color: green;
 }
 
-.cards, #home-logo {
+.cards, #home-logo, #play-container {
   max-width: 100%;
   margin: auto;
 }
@@ -742,7 +742,7 @@ dialog.farkle-dialog, div.farkle-div {
 
 #dialogButtonDiv, #logoutDialogDiv, #accountUpdateDiv, #confirmDialogDiv {
   justify-content: space-around;
-  margin: 4% auto 2.5% auto;
+  margin: 3% auto 2.5% auto;
 }
 #coinDialogDiv {
   margin-top: 5%;
@@ -925,6 +925,8 @@ dialog.farkle-dialog, div.farkle-div {
   .farkle-slot-div {
     min-height: 100px;
   }
+  #header {
+    margin-bottom: 0.5%;
 }
 /* small landscape mode breakpoint */
 @media (max-height: 500px) {
