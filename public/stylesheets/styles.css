@@ -106,15 +106,18 @@ button.btn-style, input.btn-style {
 .gold-text, .warning-list, #go-button-link, #footer a:hover, #table-search-icon:hover, a.page-link {
   color: gold;
 }
-.red-text, .input-icon:hover, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active,
+.red-text, .input-icon:hover, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active, .loss,
 svg.back-icon:active, #dicequantity:hover, #dicequantity:focus, .invalid-list, #table-search-icon:active, #hand-ranking-heading, #roll-ranking-heading {
   color: crimson;
 }
 .blue-text, a.link-text {
   color: darkblue;
 }
-.green-text, .valid-list {
+.green-text, .valid-list, .win {
   color: green;
+}
+.bluish-bg {
+  background-color: var(--bluish);
 }
 
 button.gold-bg:hover, input.gold-bg.btn:hover {
@@ -191,7 +194,7 @@ input:invalid, #tableSearch:active {
 #hand-odds-div {
   max-width: 270px;
   display: none;
-  margin: 0.5% auto 2% auto;
+  margin: 0.5% auto 1% auto;
   border: calc(1px + 0.2vw) solid darkblue;
   line-height: 1.25;
   padding: 0.2% 0.1%;
@@ -222,16 +225,12 @@ input:invalid, #tableSearch:active {
   font-weight: bold;
   color: darkblue;
 }
-.loss {
-  color: crimson;
-}
-.win {
-  color: green;
+.loss, .win {
+  font-weight: bold;
 }
 
 .cards, #home-logo, #play-container {
   max-width: 100%;
-  margin: auto;
 }
 .cards.fadeInOut-card {
   -webkit-animation: 0.4s ease-in-out 0s 1 forwards fadeInOut;
@@ -319,6 +318,7 @@ form > #farkle-roll-button, form > #farkle-end-button {
 }
 #play-container {
   width: calc(500px + 35vw);
+  margin: 0.8vh auto 0 auto;
 }
 
 #dice-roll-current-div, #dice-col, #dice-current-col {
@@ -683,9 +683,6 @@ button.back-arrow, #search-button {
 .leaderboard-head, .leaderboard-cell {
   border: 1px solid black;
 }
-.leaderboard-head {
-  background-color: var(--bluish);
-}
 .leaderboard-row:nth-child(odd) {
   background-color: rgba(210, 210, 200, 0.3);
 }
@@ -837,10 +834,6 @@ dialog.farkle-dialog, div.farkle-div {
     width: 105px;
     line-height: 1;
   }
-  #hand-odds-div {
-    width: 150px;
-    line-height: 1;
-  }
   #dropdownCardsLink, #dropdownMainLink {
     margin-bottom: 0;
   }
@@ -927,9 +920,10 @@ dialog.farkle-dialog, div.farkle-div {
   }
   #header {
     margin-bottom: 0.5%;
+  }
 }
 /* small landscape mode breakpoint */
-@media (max-height: 500px) {
+@media (max-height: 575px) {
   #farkle-roll-div, #card-prep-row {
     margin: 0.5% auto 0.2% auto;
   }
@@ -947,5 +941,8 @@ dialog.farkle-dialog, div.farkle-div {
   }
   #main-navbar, #header {
     min-height: unset
+  }
+  #hand-odds-div {
+    line-height: 1;
   }
 }

@@ -321,24 +321,25 @@ function getHandRanking(hand) {
   }
   function classifySameKinds(hand) {
     for (var i = 0; i < 5; i++) {
-      var currentKindCount = 1;
+      let currentKindCount = 1;
+      let curCard = hand[i];
       for (let j = 4; j >= 0; j--) {
         if (i !== j) {
-          if (hand[i].numValue === hand[j].numValue) {
+          if (curCard.numValue === hand[j].numValue) {
             currentKindCount++;
           }
         }
       }
-      hand[i].sameKindCount = currentKindCount;
+      curCard.sameKindCount = currentKindCount;
       if (currentKindCount === 2) {
-        hand[i].hasPair = true;
-        if (hand[i].isJackOrBetter) {
-          hand[i].isJackOrBetterPair = true;
+        curCard.hasPair = true;
+        if (curCard.isJackOrBetter) {
+          curCard.isJackOrBetterPair = true;
         } else {
-          hand[i].isJackOrBetterPair = false;
+          curCard.isJackOrBetterPair = false;
         }
       } else {
-        hand[i].hasPair = false;
+        curCard.hasPair = false;
       }
     }
     return Math.max(hand[0].sameKindCount, hand[1].sameKindCount, hand[2].sameKindCount, hand[3].sameKindCount, hand[4].sameKindCount);
