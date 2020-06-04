@@ -3,7 +3,7 @@
 <div id="mid-container">
   <div class="container-fluid account-form-div">
     <h2 id="form-heading" class="account-heading blue-text">Contact Us</h2>
-    <form action="/contact" method="POST">
+    <form action="/contact" method="POST" onsubmit="sendContactEmail()">
       <div class="name-row row">
         <div id="firstNameCol" class="name-col col">
           <label for="firstName" class="account-label sm-txt">First Name</label><br>
@@ -11,7 +11,7 @@
         </div>
         <div id="lastNameCol" class="name-col col">
           <label for="lastName" class="account-label sm-txt">Last Name</label><br>
-          <input type="text" name="lastName" id="lastName" class="account-input user-input" minlength="5" maxlength="50" placeholder="last" size="20" autocomplete="family-name" required>
+          <input type="text" name="lastName" id="lastName" class="account-input user-input" minlength="1" maxlength="50" placeholder="last" size="20" autocomplete="family-name" required>
         </div>
       </div>
       <label for="email" class="account-label sm-txt">Email</label><br>
@@ -33,7 +33,7 @@
         <li class="valid-list">Your email has been sent</li>
       <% } %>
       </ul>
-      <input type="submit" role="button" name="account-submit" onclick="return validateContactEmail()" value="Send Email" class="btn md-text blue-bg gold-text btn-style account-button" id="contactUsButton">
+      <input type="submit" role="button" name="account-submit" value="Send Email" class="btn md-text blue-bg gold-text btn-style account-button" id="contactUsButton">
     </form>
   </div>
 </div>
