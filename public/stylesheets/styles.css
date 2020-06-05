@@ -2,14 +2,13 @@ body, html {
   font-family: "Georgia", "Verdana", "Times New Roman";
   height: 100%;
   width: 100%;
-  margin: 0;
   overflow-x: hidden; /* navbar toggle button causes this to show no matter what when reaches small enough size */
   overflow-y: auto;
 }
-
 body {
+  margin: 0;
   background-color: rgba(255, 255, 255);
-  background-image: radial-gradient(ellipse, #FFFFFF 60%, #F4F7F9, #F3F4F6, #E3E6EE, #DBDFEB, #D1D7E5);
+  background-image: radial-gradient(ellipse, #FFFFFF 40%, rgb(245, 250, 250), rgb(230, 235, 240), rgb(215, 220, 230));
 }
 
 :root {
@@ -23,12 +22,14 @@ body {
   --darkgrey: #343a40;
 }
 
+input, button {
+  font-family: "Georgia", "Verdana", "Times New Roman";
+}
 ::-webkit-scrollbar {
   width: calc(5px + 0.1vw + 0.05vh);
   height: calc(5px + 0.05vw + 0.1vh);
-  background-color: #343a40;
 }
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb, ::-webkit-scrollbar, #header, div.dropdown-menu {
   background-color: #343a40;
 }
 ::-webkit-scrollbar-track {
@@ -88,12 +89,11 @@ button.red-bg, input.red-bg.btn, button.red-bg:focus, input.red-bg.btn:focus {
   background-color: crimson;
   box-shadow: 0 6px var(--darkcrimson);
 }
-button.blue-bg, input.blue-bg.btn, button.blue-bg:focus, input.blue-bg.btn:focus, a.page-link, a.page-link:focus {
+button.blue-bg, input.blue-bg.btn, button.blue-bg:focus, input.blue-bg.btn:focus, button.page-button, button.page-button:focus {
   background-color: darkblue;
   box-shadow: 0 6px var(--darkerblue);
 }
 button.btn-style, input.btn-style {
-  padding: 0.1% 1%;
   white-space: nowrap;
   font-weight: bold;
   margin: 0.8% auto calc(6px + 0.2vh) auto;
@@ -103,7 +103,16 @@ button.btn-style, input.btn-style {
   position: relative;
   box-sizing: border-box;
 }
-.gold-text, .warning-list, #go-button-link, #footer a:hover, #table-search-icon:hover, a.page-link {
+input {
+  line-height: 1.5;
+}
+table {
+  border-spacing: 0;
+}
+ul {
+  list-style: none;
+}
+.gold-text, .warning-list, #go-button-link, #footer a:hover, #table-search-icon:hover, button.page-button {
   color: gold;
 }
 .red-text, .input-icon:hover, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active, .loss,
@@ -129,21 +138,21 @@ button.gold-bg:active, input.gold-bg.btn:active {
   box-shadow: 0 0 var(--darkgold);
   top: 6px;
 }
-button.red-bg:hover, input.red-bg.btn:hover, a.page-link:hover {
+button.red-bg:hover, input.red-bg.btn:hover {
   color: gold;
   box-shadow: 0 4px var(--darkcrimson);
   top: 2px;
 }
-button.red-bg:active, input.red-bg.btn:active, a.page-link:active {
+button.red-bg:active, input.red-bg.btn:active {
   box-shadow: 0 0 var(--darkcrimson);
   top: 6px;
 }
-button.blue-bg:hover, input.blue-bg.btn:hover {
+button.blue-bg:hover, input.blue-bg.btn:hover, button.btn.page-button:hover {
   color: gold;
   box-shadow: 0 4px var(--darkerblue);
   top: 2px;
 }
-button.blue-bg:active, input.blue-bg.btn:active {
+button.blue-bg:active, input.blue-bg.btn:active, button.btn.page-button:active {
   box-shadow: 0 0 var(--darkerblue);
   top: 6px;
 }
@@ -258,8 +267,24 @@ input:invalid, #tableSearch:active {
 	        animation: 0.4s ease-in-out 0s 1 forwards flipCard;
 }
 
-.card-slot-div .interactive-img:hover, .farkle-slot-div .interactive-img:hover {
+.card-slot-div .interactive-img:hover, .farkle-slot-div .interactive-img:hover, .btn, input[type=button], button {
   cursor: pointer;
+}
+.btn {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: .375rem .75rem;
+  border-radius: .25rem;
+  background: none;
+  border: none;
+}
+.btn:focus, a:focus {
+  outline: none;
 }
 .card-slot-div .interactive-img:hover {
   border: 0.06rem solid lightsteelblue;
@@ -347,13 +372,13 @@ form > #farkle-roll-button, form > #farkle-end-button {
 
 .coins-img {
   width: calc(22px + 1vw);
+  height: calc(20px + 0.7vw);
 }
 
 #total-coins-span {
-  font-size:calc(12px + 0.3vw);
   color: gold;
   font-weight: bold;
-  margin-right: 1.5%;
+  margin-right: 1.2%;
   text-align: right;
 }
 .coins-streak-image {
@@ -364,19 +389,14 @@ button.betWinButton, button.betWinButton:focus {
   background-color: crimson;
   box-shadow: 0 6px var(--darkcrimson);
   font-weight: bold;
-  padding: 0.1% 1% 8% 1%;
-  border: none;
+  padding: 0.8% 1% 8% 1%;
   border-radius: 50px;
   width: calc(38px + 2.3vw);
   height: calc(38px + 1.5vw);
-  white-space: nowrap;
-  margin: 0.5% auto;
   position: relative;
-  box-sizing: border-box;
-  opacity: 1;
+  line-height: 1.5;
 }
 button.betWinButton:hover {
-  color: gold;
   box-shadow: 0 4px var(--darkcrimson);
   top: 2px;
 }
@@ -431,6 +451,20 @@ button.betWinButton:active {
 #header {
   z-index: 10;
 }
+#hamburger-button {
+  display: none;
+}
+
+.navbar {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: .5rem 1rem;
+}
 
 #navbar-content > .col {
   display: flex;
@@ -453,6 +487,7 @@ button.betWinButton:active {
 }
 #collapse-button-div {
   justify-content: flex-end;
+  align-items: center;
 }
 
 .dropdown-menu {
@@ -502,7 +537,7 @@ a, svg.input-icon, button > svg {
   transition: all 0.3s;
 }
 button.btn, input.btn, input.user-input {
-  transition: all 0.05s ease-out;
+  transition: none;
 }
 
 #dropdownCardsLink {
@@ -511,7 +546,6 @@ button.btn, input.btn, input.user-input {
 div.dropdown-menu {
   max-width: 180px;
   min-width: 160px;
-  background-color: #343a40;
   text-align: center;
   border: none;
   padding: 0;
@@ -532,7 +566,7 @@ div.top-menu-div > a {
   padding: 10% 0;
 }
 #coins-img {
-  margin: 0 5% 0 0;
+  margin-right: 5%
 }
 
 #dropdownCardsLink #dropdownMainLink, li a, #main-container, #dice-col, #dice-current-col, #dice-roll-tally-div,
@@ -548,7 +582,6 @@ div.top-menu-div > a {
   right: 0;
   width: 100%;
   z-index: 2;
-  padding: 30px 0 0 0;
 }
 #footer a {
   color: crimson;
@@ -569,6 +602,47 @@ div.top-menu-div > a {
 }
 #main-links-row, #farkle-roll-div {
   display: flex;
+}
+.navbar-nav {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.navbar-collapse {
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.collapse:not(.show) {
+  display: none;
+}
+.navbar-toggler-icon {
+display: inline-block;
+width: 1.5em;
+height: 1.5em;
+vertical-align: middle;
+content: "";
+background: no-repeat center center;
+background-size: 100% 100%;
+}
+.navbar-toggler {
+padding: .25rem .75rem;
+font-size: 1.25rem;
+line-height: 1;
+background-color: transparent;
+border: 1px solid transparent;
+border-radius: .25rem;
+}
+.navbar-dark .navbar-toggler {
+color: rgba(255,255,255,.5);
+border-color: rgba(255,255,255,.1);
 }
 .main-heading {
   margin: 2% auto 0.5% auto;
@@ -621,6 +695,8 @@ div.top-menu-div > a {
   max-width: 90%;
   min-width: 30%;
   text-align: center;
+  margin-bottom: calc(2px + 0.3vh);
+  line-height: 1.5;
 }
 
 #contactFile {
@@ -668,7 +744,7 @@ div.top-menu-div > a {
   margin-left: -8px;
 }
 .invalid-fields-list {
-  margin: 2% auto 0 auto;
+  margin: 1% auto 0 auto;
   list-style-type: none;
   text-align: center;
   padding: 0;
@@ -679,6 +755,7 @@ div.top-menu-div > a {
 
 input.birthday {
   padding-left: calc(23px + 3%);
+  cursor: text;
 }
 .account-already {
   font-size: calc(11px + 0.3vw);
@@ -723,6 +800,7 @@ dialog.account-dialog {
 
 button.back-arrow, #search-button {
   line-height: 1.2;
+  margin: 0 5px;
 }
 
 #leaderboard-div {
@@ -740,8 +818,8 @@ button.back-arrow, #search-button {
 #leaderboard-table {
   width: 100%;
 }
-.leaderboard-head, .leaderboard-cell {
-  border: 1px solid black;
+.leaderboard-head, .leaderboard-cell, #leaderboard-table {
+  border: 0.01em solid rgba(0, 0, 0, 0.6)
 }
 .leaderboard-row:nth-child(odd) {
   background-color: rgba(210, 210, 200, 0.3);
@@ -751,16 +829,17 @@ button.back-arrow, #search-button {
   margin: 2% auto;
 }
 #pagination-list {
+  display: flex;
+  list-style: none;
   justify-content: flex-end!important;
 }
-a.page-link:hover, a.page-link:active {
-  cursor: pointer;
-  background-color: crimson;
-}
-a.page-link {
-  padding: calc(4px + 0.3vw) calc(5px + 0.4vw);
+
+button.page-button {
+  padding: calc(4px + 0.3vw) calc(3.5px + 0.4vw);
   border: none;
   font-weight: bold;
+  position: relative;
+  border-radius: 0;
 }
 
 #coin-win-popup-span, #number-coins-won, #hand-win-popup-span, #endTurnPopupSpan, #farklePopupSpan {
@@ -909,7 +988,7 @@ dialog.farkle-dialog, div.farkle-div {
   }
 }
 /* between small and medium */
-@media (max-width: 767px) and (min-width: 575px) {
+@media (max-width: 768px) and (min-width: 575px) {
   #firstNameCol {
     margin-left: 15%;
    }
@@ -928,7 +1007,7 @@ dialog.farkle-dialog, div.farkle-div {
     flex-grow: 0;
   }
   #coins-img {
-    margin: 0;
+    margin-right: 1%;
   }
   #cardsDropdown, #farkleDropdown {
     margin: auto;
@@ -937,6 +1016,10 @@ dialog.farkle-dialog, div.farkle-div {
     padding: 0.1%;
     max-height: 200px;
     z-index: 1;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
   }
   #main-links-row {
     align-items: flex-start;
@@ -951,7 +1034,7 @@ dialog.farkle-dialog, div.farkle-div {
     width: 100%;
   }
   #hamburger-button {
-    margin-right: -15px;
+    display: block;
   }
   #mainDropdownDiv {
     padding: 0.8% 0 0 1%;
@@ -1011,5 +1094,15 @@ dialog.farkle-dialog, div.farkle-div {
   }
   #hand-odds-div {
     line-height: 1;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar-collapse {
+    display: -ms-flexbox!important;
+    display: flex!important;
+    -ms-flex-preferred-size: auto;
+    flex-basis: auto;
+    flex-direction: row;
   }
 }

@@ -34,7 +34,7 @@ function restoreLeaderboard(page) {
 
 function changePage(page, search) {
   let url = window.location.href;
-  if (url.includes('page='+ page + '&') || url.includes('&page='+ page)) {
+  if (url.includes('page='+ page + '&') || url.includes('&page='+ page) || url == window.location.origin + '/leaderboard?page=' + page) {
     return false;
   } else if (!url.includes('page=') && page == 1) {
     return false;

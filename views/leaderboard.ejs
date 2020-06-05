@@ -9,7 +9,7 @@
             <th id="table-search-cell" class="leaderboard-cell" colspan="4" scope="colgroup">
               <form action="/leaderboard" method="GET" action="#" onsubmit="searchLeaderboard('<%= curPage %>'); return false;" id="leaderboardSearchForm">
                 <button id="search-button" class="btn sm-text" name="search" type="submit" onclick="restoreLeaderboard('<%= curPage %>')"><i id="table-search-icon" class="fas fa-search"></i></button>
-                <input type="search" id="tableSearch" class="table-search" name="search" size="22" maxlength="20" placeholder="search by username..." incremental>
+                <input type="search" id="tableSearch" class="table-search xs-text" name="search" size="30" maxlength="25" placeholder="search by username..." incremental>
               </form>
             </th>
           </tr>
@@ -44,21 +44,19 @@
       <% } %>
         <% if (numPages > 1) { %>
         <nav id="leaderboard-pagination" aria-label="Page navigation">
-          <ul id="pagination-list" class="pagination sm-text">
+          <ul id="pagination-list" class="pagination">
             <li class="page-item">
-              <a class="page-link blue-text" onclick="changePage(1, '<%= search %>')" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
+              <button class="btn blue-bg gold-text md-text page-button" onclick="changePage(1, '<%= search %>')" aria-label="Previous">&laquo;</button>
             </li>
             <% let page = startPage %>
             <% for (let i = 1; i < 10 && i < numPages+1; i++) { %>
-              <li class="page-item"><a class="page-link blue-text" onclick="changePage('<%= page %>', '<%= search %>')"><%= page %></a></li>
+            <li class="page-item">
+              <button class="btn blue-bg gold-text md-text page-button" onclick="changePage('<%= page %>', '<%= search %>')"><%= page %></button>
+            </li>
             <% page++; %>
             <% } %>
             <li class="page-item">
-              <a class="page-link blue-text" onclick="changePage('<%= numPages %>', '<%= search %>')" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
+              <button class="btn blue-bg gold-text md-text page-button" onclick="changePage('<%= numPages %>', '<%= search %>')" aria-label="Next">&raquo;</button>
             </li>
           </ul>
         </nav>
