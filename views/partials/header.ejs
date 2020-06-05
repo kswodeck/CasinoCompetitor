@@ -22,8 +22,8 @@
     <div id="main-container">
       <header id="header">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="main-navbar" role="navigation">
-          <div id="main-links-row">
-            <div id="mainDropdownDiv" class="col-md-3 col-4 main-dropdown header-div">
+          <div id="main-links-row" class="row">
+            <div id="mainDropdownDiv" class="col main-dropdown header-div">
               <% if (currentUser && currentUser.username.length <= 10) { %>
                 <a class="gold-text" href="/" role="button" id="dropdownMainLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= currentUser.username %><i class="fas fa-caret-down"></i></a>
               <% } else { %>
@@ -40,9 +40,9 @@
                 <% } %>
               </div>
             </div>
-            <div id="linksDiv" class="col-md-6 col-4 header-div">
+            <div id="linksDiv" class="col header-div">
               <div class="collapse navbar-collapse navbar-nav" id="navbar-content">
-                <div id="cardsLink" class="col-lg-4 col-md-3 col top-menu-div cards-dropdown">
+                <div id="cardsLink" class="col top-menu-div cards-dropdown">
                   <a class="gold-text" href="casual-cards" role="button" id="dropdownCardsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Poker<i class="fas fa-caret-down"></i></a>
                   <div class="dropdown-menu" id="cardsDropdown" aria-labelledby="dropdownCardsLink">
                     <a class="gold-text dropdown-item" href="casual-cards">Casual</a>
@@ -50,10 +50,10 @@
                     <a class="gold-text dropdown-item" href="\images\jacks-better-hands.png" target="_blank">Hand Ranks</a>
                   </div>
                 </div>
-                <div id="leaderboardLink" class="col-lg-4 col-md-6 col top-menu-div">
+                <div id="leaderboardLink" class="col top-menu-div">
                   <a class="gold-text" href="leaderboard">Leaderboard</a>
                 </div>
-                <div id="farkleLink" class="col-lg-4 col-md-3 col top-menu-div farkle-dropdown">
+                <div id="farkleLink" class="col top-menu-div farkle-dropdown">
                   <a class="gold-text" href="casual-farkle" role="button" id="dropdownFarkleLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Farkle<i class="fas fa-caret-down"></i></a>
                  <div class="dropdown-menu" id="farkleDropdown" aria-labelledby="dropdownFarkleLink">
                    <a class="gold-text dropdown-item" href="casual-farkle">Casual</a>
@@ -66,7 +66,7 @@
                </div>
              </div>
           </div>
-          <div class="col-md-3 col-4  header-div" id="collapse-button-div">
+          <div class="col  header-div" id="collapse-button-div">
             <% if (currentUser){ %>
             <span id="total-coins-span"><%= currentUser.coins %></span><img class="coins-img" id="coins-img" src="\images\coins.png">
             <% } %>

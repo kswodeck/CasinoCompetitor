@@ -148,6 +148,7 @@ function farkleRollTeardown() {
       farkleEndButton.setAttribute('disabled', 'disabled');
       diceRollButton.setAttribute('onclick', 'window.location.reload(); return false');
       totalScoreText.innerText = 0;
+      rollScoreHeading.style.display = 'none';
       displayFarkleDialog('farkleDialog', 'farkleCancel');
     } else {
       rollRankingHeading.style.color = 'darkblue';

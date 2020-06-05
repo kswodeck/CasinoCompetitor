@@ -145,6 +145,10 @@ function clearValidityMessages() {
   }
 }
 
+function toggleDropdown(dropdown) {
+  getElementById(dropdown).style.display = 'absolute';
+}
+
 function sendForgotPWEmail(email, id, username) {
   let link = '127.0.0.1:3000/forgotpass/' + id;
   // eslint-disable-next-line no-undef

@@ -170,6 +170,23 @@ input:invalid, #tableSearch:active {
   border-color: crimson;
 }
 
+.col {
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  max-width: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
 #dicequantity {
   background-color: gold;
   border: 1px solid crimson;
@@ -415,6 +432,49 @@ button.betWinButton:active {
   z-index: 10;
 }
 
+#navbar-content > .col {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+#mainDropdownDiv, #linksDiv, #collapse-button-div {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+#mainDropdownDiv {
+  justify-content: flex-start;
+}
+#linksDiv {
+  flex-basis: 100px;
+  flex-grow: 1;
+  justify-content: center;
+}
+#collapse-button-div {
+  justify-content: flex-end;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  float: left;
+  min-width: 10rem;
+  padding: .5rem 0;
+  margin: .125rem 0 0;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: .25rem;
+  display: none;
+}
+
 #header a:hover, #current-link, a.link-text:hover, .back-button-label:hover, svg.back-icon:hover {
   color: crimson;
   cursor: pointer;
@@ -640,10 +700,10 @@ dialog.account-dialog {
   padding-bottom: 1.5%;
 }
 
-.exit-button-div, #table-search-row, #collapse-button-div, #current-bet-div, #cardsLink {
+.exit-button-div, #table-search-row, #collapse-button-div, #current-bet-div {
   text-align: right;
 }
-.back-button-div, #dicequantity, #current-win-div, #farkleLink {
+.back-button-div, #dicequantity, #current-win-div {
   text-align: left;
 }
 
@@ -864,6 +924,9 @@ dialog.farkle-dialog, div.farkle-div {
 }
 /* medium breakpoint */
 @media (max-width: 767px) {
+  #linksDiv {
+    flex-grow: 0;
+  }
   #coins-img {
     margin: 0;
   }
@@ -888,13 +951,15 @@ dialog.farkle-dialog, div.farkle-div {
     width: 100%;
   }
   #hamburger-button {
-    margin-right: 0px;
+    margin-right: -15px;
   }
   #mainDropdownDiv {
-    padding: 0.8% 0 0 0.4%;
+    padding: 0.8% 0 0 1%;
+    white-space: nowrap;
   }
   div.top-menu-div > a {
     padding: 3%;
+    white-space: nowrap;
   }
   #cardsDropdown a {
     padding: 0.5% 0;
@@ -909,7 +974,6 @@ dialog.farkle-dialog, div.farkle-div {
     font-size: calc(10px + 0.6vw);
   }
   #farkle-roll-div .dice {
-    width: 6%;
     margin: calc(20px + 0.5%) 0;
   }
   .farkle-slot-div .interactive-img:hover {
@@ -924,11 +988,14 @@ dialog.farkle-dialog, div.farkle-div {
 }
 /* small landscape mode breakpoint */
 @media (max-height: 575px) {
-  #farkle-roll-div, #card-prep-row {
+  #card-prep-row {
     margin: 0.5% auto 0.2% auto;
   }
-  #roll-ranking-heading, #roll-score-heading {
+  #roll-score-heading {
     margin: 0 auto;
+  }
+  #farkle-roll-div {
+    margin: 0.5% auto calc(20px + 0.25vh + 0.1vw) auto;
   }
   #farkle-roll-score-div {
     margin: 1% auto 0 auto;
