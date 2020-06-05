@@ -452,7 +452,17 @@ button.betWinButton:active {
   z-index: 10;
 }
 #hamburger-button {
+  color: gold;
+  border-color: #343a40;
   display: none;
+  outline: none;
+}
+#hamburger-button:hover {
+  color: crimson;
+  border-color: rgba(255, 215, 0, .2);
+}
+#hamburger-button:active {
+  border-color: rgba(220, 20, 60, .8);
 }
 
 .navbar {
@@ -623,27 +633,18 @@ div.top-menu-div > a {
 .collapse:not(.show) {
   display: none;
 }
-.navbar-toggler-icon {
+svg.navbar-toggler-icon {
 display: inline-block;
-width: 1.5em;
-height: 1.5em;
+height: 1.4em;
 vertical-align: middle;
-content: "";
-background: no-repeat center center;
-background-size: 100% 100%;
 }
 .navbar-toggler {
-padding: .25rem .75rem;
-font-size: 1.25rem;
-line-height: 1;
+padding: .01rem .5rem;
 background-color: transparent;
 border: 1px solid transparent;
 border-radius: .25rem;
 }
-.navbar-dark .navbar-toggler {
-color: rgba(255,255,255,.5);
-border-color: rgba(255,255,255,.1);
-}
+
 .main-heading {
   margin: 2% auto 0.5% auto;
 }
@@ -1024,7 +1025,7 @@ dialog.farkle-dialog, div.farkle-div {
   #main-links-row {
     align-items: flex-start;
   }
-  #dropdownMainLink, .navbar-toggler {
+  #dropdownMainLink {
     font-size: calc(12px + 0.8vw);
   }
   .card-slot-div, #play-container, #collapse-button-div, #navbar-content div, .header-div {
@@ -1034,7 +1035,8 @@ dialog.farkle-dialog, div.farkle-div {
     width: 100%;
   }
   #hamburger-button {
-    display: block;
+    display: inline-block;
+    font-size: calc(14px + 0.5vw + 0.5vh);
   }
   #mainDropdownDiv {
     padding: 0.8% 0 0 1%;
