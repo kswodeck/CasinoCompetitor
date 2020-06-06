@@ -24,53 +24,65 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="main-navbar" role="navigation">
           <div id="main-links-row" class="row">
             <div id="mainDropdownDiv" class="col main-dropdown header-div">
+              <div id="mainDropdownContent" class="dropdownContent">
               <% if (currentUser && currentUser.username.length <= 10) { %>
-                <a class="gold-text" href="/" role="button" id="dropdownMainLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= currentUser.username %><i class="fas fa-caret-down"></i></a>
+                <a class="gold-text dropdownLink" href="/" role="button" id="dropdownMainLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= currentUser.username %><i class="fas fa-caret-down"></i></a>
               <% } else { %>
-                <a class="gold-text" href="/" role="button" id="dropdownMainLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home<i class="fas fa-caret-down"></i></a>
+                <a class="gold-text dropdownLink" href="/" role="button" id="dropdownMainLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home<i class="fas fa-caret-down"></i></a>
               <% } %>
-              <div class="dropdown-menu" id="mainDropdown" aria-labelledby="dropdownMainLink">
-                <a class="gold-text dropdown-item" href="contact">Contact Us</a>
+                <div class="dropdown-menu" id="mainDropdown" aria-labelledby="dropdownMainLink">
+                  <ul id ="mainDropdownList" class="dropdownList">
+                    <li class="dropdownListItem"><a class="gold-text dropdown-item" href="contact">Contact Us</a></li>
                 <% if (!currentUser){ %>
-                <a class="gold-text dropdown-item" href="register">Sign Up</a>
-                <a class="gold-text dropdown-item" onclick="displayLoginDialog('<%= error %>')" href="#">Log In</a>
+                    <li class="dropdownListItem"><a class="gold-text dropdown-item" href="register">Sign Up</a></li>
+                    <li class="dropdownListItem"><a class="gold-text dropdown-item" onclick="displayLoginDialog('<%= error %>')" href="#">Log In</a></li>
                 <% } else { %>
-                <a class="gold-text dropdown-item" href="account">My Account</a>
-                <a class="gold-text dropdown-item" href="logout">Log Out</a>
+                    <li class="dropdownListItem"><a class="gold-text dropdown-item" href="account">My Account</a></li>
+                    <li class="dropdownListItem"><a class="gold-text dropdown-item" href="logout">Log Out</a></li>
                 <% } %>
+                  </ul>
+                </div>
               </div>
             </div>
             <div id="linksDiv" class="col header-div">
               <div class="collapse navbar-collapse navbar-nav" id="navbar-content">
-                <div id="cardsLink" class="col top-menu-div cards-dropdown">
-                  <a class="gold-text" href="casual-cards" role="button" id="dropdownCardsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Poker<i class="fas fa-caret-down"></i></a>
-                  <div class="dropdown-menu" id="cardsDropdown" aria-labelledby="dropdownCardsLink">
-                    <a class="gold-text dropdown-item" href="casual-cards">Casual</a>
-                    <a class="gold-text dropdown-item" href="cards">Competitive</a>
-                    <a class="gold-text dropdown-item" href="\images\jacks-better-hands.png" target="_blank">Hand Ranks</a>
+                <div id="cardsDropdownContent" class="dropdownContent">
+                  <div id="cardsLink" class="col top-menu-div cards-dropdown">
+                    <a class="gold-text dropdownLink" role="button" id="dropdownCardsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Poker<i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown-menu" id="cardsDropdown" aria-labelledby="dropdownCardsLink">
+                      <ul id ="cardsDropdownList" class="dropdownList">
+                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="casual-cards">Casual</a></li>
+                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="cards">Competitive</a></li>
+                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="\images\jacks-better-hands.png" target="_blank">Hand Ranks</a></li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
                 <div id="leaderboardLink" class="col top-menu-div">
                   <a class="gold-text" href="leaderboard">Leaderboard</a>
                 </div>
-                <div id="farkleLink" class="col top-menu-div farkle-dropdown">
-                  <a class="gold-text" href="casual-farkle" role="button" id="dropdownFarkleLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Farkle<i class="fas fa-caret-down"></i></a>
-                 <div class="dropdown-menu" id="farkleDropdown" aria-labelledby="dropdownFarkleLink">
-                   <a class="gold-text dropdown-item" href="casual-farkle">Casual</a>
-                   <a class="gold-text dropdown-item" href="farkle">Competitive</a>
-                   <a class="gold-text dropdown-item" href="\images\FarkleRules.pdf" target="_blank">Rules</a>
-                   <% if (currentUser){ %>
-                   <a class="gold-text dropdown-item" href="\images\CompetitiveFarkleScoring.pdf" target="_blank">Coin Scoring</a>
-                   <% } %>
-                 </div>
-               </div>
-             </div>
-          </div>
+                <div id="farkleDropdownContent" class="dropdownContent">
+                  <div id="farkleLink" class="col top-menu-div farkle-dropdown">
+                    <a class="gold-text dropdownLink" role="button" id="dropdownFarkleLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Farkle<i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown-menu" id="farkleDropdown" aria-labelledby="dropdownFarkleLink">
+                      <ul id ="farkleDropdownList" class="dropdownList">
+                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="casual-farkle">Casual</a></li>
+                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="farkle">Competitive</a></li>
+                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="\images\FarkleRules.pdf" target="_blank">Rules</a></li>
+                        <% if (currentUser){ %>
+                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="\images\CompetitiveFarkleScoring.pdf" target="_blank">Coin Scoring</a></li>
+                        <% } %>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           <div class="col header-div" id="collapse-button-div">
             <% if (currentUser){ %>
             <span id="total-coins-span" class="sm-text"><%= currentUser.coins %></span><img class="coins-img" id="coins-img" src="\images\coins.png">
             <% } %>
-            <button id="hamburger-button" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+            <button id="hamburger-button" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation" onclick="toggleHamburger('navbar-content')">
               <i class="fas fa-bars navbar-toggler-icon"></i>
             </button>
           </div>

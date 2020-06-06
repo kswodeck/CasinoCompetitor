@@ -145,8 +145,14 @@ function clearValidityMessages() {
   }
 }
 
-function toggleDropdown(dropdown) {
-  getElementById(dropdown).style.display = 'absolute';
+function toggleHamburger(dropdown) {
+  let hamContent = document.getElementById(dropdown);
+  let header = document.getElementById('header');
+  if (hamContent.style.display == 'none') {
+    hamContent.style.display = 'block';
+  } else {
+    hamContent.style.display = 'none';
+  }
 }
 
 function sendForgotPWEmail(email, id, username) {

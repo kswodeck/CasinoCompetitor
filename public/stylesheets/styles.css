@@ -116,7 +116,8 @@ ul {
   color: gold;
 }
 .red-text, .input-icon:hover, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active, .loss,
-svg.back-icon:active, #dicequantity:hover, #dicequantity:focus, .invalid-list, #table-search-icon:active, #hand-ranking-heading, #roll-ranking-heading {
+svg.back-icon:active, #dicequantity:hover, #dicequantity:focus, .invalid-list, #table-search-icon:active, #hand-ranking-heading, #roll-ranking-heading,
+.dropdown-menu li:hover, .dropdown-menu li:hover a, .dropdownContent:hover .dropdownLink {
   color: crimson;
 }
 .blue-text, a.link-text {
@@ -500,22 +501,17 @@ button.betWinButton:active {
   align-items: center;
 }
 
-.dropdown-menu {
+div.dropdown-menu {
   position: absolute;
-  top: 100%;
   left: 0;
   z-index: 1000;
-  float: left;
-  min-width: 10rem;
-  padding: .5rem 0;
-  margin: .125rem 0 0;
+  max-width: 180px;
+  min-width: 160px;
+  text-align: center;
+  border: none;
+  padding: 1% 0 0 0;
+  margin: 0 auto;
   font-size: 1rem;
-  color: #212529;
-  text-align: left;
-  list-style: none;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid rgba(0,0,0,.15);
   border-radius: .25rem;
   display: none;
 }
@@ -529,7 +525,6 @@ button.betWinButton:active {
 }
 
 #dropdownMainLink {
-  margin-left: 5%;
   font-size: 130%;
   color: gold;
   font-weight: bold;
@@ -553,24 +548,8 @@ button.btn, input.btn, input.user-input {
 #dropdownCardsLink {
   margin-bottom: 2px;
 }
-div.dropdown-menu {
-  max-width: 180px;
-  min-width: 160px;
-  text-align: center;
-  border: none;
-  padding: 0;
-  top: 30px;
-}
 #mainDropdown {
-  margin: 0 -1px;
-}
-#cardsDropdown {
-  margin: 0;
-  left: calc(-200px + 22vw);
-}
-#farkleDropdown {
-  margin: 0;
-  left: calc(-46px + 0.15vw);
+  top: 32px;
 }
 div.top-menu-div > a {
   padding: 10% 0;
@@ -581,7 +560,7 @@ div.top-menu-div > a {
 
 #dropdownCardsLink #dropdownMainLink, li a, #main-container, #dice-col, #dice-current-col, #dice-roll-tally-div,
 #dice-roll-current-div, #table-search-cell, .name-col, #leaderboard-div, #tableSearch, button.back-arrow, #search-button,
-#main-navbar, #main-links-row, a.dropdown-item, #linksDiv, div.top-menu-div {
+#main-navbar, #main-links-row, a.dropdown-item, #linksDiv, div.top-menu-div, .dropdownList {
   padding: 0;
 } 
 
@@ -645,6 +624,33 @@ border: 1px solid transparent;
 border-radius: .25rem;
 }
 
+.dropdown-menu li:hover {
+  background-color: #ddd;
+}
+.dropdownContent:hover .dropdown-menu, .dropdown-menu:hover, .dropdown-menu a:hover {
+  display: block;
+}
+#mainDropdownContent {
+  margin-left: 5%;
+  padding: 1% 0 2.5% 0;
+}
+#farkleDropdown, #cardsDropdown {
+  top: 25px;
+  left: -50px;
+  padding-top: 5%;
+}
+#farkleDropdownContent, #cardsDropdownContent, #leaderboardLink {
+  padding: 1.5% 2% 1.5% 1%;
+}
+
+.dropdownContent {
+  cursor: pointer;
+  white-space: nowrap;
+}
+.dropdownListItem {
+  height: 25px;
+}
+
 .main-heading {
   margin: 2% auto 0.5% auto;
 }
@@ -672,7 +678,7 @@ border-radius: .25rem;
 .username-welcome, #leaderboard-div {
   margin: 1.5% auto 0 auto;
 }
-.name-row {
+.name-row, .dropdownList {
   margin: 0 auto;
 }
 #firstNameCol {
@@ -979,13 +985,9 @@ dialog.farkle-dialog, div.farkle-div {
   }
   div.dropdown-menu a:hover {
     color: crimson;
-    background-color: #343a40;
   }
   input.birthday {
     padding-left: calc(14px + 3%);
-  }
-  #cardsDropdown, #farkleDropdown {
-    min-width: 100px;
   }
 }
 /* between small and medium */
@@ -997,11 +999,6 @@ dialog.farkle-dialog, div.farkle-div {
     margin-right: 15%;
    }
 }
-@media (max-width: 752px) {
-  #mainDropdown {
-    position: static;
-  }
-}
 /* medium breakpoint */
 @media (max-width: 767px) {
   #linksDiv {
@@ -1011,7 +1008,9 @@ dialog.farkle-dialog, div.farkle-div {
     margin-right: 1%;
   }
   #cardsDropdown, #farkleDropdown {
-    margin: auto;
+    display: inline;
+    position: static;
+    min-width: auto;
   }
   #main-navbar {
     padding: 0.1%;
@@ -1036,21 +1035,18 @@ dialog.farkle-dialog, div.farkle-div {
   }
   #hamburger-button {
     display: inline-block;
-    font-size: calc(14px + 0.5vw + 0.5vh);
+    font-size: calc(20px + 0.5vw + 0.5vh);
   }
   #mainDropdownDiv {
     padding: 0.8% 0 0 1%;
     white-space: nowrap;
   }
   div.top-menu-div > a {
-    padding: 3%;
+    padding: 4%;
     white-space: nowrap;
   }
-  #cardsDropdown a {
-    padding: 0.5% 0;
-  }
-  .dropdown-item:hover {
-    background-color: #343a40;
+  #cardsDropdown a, #farkleDropdown a {
+    padding: 1% 0;
   }
   #farkleLink, #cardsLink {
     text-align: center;
@@ -1069,6 +1065,21 @@ dialog.farkle-dialog, div.farkle-div {
   }
   #header {
     margin-bottom: 0.5%;
+    max-height: 200px;
+    padding: 0.5% 0;
+  }
+  #mainDropdownContent {
+    padding-bottom: 4%;
+  }
+  #cardsDropdown a:hover, #farkleDropdown a:hover, #farkleDropdown li:hover, #cardsDropdown li:hover {
+    color: crimson;
+    background-color: #343a40;
+  }
+  #cardsDropdownContent:hover .dropdown-menu, #farkleDropdownContent:hover .dropdown-menu {
+    display: inline;
+  }
+  .dropdownListItem {
+    height: 20px;
   }
 }
 /* small landscape mode breakpoint */
