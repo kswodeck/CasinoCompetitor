@@ -11,8 +11,8 @@ var express      = require('express'),
   featureRoutes  = require('./routes/features');
 
 const connectionString = 'mongodb+srv://kswodeck:casinomongo929!@pocketpoker1-zl3ub.mongodb.net/pocketpoker?retryWrites=true&w=majority';
-const hostname = '127.0.0.1';
-const port = process.env.PORT || 3000;
+// const hostname = '127.0.0.1';
+// const port = process.env.PORT || 3000;
 mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -53,9 +53,9 @@ app.use((err, res) => {
   return res.status(500).render('error', {pageTitle: 'Server Error', message: err, status: 'Server Error: 500'});
 });
 
-app.listen(port, hostname, () =>{
-  console.log('App running on ' + hostname + ':' + port);
-});
+// app.listen(port, hostname, () =>{
+//   console.log('App running on ' + hostname + ':' + port);
+// });
 
 
 module.exports = app;
