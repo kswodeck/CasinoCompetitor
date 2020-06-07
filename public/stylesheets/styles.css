@@ -500,7 +500,13 @@ button.betWinButton:active {
   justify-content: flex-end;
   align-items: center;
 }
-
+.navbar-collapse {
+  display: flex;
+  -ms-flex-preferred-size: auto;
+  flex-basis: auto;
+  flex-direction: row;
+  display: -ms-flexbox;
+  }
 div.dropdown-menu {
   position: absolute;
   left: 0;
@@ -513,7 +519,6 @@ div.dropdown-menu {
   margin: 0 auto;
   font-size: 1rem;
   border-radius: .25rem;
-  display: none;
 }
 
 #header a:hover, #current-link, a.link-text:hover, .back-button-label:hover, svg.back-icon:hover {
@@ -595,8 +600,6 @@ div.top-menu-div > a {
 .navbar-nav {
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
@@ -609,9 +612,9 @@ div.top-menu-div > a {
   -ms-flex-align: center;
   align-items: center;
 }
-.collapse:not(.show) {
+/* div.collapse:not(.show) {
   display: none;
-}
+} */
 svg.navbar-toggler-icon {
 display: inline-block;
 height: 1.4em;
@@ -632,7 +635,7 @@ border-radius: .25rem;
 }
 #mainDropdownContent {
   margin-left: 5%;
-  padding: 1% 0 2.5% 0;
+  padding: 1% 0 1.5% 0;
 }
 #farkleDropdown, #cardsDropdown {
   top: 25px;
@@ -980,18 +983,12 @@ dialog.farkle-dialog, div.farkle-div {
     width: 105px;
     line-height: 1;
   }
-  #dropdownCardsLink, #dropdownMainLink {
-    margin-bottom: 0;
-  }
-  div.dropdown-menu a:hover {
-    color: crimson;
-  }
   input.birthday {
     padding-left: calc(14px + 3%);
   }
 }
 /* between small and medium */
-@media (max-width: 768px) and (min-width: 575px) {
+@media (max-width: 768px) and (min-width: 576px) {
   #firstNameCol {
     margin-left: 15%;
    }
@@ -999,8 +996,18 @@ dialog.farkle-dialog, div.farkle-div {
     margin-right: 15%;
    }
 }
+
+@media (max-width: 768px) {
+  div.dropdown-menu {
+    padding-top: 1%;
+  }
+}
+
 /* medium breakpoint */
-@media (max-width: 767px) {
+@media (max-height: 575px) and (max-width: 991px), (max-width: 767px) {
+  .dropdownContent:hover .dropdownLink {
+    color: gold;
+  }
   #linksDiv {
     flex-grow: 0;
   }
@@ -1066,20 +1073,23 @@ dialog.farkle-dialog, div.farkle-div {
   #header {
     margin-bottom: 0.5%;
     max-height: 200px;
-    padding: 0.5% 0;
+    padding: 0;
   }
   #mainDropdownContent {
     padding-bottom: 4%;
   }
-  #cardsDropdown a:hover, #farkleDropdown a:hover, #farkleDropdown li:hover, #cardsDropdown li:hover {
+  .dropdown-menu a:hover, .dropdown-menu li:hover {
     color: crimson;
     background-color: #343a40;
   }
-  #cardsDropdownContent:hover .dropdown-menu, #farkleDropdownContent:hover .dropdown-menu {
-    display: inline;
-  }
   .dropdownListItem {
     height: 20px;
+  }
+  div.navbar-collapse {
+    display: inline;
+  }
+  div.collapse:not(.show) {
+    display: none;
   }
 }
 /* small landscape mode breakpoint */
@@ -1110,12 +1120,9 @@ dialog.farkle-dialog, div.farkle-div {
   }
 }
 
-@media (min-width: 768px) {
-  .navbar-collapse {
-    display: -ms-flexbox!important;
-    display: flex!important;
-    -ms-flex-preferred-size: auto;
-    flex-basis: auto;
-    flex-direction: row;
+@media (min-width: 768px) and (min-height: 576px), (min-width: 992px) {
+  div.dropdown-menu {
+    display: none;
   }
 }
+

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "This is a virtual arcade that includes the basic elements used in casino games including cards, dice, and coins",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "author": "Kris Swodeck",
   "license": "ISC",
@@ -15,17 +16,16 @@
     "cookie-parser": "^1.4.5",
     "debug": "~4.1.1",
     "dialog-polyfill": "^0.5.1",
-    "ejs": "^3.0.2",
-    "ejs-lint": "^1.1.0",
+    "ejs": "^3.1.3",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "express-validator": "^6.4.0",
+    "express-validator": "^6.5.0",
     "http-errors": "^1.7.3",
     "method-override": "^3.0.0",
-    "moment": "^2.24.0",
+    "moment": "^2.26.0",
     "mongo": "^0.1.0",
-    "mongodb": "^3.5.6",
-    "mongoose": "^5.9.10",
+    "mongodb": "^3.5.8",
+    "mongoose": "^5.9.18",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
@@ -35,7 +35,8 @@
     "request-promise": "^4.2.5"
   },
   "devDependencies": {
-    "eslint": "^6.8.0"
+    "eslint": "^7.2.0",
+    "ejs-lint": "^1.1.0"
   },
   "jshintConfig": {
     "expr": true,

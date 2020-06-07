@@ -147,11 +147,17 @@ function clearValidityMessages() {
 
 function toggleHamburger(dropdown) {
   let hamContent = document.getElementById(dropdown);
-  let header = document.getElementById('header');
-  if (hamContent.style.display == 'none') {
-    hamContent.style.display = 'block';
+  let mainDropdown = document.getElementById('mainDropdown');
+  if (!hamContent.classList.contains('show')) {
+    hamContent.classList.remove('collapse');
+    hamContent.classList.add('show');
+    mainDropdown.classList.remove('collapse');
+    mainDropdown.classList.add('show');
   } else {
-    hamContent.style.display = 'none';
+    hamContent.classList.remove('show');
+    hamContent.classList.add('collapse');
+    mainDropdown.classList.remove('show');
+    mainDropdown.classList.add('collapse');
   }
 }
 
@@ -165,7 +171,7 @@ function sendForgotPWEmail(email, id, username) {
     To : email,
     From : "kmswodeck@gmail.com",
     Subject : "Forgotten Password Recovery",
-    Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 200px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: crimson; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><p>Hi <strong>' + username + '!</strong> You requested to recover a misplaced password<br>Click the link below to create a new password for your account</p><a style="color: darkblue; font-size: 20px" href="' + link + '">Create New Password</a></div></html>'
+    Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 250px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: crimson; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><p>Hi <strong>' + username + '!</strong> You requested to recover a misplaced password<br>Click the link below to create a new password for your account</p><a style="color: darkblue; font-size: 20px" href="' + link + '">Create New Password</a></div></html>'
   }).then(message => console.log('Email sent: ' + message));
 }
 
@@ -182,7 +188,7 @@ function sendContactEmail() {
     To : "kristofferswodeck@live.com",
     From : "kmswodeck@gmail.com",
     Subject : "Contact Us Submission - " + subject,
-    Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 200px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: crimson; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><h3 style="color: darkblue; font-size: 20px; margin-bottom: 10px">From: ' + name + ' (' + email + ')</h3><p>You received a new contact us form submission:<br>' + '"' + text + '"' + '</p></div></html>'
+    Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 250px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: crimson; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><h3 style="color: darkblue; font-size: 20px; margin-bottom: 10px">From: ' + name + ' (' + email + ')</h3><p>You received a new contact us form submission:<br>' + '"' + text + '"' + '</p></div></html>'
   }).then(message => console.log('Email sent: ' + message));
 }
 
