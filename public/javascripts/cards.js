@@ -196,7 +196,7 @@ function getFirstHand(currentCard, holdCurrentCard, currentValues) {
   cards.push(new Card(currentValues[0], currentValues[1], currentValues[2]));
   setTimeout(() => {
     curCard.src = cards[currentCard].imgSrc;
-  }, 200);
+  }, 150);
   return cards;
 }
 
