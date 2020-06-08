@@ -1,7 +1,8 @@
 {
-  "name": "pocketpoker",
+  "name": "casinocompetitor",
   "version": "1.0.0",
   "description": "This is a virtual arcade that includes the basic elements used in casino games including cards, dice, and coins",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
