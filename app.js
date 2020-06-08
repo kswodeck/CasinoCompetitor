@@ -12,7 +12,7 @@ var express      = require('express'),
                    require('dotenv').config();
 
 // const connectionString = 'mongodb+srv://kswodeck:casinomongo929!@pocketpoker1-zl3ub.mongodb.net/pocketpoker?retryWrites=true&w=majority';
-const hostname = '127.0.0.1';
+const hostname = process.env.HOSTNAME || '127.0.0.1';
 const port = process.env.PORT || 3000;
 const dbURL = process.env.DATABASEURL;
 console.log(process.env.DATABASEURL);
