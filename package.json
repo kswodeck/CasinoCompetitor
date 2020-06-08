@@ -9,8 +9,8 @@
   },
   "author": "Kris Swodeck",
   "license": "ISC",
-  "engines": { 
-    "node": "^14.0.0"
+  "engines": {
+    "node": "^14.4.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
