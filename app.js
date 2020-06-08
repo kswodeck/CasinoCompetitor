@@ -9,12 +9,14 @@ var express      = require('express'),
   User           = require('./models/user'),
   userRoutes     = require('./routes/users'),
   featureRoutes  = require('./routes/features');
+                   require('dotenv').config();
 
-const connectionString = 'mongodb+srv://kswodeck:casinomongo929!@pocketpoker1-zl3ub.mongodb.net/pocketpoker?retryWrites=true&w=majority';
+// const connectionString = 'mongodb+srv://kswodeck:casinomongo929!@pocketpoker1-zl3ub.mongodb.net/pocketpoker?retryWrites=true&w=majority';
 const hostname = '127.0.0.1';
 const port = process.env.PORT || 3000;
+const dbURL = process.env.DATABASEURL;
 console.log(process.env.DATABASEURL);
-mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
