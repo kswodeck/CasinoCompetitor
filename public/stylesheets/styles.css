@@ -353,7 +353,7 @@ form > #farkle-roll-button, form > #farkle-end-button {
   margin: calc(28px + 2%) 0;
 }
 .hold-dice-text {
-  margin-bottom: 15%;
+  margin-bottom: 17%;
 }
 #coin.spin-grow, .dice.spin-grow {
   -webkit-animation: 0.5s ease-out 0s 1 forwards spinGrow;
