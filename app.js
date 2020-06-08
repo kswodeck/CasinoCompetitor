@@ -54,7 +54,7 @@ app.use((err, res) => {
   return res.status(500).render('error', {pageTitle: 'Server Error', message: err, status: 'Server Error: 500'});
 });
 
-app.listen(process.env.PORT || port, hostname, () =>{
+app.listen(process.env.PORT || port, () =>{
   console.log('App running on ' + hostname + ':' + port);
 });
 
