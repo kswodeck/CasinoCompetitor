@@ -302,7 +302,6 @@ input:invalid, #tableSearch:active {
   border: 0.05em solid darkblue;
 }
 .farkle-slot-div {
-  min-height: 140px;
   max-height: 200px;
   height: calc(20px + 6vh + 5vw);
 }
@@ -353,7 +352,7 @@ form > #farkle-roll-button, form > #farkle-end-button {
   margin: calc(28px + 2%) 0;
 }
 .hold-dice-text {
-  margin-bottom: 17%;
+  margin-bottom: calc(5px + 1.5vh + 1.5vw);
 }
 #coin.spin-grow, .dice.spin-grow {
   -webkit-animation: 0.5s ease-out 0s 1 forwards spinGrow;
@@ -714,7 +713,7 @@ border-radius: .25rem;
 }
 
 .account-heading, #farkle-roll-div, #hand-ranking-heading {
-  margin: 3% auto 2% auto;
+  margin: 3% auto calc(5px + 2.5%) auto;
 }
 #farkle-roll-score-div {
   margin: 2% auto 0 auto;
@@ -769,7 +768,7 @@ input.birthday {
 }
 .account-already {
   font-size: calc(11px + 0.3vw);
-  margin-bottom: 2%;
+  margin: 1% 0 2% 0;
 }
 input:disabled {
   background-color: aliceblue;
@@ -1000,15 +999,21 @@ dialog.farkle-dialog, div.farkle-div {
 @media (max-width: 768px) and (min-width: 576px) {
   #firstNameCol {
     margin-left: 15%;
-   }
+  }
   #lastNameCol {
     margin-right: 15%;
-   }
+  }
+   #farkle-roll-div .dice {
+    margin: calc(20px + 0.5%) auto;
+  }
 }
 
 @media (max-width: 768px) {
   div.dropdown-menu {
     padding-top: 1%;
+  }
+  #farkle-roll-div .dice {
+    min-width: calc(2.5px + 0.8vw);
   }
 }
 
@@ -1071,13 +1076,19 @@ dialog.farkle-dialog, div.farkle-div {
     font-size: calc(10px + 0.6vw);
   }
   #farkle-roll-div .dice {
-    margin: calc(20px + 0.5%) 0;
+    margin: calc(20px + 0.5%) auto;
   }
   .farkle-slot-div .interactive-img:hover {
     border-radius: 1.6px;
   }
   .farkle-slot-div {
     min-height: 100px;
+  }
+  figcaption.hold-dice-text {
+    width: calc(30px + 2vw);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: calc(1.5vh + 4.5vw - 15px);
   }
   #header {
     margin-bottom: 0.5%;
@@ -1115,7 +1126,7 @@ dialog.farkle-dialog, div.farkle-div {
     margin: 0 auto;
   }
   #farkle-roll-div {
-    margin: 0.5% auto calc(20px + 0.25vh + 0.1vw) auto;
+    margin: 0.5% auto calc(5px + 0.5vh + 4vw) auto;
   }
   #farkle-roll-score-div {
     margin: 1% auto 0 auto;
