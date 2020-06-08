@@ -485,28 +485,32 @@ function endTurnDialog() {
   });
   updateStoredCoins(updateCoinsEnd);
   const dialog = document.getElementById('endTurnDialog');
+  diceRollButton.setAttribute('disabled', 'disabled');
+  farkleEndButton.setAttribute('disabled', 'disabled');
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
-    setTimeout(() => {window.location.reload();}, 10000);
+    document.getElementById('endTurnCancel').onclick = () => {
+      window.location.reload();
+    };
+    setTimeout(() => {window.location.reload();}, 8000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById('endTurnCancel').onclick = () => {
-    window.location.reload();
-  };
 }
 
 function endCasualTurnDialog() {
   const dialog = document.getElementById('endTurnDialog');
+  diceRollButton.setAttribute('disabled', 'disabled');
+  farkleEndButton.setAttribute('disabled', 'disabled');
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
-    setTimeout(() => {window.location.reload();}, 9000);
+    document.getElementById('endTurnCancel').onclick = () => {
+      window.location.reload();
+    };
+    setTimeout(() => {window.location.reload();}, 7000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById('endTurnCancel').onclick = () => {
-    window.location.reload();
-  };
 }
 
 function displayFarkleDialog(dialog, cancel) {

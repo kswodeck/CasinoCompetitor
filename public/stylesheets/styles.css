@@ -775,7 +775,7 @@ input:disabled {
   opacity: 0.9;
   color: black;
 }
-dialog::backdrop {
+dialog.account-form-div::backdrop {
   top: unset;
   bottom: unset;
   background: none;

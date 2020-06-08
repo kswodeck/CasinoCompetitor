@@ -1,9 +1,11 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
-window.addEventListener("keydown", () => {
-  document.getElementById('mid-container').style.display = 'block';
-});
+// window.addEventListener("keydown", (e) => {
+//   if (e.code == 'Escape') {
+//     document.getElementById('mid-container').style.display = 'block';
+//   }
+// });
 
 function displayLoginDialog(message){
   const dialog = document.getElementById('loginDialog');
