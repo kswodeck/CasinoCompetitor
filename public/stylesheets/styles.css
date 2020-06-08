@@ -512,7 +512,7 @@ div.dropdown-menu {
   left: 0;
   z-index: 1000;
   max-width: 180px;
-  min-width: 160px;
+  min-width: 120px;
   text-align: center;
   border: none;
   padding: 1% 0 0 0;
@@ -1090,6 +1090,11 @@ dialog.farkle-dialog, div.farkle-div {
   }
   div.collapse:not(.show) {
     display: none;
+  }
+  div.dropdown-menu {
+    width: 120px;
+    min-width: 100px;
+    max-width: 150px;
   }
 }
 /* small landscape mode breakpoint */
