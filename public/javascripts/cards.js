@@ -32,7 +32,7 @@ function preloader() {
     imgNum++;
   }
   for (let i = 0; i < 52; i++) { // start preloading
-    let imageObj = new Image(); // create object
+    var imageObj = new Image(); // create object
     imageObj.src = images[i]; // load image
   }
 } 
