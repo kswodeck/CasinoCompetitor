@@ -69,8 +69,6 @@ function getCards() {
     totalCoinsSpan.innerText = totalCoins;
     resolve(5);
     });
-    // totalCoins = totalCoins - currentBet;
-    // totalCoinsSpan.innerText = totalCoins;
   }
   getGameResults(handsDealt, handRankingHeading, cardDealButton, collectCoins);
   if (handsDealt === 2) {
@@ -80,7 +78,6 @@ function getCards() {
       currentCardElement.classList.remove('flip');
       currentCardElement.classList.remove('fadeInOut-card');
     }
-
   }
   else {
     handsDealt++;
@@ -204,8 +201,6 @@ function getFirstHand(currentCard, holdCurrentCard, currentValues) {
   let currentCardElement = document.getElementsByClassName('cards')[currentCard];
   currentCardElement.classList.add('interactive-img');
   holdCurrentCard.classList.add('text-opacity');
-  let curCard = document.getElementsByClassName('cards')[currentCard];
-  curCard.classList.add('flip');
   let isSameIdentity = true;
   while (isSameIdentity) {
     currentValues = getRandomCardValues();
@@ -214,9 +209,19 @@ function getFirstHand(currentCard, holdCurrentCard, currentValues) {
     });
   }
   cards.push(new Card(currentValues[0], currentValues[1], currentValues[2]));
-  setTimeout(() => {
-    curCard.src = cards[currentCard].imgSrc;
-  }, 150);
+  if (currentCard == 4) {
+    for (let i = 0; i < 5; i++) {
+      let curCard = document.getElementsByClassName('cards')[i];
+      new Promise((resolve, reject) => {
+        curCard.classList.add('flip');
+        resolve(5);
+      }).then(() => {
+        setTimeout(() => {
+          curCard.src = cards[i].imgSrc;
+        }, 150);
+      });
+    }
+  }
   return cards;
 }
 
