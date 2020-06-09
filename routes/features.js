@@ -21,7 +21,7 @@ router.get('/contact', (req, res) => {
   res.render('contact', {pageTitle: 'Contact Us', emailSent: false});
 });
 router.post('/contact', (req, res) => {
-  res.setTimeout(400, () => {
+  res.setTimeout(1000, () => {
     res.render('contact', {pageTitle: 'Contact Us', emailSent: true});
 });
 });
