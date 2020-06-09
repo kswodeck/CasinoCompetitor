@@ -24,7 +24,7 @@ function preloader() {
   let cardNum = 1, suitNum = 1, imgNum = 0;
   while (imgNum < 52) {
     images[imgNum] = 'images/cards/' + cardNum + '-' + suitNum + '.png';
-    if (suitNum === '4') {
+    if (suitNum == 4) {
       suitNum = 1;
       cardNum++;
     } else {
