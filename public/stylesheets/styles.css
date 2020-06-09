@@ -321,14 +321,15 @@ input:invalid, #tableSearch:active {
 }
 
 #dice-prep-div {
-  white-space: nowrap;
   margin: 0 1%;
+  flex-basis: 200px;
 }
 
 form > #farkle-roll-button, form > #farkle-end-button {
   margin-left: 0.5%;
   margin-right: 0.5%;
   padding: 0.3% 3%;
+  min-height: calc(32px + 1vw + 0.5vh);
 }
 
 #coin {
@@ -994,17 +995,19 @@ dialog.farkle-dialog, div.farkle-div {
     padding-left: calc(14px + 3%);
   }
   #current-win-div {
-    text-align: right;
+    /* text-align: right; */
+    text-align: center;
   }
   #current-bet-div {
-    text-align: left;
+    /* text-align: left; */
+    text-align: center;
   }
   button.betWinButton, button.betWinButton:focus {
     width: calc(30px + 1.8vw);
-    height: calc(32px + 1.5vw);
+    height: calc(35px + 1.5vw);
   }
   form > #farkle-roll-button, form > #farkle-end-button {
-    min-height: calc(30px + 0.8vw);
+    min-height: calc(32px + 0.8vw);
     font-size: calc(16px + 0.9vw);
   }
 }
@@ -1018,9 +1021,6 @@ dialog.farkle-dialog, div.farkle-div {
   }
    #farkle-roll-div .dice {
     margin: calc(20px + 0.5%) auto;
-  }
-  #current-win-div, #current-bet-div {
-    text-align: center;
   }
 }
 
@@ -1085,9 +1085,6 @@ dialog.farkle-dialog, div.farkle-div {
   #cardsDropdown a, #farkleDropdown a {
     padding: 1% 0;
   }
-  #farkleLink, #cardsLink {
-    text-align: center;
-  }
   #dice-prep-div {
     margin: 0 auto;
   }
@@ -1104,6 +1101,9 @@ dialog.farkle-dialog, div.farkle-div {
   }
   .farkle-slot-div {
     min-height: 100px;
+  }
+  #farkleLink, #cardsLink {
+    text-align: center;
   }
   figcaption.hold-dice-text {
     margin-left: auto;
