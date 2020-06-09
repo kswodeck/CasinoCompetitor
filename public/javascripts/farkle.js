@@ -547,6 +547,9 @@ function toggleDiceHold(currentHoldElement) {
   const holdElement = document.getElementById(currentHoldElement);
   const diceNum = parseInt(currentHoldElement.replace(/hold/, ''));
   let curDice = diceArr[diceNum];
+  console.log('diceNum: ' + diceNum);
+  console.log('curDice isHeld :' + curDice.isHeld);
+  console.log(curDice);
   if (!curDice.isHeld) {
     if ((curDice.multipleDiceWorth != 0 || curDice.allDiceWorth) != 0 && curDice.numValue != 5 && curDice.numValue != 1) {
       for (let i = 0 + diceHeld; i < 6; i++) {
