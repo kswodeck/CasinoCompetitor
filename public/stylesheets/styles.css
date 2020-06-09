@@ -999,7 +999,7 @@ dialog.farkle-dialog, div.farkle-div {
   #current-bet-div {
     text-align: left;
   }
-  button.betWinButton {
+  button.betWinButton, button.betWinButton:focus {
     width: calc(30px + 1.8vw);
     height: calc(32px + 1.5vw);
   }
