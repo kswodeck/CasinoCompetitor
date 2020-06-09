@@ -972,9 +972,6 @@ dialog.farkle-dialog, div.farkle-div {
   #mainDropdown {
     top: 26px;
   }
-  #total-coins-span, #coins-img {
-    display: none;
-  }
   div.account-form-div {
     width: 100%;
     margin: 0;
