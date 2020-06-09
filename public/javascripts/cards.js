@@ -16,6 +16,26 @@ if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-
 }
 const cardDealButton = document.getElementById('card-deal-button');
 const handRankingHeading = document.getElementById('hand-ranking-heading');
+preloader();
+
+function preloader() {
+  let imageObj = new Image(); // create object
+  let images = []; // set image list
+  let cardNum = 1, suitNum = 1, imgNum = 0;
+  while (imgNum < 52) {
+    images[imgNum] = 'images/cards/' + cardNum + '-' + suitNum + '.png';
+    if (suitNum === '4') {
+      suitNum = 1;
+      cardNum++;
+    } else {
+      suitNum++;
+    }
+    imgNum++;
+  }
+  for (let i = 0; i < 52; i++) { // start preloading
+    imageObj.src = images[i];
+  }
+} 
 
 function getCards() {
   cardDealButton.disabled = true;
