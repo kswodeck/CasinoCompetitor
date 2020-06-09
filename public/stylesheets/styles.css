@@ -293,7 +293,7 @@ input:invalid, #tableSearch:active {
 }
 .farkle-slot-div .interactive-img:hover {
   border: 0.02em solid lightsteelblue;
-  border-radius: 2.8px;
+  border-radius: 18%;
 }
 .card-slot-div .interactive-img:active, #dicequantity:active, #dicequantity:focus, #table-search-cell {
   border: 0.1rem solid darkblue;
@@ -322,7 +322,7 @@ input:invalid, #tableSearch:active {
 
 #dice-prep-div {
   white-space: nowrap;
-  margin: 0 auto;
+  margin: 0 1%;
 }
 
 form > #farkle-roll-button, form > #farkle-end-button {
@@ -629,9 +629,6 @@ border-radius: .25rem;
 .dropdown-menu li:hover {
   background-color: #ddd;
 }
-.dropdownContent:hover .dropdown-menu, .dropdown-menu:hover, .dropdown-menu a:hover {
-  display: block;
-}
 #mainDropdownContent {
   margin-left: 5%;
   padding: 1% 0 1.5% 0;
@@ -737,7 +734,7 @@ border-radius: .25rem;
   cursor: pointer;
   color: darkblue;
   z-index: 2;
-  font-size: calc(11px + 0.3vw);
+  font-size: calc(14px + 0.25vw + 0.05vh);
 }
 .input-icon:active {
   color: var(--darkcrimson);
@@ -969,6 +966,11 @@ dialog.farkle-dialog, div.farkle-div {
 
 /* small breakpoint */
 @media (max-width: 575px) {
+  #farkle-prep-row {
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
   #mainDropdown {
     top: 26px;
   }
@@ -991,6 +993,20 @@ dialog.farkle-dialog, div.farkle-div {
   input.birthday {
     padding-left: calc(14px + 3%);
   }
+  #current-win-div {
+    text-align: right;
+  }
+  #current-bet-div {
+    text-align: left;
+  }
+  button.betWinButton {
+    width: calc(30px + 1.8vw);
+    height: calc(32px + 1.5vw);
+  }
+  form > #farkle-roll-button, form > #farkle-end-button {
+    min-height: calc(30px + 0.8vw);
+    font-size: calc(16px + 0.9vw);
+  }
 }
 /* between small and medium */
 @media (max-width: 768px) and (min-width: 576px) {
@@ -1002,6 +1018,9 @@ dialog.farkle-dialog, div.farkle-div {
   }
    #farkle-roll-div .dice {
     margin: calc(20px + 0.5%) auto;
+  }
+  #current-win-div, #current-bet-div {
+    text-align: center;
   }
 }
 
@@ -1069,20 +1088,24 @@ dialog.farkle-dialog, div.farkle-div {
   #farkleLink, #cardsLink {
     text-align: center;
   }
+  #dice-prep-div {
+    margin: 0 auto;
+  }
   div.top-menu-div a, #mainDropdown a {
     font-size: calc(10px + 0.6vw);
   }
   #farkle-roll-div .dice {
     margin: calc(20px + 0.5%) auto;
   }
-  .farkle-slot-div .interactive-img:hover {
-    border-radius: 1.6px;
+  .farkle-slot-div .interactive-img:hover, .farkle-slot-div .interactive-img:active,
+  .card-slot-div .interactive-img:hover, .card-slot-div .interactive-img:active {
+    border: none;
+    border-radius: unset;
   }
   .farkle-slot-div {
     min-height: 100px;
   }
   figcaption.hold-dice-text {
-    width: calc(30px + 2vw);
     margin-left: auto;
     margin-right: auto;
     margin-bottom: calc(1.5vh + 4.5vw - 15px);
@@ -1145,6 +1168,9 @@ dialog.farkle-dialog, div.farkle-div {
 @media (min-width: 768px) and (min-height: 576px), (min-width: 992px) {
   div.dropdown-menu {
     display: none;
+  }
+  .dropdownContent:hover .dropdown-menu, .dropdown-menu:hover, .dropdown-menu a:hover {
+    display: block;
   }
 }
 
