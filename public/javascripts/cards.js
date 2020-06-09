@@ -19,7 +19,6 @@ const handRankingHeading = document.getElementById('hand-ranking-heading');
 preloader();
 
 function preloader() {
-  let imageObj = new Image(); // create object
   let images = []; // set image list
   let cardNum = 1, suitNum = 1, imgNum = 0;
   while (imgNum < 52) {
@@ -33,7 +32,8 @@ function preloader() {
     imgNum++;
   }
   for (let i = 0; i < 52; i++) { // start preloading
-    imageObj.src = images[i];
+    let imageObj = new Image(); // create object
+    imageObj.src = images[i]; // load image
   }
 } 
 
