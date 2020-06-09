@@ -8,8 +8,8 @@ var express      = require('express'),
   methodOverride = require('method-override'),
   User           = require('./models/user'),
   userRoutes     = require('./routes/users'),
-  featureRoutes  = require('./routes/features'),
-  sentry         = require('@sentry/node');
+  featureRoutes  = require('./routes/features');
+                   require('@sentry/node');
                    require('dotenv').config();
 
 const hostname = process.env.HOSTNAME || '127.0.0.1';
