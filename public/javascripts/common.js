@@ -120,7 +120,6 @@ function displayDialog(dialog) {
   if (typeof curDialog.showModal == 'function') {
     curDialog.showModal();
     document.getElementById('mid-container').style.display = 'none';
-    setTimeout(() => {window.location.reload();}, 20000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
