@@ -3,7 +3,7 @@
     <h1 id="page-heading">Competitive Poker</h1>
     <div id = "card-prep-row" class="row">
       <div id="current-bet-div" class="col">
-        <button id="bet-button" class="btn betWinButton md-text gold-text" type="button" name="bet-button" onclick="toggleBet()">bet<span id ="current-bet-span">1</span></button>
+        <button id="bet-button" class="btn betWinButton md-text gold-text" type="submit" name="bet-button" onclick="toggleBet()">bet<span id ="current-bet-span">1</span></button>
       </div>
       <div id="card-play-div" class="col">
         <form action="/cards/?_method=PUT" method="POST" id="cardsForm">
@@ -13,7 +13,7 @@
         </form>
       </div>
       <div id="current-win-div" class="col">
-        <button id="win-button" class="btn betWinButton md-text gold-text" type="button" name="win-button" disabled>win<span id="current-win-span">0</span></button>
+        <button id="win-button" class="btn betWinButton md-text gold-text" type="submit" name="win-button" disabled>win<span id="current-win-span">0</span></button>
       </div>
     </div>
     <div id="play-container">

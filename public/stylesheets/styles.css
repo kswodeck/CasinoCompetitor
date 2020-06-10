@@ -669,6 +669,7 @@ border-radius: .25rem;
   border-radius: 30px;
   background-color: var(--bluish);
   background-image: radial-gradient(ellipse, var(--bluish) 30%, #979CA580, #9CA2AD80, #A5ABB680, #AEB3BD80);
+  padding-bottom: 3px
 }
 
 #form-heading, .login-heading, .username-welcome {
@@ -979,7 +980,6 @@ dialog.farkle-dialog, div.farkle-div {
   div.account-form-div {
     width: 100%;
     margin: 0;
-    padding: 0;
   }
   div.name-row {
     justify-content: center;
