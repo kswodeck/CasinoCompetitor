@@ -35,9 +35,9 @@
             <li class="invalid-list"><%= invalidPW %></li>
           <% } %>%>
           </ul>
-          <input type="submit" role="button" name="account-update" onclick="return validateAccountUpdate()" value="Update Account" class="btn md-text blue-bg gold-text btn-style account-button" id="accountUpdateButton">
+          <button type="button" role="button" name="account-update" onclick="return validateAccountUpdate()" class="btn md-text blue-bg gold-text btn-style account-button" id="accountUpdateButton">Update Account</button>
         </form>
-        <input type="submit" role="button" name="account-delete" onclick="displayDialog('confirmDeleteDialog')" value="Delete Account" class="btn sm-text red-bg gold-text btn-style account-button" id="accountDelete">
+        <button type="button" role="button" name="account-delete" onclick="displayDialog('confirmDeleteDialog')" class="btn sm-text red-bg gold-text btn-style account-button" id="accountDelete">Delete Account</button>
       </div>
     </div>
 </div>
@@ -51,20 +51,20 @@
       <button id="confirmButton" class="btn sm-text red-bg gold-text btn-style" onclick="exitDialog('confirmDeleteDialog'); displayDialog('verifyPWDialog')">Yes</button>
     </div>
     <div class="col">
-      <button id="cancelButton" class="btn sm-text blue-bg gold-text btn-style" onclick="window.location.reload();">No</button>
+      <button id="cancelButton" class="btn sm-text blue-bg gold-text btn-style" onclick="exitDialog('confirmDeleteDialog')">No</button>
     </div>
   </div>
 </dialog>
 <dialog id="verifyPWDialog" class="container-fluid account-form-div account-dialog">
   <div class ="exit-button-div">
-    <button id="verifyPWDialogExit" class="exit-dialog-button md-text" onclick="window.location.reload();">✖</button>
+    <button id="verifyPWDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('verifyPWDialog');">✖</button>
   </div>
   <h2 id="verifyPWHeading" class="login-heading blue-text">Delete Account</h2>
   <form action="/account/?_method=DELETE" method="POST">
     <label for="password" class="account-label sm-txt">Current Password</label><br>
-    <input type="password" name="password" id="verifyPassword" class="verifyPassInput password user-input" minlength="5" maxlength="25" placeholder="password" size="30" required><i id="verifyPassIcon" onclick="togglePasswordVisibility('verifyPassword', 'verifyPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+    <input type="password" name="password" id="verifyPassword" class="verifyPassInput password user-input" minlength="5" maxlength="25" placeholder="password" size="30" required><i id="verifyPassIcon" onclick="togglePasswordVisibility('verifyPassword', 'verifyPassIcon')" class="show-hide input-icon fas fa-eye"></i>
     <ul id="invalid-verify-password" class="invalid-fields-list"></ul>
-    <input type="submit" name="password-verify" role="button" value="Delete Account" class="btn md-text red-bg gold-text btn-style account-button" id="passwordVerifyDeleteButton" onclick="disableAfterSubmit('passwordVerifyDeleteButton', 1000)">
+    <button type="button" name="password-verify" role="button" class="btn md-text red-bg gold-text btn-style account-button" id="passwordVerifyDeleteButton" onclick="disableAfterSubmit('passwordVerifyDeleteButton', 1000)">Delete Account</button>
   </form>
 </dialog>
 <dialog id="updatePWDialog" class="container-fluid account-form-div account-dialog">
@@ -80,7 +80,7 @@
     <label for="repeatNewPassword" class="account-label sm-txt">Repeat Password</label><br>
     <input type="password" name="repeatNewPassword" id="repeatNewPassword" class="updatePassInput password user-input" minlength="5" maxlength="25" placeholder="password" size="30" required><i id="repeatNewPassIcon" onclick="togglePasswordVisibility('repeatNewPassword', 'repeatNewPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
     <ul id="invalid-update-password" class="invalid-fields-list"></ul>
-    <input type="submit" name="password-update" role="button" onclick="return validatePasswordUpdate()" value="Update Password" class="btn md-text blue-bg gold-text btn-style" id="passwordUpdateButton">
+    <button type="button" name="password-update" role="button" onclick="return validatePasswordUpdate()" class="btn md-text blue-bg gold-text btn-style" id="passwordUpdateButton">Update Password</button>
   </form>
   <div class ="back-button-div">
     <button id="updatePWBackButton" class="back-arrow btn blue-text lg-text" name="back-arrow" onclick="exitDialog('updatePWDialog')"><i id="updatePWBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>

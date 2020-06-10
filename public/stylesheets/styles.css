@@ -694,7 +694,7 @@ border-radius: .25rem;
   margin: 5px auto 0 auto;
 }
 .placeholderPassword {
-  margin-left: calc(10px + 0.5vw);
+  margin-left: calc(13px + 0.6vw);
 }
 .user-input {
   font-size: calc(11px + 0.3vw);
@@ -736,13 +736,14 @@ border-radius: .25rem;
   cursor: pointer;
   color: darkblue;
   z-index: 2;
-  font-size: calc(14px + 0.25vw + 0.05vh);
+  font-size: calc(16px + 0.25vw + 0.15vh);
 }
 .input-icon:active {
   color: var(--darkcrimson);
 }
 .show-hide {
-  margin-left: -25px;
+  margin-left: -26px;
+  margin-bottom: -2px;
 }
 .edit-icon {
   margin-left: calc(2px + 0.2vw);
@@ -782,7 +783,6 @@ dialog.account-form-div::backdrop {
 
 dialog.account-dialog {
   border-radius: 0;
-  top: calc(10vh + 10%);
   min-width: calc(250px + 15vw);
   padding: 0;
   z-index: 11;
@@ -973,9 +973,9 @@ dialog.farkle-dialog, div.farkle-div {
     flex-wrap: nowrap;
     justify-content: center;
   }
-  /* #mainDropdown {
-    top: 26px;
-  } */
+  dialog.account-form-div, div.account-form-div {
+    max-width: 98%;
+  }
   div.account-form-div {
     width: 100%;
     margin: 0;
@@ -1036,6 +1036,9 @@ dialog.farkle-dialog, div.farkle-div {
 
 /* medium breakpoint */
 @media (max-height: 767px) and (max-width: 1199px), (max-width: 991px) {
+  dialog.account-dialog {
+    top: calc(208px - 2.8vw - 0.6vh);
+  }
   #mainDropdown {
     top: calc(13px + 2vh + 1vw)
   }
@@ -1177,6 +1180,9 @@ dialog.farkle-dialog, div.farkle-div {
   }
   .dropdownContent:hover .dropdown-menu, .dropdown-menu:hover, .dropdown-menu a:hover {
     display: block;
+  }
+  dialog.account-dialog {
+    top: calc(120px + 2vh + 1vw + 2%);
   }
 }
 
