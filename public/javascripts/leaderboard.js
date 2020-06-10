@@ -10,9 +10,9 @@ function startLoading() {
   mainContainer.style.opacity = 0.5;
 }
 
-function searchLeaderboard(page) {
+function searchLeaderboard() {
   const searchValue = document.getElementById('tableSearch').value;
-  if (searchValue.length > 0) {
+  if (searchValue.length != 0 && window.location.href != window.location.origin + '/leaderboard?search=' + searchValue) {
     startLoading();
     window.location.href = '/leaderboard?search=' + searchValue;
       return true;
@@ -23,7 +23,7 @@ function searchLeaderboard(page) {
 
 function restoreLeaderboard(page) {
   const searchValue = document.getElementById('tableSearch').value;
-  if (searchValue.length < 1 && (page != 1 || window.location.href.includes('search='))) {
+  if (searchValue.length == 0 && (page != 1 || window.location.href.includes('search='))) {
     startLoading();
     window.location.href = '/leaderboard';
     return true;
@@ -39,10 +39,10 @@ function changePage(page, search) {
   } else if (!url.includes('page=') && page == 1) {
     return false;
   }
+  startLoading();
   if (url.includes('search')) {
     window.location.href = '/leaderboard?page=' + page + '&search=' + search;
   } else {
     window.location.href = '/leaderboard?page=' + page;
   }
-  startLoading();
 }

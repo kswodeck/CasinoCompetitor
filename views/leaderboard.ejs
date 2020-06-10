@@ -7,7 +7,7 @@
         <thead>
           <tr id="table-search-row">
             <th id="table-search-cell" class="leaderboard-cell" colspan="4" scope="colgroup">
-              <form action="/leaderboard" method="GET" action="#" onsubmit="searchLeaderboard('<%= curPage %>'); return false;" id="leaderboardSearchForm">
+              <form action="/leaderboard" method="GET" action="#" onsubmit="searchLeaderboard(); return false;" id="leaderboardSearchForm">
                 <button id="search-button" class="btn sm-text" name="search" type="submit" onclick="restoreLeaderboard('<%= curPage %>')"><i id="table-search-icon" class="fas fa-search"></i></button>
                 <input type="search" id="tableSearch" class="table-search xs-text" name="search" size="30" maxlength="25" placeholder="search by username..." incremental>
               </form>
@@ -21,7 +21,6 @@
             <td class="leaderboard-head bluish-bg">Highest Win</td>
             <td class="leaderboard-head bluish-bg">Total Coins</td>
           </tr>
-          <!-- must delete all kswodecks, duplicates and such after going live (empty whole db) -->
           <% for (let i = 0; i < pageUsers.length; i++) { %>
             <tr class ="leaderboard-row normal-row">
               <td class ="leaderboard-cell leaderboard-rank"><%= ranks[i] %></td>

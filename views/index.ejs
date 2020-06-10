@@ -5,8 +5,8 @@
   <img src="images\casinocompetitor.png" alt="CasinoCompetitor" id="home-logo">
   <% if (currentUser){ %>
   <h3 id="usernameHome" class="username-welcome blue-text"><%= currentUser.username %></h3>
-  <button class="btn lg-text gold-bg red-text btn-style" onclick="location.href='/cards'">Play Poker</button>
-  <button class="btn lg-text gold-bg red-text btn-style" onclick="location.href='/farkle'">Play Farkle</button>
+  <button id="homePokerButton" class="btn lg-text gold-bg red-text btn-style" onclick="location.href='/cards'">Play Poker</button>
+  <button id="homeFarkleButton" class="btn lg-text gold-bg red-text btn-style" onclick="location.href='/farkle'">Play Farkle</button>
   <% } %>
 </div>
 <dialog id="logoutDialog" class="account-form-div account-dialog">
