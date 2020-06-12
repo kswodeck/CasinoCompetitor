@@ -669,7 +669,7 @@ border-radius: .25rem;
   border-radius: 30px;
   background-color: var(--bluish);
   background-image: radial-gradient(ellipse, var(--bluish) 30%, #979CA580, #9CA2AD80, #A5ABB680, #AEB3BD80);
-  padding-bottom: 3px
+  padding-bottom: 3px;
 }
 
 #form-heading, .login-heading, .username-welcome {
@@ -785,7 +785,7 @@ dialog.account-form-div::backdrop {
 dialog.account-dialog {
   border-radius: 0;
   min-width: calc(250px + 15vw);
-  padding: 0;
+  padding: 0 0 3px 0;
   z-index: 11;
 }
 #loginStreakDialog, #changePWDialog {
@@ -1037,7 +1037,7 @@ dialog.farkle-dialog, div.farkle-div {
 /* medium breakpoint */
 @media (max-height: 767px) and (max-width: 1199px), (max-width: 991px) {
   dialog.account-dialog {
-    top: calc(208px - 2.8vw - 0.6vh);
+    top: calc(165px - 2.2vw - 0.55vh);
   }
   #mainDropdown {
     top: calc(13px + 2vh + 1vw)
@@ -1135,7 +1135,7 @@ dialog.farkle-dialog, div.farkle-div {
   div.navbar-collapse {
     display: inline;
   }
-  div.collapse:not(.show) {
+  div.collapse:not(.show), .casual-item, .dropdown-arrow {
     display: none;
   }
   div.dropdown-menu {

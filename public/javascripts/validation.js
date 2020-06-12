@@ -117,13 +117,13 @@ function validateInputs(invalidList, inputs) {
     inputs[i].style.borderWidth = '0.06em';
   }
   if (empty == true) {
+    console.log('empty');
     addToInvalidList('* please fill out all fields', inputs[inputs.length-1], invalidList);
     return false;
   } else if (!validity) {
     addToInvalidList('* all fields must be valid', inputs[inputs.length-1], invalidList);
     return false;
   }
-  
   return validity;
 }
 
@@ -202,4 +202,32 @@ function validateKeys(evt, type) {
       theEvent.preventDefault();
     }
   }
+}
+
+function validateContactUs() {
+  let invalidList = document.getElementById('invalid-fields-list');
+  let inputs = document.getElementsByClassName('account-input');
+  let validity = validateInputs(invalidList, inputs);
+  console.log(validity);
+  if (validity == false) {
+    console.log('false');
+    return false;
+  }
+}
+
+function sendContactEmail() {
+  let name = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value;
+  let email = document.getElementById('contactEmail').value;
+  let subject = document.getElementById('contactSubject').value;
+  let text = document.getElementById('contactTextArea').value;
+  // eslint-disable-next-line no-undef
+  Email.send({
+    Host : "smtp.elasticemail.com",
+    Username : "kswodeck@yahoo.com",
+    Password : "F4382D25C5C4A0AA224EFC64D8C120EC5082",
+    To : "kristofferswodeck@live.com",
+    From : "kmswodeck@gmail.com",
+    Subject : "Contact Us Submission - " + subject,
+    Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 250px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: crimson; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><h3 style="color: darkblue; font-size: 20px; margin-bottom: 10px">From: ' + name + ' (' + email + ')</h3><p>You received a new contact us form submission:<br>' + '"' + text + '"' + '</p></div></html>'
+  }).then(message => console.log('Email sent: ' + message));
 }
