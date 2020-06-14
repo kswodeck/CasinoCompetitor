@@ -6,7 +6,7 @@
         <button id="bet-button" class="btn betWinButton md-text gold-text" type="submit" name="bet-button" onclick="toggleBet()">bet<span id ="current-bet-span">1</span></button>
       </div>
       <div id="card-play-div" class="col">
-        <form action="/cards/?_method=PUT" method="POST" id="cardsForm">
+        <form action="/cards" method="POST" id="cardsForm">
           <input value= "<%= currentCoins %>" name="userCoins" id="coinsInput" class="card-coins-data" type="number">
           <input value="0" name="currentWin" id="currentWinInput" class="card-coins-data">
           <button type="submit" role="button" id="card-deal-button" form="cardsForm" class="btn lg-text gold-bg red-text btn-style" name="deal-button" onclick="getCards()">Deal Cards</button>

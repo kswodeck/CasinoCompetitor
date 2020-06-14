@@ -65,7 +65,7 @@ router.get('/', (req, res) => {
 router.get('/cards', isLoggedIn, (req, res) => {
   res.render('cards', {pageTitle: 'Competitive Poker', currentCoins: req.user.coins});
 });
-router.put('/cards', isLoggedIn, (req, res) => {
+router.post('/cards', isLoggedIn, (req, res) => {
   updateCoins(req, res);
 });
 
