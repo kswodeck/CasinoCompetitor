@@ -1032,9 +1032,8 @@ dialog.farkle-dialog, div.farkle-div {
 /* medium breakpoint */
 @media (max-height: 767px) and (max-width: 1199px), (max-width: 991px) {
   dialog.account-dialog {
-    /* top: calc(165px - 2.2vw - 0.55vh); */
     top: 0;
-    margin-top: calc(110px + 1vw + 5vh);
+    margin-top: calc(110px + 2vw + 5vh);
     position: static;
   }
   #mainDropdown {
