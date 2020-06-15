@@ -1,26 +1,15 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
-// let dialogs = document.getElementsByTagName('dialog');
-// for (i = 0; i < dialogs.length; i++) {
-//   console.log(dialogs[i]);
-//   console.log(dialogs[i].style.top);
-//   let dialogTop = parseInt(dialogs[i].style.top.replace(/px/, ''));
-//   console.log('dialogTop: ' + dialogTop);
-//   if (dialogTop > 330) {
-//     dialogs[i].style.top = 'calc(50px + 2.5vh + 0.5vw + 5%)';
-//   }
-// }
-
 function displayLoginDialog(message){
   const dialog = document.getElementById('loginDialog');
   const pageTitle = document.getElementsByTagName('title')[0];
-  const hamContent = document.getElementById('navbar-content');
-  const mainDropdown = document.getElementById('mainDropdown');
-  hamContent.classList.remove('show');
-  hamContent.classList.add('collapse');
-  mainDropdown.classList.remove('show');
-  mainDropdown.classList.add('collapse');
+  // const hamContent = document.getElementById('navbar-content');
+  // const mainDropdown = document.getElementById('mainDropdown');
+  // hamContent.classList.remove('show');
+  // hamContent.classList.add('collapse');
+  // mainDropdown.classList.remove('show');
+  // mainDropdown.classList.add('collapse');
     if (pageTitle.innerText == 'Login' || pageTitle.innerText == 'Forgot Username' || pageTitle.innerText == 'Forgot Password') {
       const exitButton = document.getElementById('loginDialogExit');
       exitButton.setAttribute('onclick', "location.href='/'");
@@ -37,6 +26,8 @@ function displayLoginDialog(message){
     }
     if (typeof dialog.showModal === 'function') {
       dialog.showModal();
+      dialog.style.cssText = '';
+      document.getElementsByClassName('backdrop')[0].style.cssText = '';
       document.getElementById('mid-container').style.display = 'none';
     } else {
       console.log('The <dialog> API is not supported by this browser');
@@ -48,6 +39,8 @@ function displayLogoutDialog(){
   const container = document.getElementById('mid-container');
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
+    dialog.style.cssText = '';
+    document.getElementsByClassName('backdrop')[0].style.cssText = '';
     container.style.display = 'none';
     setTimeout(() => {
       window.location.href = '/';
@@ -63,6 +56,8 @@ function displayForgotDialog(newDialog, message){
     let invalidList = document.getElementById('invalid-forgot-username');
     if (typeof loginDialog.showModal === 'function') {
       loginDialog.showModal();
+      loginDialog.style.cssText = '';
+      document.getElementsByClassName('backdrop')[0].style.cssText = '';
       document.getElementById('loginDialog').close();
     } else {
       console.log('The <dialog> API is not supported by this browser');
@@ -104,6 +99,8 @@ function backFromDialog(currentDialog){
   clearValidityMessages();
   document.getElementById(currentDialog).close();
   document.getElementById('loginDialog').showModal();
+  document.getElementsByClassName('backdrop')[0].style.cssText = '';
+  document.getElementById('loginDialog').style.cssText = '';
 }
 
 function togglePasswordVisibility(passwordId, iconId){
@@ -124,6 +121,8 @@ function displayDialog(dialog) {
   const curDialog = document.getElementById(dialog);
   if (typeof curDialog.showModal == 'function') {
     curDialog.showModal();
+    curDialog.style.cssText = '';
+    document.getElementsByClassName('backdrop')[0].style.cssText = '';
     document.getElementById('mid-container').style.display = 'none';
   } else {
     console.log('The <dialog> API is not supported by this browser');
@@ -136,6 +135,8 @@ function displayStreakDialog(streak){
   const loginCoinSpan = document.getElementById('login-streak-win');
   if (typeof dialog.showModal == 'function') {
     dialog.showModal();
+    dialog.style.cssText = '';
+    document.getElementsByClassName('backdrop')[0].style.cssText = '';
     document.getElementById('mid-container').style.display = 'none';
     setTimeout(() => {
       document.getElementById('mid-container').style.display = 'block';

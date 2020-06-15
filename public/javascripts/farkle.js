@@ -450,6 +450,8 @@ function endTurnConfirm() {
   const dialog = document.getElementById('confirmDialog');
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
+    dialog.style.cssText = '';
+    document.getElementsByClassName('backdrop')[0].style.cssText = '';
     setTimeout(() => {dialog.close();}, 20000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
@@ -464,6 +466,8 @@ function endCasualTurnConfirm() {
   const dialog = document.getElementById('confirmDialog');
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
+    dialog.style.cssText = '';
+    document.getElementsByClassName('backdrop')[0].style.cssText = '';
     setTimeout(() => {dialog.close();}, 15000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
@@ -489,6 +493,8 @@ function endTurnDialog() {
   farkleEndButton.setAttribute('disabled', 'disabled');
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
+    dialog.style.cssText = '';
+    document.getElementsByClassName('backdrop')[0].style.cssText = '';
     document.getElementById('endTurnCancel').onclick = () => {
       window.location.reload();
     };
@@ -504,6 +510,8 @@ function endCasualTurnDialog() {
   farkleEndButton.setAttribute('disabled', 'disabled');
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
+    dialog.style.cssText = '';
+    document.getElementsByClassName('backdrop')[0].style.cssText = '';
     document.getElementById('endTurnCancel').onclick = () => {
       window.location.reload();
     };
@@ -517,6 +525,8 @@ function displayFarkleDialog(dialog, cancel) {
   const curDialog = document.getElementById(dialog);
   if (typeof curDialog.showModal === 'function') {
     curDialog.showModal();
+    curDialog.style.cssText = '';
+    document.getElementsByClassName('backdrop')[0].style.cssText = '';
     setTimeout(() => {curDialog.close();}, 7000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
@@ -595,6 +605,8 @@ function outOfCoinsDialog() {
   const outOfCoinsDialog = document.getElementById('outOfCoinsDialog');
   if (typeof outOfCoinsDialog.showModal === 'function') {
     outOfCoinsDialog.showModal();
+    outOfCoinsDialog.style.cssText = '';
+    document.getElementsByClassName('backdrop')[0].style.cssText = '';
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
