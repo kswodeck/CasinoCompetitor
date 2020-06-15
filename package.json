@@ -7,6 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kswodeck/CasinoCompetitor.git"
+  },
   "author": "Kris Swodeck",
   "license": "ISC",
   "engines": {
@@ -31,8 +35,8 @@
     "method-override": "^3.0.0",
     "moment": "^2.26.0",
     "mongo": "^0.1.0",
-    "mongodb": "^3.5.8",
-    "mongoose": "^5.9.18",
+    "mongodb": "^3.5.9",
+    "mongoose": "^5.9.19",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",

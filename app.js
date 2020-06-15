@@ -12,7 +12,7 @@ var express      = require('express'),
   Sentry         = require('@sentry/node');
                    require('dotenv').config();
 
-Sentry.init({ dsn:'https://bc7444c26cad4159a4fc1818045022ba@o404801.ingest.sentry.io/5269442'});
+Sentry.init({dsn:'https://bc7444c26cad4159a4fc1818045022ba@o404801.ingest.sentry.io/5269442'});
 
 const hostname = process.env.HOSTNAME || '127.0.0.1';
 const port = process.env.PORT || 3000;
@@ -23,6 +23,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
+app.use('/javascripts', express.static(__dirname + '/node_modules/'));
 app.use(flash());
 
 app.use(require('express-session')({ // Passport configuration

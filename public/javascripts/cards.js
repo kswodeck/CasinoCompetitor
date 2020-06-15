@@ -424,8 +424,10 @@ function outOfCoinsDialog() {
   const outOfCoinsDialog = document.getElementById('outOfCoinsDialog');
   if (typeof outOfCoinsDialog.showModal === 'function') {
     outOfCoinsDialog.showModal();
-    outOfCoinsDialog.style.cssText = '';
-    document.getElementsByClassName('backdrop')[0].style.cssText = '';
+    if (document.getElementsByClassName('backdrop')[0]) {
+      outOfCoinsDialog.style.cssText = '';
+      document.getElementsByClassName('backdrop')[0].style.cssText = '';
+    }
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
@@ -440,8 +442,10 @@ function winCoinsDialog(result) {
     document.getElementById('coin-win-popup-span').innerText = result;
     document.getElementById('number-coins-won').innerText = currentWin + ' ';
     coinsDialog.showModal();
-    coinsDialog.style.cssText = '';
-    document.getElementsByClassName('backdrop')[0].style.cssText = '';
+    if (document.getElementsByClassName('backdrop')[0]) {
+      coinsDialog.style.cssText = '';
+      document.getElementsByClassName('backdrop')[0].style.cssText = '';
+    }
     setTimeout(() => {coinsDialog.close();}, 2500);
   } else {
     console.log('The <dialog> API is not supported by this browser');
@@ -456,8 +460,10 @@ function winHandDialog(result) {
   if (typeof winDialog.showModal === 'function') {
     document.getElementById('hand-win-popup-span').innerText = result;
     winDialog.showModal();
-    winDialog.style.cssText = '';
-    document.getElementsByClassName('backdrop')[0].style.cssText = '';
+    if (document.getElementsByClassName('backdrop')[0]) {
+      winDialog.style.cssText = '';
+      document.getElementsByClassName('backdrop')[0].style.cssText = '';
+    }
     setTimeout(() => {winDialog.close();}, 2500);
   } else {
     console.log('The <dialog> API is not supported by this browser');
