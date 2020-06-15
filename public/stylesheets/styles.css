@@ -771,12 +771,11 @@ input:disabled {
   opacity: 0.9;
   color: black;
 }
-dialog.account-form-div::backdrop {
+dialog.account-form-div::backdrop, dialog + .backdrop, ._dialog_overlay, div._dialog_overlay {
   top: unset;
   bottom: unset;
   background: none;
 }
-
 dialog.account-dialog {
   border-radius: 0;
   min-width: calc(250px + 15vw);
@@ -1033,7 +1032,7 @@ dialog.farkle-dialog, div.farkle-div {
 @media (max-height: 767px) and (max-width: 1199px), (max-width: 991px) {
   dialog.account-dialog {
     top: 0;
-    margin-top: calc(110px + 2vw + 5vh);
+    margin-top: calc(110px + 2.5vw + 5vh);
     position: static;
   }
   #mainDropdown {

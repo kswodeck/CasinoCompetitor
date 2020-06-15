@@ -1,11 +1,16 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
-// window.addEventListener("keydown", (e) => {
-//   if (e.code == 'Escape') {
-//     document.getElementById('mid-container').style.display = 'block';
+// let dialogs = document.getElementsByTagName('dialog');
+// for (i = 0; i < dialogs.length; i++) {
+//   console.log(dialogs[i]);
+//   console.log(dialogs[i].style.top);
+//   let dialogTop = parseInt(dialogs[i].style.top.replace(/px/, ''));
+//   console.log('dialogTop: ' + dialogTop);
+//   if (dialogTop > 330) {
+//     dialogs[i].style.top = 'calc(50px + 2.5vh + 0.5vw + 5%)';
 //   }
-// });
+// }
 
 function displayLoginDialog(message){
   const dialog = document.getElementById('loginDialog');
