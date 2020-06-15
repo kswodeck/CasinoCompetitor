@@ -29,6 +29,8 @@ function displayLoginDialog(message){
       if (document.getElementsByClassName('backdrop')[0]) {
         dialog.style.cssText = '';
         document.getElementsByClassName('backdrop')[0].style.cssText = '';
+        console.error(document.getElementsByClassName('backdrop')[0]);
+        console.error(document.getElementById('loginDialog'));
       }
       document.getElementById('mid-container').style.display = 'none';
     } else {
