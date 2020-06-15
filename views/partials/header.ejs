@@ -26,11 +26,11 @@
             <div id="mainDropdownDiv" class="col main-dropdown header-div">
               <div id="mainDropdownContent" class="dropdownContent">
               <% if (currentUser && currentUser.username.length <= 10) { %>
-                <a class="gold-text dropdownLink" href="/" role="button" id="dropdownMainLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= currentUser.username %><i class="fas fa-caret-down dropdown-arrow"></i></a>
+                <a class="gold-text dropdownLink" href="/" role="button" id="dropdownMainLink"><%= currentUser.username %><i class="fas fa-caret-down dropdown-arrow"></i></a>
               <% } else { %>
-                <a class="gold-text dropdownLink" href="/" role="button" id="dropdownMainLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home<i class="fas fa-caret-down dropdown-arrow"></i></a>
+                <a class="gold-text dropdownLink" href="/" role="button" id="dropdownMainLink">Home<i class="fas fa-caret-down dropdown-arrow"></i></a>
               <% } %>
-                <div class="dropdown-menu collapse navbar-collapse" id="mainDropdown" aria-labelledby="dropdownMainLink">
+                <div class="dropdown-menu collapse navbar-collapse" id="mainDropdown">
                   <ul id ="mainDropdownList" class="dropdownList">
                     <li class="dropdownListItem"><a class="gold-text dropdown-item" href="contact">Contact Us</a></li>
                 <% if (!currentUser){ %>
@@ -48,8 +48,8 @@
               <div class="collapse navbar-collapse navbar-nav" id="navbar-content">
                 <div id="cardsDropdownContent" class="dropdownContent">
                   <div id="cardsLink" class="col top-menu-div cards-dropdown">
-                    <a class="gold-text dropdownLink" role="button" id="dropdownCardsLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Poker<i class="fas fa-caret-down dropdown-arrow"></i></a>
-                    <div class="dropdown-menu" id="cardsDropdown" aria-labelledby="dropdownCardsLink">
+                    <a class="gold-text dropdownLink" role="button" id="dropdownCardsLink" href="casual-cards">Poker<i class="fas fa-caret-down dropdown-arrow"></i></a>
+                    <div class="dropdown-menu" id="cardsDropdown">
                       <ul id ="cardsDropdownList" class="dropdownList">
                         <li class="dropdownListItem casual-item"><a class="gold-text dropdown-item" href="casual-cards">Casual</a></li>
                         <li class="dropdownListItem"><a class="gold-text dropdown-item" href="cards">Competitive</a></li>
@@ -63,8 +63,8 @@
                 </div>
                 <div id="farkleDropdownContent" class="dropdownContent">
                   <div id="farkleLink" class="col top-menu-div farkle-dropdown">
-                    <a class="gold-text dropdownLink" role="button" id="dropdownFarkleLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Farkle<i class="fas fa-caret-down dropdown-arrow"></i></a>
-                    <div class="dropdown-menu" id="farkleDropdown" aria-labelledby="dropdownFarkleLink">
+                    <a class="gold-text dropdownLink" role="button" id="dropdownFarkleLink" href="casual-farkle">Farkle<i class="fas fa-caret-down dropdown-arrow"></i></a>
+                    <div class="dropdown-menu" id="farkleDropdown">
                       <ul id ="farkleDropdownList" class="dropdownList">
                         <li class="dropdownListItem casual-item"><a class="gold-text dropdown-item casual-link" href="casual-farkle">Casual</a></li>
                         <li class="dropdownListItem"><a class="gold-text dropdown-item" href="farkle">Competitive</a></li>

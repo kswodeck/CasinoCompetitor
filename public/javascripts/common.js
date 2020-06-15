@@ -4,12 +4,12 @@
 function displayLoginDialog(message){
   const dialog = document.getElementById('loginDialog');
   const pageTitle = document.getElementsByTagName('title')[0];
-  // const hamContent = document.getElementById('navbar-content');
-  // const mainDropdown = document.getElementById('mainDropdown');
-  // hamContent.classList.remove('show');
-  // hamContent.classList.add('collapse');
-  // mainDropdown.classList.remove('show');
-  // mainDropdown.classList.add('collapse');
+  const hamContent = document.getElementById('navbar-content');
+  const mainDropdown = document.getElementById('mainDropdown');
+  hamContent.classList.remove('show');
+  hamContent.classList.add('collapse');
+  mainDropdown.classList.remove('show');
+  mainDropdown.classList.add('collapse');
     if (pageTitle.innerText == 'Login' || pageTitle.innerText == 'Forgot Username' || pageTitle.innerText == 'Forgot Password') {
       const exitButton = document.getElementById('loginDialogExit');
       exitButton.setAttribute('onclick', "location.href='/'");
