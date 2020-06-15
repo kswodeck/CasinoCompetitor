@@ -304,7 +304,7 @@ function getRollValues() {
         if (isStraight == true || isAllPairs) {
           enableDiceHold(curDice);
           scoringDiceExists = true;
-          curDice.allWorth = 30 * currentBet;
+          curDice.allDiceWorth = 30 * currentBet;
         } else if (diceVal == 1 || diceVal == 5) {
           enableDiceHold(curDice);
           scoringDiceExists = true;
@@ -320,7 +320,7 @@ function getRollValues() {
         scoringDiceExists = true;
         if (isTriplets) {
           enableDiceHold(curDice);
-          curDice.allWorth = 50 * currentBet;
+          curDice.allDiceWorth = 50 * currentBet;
           curDice.multipleDiceWorth = 50 * currentBet;
         } else if (sameCount == 3) {
           enableDiceHold(curDice);
@@ -341,7 +341,7 @@ function getRollValues() {
         } else if (sameCount == 6) {
           enableDiceHold(curDice);
           curDice.multipleDiceWorth = 60 * currentBet;
-          curDice.allWorth = 60 * currentBet;
+          curDice.allDiceWorth = 60 * currentBet;
         } else if (sameCount < 3) {
           if (diceVal == 1) {
             enableDiceHold(curDice);
