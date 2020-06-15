@@ -65,7 +65,7 @@ router.get('/', (req, res) => {
 router.get('/cards', isLoggedIn, (req, res) => {
   res.render('cards', {pageTitle: 'Competitive Poker', currentCoins: req.user.coins});
 });
-router.post('/cards', isLoggedIn, (req, res) => {
+router.put('/cards', isLoggedIn, (req, res) => {
   updateCoins(req, res);
 });
 
@@ -397,13 +397,14 @@ function isLoggedOut(req, res, next){
 }
 
 function updateCoins(req, res) {
-  if (req.body.userCoins != req.user.coins) { //update coins
-    console.log('updating coins: ' + req.user.coins + ' to ' + req.body.userCoins);
-    User.findOneAndUpdate({username: req.user.username}, {$set: {coins: req.body.userCoins}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
+  let newCoins = req.body.coins, curWin = req.body.currentWin;
+  if (newCoins != req.user.coins) { //update coins
+    console.log('updating coins: ' + req.user.coins + ' to ' + newCoins);
+    User.findOneAndUpdate({username: req.user.username}, {$set: {coins: newCoins}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
   }
-  if (req.body.currentWin > req.user.highestWin) { //update highestWin
-    console.log('updating highestWin: ' + req.user.highestWin + ' to ' + req.body.currentWin);
-    User.findOneAndUpdate({username: req.user.username}, {$set: {highestWin: req.body.currentWin}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
+  if (curWin > req.user.highestWin) { //update highestWin
+    console.log('updating highestWin: ' + req.user.highestWin + ' to ' + curWin);
+    User.findOneAndUpdate({username: req.user.username}, {$set: {highestWin: curWin}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
   }
   return res.status(204).send();
 }

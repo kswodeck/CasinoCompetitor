@@ -15,7 +15,7 @@ const totalScoreText = document.getElementById('total-score-text');
 const pageTitle = document.getElementsByTagName('title')[0];
 if (pageTitle.innerText == 'Competitive Farkle' || document.getElementById('page-heading').innerText == 'Competitive Farkle') {
   var totalCoinsSpan = document.getElementById('total-coins-span');
-  var coinsInput = document.getElementById('coinsInput');
+  var totalCoinsNum = parseInt(totalCoinsSpan.innerText);
   var currentBetSpan = document.getElementById('current-bet-span');
   var winButton = document.getElementById('win-button');
   var currentWinSpan = document.getElementById('current-win-span');
@@ -24,7 +24,7 @@ if (pageTitle.innerText == 'Competitive Farkle' || document.getElementById('page
   currentCoinsBet = 10;
   currentBet = 1;
   var updateCoinsStart, updateCoinsEnd;
-  if (coinsInput.value < 10 || !coinsInput.value) {
+  if (totalCoinsNum < 10 || !totalCoinsNum) {
     outOfCoinsDialog();
   }
 }
@@ -32,7 +32,7 @@ if (pageTitle.innerText == 'Competitive Farkle' || document.getElementById('page
 function farkleRoll() {
   diceRollButton.setAttribute('disabled', 'disabled');
   currentBet = parseInt(currentBetSpan.innerText) / 10;
-  if ((totalCoins < 10 || !coinsInput.value ) && diceRolls === 0) {
+  if ((totalCoins < 10 || !totalCoinsNum) && diceRolls === 0) {
     outOfCoinsDialog();
     return false;
   }
@@ -443,7 +443,7 @@ function endCasualTurn() {
 function endTurn() {
   totalScore = parseInt(rollScoreHeading.innerText) + totalScore;
   endTurnConfirm();
-  document.getElementById('number-coins-won').innerText = ' ' + totalScore + ' ';
+  document.getElementById('number-coins-won').innerText = totalScore + ' ';
 }
 
 function endTurnConfirm() {
@@ -547,9 +547,6 @@ function toggleDiceHold(currentHoldElement) {
   const holdElement = document.getElementById(currentHoldElement);
   const diceNum = parseInt(currentHoldElement.replace(/hold/, ''));
   let curDice = diceArr[diceNum];
-  console.log('diceNum: ' + diceNum);
-  console.log('curDice isHeld :' + curDice.isHeld);
-  console.log(curDice);
   if (!curDice.isHeld) {
     if ((curDice.multipleDiceWorth != 0 || curDice.allDiceWorth) != 0 && curDice.numValue != 5 && curDice.numValue != 1) {
       for (let i = 0 + diceHeld; i < 6; i++) {
@@ -608,13 +605,23 @@ function outOfCoinsDialog() {
 }
 
 function updateStoredCoins(updateCoins) {
-    updateCoins.then( () => {
-    if (totalCoins != parseInt(coinsInput.value)) {
-      coinsInput.value = totalCoins;
-    } else {
-      return false;
-    }
-    document.getElementById('currentWinInput').value = totalScore;
-    document.getElementById('farkleForm').submit();
+  updateCoins.then(() => {
+    let curWin;
+    diceRolls > 0 ? curWin = totalScore : curWin = 0;
+    let updateData = {coins: totalCoins, currentWin: curWin};
+    fetch('/cards', {
+      method: 'PUT',
+      body: JSON.stringify(updateData),
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then((res) => {
+      if (!res.ok) {
+        throw Error(res.status);
+      }
+    })
+    .then(res => res)
+    .catch((err) => {
+      console.error(err);
+    });
   });
 }

@@ -308,11 +308,6 @@ input:invalid, #tableSearch:active {
 .card-slot-div {
   padding: 0 1%;
 }
-.card-coins-data, #userIdInput, .farkle-coins-data {
-  display: none;
-  padding: 0;
-  border: 0;
-}
 #card-prep-row, #dice-prep-row {
   margin: calc(4px + 0.8%) auto calc(1px + 0.2%) auto;
 }
@@ -744,7 +739,7 @@ border-radius: .25rem;
 }
 .show-hide {
   margin-left: -26px;
-  margin-bottom: calc(-3px + 0.1vh);
+  margin-bottom: calc(-4px + 0.1vh + 0.1vw);
 }
 .edit-icon {
   margin-left: calc(2px + 0.2vw);

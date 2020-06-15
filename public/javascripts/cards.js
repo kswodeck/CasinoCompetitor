@@ -4,13 +4,13 @@ var cards = [], cards2 = [];
 var handsDealt = 0, currentHand = 0, currentWin = 0;
 const pageTitle = document.getElementsByTagName('title')[0];
 if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-heading').innerText == 'Competitive Poker') {
-  var coinsInput = document.getElementById('coinsInput');
   var totalCoinsSpan = document.getElementById('total-coins-span');
+  let totalCoinsNum = parseInt(totalCoinsSpan.innerText);
   var currentBetSpan = document.getElementById('current-bet-span');
   var totalCoins = totalCoinsSpan.innerText;
   var currentBet = 1;
   var updateCoinsStart, updateCoinsEnd;
-  if (coinsInput.value < 1 || coinsInput.value == null) {
+  if (totalCoinsNum < 1 || !totalCoinsNum) {
     outOfCoinsDialog();
   }
 }
@@ -18,7 +18,7 @@ const cardDealButton = document.getElementById('card-deal-button');
 const handRankingHeading = document.getElementById('hand-ranking-heading');
 preloader();
 
-function preloader() {
+function preloader() { // preload card images
   let images = []; // set image list
   let cardNum = 1, suitNum = 1, imgNum = 0;
   while (imgNum < 52) {
@@ -39,7 +39,7 @@ function preloader() {
 
 function getCards() {
   cardDealButton.disabled = true;
-  if (totalCoins <= 0 && handsDealt === 0) {
+  if (totalCoins < 1 && handsDealt === 0) {
     outOfCoinsDialog();
     handsDealt = 2;
   }
@@ -436,7 +436,7 @@ function winCoinsDialog(result) {
   const coinsDialog = document.getElementById('winCoinsDialog');
   if (typeof coinsDialog.showModal === 'function') {
     document.getElementById('coin-win-popup-span').innerText = result;
-    document.getElementById('number-coins-won').innerText = ' ' + currentWin + ' ';
+    document.getElementById('number-coins-won').innerText = currentWin + ' ';
     coinsDialog.showModal();
     setTimeout(() => {coinsDialog.close();}, 2500);
   } else {
@@ -475,12 +475,24 @@ function toggleOddsTable() {
 
 function updateStoredCoins(updateCoins) {
   updateCoins.then(() => {
-    if (totalCoins != parseInt(coinsInput.value)) {
-      coinsInput.value = totalCoins;
+    if ((currentWin != 0 && cards2.length != 0) || cards2.length == 0) {
+      let updateData = {coins: totalCoins, currentWin: currentWin};
+      fetch('/cards', {
+        method: 'PUT',
+        body: JSON.stringify(updateData),
+        headers: {'Content-Type': 'application/json'}
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw Error(res.status);
+        }
+      })
+      .then(res => res)
+      .catch((err) => {
+        console.error(err);
+      });
     } else {
       return false;
     }
-    document.getElementById('currentWinInput').value = currentWin;
-    document.getElementById('cardsForm').submit();
   });
 }

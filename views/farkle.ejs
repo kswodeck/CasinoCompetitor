@@ -7,12 +7,8 @@
           <button id="bet-button" class="btn betWinButton md-text gold-text" type="submit" name="bet-button" onclick="toggleBet()">bet<span id ="current-bet-span">10</span></button>
         </div>
         <div id="dice-prep-div" class="col">
-            <form action="/farkle/?_method=PUT" method="POST" id="farkleForm">
-                <input value= "<%= currentCoins %>" name="userCoins" id="coinsInput" class="farkle-coins-data" type="number">
-                <input value="0" name="currentWin" id="currentWinInput" class="farkle-coins-data">
-                <button type="submit" role="button" id="farkle-roll-button" class="btn lg-text gold-bg red-text btn-style" name="farkle-button" onclick="farkleRoll()">Roll Dice</button>
-                <button type="submit" role="button" id="farkle-end-button" class="btn lg-text red-bg gold-text btn-style" name="end-button" onclick="endTurn()" disabled>End Turn</button>
-              </form>
+          <button type="submit" role="button" id="farkle-roll-button" class="btn lg-text gold-bg red-text btn-style" name="farkle-button" onclick="farkleRoll()">Roll Dice</button>
+          <button type="submit" role="button" id="farkle-end-button" class="btn lg-text red-bg gold-text btn-style" name="end-button" onclick="endTurn()" disabled>End Turn</button>
           </div>
         <div id="current-win-div" class="col">
           <button id="win-button" class="btn betWinButton md-text gold-text" type="submit" name="win-button" disabled>win<span id="current-win-span">0</span></button>
