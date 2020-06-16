@@ -888,11 +888,19 @@ dialog.farkle-dialog, div.farkle-div {
 #coinDialogDiv {
   margin-top: 5%;
 }
-dialog.account-form-div::backdrop, dialog + .backdrop, ._dialog_overlay, div._dialog_overlay, div.backdrop {
+dialog.account-form-div::backdrop, dialog.account-form-div + .backdrop, ._dialog_overlay, div._dialog_overlay {
   top: unset;
   bottom: unset;
   z-index: 0;
   display: none;
+}
+.backdrop, dialog::backdrop {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background: rgba(0, 0, 0, 0.1);
 }
 
 /* Animations */
