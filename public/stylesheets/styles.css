@@ -772,7 +772,7 @@ input:disabled {
 dialog[open] {
   display: block;
 }
-dialog.account-dialog {
+dialog.account-dialog, #confirmDialog {
   border-radius: 0;
   min-width: calc(300px + 14vw);
   padding: 0 0 3px 0;
@@ -866,11 +866,11 @@ button.page-button {
   margin: 0 1px 0 4px;
 }
 
-#outOfCoinsDialog, #winCoinsDialog, #winHandDialog, dialog.farkle-dialog, #confirmDialog {
+dialog:not(.account-form-div) {
   border: 3px solid darkblue;
   border-radius: 10px;
   top: calc(10vh + 20%);
-  max-width: 450px;
+  max-width: 550px;
   bottom: unset;
   z-index: 11;
   background-color: white;
