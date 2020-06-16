@@ -880,6 +880,10 @@ dialog:not(.account-form-div) {
   margin: auto;
 }
 
+dialog.sm-dialog {
+  width: calc(130px + 4vw);
+}
+
 #go-button-link:hover{
   text-decoration: none;
 }
