@@ -228,7 +228,7 @@ input:invalid, #tableSearch:active {
   text-align: center;
 }
 
-#dice-clear-tally-col, #hand-ranking-heading, #roll-ranking-heading, #roll-score-heading {
+#dice-clear-tally-col, #hand-ranking-heading, #roll-ranking-heading, #roll-score-heading, dialog:not([open]) {
   display: none;
 }
 
@@ -608,9 +608,6 @@ div.top-menu-div > a {
   -ms-flex-align: center;
   align-items: center;
 }
-/* div.collapse:not(.show) {
-  display: none;
-} */
 svg.navbar-toggler-icon {
 display: inline-block;
 height: 1.4em;
@@ -770,6 +767,10 @@ input:disabled {
   background-color: aliceblue;
   opacity: 0.9;
   color: black;
+}
+
+dialog[open] {
+  display: block;
 }
 dialog.account-dialog {
   border-radius: 0;

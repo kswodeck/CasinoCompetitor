@@ -427,7 +427,6 @@ function outOfCoinsDialog() {
     if (document.getElementsByClassName('backdrop')[0]) {
       outOfCoinsDialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
-      document.getElementsByClassName('backdrop')[0].style.display = 'none';
     }
   } else {
     console.log('The <dialog> API is not supported by this browser');
@@ -446,7 +445,6 @@ function winCoinsDialog(result) {
     if (document.getElementsByClassName('backdrop')[0]) {
       coinsDialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
-      document.getElementsByClassName('backdrop')[0].style.display = 'none';
     }
     setTimeout(() => {coinsDialog.close();}, 2500);
   } else {
@@ -465,7 +463,6 @@ function winHandDialog(result) {
     if (document.getElementsByClassName('backdrop')[0]) {
       winDialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
-      document.getElementsByClassName('backdrop')[0].style.display = 'none';
     }
     setTimeout(() => {winDialog.close();}, 2500);
   } else {

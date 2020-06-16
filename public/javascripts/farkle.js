@@ -453,7 +453,6 @@ function endTurnConfirm() {
     if (document.getElementsByClassName('backdrop')[0]) {
       dialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
-      document.getElementsByClassName('backdrop')[0].style.display = 'none';
     }
     setTimeout(() => {dialog.close();}, 20000);
   } else {
@@ -472,7 +471,6 @@ function endCasualTurnConfirm() {
     if (document.getElementsByClassName('backdrop')[0]) {
       dialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
-      document.getElementsByClassName('backdrop')[0].style.display = 'none';
     }
       setTimeout(() => {dialog.close();}, 15000);
   } else {
@@ -502,7 +500,6 @@ function endTurnDialog() {
     if (document.getElementsByClassName('backdrop')[0]) {
       dialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
-      document.getElementsByClassName('backdrop')[0].style.display = 'none';
     }
     document.getElementById('endTurnCancel').onclick = () => {
       window.location.reload();
@@ -522,7 +519,6 @@ function endCasualTurnDialog() {
     if (document.getElementsByClassName('backdrop')[0]) {
       dialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
-      document.getElementsByClassName('backdrop')[0].style.display = 'none';
     }
     document.getElementById('endTurnCancel').onclick = () => {
       window.location.reload();
@@ -540,7 +536,6 @@ function displayFarkleDialog(dialog, cancel) {
     if (document.getElementsByClassName('backdrop')[0]) {
       curDialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
-      document.getElementsByClassName('backdrop')[0].style.display = 'none';
     }
     setTimeout(() => {curDialog.close();}, 7000);
   } else {
@@ -623,7 +618,6 @@ function outOfCoinsDialog() {
     if (document.getElementsByClassName('backdrop')[0]) {
       outOfCoinsDialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
-      document.getElementsByClassName('backdrop')[0].style.display = 'none';
     }
   } else {
     console.log('The <dialog> API is not supported by this browser');
