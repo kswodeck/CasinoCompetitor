@@ -39,8 +39,7 @@ function displayLoginDialog(message){
       if (document.getElementsByClassName('backdrop')[0]) {
         dialog.style.cssText = '';
         document.getElementsByClassName('backdrop')[0].style.cssText = '';
-        console.error(document.getElementsByClassName('backdrop')[0]);
-        console.error(document.getElementById('loginDialog'));
+        document.getElementsByClassName('backdrop')[0].style.display = 'none';
       }
       document.getElementById('mid-container').style.display = 'none';
     } else {
@@ -56,6 +55,7 @@ function displayLogoutDialog(){
     if (document.getElementsByClassName('backdrop')[0]) {
       dialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
+      document.getElementsByClassName('backdrop')[0].style.display = 'none';
     }
     container.style.display = 'none';
     setTimeout(() => {
@@ -75,6 +75,7 @@ function displayForgotDialog(newDialog, message){
       if (document.getElementsByClassName('backdrop')[0]) {
         loginDialog.style.cssText = '';
         document.getElementsByClassName('backdrop')[0].style.cssText = '';
+        document.getElementsByClassName('backdrop')[0].style.display = 'none';
       }
       document.getElementById('loginDialog').close();
     } else {
@@ -120,6 +121,7 @@ function backFromDialog(currentDialog){
   if (document.getElementsByClassName('backdrop')[0]) {
     document.getElementsByClassName('backdrop')[0].style.cssText = '';
     document.getElementById('loginDialog').style.cssText = '';
+    document.getElementsByClassName('backdrop')[0].style.display = 'none';
   }
 }
 
@@ -144,6 +146,7 @@ function displayDialog(dialog) {
     if (document.getElementsByClassName('backdrop')[0]) {
       curDialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
+      document.getElementsByClassName('backdrop')[0].style.display = 'none';
     }
     document.getElementById('mid-container').style.display = 'none';
   } else {
@@ -160,6 +163,7 @@ function displayStreakDialog(streak){
     if (document.getElementsByClassName('backdrop')[0]) {
       dialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
+      document.getElementsByClassName('backdrop')[0].style.display = 'none';
     }
     document.getElementById('mid-container').style.display = 'none';
     setTimeout(() => {
