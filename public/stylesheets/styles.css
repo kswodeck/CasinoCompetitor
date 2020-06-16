@@ -887,6 +887,13 @@ dialog.farkle-dialog, div.farkle-div {
 #coinDialogDiv {
   margin-top: 5%;
 }
+dialog.account-form-div::backdrop, dialog + .backdrop, ._dialog_overlay, div._dialog_overlay, div.backdrop {
+  top: unset;
+  bottom: unset;
+  background: none;
+  z-index: 0;
+  display: none;
+}
 
 /* Animations */
 @-webkit-keyframes spinGrow {
@@ -1029,13 +1036,6 @@ dialog.farkle-dialog, div.farkle-div {
     top: 0;
     margin-top: calc(110px + 2.5vw + 5vh);
     position: static;
-  }
-  dialog.account-form-div::backdrop, dialog + .backdrop, ._dialog_overlay, div._dialog_overlay, div.backdrop {
-    top: unset;
-    bottom: unset;
-    background: none;
-    z-index: 0;
-    display: none;
   }
   #mainDropdown {
     top: calc(13px + 2vh + 1vw)
@@ -1181,13 +1181,6 @@ dialog.farkle-dialog, div.farkle-div {
   }
   dialog.account-dialog {
     top: calc(50px + 2.5vh + 0.5vw + 5%);
-  }
-  dialog.account-form-div::backdrop, dialog + .backdrop, ._dialog_overlay, div._dialog_overlay, div.backdrop {
-    top: unset;
-    bottom: unset;
-    background: none;
-    z-index: 0;
-    display: none;
   }
 }
 

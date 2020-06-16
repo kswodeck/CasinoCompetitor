@@ -25,7 +25,17 @@ function displayLoginDialog(message){
       }
     }
     if (typeof dialog.showModal === 'function') {
-      dialog.showModal();
+      if (!dialog.hasAttribute('open')) {
+        let forgotUser = document.getElementById('forgotUserDialog');
+        let forgotPW = document.getElementById('forgotPWDialog');
+        if (forgotUser.hasAttribute('open')) {
+          backFromDialog('forgotUserDialog');
+          } else if (forgotPW.hasAttribute('open')) {
+            backFromDialog('forgotPWDialog');
+          } else {
+          dialog.showModal();
+          }
+        }
       if (document.getElementsByClassName('backdrop')[0]) {
         dialog.style.cssText = '';
         document.getElementsByClassName('backdrop')[0].style.cssText = '';
