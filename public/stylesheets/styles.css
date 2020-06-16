@@ -880,8 +880,13 @@ dialog:not(.account-form-div) {
   margin: auto;
 }
 
+dialog#farkleDialog, dialog#mustHoldDialog, dialog#hotDiceDialog, dialog#outOfCoinsDialog {
+  width: calc(270px + 6vw + 1.5vh);
+  min-width: 300px;
+}
 dialog.sm-dialog {
-  width: calc(130px + 4vw);
+  width: calc(140px + 4vw + 1vh);
+  min-width: 155px;
 }
 
 #go-button-link:hover{
