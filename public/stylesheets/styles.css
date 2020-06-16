@@ -1033,11 +1033,6 @@ dialog.account-form-div::backdrop, dialog + .backdrop, ._dialog_overlay, div._di
 
 /* medium breakpoint */
 @media (max-height: 767px) and (max-width: 1199px), (max-width: 991px) {
-  dialog.account-dialog {
-    top: 0;
-    margin-top: calc(110px + 2.5vw + 5vh);
-    position: static;
-  }
   #mainDropdown {
     top: calc(13px + 2vh + 1vw)
   }

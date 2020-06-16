@@ -36,10 +36,10 @@ function displayLoginDialog(message){
           dialog.showModal();
           }
         }
-      // if (document.getElementsByClassName('backdrop')[0]) {
-      //   dialog.style.cssText = '';
-      //   document.getElementsByClassName('backdrop')[0].style.cssText = '';
-      // }
+      if (document.getElementsByClassName('backdrop')[0]) {
+        dialog.style.cssText = '';
+        document.getElementsByClassName('backdrop')[0].style.cssText = '';
+      }
       document.getElementById('mid-container').style.display = 'none';
     } else {
       console.log('The <dialog> API is not supported by this browser');
