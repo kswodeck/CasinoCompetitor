@@ -870,6 +870,8 @@ dialog:not(.account-form-div) {
   border: 3px solid darkblue;
   border-radius: 10px;
   top: calc(10vh + 20%);
+  left: 0px;
+  right: 0px;
   max-width: 550px;
   bottom: unset;
   z-index: 11;
