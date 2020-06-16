@@ -37,7 +37,7 @@ function farkleRoll() {
     return false;
   }
   currentWinSpan.innerText = 0;
-  betButton.disabled = true;
+  betButton.setAttribute('disabled', 'disabled');
   winButton.style.backgroundColor = 'crimson';
   winButton.style.boxShadow = '0 6px var(--darkcrimson)';
   if (diceRolls === 0) {
@@ -625,7 +625,7 @@ function outOfCoinsDialog() {
   document.getElementById('outOfCoinsCancel').onclick = () => {
     outOfCoinsDialog.close();
   };
-  diceRollButton.disabled = false;
+  diceRollButton.setAttribute('disabled', 'disabled');
 }
 
 function updateStoredCoins(updateCoins) {

@@ -252,7 +252,7 @@ input:invalid, #tableSearch:active {
   font-weight: bold;
   color: darkblue;
 }
-.loss, .win {
+.loss, .win, #mustHoldDialog {
   font-weight: bold;
 }
 
@@ -774,7 +774,7 @@ dialog[open] {
 }
 dialog.account-dialog {
   border-radius: 0;
-  min-width: calc(250px + 15vw);
+  min-width: calc(300px + 14vw);
   padding: 0 0 3px 0;
   z-index: 11;
 }
@@ -853,10 +853,6 @@ button.page-button {
   font-size:calc(14px + 0.6vw);
 }
 
-#confirmDialog {
-  background: white;
-}
-
 #mid-container, #dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv,
 .account-form-div, #show-hide-odds-div, #leaderboard-div, #tableSearch, #leaderboardLink, #farkle-container,
 dialog.farkle-dialog, div.farkle-div {
@@ -871,10 +867,14 @@ dialog.farkle-dialog, div.farkle-div {
   margin: 0 1px 0 4px;
 }
 
-#outOfCoinsDialog, #winCoinsDialog, #winHandDialog, dialog.farkle-dialog {
+#outOfCoinsDialog, #winCoinsDialog, #winHandDialog, dialog.farkle-dialog, #confirmDialog {
   border: 3px solid darkblue;
   border-radius: 10px;
   top: calc(10vh + 20%);
+  max-width: 450px;
+  bottom: unset;
+  z-index: 11;
+  background: white;
 }
 
 #go-button-link:hover{
@@ -891,7 +891,6 @@ dialog.farkle-dialog, div.farkle-div {
 dialog.account-form-div::backdrop, dialog + .backdrop, ._dialog_overlay, div._dialog_overlay, div.backdrop {
   top: unset;
   bottom: unset;
-  background: none;
   z-index: 0;
   display: none;
 }
