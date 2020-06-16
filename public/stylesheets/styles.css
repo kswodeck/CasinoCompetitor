@@ -853,9 +853,8 @@ button.page-button {
   font-size:calc(14px + 0.6vw);
 }
 
-#mid-container, #dialog-popup-text, #outOfCoinsDialog, #winCoinsDialog, #winHandDialog, #winHandDiv,
-.account-form-div, #show-hide-odds-div, #leaderboard-div, #tableSearch, #leaderboardLink, #farkle-container,
-dialog.farkle-dialog, div.farkle-div {
+#mid-container, #dialog-popup-text, #winHandDiv, .account-form-div, #show-hide-odds-div,
+#leaderboard-div, #tableSearch, #leaderboardLink, #farkle-container, dialog, div.farkle-div, .backdrop {
   text-align: center;
 }
 
@@ -874,7 +873,8 @@ dialog.farkle-dialog, div.farkle-div {
   max-width: 450px;
   bottom: unset;
   z-index: 11;
-  background: white;
+  background-color: white;
+  position: absolute;
 }
 
 #go-button-link:hover{
@@ -894,7 +894,7 @@ dialog.account-form-div::backdrop, dialog.account-form-div + .backdrop, ._dialog
   z-index: 0;
   display: none;
 }
-.backdrop, dialog::backdrop {
+div.backdrop, dialog::backdrop {
   position: fixed;
   top: 0px;
   right: 0px;
@@ -1000,11 +1000,9 @@ dialog.account-form-div::backdrop, dialog.account-form-div + .backdrop, ._dialog
     padding-left: calc(14px + 3%);
   }
   #current-win-div {
-    /* text-align: right; */
     text-align: center;
   }
   #current-bet-div {
-    /* text-align: left; */
     text-align: center;
   }
   button.betWinButton, button.betWinButton:focus {
