@@ -875,6 +875,7 @@ dialog:not(.account-form-div) {
   z-index: 11;
   background-color: white;
   position: absolute;
+  margin: auto;
 }
 
 #go-button-link:hover{
