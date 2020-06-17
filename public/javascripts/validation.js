@@ -212,6 +212,8 @@ function validateContactUs() {
   if (validity == false) {
     console.log('false');
     return false;
+  } else {
+    sendContactEmail();
   }
 }
 
@@ -229,5 +231,7 @@ function sendContactEmail() {
     From : "kmswodeck@gmail.com",
     Subject : "Contact Us Submission - " + subject,
     Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 250px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: crimson; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><h3 style="color: darkblue; font-size: 20px; margin-bottom: 10px">From: ' + name + ' (' + email + ')</h3><p>You received a new contact us form submission:<br>' + '"' + text + '"' + '</p></div></html>'
-  }).then(message => console.log('Email sent: ' + message));
+  }).then(() => {
+    document.getElementById('contactUsForm').submit();
+  });
 }

@@ -3,7 +3,7 @@
 <div id="mid-container">
   <div class="account-form-div">
     <h2 id="form-heading" class="account-heading blue-text">Contact Us</h2>
-    <form action="/contact" method="POST" onsubmit="sendContactEmail()">
+    <form id="contactUsForm" action="/contact" method="POST">
       <div class="name-row row">
         <div id="firstNameCol" class="name-col col">
           <label for="firstName" class="account-label sm-txt">First Name</label><br>
@@ -33,7 +33,7 @@
         <li class="valid-list">Your email has been sent</li>
       <% } %>
       </ul>
-      <button type="submit" role="button" name="account-submit" class="btn md-text blue-bg gold-text btn-style account-button" id="contactUsButton" onclick="validateContactUs()">Send Message</button>
+      <button type="button" role="button" name="account-submit" class="btn md-text blue-bg gold-text btn-style account-button" id="contactUsButton" onclick="validateContactUs()">Send Message</button>
     </form>
   </div>
 </div>
