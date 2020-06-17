@@ -879,10 +879,6 @@ dialog.sm-dialog {
   width: calc(140px + 4vw + 1vh);
 }
 
-#winCoinsDiv {
-
-}
-
 #go-button-link:hover{
   text-decoration: none;
 }
