@@ -774,9 +774,10 @@ dialog[open] {
 }
 dialog.account-dialog, #confirmDialog {
   border-radius: 0;
-  min-width: calc(300px + 14vw);
+  min-width: calc(200px + 14vw);
   padding: 0 0 3px 0;
   z-index: 11;
+  top: calc(120px + 2.2vh + 1vw + 5%);
 }
 #loginStreakDialog, #changePWDialog {
   padding-bottom: 1.5%;
@@ -1191,9 +1192,6 @@ div.backdrop, dialog::backdrop {
   }
   .dropdownContent:hover .dropdown-menu, .dropdown-menu:hover, .dropdown-menu a:hover {
     display: block;
-  }
-  dialog.account-dialog {
-    top: calc(50px + 2.5vh + 0.5vw + 5%);
   }
 }
 
