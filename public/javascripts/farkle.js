@@ -41,7 +41,7 @@ function farkleRoll() {
   winButton.style.backgroundColor = 'crimson';
   winButton.style.boxShadow = '0 6px var(--darkcrimson)';
   if (diceRolls === 0) {
-    updateCoinsStart = new Promise((resolve) => {
+    updateCoinsStart = new Promise(resolve => {
       totalCoins = totalCoins - currentCoinsBet;
       totalCoinsSpan.innerText = totalCoins;
       resolve(5);
@@ -72,7 +72,7 @@ function diceRoll() {
     currentDiceElement.classList.remove('spin-grow');
     holdCurrentDice.classList.add('text-opacity');
     diceArr.push(new Dice(roll(), currentDiceElement));
-    setTimeout(() => {animateDice(currentDiceElement);}, 30);
+    setTimeout(() => animateDice(currentDiceElement), 30);
     currentDiceElement.src = diceArr[currentDice].imgSrc;
   }
 }
@@ -167,7 +167,7 @@ function farkleRollTeardown() {
   }, 350);
   diceRolls++;
   var totalDiceCanHold = 0;
-  new Promise((resolve) => {
+  new Promise(resolve => {
     for (let curDice = 0; curDice < 6; curDice++) {
       if (diceArr[curDice].canHold) {
         totalDiceCanHold++;
@@ -182,21 +182,15 @@ function farkleRollTeardown() {
           disableDiceHold(diceArr[curDice]);
           document.getElementById('hold' + curDice).classList.remove('text-opacity');
       }
-      setTimeout(() => {
-        displayFarkleDialog('hotDiceDialog', 'hotDiceCancel');
-      }, 200);
+      setTimeout(() => displayFarkleDialog('hotDiceDialog', 'hotDiceCancel'), 200);
     }
   });
-  setTimeout(() => {diceRollButton.removeAttribute('disabled');}, 400);
+  setTimeout(() => diceRollButton.removeAttribute('disabled'), 400);
 }
 
-function roll() {
-  return Math.floor((Math.random() * 6) + 1);
-}
+var roll = () => Math.floor((Math.random() * 6) + 1);
 
-function animateDice(diceElement) {
-  diceElement.classList.add('spin-grow');
-}
+var animateDice = (diceElement) => diceElement.classList.add('spin-grow');
 
 function getRollValues() {
   let resultText = 'Farkle';
@@ -454,7 +448,7 @@ function endTurnConfirm() {
       dialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
     }
-    setTimeout(() => {dialog.close();}, 20000);
+    setTimeout(() => dialog.close(), 20000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
@@ -472,7 +466,7 @@ function endCasualTurnConfirm() {
       dialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
     }
-      setTimeout(() => {dialog.close();}, 15000);
+      setTimeout(() => dialog.close(), 15000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
@@ -485,7 +479,7 @@ function endCasualTurnConfirm() {
 function endTurnDialog() {
   winButton.style.backgroundColor = 'darkblue';
   winButton.style.boxShadow = '0 6px var(--darkerblue)';
-  updateCoinsEnd = new Promise((resolve) => {
+  updateCoinsEnd = new Promise(resolve => {
     totalCoins = totalCoins + totalScore;
     currentWinSpan.innerText = totalScore;
     totalCoinsSpan.innerText = totalCoins;
@@ -501,10 +495,8 @@ function endTurnDialog() {
       dialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
     }
-    document.getElementById('endTurnCancel').onclick = () => {
-      window.location.reload();
-    };
-    setTimeout(() => {window.location.reload();}, 8000);
+    document.getElementById('endTurnCancel').onclick = () => window.location.reload();
+    setTimeout(() => window.location.reload(), 8000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
@@ -520,10 +512,8 @@ function endCasualTurnDialog() {
       dialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
     }
-    document.getElementById('endTurnCancel').onclick = () => {
-      window.location.reload();
-    };
-    setTimeout(() => {window.location.reload();}, 7000);
+    document.getElementById('endTurnCancel').onclick = () => window.location.reload();
+    setTimeout(() => window.location.reload(), 7000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
@@ -537,17 +527,15 @@ function displayFarkleDialog(dialog, cancel) {
       curDialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
     }
-    setTimeout(() => {curDialog.close();}, 7000);
+    setTimeout(() => curDialog.close(), 7000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById(cancel).onclick = () => {
-    curDialog.close();
-  };
+  document.getElementById(cancel).onclick = () => curDialog.close();
 }
 
 function disableDiceHold(...args) {
-  args.forEach((dice) => {
+  args.forEach(dice => {
     dice.canHold = false;
     dice.diceElement.classList.remove('interactive-img');
     dice.diceElement.parentElement.removeAttribute('onclick');
@@ -555,7 +543,7 @@ function disableDiceHold(...args) {
 }
 
 function enableDiceHold(...args) {
-  args.forEach((dice) => {
+  args.forEach(dice => {
     dice.canHold = true;
     let holdId = dice.diceElement.parentElement.childNodes[1].getAttribute('id');
     dice.diceElement.classList.add('interactive-img');
@@ -622,9 +610,7 @@ function outOfCoinsDialog() {
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById('outOfCoinsCancel').onclick = () => {
-    outOfCoinsDialog.close();
-  };
+  document.getElementById('outOfCoinsCancel').onclick = () => outOfCoinsDialog.close();
   diceRollButton.setAttribute('disabled', 'disabled');
 }
 
@@ -637,15 +623,11 @@ function updateStoredCoins(updateCoins) {
       method: 'PUT',
       body: JSON.stringify(updateData),
       headers: {'Content-Type': 'application/json'}
-    })
-    .then((res) => {
+    }).then(res => {
       if (!res.ok) {
         throw Error(res.status);
       }
-    })
-    .then(res => res)
-    .catch((err) => {
-      console.error(err);
-    });
+    }).then(res => res)
+    .catch(err => console.error(err));
   });
 }

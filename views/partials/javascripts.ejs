@@ -3,7 +3,7 @@ Sentry.init({dsn: 'https://bc7444c26cad4159a4fc1818045022ba@o404801.ingest.sentr
 let dialogSup = document.getElementsByTagName('dialog');
   for (i = 0; i < dialogSup.length; i++) {
     dialogPolyfill.registerDialog(dialogSup[i]);
-    dialogSup[i].addEventListener("keydown", (e) => {
+    dialogSup[i].addEventListener("keydown", e => {
       if (e.code == 'Escape') {
         document.getElementById('mid-container').style.display = 'block';
       }

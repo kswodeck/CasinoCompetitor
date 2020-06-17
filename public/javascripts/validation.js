@@ -62,7 +62,7 @@ function validatePasswordUpdate() {
     addToInvalidList('* old and new passwords must be different', updatePassword, invalidList);
     return false;
   } else {
-    setTimeout(() => { // good way of setting error message if there's only 1 more possible error
+    setTimeout(() => { // if there's only 1 more possible error, display it after timeout
       addToInvalidList('* current password is incorrect', oldPassword, invalidList);
       oldPassword.style.borderColor = 'crimson';
     }, 900);
@@ -175,12 +175,8 @@ function removeWhiteSpace(inputs) {
 
 function disableAfterSubmit(button, time) {
   let element = document.getElementById(button);
-  setTimeout(() => {
-    element.disabled = true;
-  }, 5);
-  setTimeout(() => {
-    element.disabled = false;
-  }, time);
+  setTimeout(() => element.disabled = true, 5);
+  setTimeout(() => element.disabled = false, time);
 }
 
 function validateKeys(evt, type) {
@@ -231,7 +227,5 @@ function sendContactEmail() {
     From : "kmswodeck@gmail.com",
     Subject : "Contact Us Submission - " + subject,
     Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 250px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: crimson; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><h3 style="color: darkblue; font-size: 20px; margin-bottom: 10px">From: ' + name + ' (' + email + ')</h3><p>You received a new contact us form submission:<br>' + '"' + text + '"' + '</p></div></html>'
-  }).then(() => {
-    document.getElementById('contactUsForm').submit();
-  });
+  }).then(() => document.getElementById('contactUsForm').submit());
 }

@@ -6,7 +6,7 @@
 <script>
   window.onload = () => {
     sendForgotPWEmail('<%= emailSent %>', '<%= userId %>', '<%= username %>');
-    displayForgotDialog('forgotPWDialog', '<%= success %>'); // displayDialog('changePWDialog');
+    displayForgotDialog('forgotPWDialog', '<%= success %>');
     var uri = window.location.toString();
     if (uri.indexOf("?") > 0) {
       var clean_uri = uri.substring(0, uri.indexOf("?"));
@@ -15,25 +15,19 @@
   };
 </script>
 <% } else if (!currentUser) { %>
-  <script>
-    window.onload = () => {
-      displayForgotDialog('forgotPWDialog', '<%= error %>');
-    };
-  </script>
+<script>
+  window.onload = () => displayForgotDialog('forgotPWDialog', '<%= error %>');
+</script>
 <% } else { %>
-  <script>
-    window.onload = () => {
-      displayForgotDialog('forgotPWDialog', false);
-    };
-  </script>
+<script>
+  window.onload = () => displayForgotDialog('forgotPWDialog', false);
+</script>
 <% } %>
 <% if (!currentUser && updatePW){ %>
-  <script>
-      window.onload = () => {
-      displayDialog('changePWDialog');
-    };
-  </script>
-  <% } %>
+<script>
+  window.onload = () => displayDialog('changePWDialog');
+</script>
+<% } %>
 
 <dialog id="changePWDialog" class="account-form-div account-dialog">
   <div class ="exit-button-div">

@@ -36,17 +36,13 @@
 
 <% if (popup && popup.length > 0){ %>
 <script>
-  window.onload = () => {
-    displayLogoutDialog();
-  };
+  window.onload = () => displayLogoutDialog();
 </script>
 <% } else if (currentUser && !loggedInToday) { %>
-  <script>
-    window.onload = () => {
-      displayStreakDialog('<%= streak %>');
-    };
-  </script>
-  <% } %>
+<script>
+  window.onload = () => displayStreakDialog('<%= streak %>');
+</script>
+<% } %>
 
 <%- include('partials/logindialogs') %>
 <%- include('partials/footer') %>

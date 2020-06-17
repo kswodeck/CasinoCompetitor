@@ -14,7 +14,7 @@ function displayLoginDialog(message){
       const exitButton = document.getElementById('loginDialogExit');
       exitButton.setAttribute('onclick', "location.href='/'");
     }
-    if (message && message != 'false' && message != undefined) {
+    if (message && message != 'false') {
       const item = document.createElement('li');
       item.innerText = message;
       document.getElementById('invalid-login').appendChild(item);
@@ -56,9 +56,7 @@ function displayLogoutDialog(){
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
     }
     container.style.display = 'none';
-    setTimeout(() => {
-      window.location.href = '/';
-    }, 8000);
+    setTimeout(() => window.location.reload(), 8000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
@@ -81,7 +79,7 @@ function displayForgotDialog(newDialog, message){
     if (pageTitle.innerText == 'Forgot Password') {
       invalidList = document.getElementById('invalid-forgot-password');
     }
-    if (message && message != false && message != undefined) {
+    if (message && message != false) {
       const item = document.createElement('li');
       if (!message.includes('Username') && !message.includes('email')) {
         item.className = 'invalid-list';
@@ -163,7 +161,7 @@ function displayStreakDialog(streak){
     setTimeout(() => {
       document.getElementById('mid-container').style.display = 'block';
       dialog.close();
-      window.location.href = '/';
+      window.location.reload();
     }, 10000);
   } else {
     console.log('The <dialog> API is not supported by this browser');

@@ -1,26 +1,16 @@
 /* eslint-disable no-unused-vars */
-var onesWins = []; var twosWins = []; var threesWins = []; var foursWins = []; var fivesWins = []; var sixesWins = []; // total results arrays declared globally
-const oneWin = document.getElementById('one_win');
-oneWin.innerText = onesWins.length;
-const twoWin = document.getElementById('two_win');
-twoWin.innerText = twosWins.length;
-const threeWin = document.getElementById('three_win');
-threeWin.innerText = threesWins.length;
-const fourWin = document.getElementById('four_win');
-fourWin.innerText = foursWins.length;
-const fiveWin = document.getElementById('five_win');
-fiveWin.innerText = fivesWins.length;
-const sixWin = document.getElementById('six_win');
-sixWin.innerText = sixesWins.length;
+var onesWins = [], twosWins = [], threesWins = [], foursWins = [], fivesWins = [], sixesWins = []; // results arrays declared
 var diceRollDiv = document.getElementById('dice-roll-div');
 var diceRollButton = document.getElementById('dice-roll-button');
+var currentTallys = document.getElementsByClassName('current');
+var totalTallys = document.getElementsByClassName('total');
 
 function diceRoll () {
   diceRollButton.disabled = true;
-  var currentOnesWins = []; var currentTwosWins = []; var currentThreesWins = []; var currentFoursWins = []; var currentFivesWins = []; var currentSixesWins = [];
-  document.getElementById('current_one_win').innerText = '0'; document.getElementById('current_two_win').innerText = '0';
-  document.getElementById('current_three_win').innerText = '0'; document.getElementById('current_four_win').innerText = '0';
-  document.getElementById('current_five_win').innerText = '0'; document.getElementById('current_six_win').innerText = '0';
+  var currentOnesWins = [], currentTwosWins = [], currentThreesWins = [], currentFoursWins = [], currentFivesWins = [], currentSixesWins = [];
+  for (let i = 0; i < currentTallys.length; i++) {
+    currentTallys[i].innerText = '0';
+  }
   // node2 = document.getElementById("winner-div");
   while (diceRollDiv.hasChildNodes()) {
     diceRollDiv.removeChild(diceRollDiv.lastChild);
@@ -28,8 +18,7 @@ function diceRoll () {
   // while (node2.hasChildNodes()) {
   //   node2.removeChild(node2.lastChild);
   // }
-  const form = document.getElementById('diceform');
-  var diceQuantity = form.elements.dicequantity.value;
+  var diceQuantity = document.getElementById('dicequantity').value;
   function createDice (dice, i) {
     const img = document.createElement('img');
     img.className = 'dice img-fluid';
@@ -42,42 +31,29 @@ function diceRoll () {
       // let winDiv = document.getElementById("winner-div");
       // winDiv.appendChild(text);
   }
-  function updateDiceValues (dice, result, wins, currentwins) {
-    const numWins = wins.push(result);
-    document.getElementsByClassName('total')[result - 1].innerText = numWins;
-    const currentNumWins = currentwins.push(result);
-    document.getElementsByClassName('current')[result - 1].innerText = currentNumWins;
+  function updateDiceValues (result, wins, currentwins) {
+    document.getElementsByClassName('total')[result - 1].innerText = wins.push(result);
+    document.getElementsByClassName('current')[result - 1].innerText = currentwins.push(result);
   }
-  function roll () {
-    return Math.floor((Math.random() * 6) + 1);
-  }
+  var roll = () => Math.floor((Math.random() * 6) + 1);
   for (let i = 0; i < diceQuantity; i++) {
     const result = roll();
-    if (result === 1) {
-      const dice = '1';
-      createDice(dice, i);
-      updateDiceValues(dice, result, onesWins, currentOnesWins);
+    let winArr, curWinArr;
+    createDice(result, i);
+    if (result === 1) { //possible refactor on conditionals
+      winArr = onesWins, curWinArr = currentOnesWins;
     } else if (result === 2) {
-      const dice = '2';
-      createDice(dice, i);
-      updateDiceValues(dice, result, twosWins, currentTwosWins);
+      winArr = twosWins, curWinArr = currentTwosWins;
     } else if (result === 3) {
-      const dice = '3';
-      createDice(dice, i);
-      updateDiceValues(dice, result, threesWins, currentThreesWins);
+      winArr = threesWins, curWinArr = currentThreesWins;
     } else if (result === 4) {
-      const dice = '4';
-      createDice(dice, i);
-      updateDiceValues(dice, result, foursWins, currentFoursWins);
+      winArr = foursWins, curWinArr = currentFoursWins;
     } else if (result === 5) {
-      const dice = '5';
-      createDice(dice, i);
-      updateDiceValues(dice, result, fivesWins, currentFivesWins);
+      winArr = fivesWins, curWinArr = currentFivesWins;
     } else if (result === 6) {
-      const dice = '6';
-      createDice(dice, i);
-      updateDiceValues(dice, result, sixesWins, currentSixesWins);
+      winArr = sixesWins, curWinArr = currentSixesWins;
     }
+    updateDiceValues(result, winArr, curWinArr);
   }
   // let winnerFont = document.getElementsByClassName("winner");
   const diceImage = document.getElementsByClassName('dice');
@@ -100,7 +76,7 @@ function diceRoll () {
   document.getElementById('dice-roll-tally-div').style.display = 'block';
   document.getElementById('dice-clear-tally-col').style.display = 'block';
   animateDice();
-  setTimeout(() => {diceRollButton.disabled = false;}, 10);
+  setTimeout(() => diceRollButton.disabled = false, 10);
 }
 
 function animateDice() {
@@ -112,10 +88,7 @@ function animateDice() {
 
 function clearTally () {
   onesWins = []; twosWins = []; threesWins = []; foursWins = []; fivesWins = []; sixesWins = [];
-  oneWin.innerText = onesWins.length;
-  twoWin.innerText = twosWins.length;
-  threeWin.innerText = threesWins.length;
-  fourWin.innerText = foursWins.length;
-  fiveWin.innerText = fivesWins.length;
-  sixWin.innerText = sixesWins.length;
+  for (let i = 0; i < totalTallys.length; i++) {
+    totalTallys[i].innerText = '0';
+  }
 }

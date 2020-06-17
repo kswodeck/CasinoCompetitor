@@ -181,9 +181,7 @@ input:invalid, #tableSearch:active {
 }
 
 .col {
-  -ms-flex-preferred-size: 0;
   flex-basis: 0;
-  -ms-flex-positive: 1;
   flex-grow: 1;
   max-width: 100%;
   position: relative;
@@ -191,17 +189,15 @@ input:invalid, #tableSearch:active {
 }
 
 .row {
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
 
 #dicequantity {
   background-color: gold;
   border: 1px solid crimson;
-  width: calc(35px + 1.4vw);
-  height: calc(14px + 0.6vw);
+  width: calc(40px + 0.2vw);
+  height: calc(20px + 0.1vw);
   cursor: pointer;
   margin-left: 0.5%;
   font-weight: bold;
@@ -463,11 +459,8 @@ button.betWinButton:active {
 
 .navbar {
   position: relative;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
   align-items: center;
-  -ms-flex-pack: justify;
   justify-content: space-between;
   padding: .5rem 1rem;
 }
@@ -497,7 +490,6 @@ button.betWinButton:active {
 }
 .navbar-collapse {
   display: flex;
-  -ms-flex-preferred-size: auto;
   flex-basis: auto;
   flex-direction: row;
   display: -ms-flexbox;
@@ -594,18 +586,14 @@ div.top-menu-div > a {
   display: flex;
 }
 .navbar-nav {
-  display: -ms-flexbox;
   display: flex;
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
 }
 .navbar-collapse {
-  -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
-  -ms-flex-positive: 1;
   flex-grow: 1;
-  -ms-flex-align: center;
   align-items: center;
 }
 svg.navbar-toggler-icon {
@@ -901,11 +889,25 @@ dialog.sm-dialog {
 #coinDialogDiv {
   margin-top: 5%;
 }
+dialog.account-form-div::-webkit-backdrop {
+  top: unset;
+  bottom: unset;
+  z-index: 0;
+  display: none;
+}
 dialog.account-form-div::backdrop, dialog.account-form-div + .backdrop, ._dialog_overlay, div._dialog_overlay {
   top: unset;
   bottom: unset;
   z-index: 0;
   display: none;
+}
+dialog::-webkit-backdrop {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background: rgba(0, 0, 0, 0.1);
 }
 div.backdrop, dialog::backdrop {
   position: fixed;
@@ -987,7 +989,6 @@ div.backdrop, dialog::backdrop {
 /* small breakpoint */
 @media (max-width: 575px) {
   #farkle-prep-row {
-    -ms-flex-wrap: nowrap;
     flex-wrap: nowrap;
     justify-content: center;
   }
@@ -1072,9 +1073,7 @@ div.backdrop, dialog::backdrop {
     padding: 0.1%;
     max-height: 200px;
     z-index: 1;
-    -ms-flex-flow: row nowrap;
     flex-flow: row nowrap;
-    -ms-flex-pack: start;
     justify-content: flex-start;
   }
   #main-links-row {

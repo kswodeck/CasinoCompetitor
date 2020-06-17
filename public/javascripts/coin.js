@@ -35,9 +35,9 @@ function coinFlip () {
   headWin.className = 'result-tally';
   tailWin.className = 'result-tally';
   animateCoin();
-  setTimeout(() => {document.getElementById('coin').src = 'images/' + coin + '.png';}, 350);
+  setTimeout(() => document.getElementById('coin').src = 'images/' + coin + '.png', 350);
   displayWinText(winner, winnerDiv);
-  setTimeout(() => {coinFlipButton.disabled = false;}, 500);
+  setTimeout(() => coinFlipButton.disabled = false, 500);
 }
 
 function createCoin(coin) {
@@ -53,9 +53,7 @@ function createCoin(coin) {
   return coin;
 }
 
-function animateCoin() {
-  document.getElementById('coin').classList.add('flip-grow');
-}
+var animateCoin = () => document.getElementById('coin').classList.add('flip-grow');
 
 function displayWinText(winner, winnerDiv) {
   setTimeout(() => {

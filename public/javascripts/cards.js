@@ -64,7 +64,7 @@ function getCards() {
     }
   }
   if (handsDealt === 0) {
-    updateCoinsStart = new Promise((resolve, reject) => {
+    updateCoinsStart = new Promise(resolve => {
     totalCoins = totalCoins - currentBet;
     totalCoinsSpan.innerText = totalCoins;
     resolve(5);
@@ -115,7 +115,7 @@ function getCards() {
         currentWin = 4000;
       }
     }
-    updateCoinsEnd = new Promise((resolve, reject) => {
+    updateCoinsEnd = new Promise(resolve => {
       totalCoins = totalCoins + currentWin;
       totalCoinsSpan.innerText = totalCoins;
       resolve(5);
@@ -204,22 +204,16 @@ function getFirstHand(currentCard, holdCurrentCard, currentValues) {
   let isSameIdentity = true;
   while (isSameIdentity) {
     currentValues = getRandomCardValues();
-    isSameIdentity = cards.some((value) => {
-      return value.identity == currentValues[2];
-    });
+    isSameIdentity = cards.some(value => value.identity == currentValues[2]);
   }
   cards.push(new Card(currentValues[0], currentValues[1], currentValues[2]));
   if (currentCard == 4) {
     for (let i = 0; i < 5; i++) {
       let curCard = document.getElementsByClassName('cards')[i];
-      new Promise((resolve, reject) => {
+      new Promise(resolve => {
         curCard.classList.add('flip');
         resolve(5);
-      }).then(() => {
-        setTimeout(() => {
-          curCard.src = cards[i].imgSrc;
-        }, 150);
-      });
+      }).then(() => setTimeout(() => curCard.src = cards[i].imgSrc, 150));
     }
   }
   return cards;
@@ -232,22 +226,16 @@ function getSecondHand(currentCard, holdCurrentCard, currentValues) {
   let isSameIdHand1 = true, isSameIdHand2 = true;
   while (isSameIdHand1 || isSameIdHand2) {
     currentValues = getRandomCardValues();
-    isSameIdHand1 = cards.some((value) => {
-      return value.identity == currentValues[2];
-    });
-    isSameIdHand2 = cards2.some((value) => {
-      return value.identity == currentValues[2];
-    });
+    isSameIdHand1 = cards.some(value => value.identity == currentValues[2]);
+    isSameIdHand2 = cards2.some(value => value.identity == currentValues[2]);
   }
   currentCardElement.classList.remove('flip');
   if (cards[currentCard].isHeld) {
     cards2.push(new Card(cards[currentCard].numValue, cards[currentCard].numSuit, cards[currentCard].identity));
   } else {
     cards2.push(new Card(currentValues[0], currentValues[1], currentValues[2]));
-      currentCardElement.classList.add('fadeInOut-card');
-    setTimeout(() => {
-      document.getElementsByClassName('cards')[currentCard].src = cards2[currentCard].imgSrc;
-    }, 200);
+    currentCardElement.classList.add('fadeInOut-card');
+    setTimeout(() => document.getElementsByClassName('cards')[currentCard].src = cards2[currentCard].imgSrc, 200);
   }
   cardDealButton.innerText = 'Play Again';
   return cards2;
@@ -270,7 +258,7 @@ function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunct
     } else {
       handRankingHeading.style.color = 'darkblue'; // if a hand category has been acheived, blue text
       if (handsDealt === 1) {
-        setTimeout(() => {winFunction(resultText);}, 300);
+        setTimeout(() => winFunction(resultText), 300);
       }
     }
     if (handsDealt === 1 || resultText !== 'Game Over') {
@@ -285,9 +273,7 @@ function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunct
       updateStoredCoins(updateCoinsStart);
     }
   }
-  setTimeout(() => {
-    cardDealButton.disabled = false;
-  }, 400);
+  setTimeout(() => cardDealButton.disabled = false, 400);
 }
 
 function getHandRanking(hand) {
@@ -431,9 +417,7 @@ function outOfCoinsDialog() {
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById('outOfCoinsCancel').onclick = () => {
-    outOfCoinsDialog.close();
-  };
+  document.getElementById('outOfCoinsCancel').onclick = () => outOfCoinsDialog.close();
 }
 
 function winCoinsDialog(result) {
@@ -446,13 +430,11 @@ function winCoinsDialog(result) {
       coinsDialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
     }
-    setTimeout(() => {coinsDialog.close();}, 2500);
+    setTimeout(() => coinsDialog.close(), 2500);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById('winCoinsCancel').onclick = () => {
-    coinsDialog.close();
-  };
+  document.getElementById('winCoinsCancel').onclick = () => coinsDialog.close();
 }
 
 function winHandDialog(result) {
@@ -464,13 +446,11 @@ function winHandDialog(result) {
       winDialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
     }
-    setTimeout(() => {winDialog.close();}, 2500);
+    setTimeout(() => winDialog.close(), 2500);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById('winHandCancel').onclick = () => {
-    winDialog.close();
-  };
+  document.getElementById('winHandCancel').onclick = () => winDialog.close();
 }
 
 function toggleOddsTable() {
@@ -488,21 +468,17 @@ function toggleOddsTable() {
 function updateStoredCoins(updateCoins) {
   updateCoins.then(() => {
     if ((currentWin != 0 && cards2.length != 0) || cards2.length == 0) {
-      let updateData = {coins: totalCoins, currentWin: currentWin};
+      const updateData = {coins: totalCoins, currentWin: currentWin};
       fetch('/cards', {
         method: 'PUT',
         body: JSON.stringify(updateData),
         headers: {'Content-Type': 'application/json'}
-      })
-      .then((res) => {
+      }).then(res => {
         if (!res.ok) {
           throw Error(res.status);
         }
-      })
-      .then(res => res)
-      .catch((err) => {
-        console.error(err);
-      });
+      }).then(res => res)
+      .catch(err => console.error(err));
     } else {
       return false;
     }
