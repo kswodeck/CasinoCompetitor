@@ -54,18 +54,22 @@
     </div>
     </div>
     <dialog id="endTurnDialog" class="sm-dialog">
-      <b class="blue-text md-text">Turn Ended</b><br>
-      <span id="coin-win-popup-text" class="dialog-popup-text">You win</span><span id="number-coins-won"></span><img id="coins-popup-img" src="images/coins.png">
+      <b class="blue-text md-text">Turn Ended</b>
+      <div id="winCoinsDiv" class="coinsDiv">
+        <span id="coin-win-popup-text" class="dialog-popup-text">You win</span><span id="number-coins-won" class="coinsWon"></span><img id="coins-popup-img" src="images/coins.png">
+      </div>
       <div id="endTurnDiv" class="farkle-div">
-          <button id="endTurnCancel" class="btn sm-text red-bg gold-text btn-style">OK</button>
-        </div>
+        <button id="endTurnCancel" class="btn sm-text red-bg gold-text btn-style">OK</button>
+      </div>
     </dialog>
     <dialog id="farkleDialog" class="md-dialog">
-      <b class="red-text md-text">FARKLE</b><br>
-      <span class="blue-text sm-text">Your turn has ended with </span><span id="farklePopupSpan">0 </span><img id="coins-farkle-img" src="images/coins.png">
+      <b class="red-text md-text">FARKLE</b>
+      <div id="farkleCoinsDiv" class="coinsDiv">
+        <span class="blue-text sm-text">Your turn has ended with</span><span id="farklePopupSpan" class="coinsWon">0</span><img id="coins-farkle-img" src="images/coins.png">
+      </div>
       <div id="farkleDiv" class="farkle-div">
-          <button id="farkleCancel" class="btn sm-text blue-bg gold-text btn-style">OK</button>
-        </div>
+        <button id="farkleCancel" class="btn sm-text blue-bg gold-text btn-style">OK</button>
+      </div>
     </dialog>
     <dialog id="outOfCoinsDialog" class="md-dialog">
         <p class="dialog-popup-text">You don't have enough coins!<br />

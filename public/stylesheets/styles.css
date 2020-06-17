@@ -45,7 +45,7 @@ input, button {
   transition: all 0.2s;
 }
 
-#loadContainer {
+#loadContainer, .coinsDiv {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -723,7 +723,7 @@ border-radius: .25rem;
   color: var(--darkcrimson);
 }
 .show-hide {
-  margin-left: -26px;
+  margin-left: calc(-20px - 0.5vw);
   margin-bottom: calc(-4px + 0.1vh + 0.1vw);
 }
 .edit-icon {
@@ -760,11 +760,9 @@ input:disabled {
 dialog[open] {
   display: block;
 }
-dialog.account-dialog, #confirmDialog {
+dialog.account-dialog {
   border-radius: 0;
-  min-width: calc(200px + 14vw);
-  padding: 0 0 3px 0;
-  z-index: 11;
+  padding: 0 0 4px 0;
   top: calc(120px + 2.2vh + 1vw + 5%);
 }
 #loginStreakDialog, #changePWDialog {
@@ -851,7 +849,7 @@ button.page-button {
   width: calc(18px + 0.8vw)
 }
 
-#number-coins-won {
+.coinsWon {
   margin: 0 1px 0 4px;
 }
 
@@ -863,19 +861,26 @@ dialog:not(.account-form-div) {
   right: 0px;
   max-width: 550px;
   bottom: unset;
-  z-index: 11;
   background-color: white;
   position: absolute;
   margin: auto;
+  padding: 5px;
+}
+
+dialog {
+  min-width: fit-content;
+  z-index: 11;
 }
 
 dialog.md-dialog {
   width: calc(270px + 6vw + 1.5vh);
-  min-width: 280px;
 }
 dialog.sm-dialog {
   width: calc(140px + 4vw + 1vh);
-  min-width: 150px;
+}
+
+#winCoinsDiv {
+
 }
 
 #go-button-link:hover{
