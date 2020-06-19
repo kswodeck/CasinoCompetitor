@@ -49,7 +49,7 @@ function farkleRoll() {
     updateStoredCoins(updateCoinsStart);
   }
   let continueRoll = farkleRollSetup();
-  if (continueRoll == false) {
+  if (!continueRoll) {
     return;
   }
   diceRoll();
@@ -59,7 +59,7 @@ function farkleRoll() {
 function casualFarkleRoll() {
   diceRollButton.setAttribute('disabled', 'disabled');
   let continueRoll = farkleRollSetup();
-  if (continueRoll == false) {
+  if (!continueRoll) {
     return;
   }
   diceRoll();
@@ -153,7 +153,7 @@ function farkleRollTeardown() {
     } else {
       rollRankingHeading.style.color = 'darkblue';
       diceRollButton.innerText = 'Roll Again';
-      if (hotDice) {
+      if (hotDice && rollRankingHeading.innerText === 'Scoring Dice Rolled') {
         rollRankingHeading.innerText = 'Hot Dice';
       }
     }
