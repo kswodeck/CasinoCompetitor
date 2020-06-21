@@ -3,7 +3,8 @@ var diceArr = [];
 var holdArr = [];
 var diceRolls = 0, diceHeld = 0, diceHeldThisRoll = 0, heldDiceScore = 0, totalScore = 0;
 var currentBet = 50, currentCoinsBet = 0;
-var hotDice = false;
+var hotDice = false, isSetup = false;
+var players = 1, curPlayer = 1;
 const diceRollDiv = document.getElementById('farkle-roll-div');
 const diceRollButton = document.getElementById('farkle-roll-button');
 const farkleEndButton = document.getElementById('farkle-end-button');
@@ -13,7 +14,8 @@ const rollScoreDiv = document.getElementById('farkle-roll-score-div');
 const totalScoreDiv = document.getElementById('farkle-total-score-div');
 const totalScoreText = document.getElementById('total-score-text');
 const pageTitle = document.getElementsByTagName('title')[0];
-if (pageTitle.innerText == 'Competitive Farkle' || document.getElementById('page-heading').innerText == 'Competitive Farkle') {
+const pageHeading = document.getElementById('page-heading');
+if (pageTitle.innerText == 'Competitive Farkle' || pageHeading.innerText == 'Competitive Farkle') {
   var totalCoinsSpan = document.getElementById('total-coins-span');
   var totalCoinsNum = parseInt(totalCoinsSpan.innerText);
   var currentBetSpan = document.getElementById('current-bet-span');
@@ -27,6 +29,8 @@ if (pageTitle.innerText == 'Competitive Farkle' || document.getElementById('page
   if (totalCoinsNum < 10 || !totalCoinsNum) {
     outOfCoinsDialog();
   }
+} else {
+  var quanityDiv = document.getElementById('player-quantity-input-div');
 }
 
 function farkleRoll() {
@@ -57,6 +61,17 @@ function farkleRoll() {
 }
 
 function casualFarkleRoll() {
+  quanityDiv.style.display = "none";
+  players = parseInt(document.getElementById('playerquantity').value);
+  if (players > 10) {
+    players = 10;
+  }
+  if (players > 1 && isSetup == false) {
+    setupMultiPlayerGame(players);
+    return;
+  } else {
+    isSetup = true;
+  }
   diceRollButton.setAttribute('disabled', 'disabled');
   let continueRoll = farkleRollSetup();
   if (!continueRoll) {
@@ -64,6 +79,37 @@ function casualFarkleRoll() {
   }
   diceRoll();
   farkleRollTeardown();
+  function setupMultiPlayerGame (players) {
+    let choosePlayersDiv = document.getElementById('multiPlayerSetupDiv');
+    for (let i = 0; i < players; i++) {
+      let numPlayer = i+1;
+      const input = document.createElement('input');
+      const pageBreak = document.createElement('br');
+      input.type = 'text';
+      input.minLength = "1";
+      input.maxLength = "30";
+      input.size = "30";
+      input.name = "player" + numPlayer;
+      input.placeholder = "Player " + numPlayer;
+      input.autocomplete = "off";
+      input.setAttribute("class", "sm-text farkle-player-input user-input");
+      choosePlayersDiv.appendChild(input);
+      choosePlayersDiv.appendChild(pageBreak);
+    }
+    const dialog = document.getElementById('multiPlayerSetupDialog');
+    if (typeof dialog.showModal === 'function') {
+      dialog.showModal();
+      if (document.getElementsByClassName('backdrop')[0]) {
+        dialog.style.cssText = '';
+        document.getElementsByClassName('backdrop')[0].style.cssText = '';
+      }
+    } else {
+      console.log('The <dialog> API is not supported by this browser');
+    }
+    document.getElementById('multiPlayerSetupConfirm').onclick = () => {
+      submitGameSetup('multiPlayerSetupDialog');
+    };
+  }
 }
 function diceRoll() {
   for (var currentDice = 0 + diceHeld; currentDice < 6; currentDice++) {
@@ -144,12 +190,23 @@ function farkleRollTeardown() {
   setTimeout(() => {
     if (rollRankingHeading.innerText == 'Farkle') {
       rollRankingHeading.style.color = 'crimson';
-      diceRollButton.innerText = 'Play Again';
+      if (players > 1) {
+        diceRollButton.innerText = 'Show Scores';
+      } else {
+        diceRollButton.innerText = 'Play Again';
+      }
       farkleEndButton.setAttribute('disabled', 'disabled');
-      diceRollButton.setAttribute('onclick', 'window.location.reload(); return false');
+      diceRollButton.onclick = () => {
+        if (players == 1) {
+        window.location.reload();
+        } else {
+          setUpTeardownMultiPlayers();
+        }
+      };
       totalScoreText.innerText = 0;
       rollScoreHeading.style.display = 'none';
       displayFarkleDialog('farkleDialog', 'farkleCancel');
+      totalScore = 0;
     } else {
       rollRankingHeading.style.color = 'darkblue';
       diceRollButton.innerText = 'Roll Again';
@@ -412,7 +469,7 @@ function saveCurrentRollScore() {
       score = score + onesScore;
     }
     const span1 = document.createElement('span'), span2 = document.createElement('span');
-    span1.className = 'md-text farkle-turn-tally', span2.className = 'turn-score roll-score md-text farkle-turn-tally';
+    span1.className = 'turn-count md-text farkle-turn-tally', span2.className = 'turn-score roll-score md-text farkle-turn-tally';
     rollScoreDiv.appendChild(span1), rollScoreDiv.appendChild(span2);
     span1.innerText = document.getElementsByClassName('turn-score').length + ': ';
     span2.innerHTML = score + '<br>';
@@ -426,6 +483,149 @@ function saveTotalScore() {
     totalScoreDiv.style.display = 'block';
   }
   totalScoreText.innerText = totalScore;
+}
+
+function submitGameSetup(dialog) {
+  document.getElementById(dialog).close();
+  isSetup = true;
+  diceRollButton.innerText = "Roll Dice";
+  let playerScoresDiv = document.getElementById('multiPlayerScoreDiv');
+  for (let i = 0; i < players; i++) {
+    const playerSpan = document.createElement('span');
+    const scoreSpan = document.createElement('span');
+    const lineBreak = document.createElement('br');
+    let nthPlayer = document.getElementsByClassName('farkle-player-input')[i];
+    let playerNum = i+1;
+    if (!nthPlayer.value) {
+      nthPlayer.value = "Player " + playerNum;
+    }
+    playerSpan.setAttribute("class", "sm-text farkle-player");
+    if (i==1) {
+      playerSpan.classList.add('blue-text');
+    }
+    scoreSpan.setAttribute("class", "sm-text blue-text farkle-player-score");
+    scoreSpan.innerText = '0';
+    playerSpan.innerText = nthPlayer.value + ":";
+    playerScoresDiv.appendChild(playerSpan);
+    playerScoresDiv.appendChild(scoreSpan);
+    playerScoresDiv.appendChild(lineBreak);
+  }
+  pageHeading.innerText = document.getElementsByClassName('farkle-player-input')[0].value + "'s Turn";
+  diceRollButton.removeAttribute('disabled');
+}
+
+function setUpTeardownMultiPlayers() {
+  diceRollButton.onclick = () => casualFarkleRoll();
+  let curPlayScore = document.getElementsByClassName('farkle-player-score')[curPlayer-1];
+  curPlayScore.innerText = parseInt(curPlayScore.innerText) + totalScore;
+  var dialog = document.getElementById('multiPlayerScoreDialog');
+  if (typeof dialog.showModal === 'function') {
+    dialog.showModal();
+    if (document.getElementsByClassName('backdrop')[0]) {
+      dialog.style.cssText = '';
+      document.getElementsByClassName('backdrop')[0].style.cssText = '';
+    }
+  } else {
+    console.log('The <dialog> API is not supported by this browser');
+  }
+  document.getElementById('multiPlayerScoreContinue').onclick = () => {
+    nextPlayer();
+    dialog.close();
+    diceRollButton.removeAttribute('disabled');
+  };
+}
+
+function nextPlayer() {
+  let prevPlayer = curPlayer;
+  if (curPlayer == players) {
+    curPlayer = 1;
+    document.getElementsByClassName('farkle-player')[curPlayer].classList.add('blue-text');
+    document.getElementsByClassName('farkle-player')[0].classList.remove('blue-text');
+  } else {
+    curPlayer++;
+    if (curPlayer == players) {
+      document.getElementsByClassName('farkle-player')[0].classList.add('blue-text');
+    } else {
+      document.getElementsByClassName('farkle-player')[curPlayer].classList.add('blue-text');
+    }
+    document.getElementsByClassName('farkle-player')[prevPlayer].classList.remove('blue-text');
+  }
+  resetRoll();
+}
+
+function resetRoll() {
+  diceArr = [];
+  diceRolls = 0, diceHeld = 0, diceHeldThisRoll = 0, heldDiceScore = 0, totalScore = 0;
+  diceRollButton.innerText = "Roll Dice";
+  farkleEndButton.setAttribute('disabled', 'disabled');
+  pageHeading.innerText = document.getElementsByClassName('farkle-player-input')[curPlayer-1].value + "'s Turn";
+  for (let i = 0; i < 6; i++) {
+    document.getElementsByClassName('dice')[i].src = '';
+    document.getElementsByClassName('hold-dice-text')[i].setAttribute('class', 'hold-dice-text text-opacity');
+  }
+  for (let i = 0; i < document.getElementsByClassName('turn-score').length; i++) {
+    document.getElementsByClassName('turn-score')[i].remove();
+    document.getElementsByClassName('turn-count')[i].remove();
+  }
+  rollScoreHeading.style.display = 'none';
+  rollScoreDiv.style.display = 'none';
+  totalScoreDiv.style.display = 'none';
+  rollRankingHeading.innerText = '';
+  rollScoreHeading.innerText = 0;
+  totalScoreText.innerText = 0;
+}
+
+function endGameConfirm() {
+  const dialog = document.getElementById('endGameConfirmDialog');
+  if (typeof dialog.showModal === 'function') {
+    dialog.showModal();
+    if (document.getElementsByClassName('backdrop')[0]) {
+      dialog.style.cssText = '';
+      document.getElementsByClassName('backdrop')[0].style.cssText = '';
+    }
+      var curTimeout = setTimeout(() => dialog.close(), 20000);
+  } else {
+    console.log('The <dialog> API is not supported by this browser');
+  }
+  document.getElementById('endGameConfirmButton').onclick = () => {
+    dialog.close();
+    document.getElementById('multiPlayerScoreDialog').close();
+    displayMultiPlayerWinner();
+    clearTimeout(curTimeout);
+  };
+}
+
+function displayMultiPlayerWinner() {
+  let winningPlayer = getMultiPlayerWinner();
+  document.getElementById('multiPlayerWinnerSpan').innerText = document.getElementsByClassName('farkle-player-input')[winningPlayer].value + " wins!";
+  document.getElementById('winnerScoreTotal').innerText = document.getElementsByClassName('farkle-player-score')[winningPlayer].innerText;
+  const dialog = document.getElementById('multiPlayerWinnerDialog');
+  if (typeof dialog.showModal === 'function') {
+    dialog.showModal();
+    if (document.getElementsByClassName('backdrop')[0]) {
+      dialog.style.cssText = '';
+      document.getElementsByClassName('backdrop')[0].style.cssText = '';
+    }
+      setTimeout(() => window.location.reload(), 60000);
+  } else {
+    console.log('The <dialog> API is not supported by this browser');
+  }
+  document.getElementById('winnerCancel').onclick = () => {
+    window.location.reload();
+  };
+}
+
+function getMultiPlayerWinner () {
+  let highestScore = parseInt(document.getElementsByClassName('farkle-player-score')[0]);
+  let highestPosition = 0;
+  for (let i = 1; i < players; i++) {
+    let playerScore = parseInt(document.getElementsByClassName('farkle-player-score')[i]);
+    if (playerScore > highestScore) {
+      highestScore = playerScore;
+      highestPosition = i;
+    }
+  }
+  return highestPosition;
 }
 
 function endCasualTurn() {
@@ -448,13 +648,14 @@ function endTurnConfirm() {
       dialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
     }
-    setTimeout(() => dialog.close(), 20000);
+    var curTimeout = setTimeout(() => dialog.close(), 20000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
   document.getElementById('confirmButton').onclick = () => {
     dialog.close();
     endTurnDialog();
+    clearTimeout(curTimeout);
   };
 }
 
@@ -466,13 +667,14 @@ function endCasualTurnConfirm() {
       dialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
     }
-      setTimeout(() => dialog.close(), 15000);
+      var curTimeout = setTimeout(() => dialog.close(), 15000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
   document.getElementById('confirmButton').onclick = () => {
     dialog.close();
     endCasualTurnDialog();
+    clearTimeout(curTimeout);
   };
 }
 
@@ -512,8 +714,23 @@ function endCasualTurnDialog() {
       dialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
     }
-    document.getElementById('endTurnCancel').onclick = () => window.location.reload();
-    setTimeout(() => window.location.reload(), 7000);
+    var curTimeout = setTimeout(() => {
+      if (players == 1) {
+        window.location.reload();
+      } else {
+        dialog.close();
+        setUpTeardownMultiPlayers();
+      }
+    }, 7000);
+    document.getElementById('endTurnCancel').onclick = () => {
+      if (players == 1) {
+      window.location.reload();
+      } else {
+        clearTimeout(curTimeout);
+        dialog.close();
+        setUpTeardownMultiPlayers();
+      }
+    };
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
@@ -527,11 +744,14 @@ function displayFarkleDialog(dialog, cancel) {
       curDialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
     }
-    setTimeout(() => curDialog.close(), 7000);
+    var curTimeout = setTimeout(() => curDialog.close(), 7000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById(cancel).onclick = () => curDialog.close();
+  document.getElementById(cancel).onclick = () => {
+    curDialog.close();
+    clearTimeout(curTimeout);
+  };
 }
 
 function disableDiceHold(...args) {

@@ -116,7 +116,7 @@ ul {
   color: gold;
 }
 .red-text, .input-icon:hover, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active, .loss,
-svg.back-icon:active, #dicequantity:hover, #dicequantity:focus, .invalid-list, #table-search-icon:active, #hand-ranking-heading, #roll-ranking-heading,
+svg.back-icon:active, .numquantity:hover, .numquantity:focus, .invalid-list, #table-search-icon:active, #hand-ranking-heading, #roll-ranking-heading,
 .dropdown-menu li:hover, .dropdown-menu li:hover a, .dropdownContent:hover .dropdownLink {
   color: crimson;
 }
@@ -193,7 +193,7 @@ input:invalid, #tableSearch:active {
   flex-wrap: wrap;
 }
 
-#dicequantity {
+.numquantity {
   background-color: gold;
   border: 1px solid crimson;
   width: calc(40px + 0.2vw);
@@ -237,14 +237,14 @@ input:invalid, #tableSearch:active {
   font-size: calc(13.5px + 0.4vw);
 }
 
-#dice-quantity-input-div, #dice-clear-tally-row, #dealt-cards-div, #dialogButtonDiv, #farkle-roll-div {
+.num-quantity-input-div, #dice-clear-tally-row, #dealt-cards-div, #dialogButtonDiv, #farkle-roll-div {
   justify-content: center;
 }
 
-.result-tally, .odds-span, .result, .loss, .win, #dice-quantity-input-div {
+.result-tally, .odds-span, .result, .loss, .win {
   font-size: calc(10px + 0.35vw);
 }
-.result, #home-heading, #page-heading, .leaderboard-head, .main-heading, .roll-score, #leaderboard-heading {
+.result, #home-heading, #page-heading, .leaderboard-head, .main-heading, .roll-score, #leaderboard-heading, #choosePlayersHeading, #playerScoresHeading {
   font-weight: bold;
   color: darkblue;
 }
@@ -291,7 +291,7 @@ input:invalid, #tableSearch:active {
   border: 0.02em solid lightsteelblue;
   border-radius: 18%;
 }
-.card-slot-div .interactive-img:active, #dicequantity:active, #dicequantity:focus, #table-search-cell {
+.card-slot-div .interactive-img:active, .numquantity:active, .numquantity:focus, #table-search-cell {
   border: 0.1rem solid darkblue;
 }
 .farkle-slot-div .interactive-img:active {
@@ -512,7 +512,7 @@ div.dropdown-menu {
   color: crimson;
   cursor: pointer;
 }
-.fa-caret-down {
+.fa-caret-down, .farkle-player-score, #winnerScoreTotal {
   margin-left: 3px;
 }
 
@@ -632,7 +632,7 @@ border-radius: .25rem;
   height: 25px;
 }
 
-.main-heading {
+.main-heading, .multiPlayerDiv {
   margin: 2% auto 0.5% auto;
 }
 .main-description {
@@ -703,7 +703,7 @@ border-radius: .25rem;
   margin: 0 auto 2% auto;
   border-top: none;
 }
-#roll-ranking-heading {
+#roll-ranking-heading, .num-quantity-input-div {
   margin: 1% auto 0 auto;
 }
 #roll-score-heading {
@@ -772,7 +772,7 @@ dialog.account-dialog {
 .exit-button-div, #table-search-row, #collapse-button-div, #current-bet-div {
   text-align: right;
 }
-.back-button-div, #dicequantity, #current-win-div {
+.back-button-div, .numquantity, #current-win-div {
   text-align: left;
 }
 
@@ -810,7 +810,7 @@ button.back-arrow, #search-button {
 #leaderboard-table {
   width: 100%;
 }
-.leaderboard-head, .leaderboard-cell, #leaderboard-table {
+.leaderboard-head, .leaderboard-cell, #leaderboard-table, input.farkle-player-input {
   border: 0.01em solid rgba(0, 0, 0, 0.6)
 }
 .leaderboard-row:nth-child(odd) {

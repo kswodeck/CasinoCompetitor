@@ -3,8 +3,12 @@
 <div id="mid-container">
   <h1 id="page-heading">Farkle</h1>
   <div class="dice-prep-div">
-    <button type="button" role="button" id="farkle-roll-button" class="btn lg-text gold-bg red-text btn-style" onclick="casualFarkleRoll()">Roll Dice</button>
+    <button type="button" role="button" id="farkle-roll-button" class="btn lg-text gold-bg red-text btn-style" onclick="casualFarkleRoll()">Play Farkle</button>
     <button type="button" role="button" id="farkle-end-button" class="btn lg-text red-bg gold-text btn-style" onclick="endCasualTurn()" disabled>End Turn</button>
+    <div id="player-quantity-input-div" class="form-row num-quantity-input-div">
+      <label for="playerquantity" class="sm-text blue-text">How many players are there?</label>
+      <input type="number" id="playerquantity" class="numquantity sm-text blue-text" name="playerquantity" min="1" max="10" value="1" step="1">
+    </div>
   </div>
   <div id="farkle-container">
     <div id="farkle-roll-div">
@@ -57,7 +61,47 @@
   <span class="blue-text sm-text">Your turn has ended with a score of </span><span id="farklePopupSpan">0</span>
   <div id="farkleDiv" class="farkle-div">
       <button id="farkleCancel" class="btn sm-text blue-bg gold-text btn-style">OK</button>
+  </div>
+</dialog>
+<dialog id="multiPlayerSetupDialog">
+  <span id="choosePlayersHeading" class="md-text">Choose Player Names</span>
+  <form action="#" onsubmit="return false">
+    <div id="multiPlayerSetupDiv" class="farkle-div multiPlayerDiv"></div>
+    <div id="multiPlayerSetupButtonDiv" class="farkle-div row">
+      <button type="submit" id="multiPlayerSetupConfirm" class="btn sm-text blue-bg gold-text btn-style">Play</button>
     </div>
+  </form>
+</dialog>
+<dialog id="multiPlayerScoreDialog">
+  <span id="playerScoresHeading" class="md-text">Player Scores</span>
+  <div id="multiPlayerScoreDiv" class="farkle-div multiPlayerDiv">
+  </div>
+  <div id="multiPlayerScoreButtonDiv" class="row farkle-div">
+    <div class="col">
+      <button id="multiPlayerScoreContinue" class="btn sm-text blue-bg gold-text btn-style">Next Player</button>
+    </div>
+    <div class="col">
+      <button id="multiPlayerScoreEnd" class="btn sm-text red-bg gold-text btn-style" onclick="endGameConfirm()">End Game</button>
+    </div>
+  </div>
+</dialog>
+<dialog id="endGameConfirmDialog">
+  <span id="endGameConfirmHeading" class="sm-text blue-text">Are you sure you want to end the game?</span>
+  <div id="endGameConfirmDialogDiv" class="row farkle-div multiPlayerDiv">
+    <div class="col">
+      <button id="endGameConfirmButton" class="btn sm-text red-bg gold-text btn-style">Yes</button>
+    </div>
+    <div class="col">
+      <button id="endGameCancelButton" class="btn sm-text blue-bg gold-text btn-style" onclick="exitDialog('endGameConfirmDialog'); displayDialog('multiPlayerScoreDialog')">No</button>
+    </div>
+  </div>
+</dialog>
+<dialog id="multiPlayerWinnerDialog" class="sm-dialog">
+  <span id="multiPlayerWinnerSpan" class="md-text blue-text"></span><br>
+  <span id="winnerScoreText" class="sm-text">Score:</span><span id="winnerScoreTotal" class="sm-text blue-text">0</span>
+  <div id="multiPlayerWinnerDiv" class="farkle-div multiPlayerDiv">
+      <button id="winnerCancel" class="btn sm-text blue-bg gold-text btn-style">OK</button>
+  </div>
 </dialog>
 
 <%- include('partials/logindialogs') %>
