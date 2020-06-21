@@ -786,7 +786,7 @@ dialog.account-dialog {
   padding: 0.4% 2%;
   margin-top: 0;
 }
-.exit-dialog-button:hover {
+.exit-dialog-button:hover, input.farkle-player-input {
   border: 1px outset lightsteelblue;
 }
 
