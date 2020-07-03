@@ -1,4 +1,4 @@
-var express      = require('express'),
+const express      = require('express'),
   mongoose       = require('mongoose'),
   passport       = require('passport'),
   bodyParser     = require('body-parser'),
@@ -9,14 +9,25 @@ var express      = require('express'),
   User           = require('./models/user'),
   userRoutes     = require('./routes/users'),
   featureRoutes  = require('./routes/features'),
+  fs             = require('fs'),
+  https          = require('https'),
+  http           = require('http'),
   Sentry         = require('@sentry/node');
                    require('dotenv').config();
 
 Sentry.init({dsn:'https://bc7444c26cad4159a4fc1818045022ba@o404801.ingest.sentry.io/5269442'});
 
 const hostname = process.env.HOSTNAME || '127.0.0.1';
-const port = process.env.PORT || 3000;
+const httpPort = process.env.HTTPPORT || 80;
+const httpsPort = process.env.HTTPSPORT || 443;
 const dbURL = process.env.DATABASEURL;
+const cert = fs.readFileSync('ssl/casinocompetitor_com.crt');
+const ca = fs.readFileSync('ssl/casinocompetitor_com.ca-bundle');
+const key = fs.readFileSync('ssl/casinocompetitor.key');
+
+const httpsServer = https.createServer({cert, ca, key}, app);
+const httpServer = http.createServer(app);
+
 mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -45,6 +56,11 @@ app.use((req, res, next) => {
   res.locals.invalidEmail = req.flash('invalidEmail');
   res.locals.popup = req.flash('popup');
   res.locals.invalidPW = req.flash('invalidPW');
+  if(req.protocol === 'http') {
+    res.redirect(301, 'https://' + req.headers.host);
+    // res.writeHead(301, { "Location": "https://" + req.headers.host + req.url });
+    // res.end();
+  }
   next();
 });
 
@@ -52,15 +68,15 @@ app.use('/', featureRoutes);
 app.use('/', userRoutes);
 
 app.use((req, res) => {
-  return res.status(404).render('error', {pageTitle: 'Page Not Found', message: 'Route '+req.url+' does not exist', status: 'Page Not Found: 404'});
+  return res.status(404).render('error', {pageTitle: 'Page Not Found', message: 'Route '+ req.url +' does not exist', status: 'Page Not Found: 404'});
 });
 app.use((err, res) => {
   return res.status(500).render('error', {pageTitle: 'Server Error', message: err, status: 'Server Error: 500'});
 });
 
-app.listen(process.env.PORT || port, () =>{
-  console.log('App running on ' + hostname + ':' + port);
-});
-
+httpServer.listen(httpPort, hostname);
+httpsServer.listen(httpsPort, hostname);
+console.log('http running on ' + hostname + ':' + httpPort);
+console.log('https running on ' + hostname + ':' + httpsPort);
 
 module.exports = app;
