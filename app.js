@@ -12,6 +12,7 @@ const express      = require('express'),
   fs             = require('fs'),
   https          = require('https'),
   // http           = require('http'),
+  sslRedirect    = require('heroku-ssl-redirect'),
   Sentry         = require('@sentry/node');
                    require('dotenv').config();
 
@@ -28,6 +29,8 @@ const key = fs.readFileSync('ssl/casinocompetitor.key');
 
 const httpsServer = https.createServer({cert, ca, key}, app);
 // const httpServer = http.createServer(app);
+
+app.use(sslRedirect());
 
 mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true});
 app.use(bodyParser.json());
