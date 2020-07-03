@@ -57,22 +57,15 @@ app.use((req, res, next) => {
   res.locals.invalidEmail = req.flash('invalidEmail');
   res.locals.popup = req.flash('popup');
   res.locals.invalidPW = req.flash('invalidPW');
-  if (req.protocol === 'http') {
-    res.redirect(301, 'https://' + req.headers.host);
-    // res.writeHead(301, { "Location": "https://" + req.headers.host + req.url });
-    // res.end();
+  if (process.env.NODE_ENV === 'production') {
+    if (req.protocol === 'http' || req.header('x-forwarded-proto') !== 'https') {
+      res.redirect(301, 'https://' + req.headers.host);
+      // res.writeHead(301, { "Location": "https://" + req.headers.host + req.url });
+      // res.end();
+    }
   }
   next();
 });
-
-if (process.env.NODE_ENV === 'production') {
-  app.use((req, res, next) => {
-    if (req.header('x-forwarded-proto') !== 'https')
-      res.redirect(301, 'https://' + req.headers.host);
-    else
-      next();
-  });
-}
 
 app.use('/', featureRoutes);
 app.use('/', userRoutes);
