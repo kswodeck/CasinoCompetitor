@@ -159,9 +159,11 @@ function displayStreakDialog(streak){
     }
     document.getElementById('mid-container').style.display = 'none';
     setTimeout(() => {
-      document.getElementById('mid-container').style.display = 'block';
-      dialog.close();
-      window.location.reload();
+      if (!dialog.hasAttribute('open')) {
+        document.getElementById('mid-container').style.display = 'block';
+        dialog.close();
+        window.location.reload();
+      }
     }, 10000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
