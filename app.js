@@ -17,7 +17,7 @@ const express      = require('express'),
 
 Sentry.init({dsn:'https://bc7444c26cad4159a4fc1818045022ba@o404801.ingest.sentry.io/5269442'});
 
-const hostname = process.env.HOSTNAME || '127.0.0.1';
+const hostname = process.env.HOSTNAME || 'www';
 const httpPort = process.env.HTTPPORT || 80;
 const httpsPort = process.env.HTTPSPORT || 443;
 const dbURL = process.env.DATABASEURL;
