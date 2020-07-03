@@ -21,9 +21,9 @@ const httpPort = process.env.HTTPPORT || 80;
 const httpsPort = process.env.HTTPSPORT || 443;
 const port = process.env.PORT || 3000;
 const dbURL = process.env.DATABASEURL;
-// const cert = http.readFileSync('ssl/casinocompetitor_com.crt');
-// const ca = http.readFileSync('ssl/casinocompetitor_com.ca-bundle');
-// const key = http.readFileSync('ssl/casinocompetitor.key');
+const cert = http.readFileSync('ssl/casinocompetitor_com.crt');
+const ca = http.readFileSync('ssl/casinocompetitor_com.ca-bundle');
+const key = http.readFileSync('ssl/casinocompetitor.key');
 
 // const httpsServer = https.createServer({cert, ca, key}, app);
 // const httpServer = http.createServer(app);
