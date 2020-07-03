@@ -9,10 +9,9 @@ const express      = require('express'),
   User           = require('./models/user'),
   userRoutes     = require('./routes/users'),
   featureRoutes  = require('./routes/features'),
-  fs             = require('fs'),
-  https          = require('https'),
+  // fs             = require('fs'),
+  // https          = require('https'),
   // http           = require('http'),
-  sslRedirect    = require('heroku-ssl-redirect'),
   Sentry         = require('@sentry/node');
                    require('dotenv').config();
 
@@ -20,17 +19,14 @@ Sentry.init({dsn:'https://bc7444c26cad4159a4fc1818045022ba@o404801.ingest.sentry
 
 const hostname = process.env.HOSTNAME || '0.0.0.0';
 // const httpPort = process.env.HTTPPORT || process.env.PORT;
-const httpsPort = process.env.HTTPSPORT || process.env.PORT;
-// const port = process.env.PORT || 5000;
+// const httpsPort = process.env.HTTPSPORT || process.env.PORT;
+const port = process.env.PORT || 5000;
 const dbURL = process.env.DATABASEURL;
-const cert = fs.readFileSync('ssl/casinocompetitor_com.crt');
-const ca = fs.readFileSync('ssl/casinocompetitor_com.ca-bundle');
-const key = fs.readFileSync('ssl/casinocompetitor.key');
-
-const httpsServer = https.createServer({cert, ca, key}, app);
+// const cert = fs.readFileSync('ssl/casinocompetitor_com.crt');
+// const ca = fs.readFileSync('ssl/casinocompetitor_com.ca-bundle');
+// const key = fs.readFileSync('ssl/casinocompetitor.key');
+// const httpsServer = https.createServer({cert, ca, key}, app);
 // const httpServer = http.createServer(app);
-
-app.use(sslRedirect());
 
 mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true});
 app.use(bodyParser.json());
@@ -81,9 +77,9 @@ app.use((err, res) => {
 });
 
 // httpServer.listen(httpPort, hostname);
-httpsServer.listen(httpsPort, hostname);
-// app.listen(port, hostname);
+// httpsServer.listen(httpsPort, hostname);
+app.listen(port, hostname);
 // console.log('http running on ' + hostname + ':' + httpPort);
-console.log('https running on ' + hostname + ':' + httpsPort);
+console.log('https running on ' + hostname + ':' + port);
 
 module.exports = app;
