@@ -18,16 +18,16 @@ const express      = require('express'),
 Sentry.init({dsn:'https://bc7444c26cad4159a4fc1818045022ba@o404801.ingest.sentry.io/5269442'});
 
 const hostname = process.env.HOSTNAME || '0.0.0.0';
-// const httpPort = process.env.HTTPPORT || 80;
-// const httpsPort = process.env.HTTPSPORT || 443;
-const port = process.env.PORT || 5000;
+const httpPort = process.env.HTTPPORT || process.env.PORT;
+const httpsPort = process.env.HTTPSPORT || process.env.PORT;
+// const port = process.env.PORT || 5000;
 const dbURL = process.env.DATABASEURL;
-// const cert = fs.readFileSync('ssl/casinocompetitor_com.crt');
-// const ca = fs.readFileSync('ssl/casinocompetitor_com.ca-bundle');
-// const key = fs.readFileSync('ssl/casinocompetitor.key');
+const cert = fs.readFileSync('ssl/casinocompetitor_com.crt');
+const ca = fs.readFileSync('ssl/casinocompetitor_com.ca-bundle');
+const key = fs.readFileSync('ssl/casinocompetitor.key');
 
-// const httpsServer = https.createServer({cert, ca, key}, app);
-// const httpServer = http.createServer(app);
+const httpsServer = https.createServer({cert, ca, key}, app);
+const httpServer = http.createServer(app);
 
 mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true});
 app.use(bodyParser.json());
@@ -57,11 +57,11 @@ app.use((req, res, next) => {
   res.locals.invalidEmail = req.flash('invalidEmail');
   res.locals.popup = req.flash('popup');
   res.locals.invalidPW = req.flash('invalidPW');
-  // if(req.protocol === 'http') {
-  //   res.redirect(301, 'https://' + req.headers.host);
-  //   // res.writeHead(301, { "Location": "https://" + req.headers.host + req.url });
-  //   // res.end();
-  // }
+  if(req.protocol === 'http') {
+    res.redirect(301, 'https://' + req.headers.host);
+    // res.writeHead(301, { "Location": "https://" + req.headers.host + req.url });
+    // res.end();
+  }
   next();
 });
 
@@ -75,10 +75,10 @@ app.use((err, res) => {
   return res.status(500).render('error', {pageTitle: 'Server Error', message: err, status: 'Server Error: 500'});
 });
 
-// httpServer.listen(httpPort, hostname);
-// httpsServer.listen(httpsPort, hostname);
-app.listen(port, hostname);
-// console.log('http running on ' + hostname + ':' + httpPort);
-// console.log('https running on ' + hostname + ':' + httpsPort);
+httpServer.listen(httpPort, hostname);
+httpsServer.listen(httpsPort, hostname);
+// app.listen(port, hostname);
+console.log('http running on ' + hostname + ':' + httpPort);
+console.log('https running on ' + hostname + ':' + httpsPort);
 
 module.exports = app;
