@@ -17,14 +17,14 @@ const express      = require('express'),
 
 Sentry.init({dsn:'https://bc7444c26cad4159a4fc1818045022ba@o404801.ingest.sentry.io/5269442'});
 
-const hostname = process.env.HOSTNAME || '127.0.0.1';
+const hostname = process.env.HOSTNAME || '0.0.0.0';
 // const httpPort = process.env.HTTPPORT || 80;
 // const httpsPort = process.env.HTTPSPORT || 443;
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 const dbURL = process.env.DATABASEURL;
-const cert = fs.readFileSync('ssl/casinocompetitor_com.crt');
-const ca = fs.readFileSync('ssl/casinocompetitor_com.ca-bundle');
-const key = fs.readFileSync('ssl/casinocompetitor.key');
+// const cert = fs.readFileSync('ssl/casinocompetitor_com.crt');
+// const ca = fs.readFileSync('ssl/casinocompetitor_com.ca-bundle');
+// const key = fs.readFileSync('ssl/casinocompetitor.key');
 
 // const httpsServer = https.createServer({cert, ca, key}, app);
 // const httpServer = http.createServer(app);
