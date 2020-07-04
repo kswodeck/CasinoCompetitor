@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+User-agent: Googlebot
+Disallow: /forgotpass
+Disallow: /forgotuser
+User-agent: Googlebot-image
+Disallow: 
+Sitemap: https://casinocompetitor.com/sitemap.xml

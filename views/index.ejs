@@ -23,16 +23,14 @@
     </div>
   </div>
 </dialog>
-<% if (currentUser){ %>
 <dialog id="loginStreakDialog" class="account-form-div account-dialog">
   <div class ="exit-button-div">
     <button id="streakDialogExit" class="exit-dialog-button md-text" onclick="window.location.reload()" >✖</button>
   </div>
-  <span id="streakHeading" class="account-heading login-heading blue-text sm-text">You've visited us <%= streak %> days in a row!</span><br>
-  <b id="login-streak-win" class="red-text md-text"></br><img id="loginStreakCoinImg" class="coins-img" src="images/coins.png"><br>
-  <span class="coins-streak blue-text md-text">Keep up the streak!</span>
+  <span id="streakHeading" class="account-heading login-heading blue-text sm-text"></span><br>
+  <b id="login-streak-win" class="red-text md-text"></b><img id="loginStreakCoinImg" class="coins-img" src="images/coins.png"><br>
+  <b class="coins-streak blue-text md-text">Keep up the streak!</b>
 </dialog>
-<% } %>
 
 <% if (popup && popup.length > 0){ %>
 <script>

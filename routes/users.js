@@ -21,11 +21,8 @@ router.get('/', (req, res) => {
     let curDate = moment().format();
     let strCurDate = curDate.toString();
     let today = strCurDate.slice(0, 10);
-    console.log('Today: ' + today);
-    console.log('Yesterday: ' + yesterday);
     let last = new Date(req.user.lastLogin);
     let lastLoginDate = formatDate(last);
-    console.log('Last: ' + lastLoginDate); 
     var newStreak = 1;
     let addCoins = newStreak*10;
     var newCoins = req.user.coins + addCoins;
@@ -40,16 +37,10 @@ router.get('/', (req, res) => {
     } else {
       changedLastLogin = false;
     }
-    if (changedLastLogin && afterLogin) {
+    if (changedLastLogin) {
       User.findOneAndUpdate({_id: req.user._id}, {$set: {lastLogin: current}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
-      console.log('updated lastLogin to ' + current);
-    } else if (afterLogin){
+    } else if (!changedLastLogin){
       User.findOneAndUpdate({_id: req.user._id}, {$set: {loginStreak: newStreak, lastLogin: current, coins: newCoins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
-      console.log('updated loginStreak to ' + newStreak);
-      console.log('updated coins to ' + newCoins);
-      console.log('updated lastLogin to ' + current);
-    } else {
-      changedLastLogin = true;
     }
     res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins, updatePW: false});
   } else {
