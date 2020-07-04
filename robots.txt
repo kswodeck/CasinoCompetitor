@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-User-agent: Googlebot
-Disallow:
-User-agent: Googlebot-image
-Disallow: 
-Sitemap: https://casinocompetitor.com/sitemap.xml
