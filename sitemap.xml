@@ -1,64 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://casinocompetitor.com</loc>
-    <changefreq>daily</changefreq>
+    <lastmod>2020-07-04</lastmod>
   </url>
   <url>
     <loc>https://casinocompetitor.com/contact</loc>
-    <changefreq>daily</changefreq>
+    <lastmod>2020-07-04</lastmod>
   </url>
   <url>
     <loc>https://casinocompetitor.com/images/FarkleRules.pdf</loc>
     <lastmod>2020-07-04</lastmod>
-    <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://casinocompetitor.com/login</loc>
-    <changefreq>daily</changefreq>
+    <lastmod>2020-07-04</lastmod>
   </url>
   <url>
     <loc>https://casinocompetitor.com/register</loc>
-    <changefreq>daily</changefreq>
+    <lastmod>2020-07-04</lastmod>
   </url>
   <url>
     <loc>https://casinocompetitor.com/casual-farkle</loc>
-    <changefreq>daily</changefreq>
+    <lastmod>2020-07-04</lastmod>
   </url>
   <url>
     <loc>https://casinocompetitor.com/casual-cards</loc>
-    <changefreq>daily</changefreq>
+    <lastmod>2020-07-04</lastmod>
   </url>
     <url>
     <loc>https://casinocompetitor.com/account</loc>
-    <changefreq>daily</changefreq>
+    <lastmod>2020-07-04</lastmod>
   </url>
     <url>
     <loc>https://casinocompetitor.com/leaderboard</loc>
-    <changefreq>daily</changefreq>
+    <lastmod>2020-07-04</lastmod>
   </url>
     <url>
     <loc>https://casinocompetitor.com/farkle</loc>
-    <changefreq>daily</changefreq>
+    <lastmod>2020-07-04</lastmod>
   </url>
     <url>
     <loc>https://casinocompetitor.com/cards</loc>
-    <changefreq>daily</changefreq>
+    <lastmod>2020-07-04</lastmod>
   </url>
     <url>
     <loc>https://casinocompetitor.com/coin</loc>
-    <changefreq>daily</changefreq>
+    <lastmod>2020-07-04</lastmod>
   </url>
     <url>
     <loc>https://casinocompetitor.com/dice</loc>
-    <changefreq>daily</changefreq>
+    <lastmod>2020-07-04</lastmod>
   </url>
     <url>
     <loc>https://casinocompetitor.com/forgotpass</loc>
+    <lastmod>2020-07-04</lastmod>
   </url>
     <url>
     <loc>https://casinocompetitor.com/forgotuser</loc>
+    <lastmod>2020-07-04</lastmod>
   </url>
-
 </urlset>
-<!--<guid value="f10b9ad3-dfd8-4ba0-9b78-3178f65e5e4d" />-->
