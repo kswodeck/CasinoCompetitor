@@ -126,7 +126,7 @@ function diceRoll() {
 class Dice {
   constructor(numValue, currentDice) {
     this.numValue = numValue;
-    this.imgSrc = 'images/' + numValue + 'dice.png';
+    this.imgSrc = 'images/' + numValue + 'dice.webp';
     this.isHeld = false;
     this.canHold = false;
     this.diceElement = currentDice;

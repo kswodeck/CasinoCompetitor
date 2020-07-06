@@ -23,7 +23,7 @@ function diceRoll () {
     const img = document.createElement('img');
     img.className = 'dice img-fluid';
     img.setAttribute('id', 'dice' + i);
-    img.src = 'images/' + dice + 'dice.png';
+    img.src = 'images/' + dice + 'dice.webp';
     diceRollDiv.appendChild(img);
       // let text = document.createElement("span");
       // text.className ="winner";

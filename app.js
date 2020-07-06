@@ -6,6 +6,7 @@ const express      = require('express'),
   flash          = require('connect-flash'),
   app            = express(),
   methodOverride = require('method-override'),
+  compression    = require('compression'),
   User           = require('./models/user'),
   userRoutes     = require('./routes/users'),
   featureRoutes  = require('./routes/features'),
@@ -19,6 +20,7 @@ const port = process.env.PORT || 5000;
 const dbURL = process.env.DATABASEURL;
 
 mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true});
+app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));

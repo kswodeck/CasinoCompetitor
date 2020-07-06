@@ -8,7 +8,7 @@
     <meta name="author" content="Kristoffer Swodeck">
     <meta name="google-site-verification" content="TiiOJnhWPhCX7T3kP-rBLSu2flpvL7aa3TVAb8Kny2I"/>
     <title><%= pageTitle %></title>
-    <link rel="icon" type="icon" alt="CasinoCompetitorFavicon" href="\images\casinocompetitor-favicon.png">
+    <link rel="icon" type="icon" alt="CasinoCompetitorFavicon" href="\images\casinocompetitor-favicon.webp">
     <script async src="\javascripts\dialog-polyfill\dist\dialog-polyfill.js" type="text/javascript"></script>
     <link async href="\stylesheets\styles.css" rel="stylesheet" type="text/css">
   </head>
@@ -50,7 +50,7 @@
                       <ul id ="cardsDropdownList" class="dropdownList">
                         <li class="dropdownListItem casual-item"><a class="gold-text dropdown-item" href="casual-cards">Casual</a></li>
                         <li class="dropdownListItem"><a class="gold-text dropdown-item" href="cards">Competitive</a></li>
-                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="\images\jacks-better-hands.png" target="_blank">Hand Ranks</a></li>
+                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="\images\jacks-better-hands.webp" target="_blank">Hand Ranks</a></li>
                       </ul>
                     </div>
                   </div>
@@ -77,7 +77,7 @@
             </div>
           <div class="col header-div" id="collapse-button-div">
             <% if (currentUser){ %>
-            <span id="total-coins-span" class="sm-text"><%= currentUser.coins %></span><img class="coins-img" id="coins-img" src="\images\coins.png">
+            <span id="total-coins-span" class="sm-text"><%= currentUser.coins %></span><img class="coins-img" id="coins-img" src="\images\coins.webp">
             <% } %>
             <button id="hamburger-button" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation" onclick="toggleHamburger('navbar-content')">
               <i class="fas fa-bars navbar-toggler-icon"></i>

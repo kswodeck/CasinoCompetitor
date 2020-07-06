@@ -22,7 +22,7 @@ function preloader() { // preload card images
   let images = []; // set image list
   let cardNum = 1, suitNum = 1, imgNum = 0;
   while (imgNum < 52) {
-    images[imgNum] = 'images/cards/' + cardNum + '-' + suitNum + '.png';
+    images[imgNum] = 'images/cards/' + cardNum + '-' + suitNum + '.webp';
     if (suitNum == 4) {
       suitNum = 1;
       cardNum++;
@@ -176,7 +176,7 @@ class Card {
     this.numValue = numValue;
     this.numSuit = numSuit;
     this.identity = identity;
-    this.imgSrc = 'images/cards/' + this.identity + '.png';
+    this.imgSrc = 'images/cards/' + this.identity + '.webp';
     this.isRoyal = isRoyal(this.numValue);
     this.isJackOrBetter = isJackOrBetter(this.numValue);
     this.isHeld = false;
@@ -243,7 +243,7 @@ function getSecondHand(currentCard, holdCurrentCard, currentValues) {
 
 function lastHandTeardown(holdCurrentCard, currentCard) {
   holdCurrentCard.classList.add('text-opacity');
-  document.getElementsByClassName('cards')[currentCard].src = 'images/cards/card_standard_blue_back.png';
+  document.getElementsByClassName('cards')[currentCard].src = 'images/cards/blueBackCard.webp';
   cardDealButton.innerText = 'Deal Cards';
   currentWin = 0;
   cards = [];
