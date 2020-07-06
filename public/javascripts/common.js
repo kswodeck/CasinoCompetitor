@@ -159,9 +159,8 @@ function displayStreakDialog(streak){
     }
     document.getElementById('mid-container').style.display = 'none';
     setTimeout(() => {
-      if (!dialog.hasAttribute('open')) {
+      if (dialog.hasAttribute('open')) {
         document.getElementById('mid-container').style.display = 'block';
-        dialog.close();
         window.location.reload();
       }
     }, 10000);
