@@ -200,7 +200,7 @@ function toggleHamburger(dropdown) {
 }
 
 function sendForgotPWEmail(email, id, username) {
-  let link = '127.0.0.1:3000/forgotpass/' + id;
+  let link = window.location.origin + '/forgotpass/' + id;
   // eslint-disable-next-line no-undef
   Email.send({
     Host : "smtp.elasticemail.com",
