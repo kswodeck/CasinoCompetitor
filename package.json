@@ -1,7 +1,7 @@
 {
   "name": "casinocompetitor",
   "version": "1.0.0",
-  "description": "This is a virtual arcade that includes the basic elements used in casino games including cards, dice, and coins",
+  "description": "Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,7 +18,6 @@
     "npm": "^6.14.5"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.0",
     "@sentry/node": "^5.17.0",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",

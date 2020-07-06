@@ -60,6 +60,6 @@ app.use((err, res) => {
 });
 
 app.listen(port, hostname);
-console.log('https running on ' + hostname + ':' + port);
+console.log('App running on ' + hostname + ':' + port);
 
 module.exports = app;
