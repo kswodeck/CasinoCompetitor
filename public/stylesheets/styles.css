@@ -270,7 +270,6 @@ input:invalid, #tableSearch:active {
 .btn {
   display: inline-block;
   text-align: center;
-  vertical-align: middle;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -365,6 +364,9 @@ form > #farkle-roll-button, form > #farkle-end-button {
 .coins-img {
   width: calc(22px + 1vw);
   height: calc(20px + 0.7vw);
+}
+#coins-popup-img, .coins-img {
+  vertical-align: bottom;
 }
 
 #total-coins-span {
@@ -599,7 +601,6 @@ div.top-menu-div > a {
 svg.navbar-toggler-icon {
 display: inline-block;
 height: 1.4em;
-vertical-align: middle;
 }
 .navbar-toggler {
 padding: .01rem .5rem;
@@ -649,7 +650,7 @@ border-radius: .25rem;
   border-radius: 30px;
   background-color: var(--bluish);
   background-image: radial-gradient(ellipse, var(--bluish) 30%, #979CA580, #9CA2AD80, #A5ABB680, #AEB3BD80);
-  padding-bottom: 3px;
+  padding-bottom: 10px;
 }
 
 #form-heading, .login-heading, .username-welcome {
@@ -724,10 +725,13 @@ border-radius: .25rem;
 }
 .show-hide {
   margin-left: calc(-20px - 0.5vw);
-  margin-bottom: calc(-4px + 0.1vh + 0.1vw);
 }
 .edit-icon {
   margin-left: calc(2px + 0.2vw);
+}
+
+.show-hide, svg.navbar-toggler-icon, .btn {
+  vertical-align: middle;
 }
 
 .password {
@@ -762,10 +766,10 @@ dialog[open] {
 }
 dialog.account-dialog {
   border-radius: 0;
-  padding: 0 0 4px 0;
+  padding: 0;
   top: calc(120px + 2.2vh + 1vw + 5%);
 }
-#loginStreakDialog, #changePWDialog {
+#loginStreakDialog, #changePWDialog, #verifyPWDialog {
   padding-bottom: 1.5%;
 }
 
@@ -1147,7 +1151,7 @@ div.backdrop, dialog::backdrop {
   div.navbar-collapse {
     display: inline;
   }
-  div.collapse:not(.show), .casual-item, .dropdown-arrow {
+  div.collapse:not(.show), .casual-item, i.dropdown-arrow {
     display: none;
   }
   div.dropdown-menu {

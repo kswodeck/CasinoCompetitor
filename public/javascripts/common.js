@@ -169,9 +169,9 @@ function displayStreakDialog(streak){
     console.log('The <dialog> API is not supported by this browser');
   }
   if (streak == '1' || streak == 1) {
-    streakHeading.innerText = "You've visited us " + streak + " day in a row!";
+    streakHeading.innerText = "You visited us " + streak + " day in a row!";
   } else {
-    streakHeading.innerText = "You've visited us " + streak + " days in a row!";
+    streakHeading.innerText = "You visited us " + streak + " days in a row!";
   }
   loginCoinSpan.innerText = "You earned " + streak*10 + " ";
 }
