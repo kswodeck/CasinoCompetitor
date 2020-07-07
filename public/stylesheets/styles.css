@@ -251,7 +251,7 @@ input:invalid, #tableSearch:active {
   font-weight: bold;
 }
 
-#SignUpDiv {
+#SignUpDiv, #leaderboardText {
   padding: 2%;
 }
 
@@ -549,7 +549,7 @@ button.btn, input.btn, input.user-input {
 #mainDropdown {
   top: 32px;
 }
-div.top-menu-div > a {
+div.top-menu-div > a.dropdownLink {
   padding: 10% 0;
 }
 #coins-img {
@@ -1061,7 +1061,7 @@ div.backdrop, dialog::backdrop {
 /* medium breakpoint */
 @media (max-height: 767px) and (max-width: 1199px), (max-width: 991px) {
   #mainDropdown {
-    top: calc(13px + 2vh + 1vw)
+    top: calc(2px + 2.5vh + 2vw);
   }
   .dropdownContent:hover .dropdownLink {
     color: gold;
