@@ -32,8 +32,6 @@ function coinFlip () {
     const tailWins = `${tailsWins.push(result)}`;
     tailWin.innerText = tailWins;
   }
-  headWin.className = 'result-tally';
-  tailWin.className = 'result-tally';
   animateCoin();
   setTimeout(() => document.getElementById('coin').src = 'images/' + coin + '.webp', 350);
   displayWinText(winner, winnerDiv);
@@ -42,7 +40,7 @@ function coinFlip () {
 
 function createCoin(coin) {
   const img = document.createElement('img');
-  img.className = 'coin img-fluid';
+  img.className = 'coin';
   img.setAttribute('id', 'coin');
   if (coin == 'heads') {
     img.src = 'images/' + 'tails.webp';

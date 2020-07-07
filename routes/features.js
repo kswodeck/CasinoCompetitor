@@ -10,11 +10,11 @@ router.get('/casual-farkle', (req, res) => {
 });
 
 router.get('/dice', (req, res) => {
-    res.render('dice', {pageTitle: 'Dice'});
+    res.render('dice', {pageTitle: 'Dice Roll'});
 });
 
 router.get('/coin', (req, res) => {
-    res.render('coin', {pageTitle: 'Coin'});
+    res.render('coin', {pageTitle: 'Coin Flip'});
 });
 
 router.get('/contact', (req, res) => {
