@@ -1,17 +1,11 @@
-<script defer="defer" src="https://kit.fontawesome.com/3287f2c91c.js" crossorigin="anonymous"></script>
+<script defer src="https://kit.fontawesome.com/3287f2c91c.js" crossorigin="anonymous"></script>
+<script defer src="https://www.googletagmanager.com/gtag/js?id=G-EG1KEKWQS6"></script>
 <script src="\javascripts\@sentry\browser\build\bundle.min.js" type="text/javascript"></script>
-<script defer="defer" src="\javascripts\smtp.js" type="text/javascript"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EG1KEKWQS6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-EG1KEKWQS6');
-</script>
-<script defer="defer">
+<script defer>
 Sentry.init({dsn: 'https://bc7444c26cad4159a4fc1818045022ba@o404801.ingest.sentry.io/5269442'});
 let dialogSup = document.getElementsByTagName('dialog');
-  for (i = 0; i < dialogSup.length; i++) {
+for (i = 0; i < dialogSup.length; i++) {
+  if (dialogPolyfill) {
     dialogPolyfill.registerDialog(dialogSup[i]);
     dialogSup[i].addEventListener("keydown", e => {
       if (e.code == 'Escape') {
@@ -19,12 +13,16 @@ let dialogSup = document.getElementsByTagName('dialog');
       }
     });
   }
+}
+var imageObj = new Image();
+imageObj.src = 'images/cards/blueBackCard.webp';
+window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EG1KEKWQS6');
 </script>
-<script defer="defer" src="\javascripts\common.js" type="text/javascript"></script>
-<script defer="defer" src="\javascripts\validation.js" type="text/javascript"></script>
-<script defer="defer">
-  var imageObj = new Image();
-  imageObj.src = 'images/cards/blueBackCard.webp';
-</script>
+<script defer src="\javascripts\common.js" type="text/javascript"></script>
+<script defer src="\javascripts\validation.js" type="text/javascript"></script>
+<script defer src="\javascripts\smtp.js" type="text/javascript"></script>
 </body>
 </html>

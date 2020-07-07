@@ -5,10 +5,15 @@
   <img src="images\casinocompetitor.webp" alt="CasinoCompetitor" id="home-logo">
   <% if (currentUser){ %>
   <h3 id="usernameHome" class="username-welcome blue-text"><%= currentUser.username %></h3>
-  <button id="homePokerButton" class="btn lg-text gold-bg red-text btn-style" onclick="location.href='/cards'">Play Poker</button>
-  <button id="homeFarkleButton" class="btn lg-text gold-bg red-text btn-style" onclick="location.href='/farkle'">Play Farkle</button>
+  <button id="homePokerButton" class="homeButton btn lg-text gold-bg red-text btn-style" onclick="location.href='/cards'">Play Poker</button>
+  <button id="homeFarkleButton" class="homeButton btn lg-text gold-bg red-text btn-style" onclick="location.href='/farkle'">Play Farkle</button>
+  <% } else { %>
+  <div id="SignUpDiv">
+    <h4 id="SignUpHome" class="blue-text md-text">Ready to start competing?</h3>
+    <button id="homeSignUpButton" class="homeButton btn md-text red-bg gold-text btn-style" onclick="location.href='/register'">Sign Up</button>
+  </div>
   <% } %>
-</div>
+  </div>
 <dialog id="logoutDialog" class="account-form-div account-dialog">
   <div class ="exit-button-div">
     <button id="logoutDialogExit" class="exit-dialog-button md-text" onclick="window.location.href = '/'" >✖</button>

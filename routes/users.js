@@ -294,7 +294,6 @@ router.post('/forgotuser', isLoggedOut, (req, res) => {
 
 router.get('/forgotpass', (req, res) => {
   let emailSent = false, userId = false, username = false;
-
   if (req.query.emailSent) {
     emailSent = req.query.emailSent;
   }
@@ -324,7 +323,9 @@ router.post('/forgotpass', (req, res) => {
             } else {
               console.log('Match found, sending email');
               req.flash('success', 'password recovery email sent');
-              res.redirect('/forgotpass?emailSent=' + req.body.forgotPW.email + '&userId=' + curUser._id + '&username=' + curUser.username);
+              res.setTimeout(500, () => {
+                res.redirect('/forgotpass?emailSent=' + req.body.forgotPW.email + '&userId=' + curUser._id + '&username=' + curUser.username);
+              });
             }
           });
           break;

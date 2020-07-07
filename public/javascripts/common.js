@@ -159,9 +159,8 @@ function displayStreakDialog(streak){
     }
     document.getElementById('mid-container').style.display = 'none';
     setTimeout(() => {
-      if (!dialog.hasAttribute('open')) {
+      if (dialog.hasAttribute('open')) {
         document.getElementById('mid-container').style.display = 'block';
-        dialog.close();
         window.location.reload();
       }
     }, 10000);
@@ -201,7 +200,7 @@ function toggleHamburger(dropdown) {
 }
 
 function sendForgotPWEmail(email, id, username) {
-  let link = '127.0.0.1:3000/forgotpass/' + id;
+  let link = window.location.origin + '/forgotpass/' + id;
   // eslint-disable-next-line no-undef
   Email.send({
     Host : "smtp.elasticemail.com",

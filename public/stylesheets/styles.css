@@ -126,7 +126,7 @@ svg.back-icon:active, .numquantity:hover, .numquantity:focus, .invalid-list, #ta
 .green-text, .valid-list, .win {
   color: green;
 }
-.bluish-bg {
+.bluish-bg, #SignUpDiv {
   background-color: var(--bluish);
 }
 
@@ -210,14 +210,13 @@ input:invalid, #tableSearch:active {
   line-height: 1.25;
   padding: 0.2%;
   text-align: center;
-  width: calc(90px + 4vw);
+  width: calc(100px + 3.5vw);
   max-width: 180px;
   display: none;
 }
 #hand-odds-div {
   max-width: 270px;
   display: none;
-  margin: 0.5% auto 1% auto;
   border: calc(1px + 0.2vw) solid darkblue;
   line-height: 1.25;
   padding: 0.2% 0.1%;
@@ -250,6 +249,10 @@ input:invalid, #tableSearch:active {
 }
 .loss, .win, #mustHoldDialog {
   font-weight: bold;
+}
+
+#SignUpDiv {
+  padding: 2%;
 }
 
 .cards, #home-logo, #play-container {
@@ -290,7 +293,7 @@ input:invalid, #tableSearch:active {
   border: 0.02em solid lightsteelblue;
   border-radius: 18%;
 }
-.card-slot-div .interactive-img:active, .numquantity:active, .numquantity:focus, #table-search-cell {
+.card-slot-div .interactive-img:active, .numquantity:active, .numquantity:focus, #table-search-cell, #SignUpDiv {
   border: 0.1rem solid darkblue;
 }
 .farkle-slot-div .interactive-img:active {
@@ -345,7 +348,7 @@ form > #farkle-roll-button, form > #farkle-end-button {
 .hold-dice-text {
   margin-bottom: calc(5px + 1.5vh + 1.5vw);
 }
-#coin.spin-grow, .dice.spin-grow {
+.dice.spin-grow {
   -webkit-animation: 0.5s ease-out 0s 1 forwards spinGrow;
           animation: 0.5s ease-out 0s 1 forwards spinGrow;
 }
@@ -700,11 +703,11 @@ border-radius: .25rem;
   margin: 2% auto 0 auto;
   border-bottom: none;
 }
-#farkle-total-score-div {
+#farkle-total-score-div, #SignUpHome {
   margin: 0 auto 2% auto;
   border-top: none;
 }
-#roll-ranking-heading, .num-quantity-input-div {
+#roll-ranking-heading, .num-quantity-input-div, #hand-odds-div {
   margin: 1% auto 0 auto;
 }
 #roll-score-heading {
@@ -821,7 +824,7 @@ button.back-arrow, #search-button {
   background-color: rgba(210, 210, 200, 0.3);
 }
 
-#leaderboard-pagination, .hold-card-text, input.account-button, #dice-roll-div {
+#leaderboard-pagination, .hold-card-text, input.account-button, #dice-roll-div, #SignUpDiv {
   margin: 2% auto;
 }
 #pagination-list {
@@ -876,7 +879,7 @@ dialog {
   z-index: 11;
 }
 
-dialog.md-dialog {
+dialog.md-dialog, #SignUpDiv {
   width: calc(270px + 6vw + 1.5vh);
 }
 dialog.sm-dialog {
@@ -1012,7 +1015,7 @@ div.backdrop, dialog::backdrop {
     margin: 0;
   }
   #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div, .farkle-score-div {
-    width: 105px;
+    width: 110px;
     line-height: 1;
   }
   input.birthday {
@@ -1159,9 +1162,6 @@ div.backdrop, dialog::backdrop {
     width: calc(80px + 5vw);
     max-width: 150px;
   }
-  #homePokerButton, #homeFarkleButton {
-    margin-bottom: 15px;
-  }
 }
 /* small landscape mode breakpoint */
 @media (max-height: 575px) {
@@ -1180,7 +1180,7 @@ div.backdrop, dialog::backdrop {
   #page-heading {
     margin-bottom: 0.2rem;
   }
-  #header {
+  #header, #mid-container {
     margin-bottom: 0.5%;
   }
   #main-navbar, #header {
