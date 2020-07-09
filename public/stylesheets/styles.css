@@ -116,7 +116,7 @@ ul {
   color: gold;
 }
 .red-text, .input-icon:hover, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active, .loss,
-i.back-icon:hover, i.back-icon:active, .numquantity:hover, .numquantity:focus, .invalid-list, #table-search-icon:active, #hand-ranking-heading,
+svg.back-icon:hover, svg.back-icon:active, .numquantity:hover, .numquantity:focus, .invalid-list, #table-search-icon:active, #hand-ranking-heading,
 #roll-ranking-heading, .dropdown-menu li:hover, .dropdown-menu li:hover a, .dropdownContent:hover .dropdownLink {
   color: crimson;
 }
@@ -733,8 +733,8 @@ border-radius: .25rem;
   margin-left: calc(2px + 0.2vw);
 }
 
-.show-hide, svg.navbar-toggler-icon, .btn {
-  vertical-align: middle;
+.show-hide, svg.navbar-toggler-icon, .btn, svg.dropdown-arrow {
+  vertical-align: sub;
 }
 
 .password {
@@ -1154,7 +1154,7 @@ div.backdrop, dialog::backdrop {
   div.navbar-collapse {
     display: inline;
   }
-  div.collapse:not(.show), .casual-item, i.dropdown-arrow {
+  div.collapse:not(.show), .casual-item, svg.dropdown-arrow {
     display: none;
   }
   div.dropdown-menu {
