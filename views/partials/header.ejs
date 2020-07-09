@@ -6,16 +6,19 @@
     <meta name="description" content="Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.">
     <meta name="keywords" content="virtual, cards, poker, farkle, dice, roll, coin, flip, luck, chance, percentages, gambling, casino, arcade, leaderboard">
     <meta name="author" content="Kristoffer Swodeck">
+    <meta name="theme-color" content="#00008b"/>
     <meta name="google-site-verification" content="TiiOJnhWPhCX7T3kP-rBLSu2flpvL7aa3TVAb8Kny2I"/>
     <title><%= pageTitle %></title>
     <link async rel="icon" type="icon" alt="CasinoCompetitorFavicon" href="\images\casinocompetitor-favicon.webp">
+    <link async rel="apple-touch-icon" href="\images\casinocompetitor-favicon.png">
     <script>
       if (typeof document.createElement('dialog').show != 'function') {
         document.write('<script src="/javascripts/dialog-polyfill.js" type="text/javascript"><\/script>');
         }
     </script>
     <link async href="\stylesheets\styles.css" rel="stylesheet" type="text/css">
-    <script data-ad-client="ca-pub-3094565500082099" defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- <script rel=preconnect data-ad-client="ca-pub-3094565500082099" defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+    <link rel="manifest" href="/manifest.webmanifest">
   </head>
   <body id="pageBody">
     <div id="loadContainer">
@@ -82,7 +85,7 @@
             </div>
           <div class="col header-div" id="collapse-button-div">
             <% if (currentUser){ %>
-            <span id="total-coins-span" class="sm-text"><%= currentUser.coins %></span><img loading="lazy" class="coins-img" id="coins-img" src="\images\coins.webp">
+            <span id="total-coins-span" class="sm-text"><%= currentUser.coins %></span><img loading="lazy" alt="coins" class="coins-img" id="coins-img" src="\images\coins.webp">
             <% } %>
             <button id="hamburger-button" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation" onclick="toggleHamburger('navbar-content')">
               <i class="fas fa-bars navbar-toggler-icon"></i>

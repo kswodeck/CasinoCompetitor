@@ -1,0 +1,44 @@
+{
+  "name": "Casino Competitor",
+  "short_name": "Casino Competitor",
+  "description": "Compete at this virtual casino",
+  "icons": [
+    {
+      "src": "/images/casinocompetitor-favicon.png",
+      "type": "image/png",
+      "sizes": "180x180",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/casinocompetitor-icon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "theme_color": "#00008b",
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Casino Competitor",
+      "short_name": "Casino Competitor",
+      "description": "Compete at this virtual casino",
+      "url": "/"
+    },
+    {
+      "name": "Create An Account",
+      "short_name": "Create Account",
+      "description": "Sign up to start competing",
+      "url": "/register"
+    },
+    {
+      "name": "Competitive Leaderboard",
+      "short_name": "Leaderboard",
+      "description": "Claim the top place on the leaderboard",
+      "url": "/leaderboard"
+    }
+  ]
+}
