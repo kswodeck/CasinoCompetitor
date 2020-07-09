@@ -22,7 +22,7 @@
     <script defer src="\javascripts\validation.js"></script>
     <script defer src="\javascripts\smtp.js"></script>
   </head>
-  <body id="pageBody">
+  <body onkeydown="restoreContainer()" id="pageBody">
     <div id="loadContainer">
       <div id="loader"></div>
     </div>
@@ -42,7 +42,7 @@
                     <li class="dropdownListItem"><a class="gold-text dropdown-item" href="contact">Contact Us</a></li>
                 <% if (!currentUser){ %>
                     <li class="dropdownListItem"><a class="gold-text dropdown-item" href="register">Sign Up</a></li>
-                    <li class="dropdownListItem"><a class="gold-text dropdown-item" onclick="displayLoginDialog('<%= error %>')" href="#">Log In</a></li>
+                    <li class="dropdownListItem"><a class="gold-text dropdown-item" href="#" onclick="displayLoginDialog('<%= error %>')">Log In</a></li>
                 <% } else { %>
                     <li class="dropdownListItem"><a class="gold-text dropdown-item" href="account">My Account</a></li>
                     <li class="dropdownListItem"><a class="gold-text dropdown-item" href="logout">Log Out</a></li>

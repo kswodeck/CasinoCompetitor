@@ -8,7 +8,7 @@
           <tr id="table-search-row">
             <th id="table-search-cell" class="leaderboard-cell" colspan="4" scope="colgroup">
               <form action="/leaderboard" method="GET" action="#" onsubmit="searchLeaderboard(); return false;" id="leaderboardSearchForm">
-                <button id="search-button" class="btn sm-text" name="search" type="submit" onclick="restoreLeaderboard('<%= curPage %>')"><i id="table-search-icon" class="fas fa-search"></i></button>
+                <button id="search-button" class="btn sm-text" name="search" type="button" onclick="searchLeaderboard()" onkeydown="searchLeaderboard()"><i id="table-search-icon" class="fas fa-search"></i></button>
                 <input type="search" id="tableSearch" class="table-search xs-text" name="search" size="30" maxlength="25" placeholder="search by username..." incremental>
               </form>
             </th>

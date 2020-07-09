@@ -80,6 +80,7 @@ router.get('/leaderboard', isLoggedIn, (req, res) => {
   User.find({}).sort({coins: -1}).exec(function(err, allUsers) {
     if (err || !allUsers) {
       console.log(err);
+      return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: 0, users: 0, ranks: 0, search: "", curPage: 1});
     } else {
       if (search == "") {
         if (cur >= allUsers.length || page < 1 || isNaN(page)) {

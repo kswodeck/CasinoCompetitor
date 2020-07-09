@@ -1,6 +1,13 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
+function restoreContainer() {
+  console.log(event);
+  if (event.code == 'Escape') {
+    document.getElementById('mid-container').style.display = 'block';
+  }
+}
+
 function displayLoginDialog(message){
   const dialog = document.getElementById('loginDialog');
   const pageTitle = document.getElementsByTagName('title')[0];
@@ -122,28 +129,33 @@ function backFromDialog(currentDialog){
 function togglePasswordVisibility(passwordId, iconId){
   const passwordInput = document.getElementById(passwordId);
   const passwordIcon = document.getElementById(iconId);
-  if (passwordInput.type === 'password') {
-    passwordInput.type = 'text';
-    passwordIcon.classList.remove('fa-eye');
-    passwordIcon.classList.add('fa-eye-slash');
-  } else {
-    passwordInput.type = 'password';
-    passwordIcon.classList.remove('fa-eye-slash');
-    passwordIcon.classList.add('fa-eye');
+  if (event.type == 'click' || event.code == 'Enter') {
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      passwordIcon.classList.remove('fa-eye');
+      passwordIcon.classList.add('fa-eye-slash');
+    } else {
+      passwordInput.type = 'password';
+      passwordIcon.classList.remove('fa-eye-slash');
+      passwordIcon.classList.add('fa-eye');
+    }   
   }
 }
 
 function displayDialog(dialog) {
+  console.log(event);
   const curDialog = document.getElementById(dialog);
-  if (typeof curDialog.showModal == 'function') {
-    curDialog.showModal();
-    if (document.getElementsByClassName('backdrop')[0]) {
-      curDialog.style.cssText = '';
-      document.getElementsByClassName('backdrop')[0].style.cssText = '';
+  if (event.type == 'click' || event.code == 'Enter') {
+    if (typeof curDialog.showModal == 'function') {
+      curDialog.showModal();
+      if (document.getElementsByClassName('backdrop')[0]) {
+        curDialog.style.cssText = '';
+        document.getElementsByClassName('backdrop')[0].style.cssText = '';
+      }
+      document.getElementById('mid-container').style.display = 'none';
+    } else {
+      console.log('The <dialog> API is not supported by this browser');
     }
-    document.getElementById('mid-container').style.display = 'none';
-  } else {
-    console.log('The <dialog> API is not supported by this browser');
   }
 }
 

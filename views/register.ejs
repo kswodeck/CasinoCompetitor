@@ -19,9 +19,9 @@
         <label for="username" class="account-label sm-txt">Username</label><br>
         <input type="text" name="username" id="createUsername" class="account-input user-input" minlength="5" maxlength="25" placeholder="username" size="30" autocomplete="username" required><br>
         <label for="password" class="account-label sm-txt">Password</label><br>
-        <input type="password" name="password" id="newPassword" class="account-input password user-input" minlength="5" maxlength="25" placeholder="password" size="30" autocomplete="new-password" required><i id="newPassIcon" onclick="togglePasswordVisibility('newPassword', 'newPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+        <input type="password" name="password" id="newPassword" class="account-input password user-input" minlength="5" maxlength="25" placeholder="password" size="30" autocomplete="new-password" required><i id="newPassIcon" onclick="togglePasswordVisibility('newPassword', 'newPassIcon')" onkeydown="togglePasswordVisibility('newPassword', 'newPassIcon')" class="show-hide input-icon fas fa-eye" tabindex="0"></i><br>
         <label for="repeatPassword" class="account-label sm-txt">Repeat Password</label><br>
-        <input type="password" name="repeatPassword" id="repeatPassword" class="account-input password user-input" minlength="5" maxlength="25" placeholder="password" size="30" autocomplete="new-password" required><i id="repeatPassIcon" onclick="togglePasswordVisibility('repeatPassword', 'repeatPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+        <input type="password" name="repeatPassword" id="repeatPassword" class="account-input password user-input" minlength="5" maxlength="25" placeholder="password" size="30" autocomplete="new-password" required><i id="repeatPassIcon" onclick="togglePasswordVisibility('repeatPassword', 'repeatPassIcon')" onkeydown="togglePasswordVisibility('repeatPassword', 'repeatPassIcon')" class="show-hide input-icon fas fa-eye" tabindex="0"></i><br>
         <label for="phone" class="account-label sm-txt">Phone Number</label><br>
         <input type="tel" name="phone" id="createPhone" class="account-input user-input" minlength="10" maxlength="16" placeholder="XXXXXXXXXX" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXXXXXXXXX" autocomplete="tel" required><br>
         <label for="birthday" class="account-label sm-txt">Birthday</label><br>
@@ -33,7 +33,7 @@
         </ul>
         <button type="submit" role="button" name="account-submit" onclick="return validateAccountCreate()" class="btn md-text blue-bg gold-text btn-style account-button" id="accountCreate">Create Account</button>
       </form>
-      <div class="account-already">Already have an account? <a id="account-login-link" class="link-text" onclick="displayLoginDialog()">Login</a></div>
+      <div class="account-already">Already have an account? <a id="account-login-link" class="link-text" onclick="displayLoginDialog()" href="#">Login</a></div>
     </div>
   </div>
   

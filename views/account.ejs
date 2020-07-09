@@ -19,7 +19,7 @@
           <label for="username" class="account-label sm-txt">Username</label><br>
           <input type="text" name="updateUser[username]" id="updateUsername" class="my-account user-input" minlength="5" maxlength="25" value="<%= currentUser.username %>" size="30" autocomplete="username" required><br>
           <label for="accountPassword" class="account-label sm-txt">Password</label><br>
-          <input type="password" id="accountPassword" class="placeholderPassword user-input" value="password" size="30" autocomplete="off" disabled><i class="fas fa-pencil-alt edit-icon input-icon" onclick="displayDialog('updatePWDialog')"></i><br>
+          <input type="password" id="accountPassword" class="placeholderPassword user-input" value="password" size="30" autocomplete="off" disabled><i class="fas fa-pencil-alt edit-icon input-icon" onclick="displayDialog('updatePWDialog')" onkeypress="displayDialog('updatePWDialog')" tabindex="0"></i><br>
           <label for="phone" class="account-label sm-txt">Phone Number</label><br>
           <input type="tel" name="updateUser[phone]" id="updatePhone" class="my-account user-input" minlength="10" maxlength="16" value="<%= currentUser.phone %>" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXXXXXXXXX" autocomplete="tel" required><br>
           <label for="birthday" class="account-label sm-txt">Birthday</label><br>
@@ -62,7 +62,7 @@
   <h2 id="verifyPWHeading" class="login-heading blue-text">Delete Account</h2>
   <form action="/account/?_method=DELETE" method="POST">
     <label for="password" class="account-label sm-txt">Confirm Password</label><br>
-    <input type="password" name="password" id="verifyPassword" class="verifyPassInput password user-input" minlength="5" maxlength="25" placeholder="password" size="30" required><i id="verifyPassIcon" onclick="togglePasswordVisibility('verifyPassword', 'verifyPassIcon')" class="show-hide input-icon fas fa-eye"></i>
+    <input type="password" name="password" id="verifyPassword" class="verifyPassInput password user-input" minlength="5" maxlength="25" placeholder="password" size="30" required><i id="verifyPassIcon" onclick="togglePasswordVisibility('verifyPassword', 'verifyPassIcon')" onkeypress="togglePasswordVisibility('verifyPassword', 'verifyPassIcon')" class="show-hide input-icon fas fa-eye" tabindex="0"></i>
     <ul id="invalid-verify-password" class="invalid-fields-list"></ul>
     <button type="submit" name="password-verify" role="button" class="btn md-text red-bg gold-text btn-style account-button" id="passwordVerifyDeleteButton" onclick="disableAfterSubmit('passwordVerifyDeleteButton', 1000)">Delete Account</button>
   </form>
@@ -74,11 +74,11 @@
   <h2 id="updatePWHeading" class="login-heading blue-text">Update Password</h2>
   <form action="/account/?_method=PUT" method="POST">
     <label for="oldPassword" id="oldPassLabel" class="account-label sm-txt">Current Password</label><br>
-    <input type="password" name="oldPassword" id="oldPassword" class="updatePassInput password user-input" minlength="5" maxlength="25" placeholder="password" size="30" autocomplete="current-password" required><i id="oldPassIcon" onclick="togglePasswordVisibility('oldPassword', 'oldPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+    <input type="password" name="oldPassword" id="oldPassword" class="updatePassInput password user-input" minlength="5" maxlength="25" placeholder="password" size="30" autocomplete="current-password" required><i id="oldPassIcon" onclick="togglePasswordVisibility('oldPassword', 'oldPassIcon')" onkeypress="togglePasswordVisibility('oldPassword', 'oldPassIcon')" class="show-hide input-icon fas fa-eye" tabindex="0"></i><br>
     <label for="updatePassword" class="account-label sm-txt">New Password</label><br> <!-- password validations aren't fully sufficient -->
-    <input type="password" name="updatePassword" id="updatePassword" class="updatePassInput password user-input" minlength="5" maxlength="25" placeholder="password" size="30" required><i id="updatePassIcon" onclick="togglePasswordVisibility('updatePassword', 'updatePassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+    <input type="password" name="updatePassword" id="updatePassword" class="updatePassInput password user-input" minlength="5" maxlength="25" placeholder="password" size="30" required><i id="updatePassIcon" onclick="togglePasswordVisibility('updatePassword', 'updatePassIcon')" onkeypress="togglePasswordVisibility('updatePassword', 'updatePassIcon')" class="show-hide input-icon fas fa-eye" tabindex="0"></i><br>
     <label for="repeatNewPassword" class="account-label sm-txt">Repeat Password</label><br>
-    <input type="password" name="repeatNewPassword" id="repeatNewPassword" class="updatePassInput password user-input" minlength="5" maxlength="25" placeholder="password" size="30" required><i id="repeatNewPassIcon" onclick="togglePasswordVisibility('repeatNewPassword', 'repeatNewPassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
+    <input type="password" name="repeatNewPassword" id="repeatNewPassword" class="updatePassInput password user-input" minlength="5" maxlength="25" placeholder="password" size="30" required><i id="repeatNewPassIcon" onclick="togglePasswordVisibility('repeatNewPassword', 'repeatNewPassIcon')" onkeypress="togglePasswordVisibility('repeatNewPassword', 'repeatNewPassIcon')" class="show-hide input-icon fas fa-eye" tabindex="0"></i><br>
     <ul id="invalid-update-password" class="invalid-fields-list"></ul>
     <button type="submit" name="password-update" role="button" onclick="return validatePasswordUpdate()" class="btn md-text blue-bg gold-text btn-style" id="passwordUpdateButton">Update Password</button>
   </form>

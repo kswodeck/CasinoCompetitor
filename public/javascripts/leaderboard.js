@@ -10,14 +10,29 @@ function startLoading() {
   mainContainer.style.opacity = 0.5;
 }
 
+function stopLoading() {
+  loader.classList.remove('animateLoad');
+  loader.style.display = 'none';  
+  mainContainer.style.pointerEvents = 'all';
+  mainContainer.style.opacity = 1;
+}
+
 function searchLeaderboard() {
-  const searchValue = document.getElementById('tableSearch').value;
-  if (searchValue.length != 0 && window.location.href != window.location.origin + '/leaderboard?search=' + searchValue) {
-    startLoading();
-    window.location.href = '/leaderboard?search=' + searchValue;
-      return true;
-  } else {
-    return false;
+  console.log(event);
+  if (event.type == 'click' || event.code == 'Enter' || event.type == 'submit') {
+    const searchValue = document.getElementById('tableSearch').value;
+    if (searchValue.length != 0 && window.location.href != window.location.origin + '/leaderboard?search=' + searchValue) {
+      startLoading();
+      new Promise(resolve => {
+        window.location.href = '/leaderboard?search=' + searchValue;
+        resolve(5);
+      }).then(() => stopLoading());
+        return true;
+    } else if (searchValue.length == 0) {
+      restoreLeaderboard(1)
+    } else {
+      return false;
+    }
   }
 }
 
@@ -25,7 +40,10 @@ function restoreLeaderboard(page) {
   const searchValue = document.getElementById('tableSearch').value;
   if (searchValue.length == 0 && (page != 1 || window.location.href.includes('search='))) {
     startLoading();
-    window.location.href = '/leaderboard';
+    new Promise(resolve => {
+      window.location.href = '/leaderboard'
+      resolve(5);
+    }).then(() => stopLoading());
     return true;
   } else {
     return false;
