@@ -1,7 +1,13 @@
+Sitemap: https://casinocompetitor.com/sitemap.xml
+Sitemap: https://www.casinocompetitor.com/sitemap.xml
+
 User-agent: *
 Allow: /
-User-agent: Googlebot
-Disallow:
-User-agent: Googlebot-image
-Disallow: 
-Sitemap: https://casinocompetitor.com/sitemap.xml
+Disallow: /forgotuser
+Disallow: /forgotpass
+Disallow: /account
+Disallow: /farkle
+Disallow: /cards
+Disallow: /leaderboard
+Disallow: /images/CompetitiveFarkleScoring.pdf
+Host: https://casinocompetitor.com

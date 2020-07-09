@@ -34,12 +34,6 @@
       "short_name": "Create Account",
       "description": "Sign up to start competing",
       "url": "/register"
-    },
-    {
-      "name": "Competitive Leaderboard",
-      "short_name": "Leaderboard",
-      "description": "Claim the top place on the leaderboard",
-      "url": "/leaderboard"
     }
   ]
 }
