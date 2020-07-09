@@ -19,6 +19,7 @@
   "start_url": "/",
   "background_color": "#ffffff",
   "display": "standalone",
+  "orientation": "natural",
   "theme_color": "#00008b",
   "prefer_related_applications": false,
   "shortcuts": [
