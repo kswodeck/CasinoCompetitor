@@ -4,6 +4,7 @@ const express      = require('express'),
   bodyParser     = require('body-parser'),
   LocalStrategy  = require('passport-local'),
   flash          = require('connect-flash'),
+  minify         = require('express-minify'),
   methodOverride = require('method-override'),
   compression    = require('compression'),
   sslRedirect    = require('heroku-ssl-redirect'),
@@ -23,14 +24,15 @@ const dbURL = process.env.DATABASEURL;
 mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true});
 app.use(sslRedirect());
 app.use(compression());
+app.use(minify());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public', {maxAge: 31557600}));
 app.use('/javascripts', express.static(__dirname + '/node_modules/'));
 app.use(flash());
-
+app.set('view cache', true);
 app.use(require('express-session')({ // Passport configuration
   secret: 'secret',
   resave: false,

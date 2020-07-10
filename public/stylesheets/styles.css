@@ -251,7 +251,7 @@ input:invalid, #tableSearch:active {
   font-weight: bold;
 }
 
-#SignUpDiv, #leaderboardText {
+#SignUpDiv {
   padding: 2%;
 }
 
@@ -1097,7 +1097,7 @@ dialog::-webkit-backdrop, div.backdrop, dialog::backdrop {
     padding: 4%;
     white-space: nowrap;
   }
-  #cardsDropdown a, #farkleDropdown a {
+  #cardsDropdown a, #farkleDropdown a, #leaderboardText {
     padding: 1% 0;
   }
   #dice-prep-div {
