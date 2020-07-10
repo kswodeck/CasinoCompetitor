@@ -577,21 +577,24 @@ function resetRoll() {
 
 function endGameConfirm() {
   const dialog = document.getElementById('endGameConfirmDialog');
+  const multiPlayDialog = document.getElementById('multiPlayerScoreDialog');
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
+    multiPlayDialog.close();
     if (document.getElementsByClassName('backdrop')[0]) {
       dialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
     }
-      var curTimeout = setTimeout(() => dialog.close(), 20000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
   document.getElementById('endGameConfirmButton').onclick = () => {
-    dialog.close();
-    document.getElementById('multiPlayerScoreDialog').close();
+    document.getElementById('endGameConfirmDialog').close();
     displayMultiPlayerWinner();
-    clearTimeout(curTimeout);
+  };
+  document.getElementById('endGameCancelButton').onclick = () => {
+    document.getElementById('endGameConfirmDialog').close();
+    multiPlayDialog.showModal();
   };
 }
 

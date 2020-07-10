@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-vars */
 
 function restoreContainer() {
-  console.log(event);
   if (event.code == 'Escape') {
     document.getElementById('mid-container').style.display = 'block';
   }
@@ -143,7 +142,6 @@ function togglePasswordVisibility(passwordId, iconId){
 }
 
 function displayDialog(dialog) {
-  console.log(event);
   const curDialog = document.getElementById(dialog);
   if (event.type == 'click' || event.code == 'Enter') {
     if (typeof curDialog.showModal == 'function') {

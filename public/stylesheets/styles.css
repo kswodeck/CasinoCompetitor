@@ -819,7 +819,7 @@ button.back-arrow, #table-search-icon {
 #leaderboard-table {
   width: 100%;
 }
-.leaderboard-head, .leaderboard-cell, #leaderboard-table, input.farkle-player-input {
+.leaderboard-head, .leaderboard-cell, #leaderboard-table {
   border: 0.01em solid #00000099
 }
 .leaderboard-row:nth-child(odd) {
