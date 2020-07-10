@@ -807,8 +807,9 @@ button.back-arrow, #search-button {
 
 #table-search-icon {
   color: #fff;
+  vertical-align: baseline;
 }
-button.back-arrow, #table-search-icon {
+button.back-arrow {
   vertical-align: middle;
 }
 
