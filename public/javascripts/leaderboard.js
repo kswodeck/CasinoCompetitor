@@ -17,8 +17,11 @@ function stopLoading() {
 }
 
 function getLeaderboardResults(url) {
-  startLoading();
+  if (window.location.href != window.location.origin + url) {
+    startLoading();
+  }
   window.location.href = url;
+  setTimeout(() => stopLoading(), 2000);
 }
 
 function searchLeaderboard() {

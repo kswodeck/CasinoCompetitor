@@ -95,7 +95,8 @@ router.get('/leaderboard', isLoggedIn, (req, res) => {
       } else {
         User.find({username: new RegExp(search, 'i')}).sort({coins: -1}).exec(function(err, users) {
           if (err || !users) {
-            console.log(err);
+            console.log(err); //no users found from search OR error
+            return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: allUsers, ranks: userRanks, search: "", curPage: 1});
           } else {
             if (cur >= users.length || page < 1 || isNaN(page)) {
               return res.status(204).send();
@@ -111,8 +112,8 @@ router.get('/leaderboard', isLoggedIn, (req, res) => {
               }
               i++;
             }
+            return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: users, ranks: userRanks, search: search, curPage: page});
           }
-          return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: users, ranks: userRanks, search: search, curPage: page});
         });
       }
     }
