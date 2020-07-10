@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 var express  = require('express');
+const { configureScope } = require('@sentry/node');
 var passport = require('passport'),
     router   = express.Router({mergeParams: true}),
     moment   = require('moment'),

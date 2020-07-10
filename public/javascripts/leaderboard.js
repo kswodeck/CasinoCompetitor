@@ -9,7 +9,6 @@ function startLoading() {
   mainContainer.style.pointerEvents = 'none';
   mainContainer.style.opacity = 0.5;
 }
-
 function stopLoading() {
   loader.classList.remove('animateLoad');
   loader.style.display = 'none';  
@@ -17,36 +16,25 @@ function stopLoading() {
   mainContainer.style.opacity = 1;
 }
 
+function getLeaderboardResults(url) {
+  startLoading();
+  window.location.href = url;
+}
+
 function searchLeaderboard() {
-  console.log(event);
-  if (event.type == 'click' || event.code == 'Enter' || event.type == 'submit') {
+  if (event.type == 'click' || event.code == 'Enter') {
     const searchValue = document.getElementById('tableSearch').value;
     if (searchValue.length != 0 && window.location.href != window.location.origin + '/leaderboard?search=' + searchValue) {
-      startLoading();
-      new Promise(resolve => {
-        window.location.href = '/leaderboard?search=' + searchValue;
-        resolve(5);
-      }).then(() => stopLoading());
-        return true;
+      getLeaderboardResults('/leaderboard?search=' + searchValue);
     } else if (searchValue.length == 0) {
-      restoreLeaderboard(1)
-    } else {
-      return false;
+      restoreLeaderboard(1, searchValue);
     }
   }
 }
 
-function restoreLeaderboard(page) {
-  const searchValue = document.getElementById('tableSearch').value;
-  if (searchValue.length == 0 && (page != 1 || window.location.href.includes('search='))) {
-    startLoading();
-    new Promise(resolve => {
-      window.location.href = '/leaderboard'
-      resolve(5);
-    }).then(() => stopLoading());
-    return true;
-  } else {
-    return false;
+function restoreLeaderboard(page, val) {
+  if (val.length == 0 && (page != 1 || window.location.href.includes('search='))) {
+    getLeaderboardResults('/leaderboard');
   }
 }
 
@@ -57,10 +45,10 @@ function changePage(page, search) {
   } else if (!url.includes('page=') && page == 1) {
     return false;
   }
-  startLoading();
   if (url.includes('search')) {
-    window.location.href = '/leaderboard?page=' + page + '&search=' + search;
+    url = '/leaderboard?page=' + page + '&search=' + search;
   } else {
-    window.location.href = '/leaderboard?page=' + page;
+    url = '/leaderboard?page=' + page;
   }
+  getLeaderboardResults(url);
 }
