@@ -4,9 +4,9 @@
     </div>
     <h2 id="loginHeading" class="account-heading login-heading blue-text">Login to Casino Competitor</h2>
     <form action="/login" method="POST">
-      <label for="username" class="account-label sm-txt">Username</label><br>
+      <label for="loginUsername" class="account-label sm-txt">Username</label><br>
       <input type="text" name="username" id="loginUsername" class="login-input user-input" minlength="5" maxlength="25" placeholder="username" size="30" autocomplete="username" required><br>
-      <label for="password" class="account-label sm-txt">Password</label><br>
+      <label for="loginPassword" class="account-label sm-txt">Password</label><br>
       <input type="password" name="password" id="loginPassword" class="login-input password user-input" minlength="5" maxlength="25" placeholder="password" size="30" autocomplete="current-password" required><i id="loginPassIcon" onclick="togglePasswordVisibility('loginPassword', 'loginPassIcon')" onkeydown="togglePasswordVisibility('loginPassword', 'loginPassIcon')" class="show-hide input-icon fas fa-eye" tabindex="0"></i><br>
       <ul id="invalid-login" class="invalid-fields-list"></ul>
       <button type="submit" name="login-submit" role="button" onclick="disableAfterSubmit('loginButton', 800); return validatePreLogin('login-input', 'invalid-login')" class="btn md-text blue-bg gold-text btn-style account-button" id="loginButton">Log In</button>
@@ -23,11 +23,11 @@
     </div>
     <h2 id="forgotUserHeading" class="account-heading login-heading blue-text">Forgotten Username</h2>
     <form action="/forgotuser" method="POST">
-      <label for="email" class="account-label sm-txt">Email</label><br>
+      <label for="forgotUserEmail" class="account-label sm-txt">Email</label><br>
       <input type="email" name="forgotUser[email]" id="forgotUserEmail" class="forgotUserInput user-input" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autocomplete="email" required><br>
-      <label for="phone" class="account-label sm-txt">Phone Number</label><br>
+      <label for="forgotUserPhone" class="account-label sm-txt">Phone Number</label><br>
       <input type="tel" name="forgotUser[phone]" id="forgotUserPhone" class="forgotUserInput user-input" minlength="10" maxlength="16" placeholder="XXXXXXXXXX" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXXXXXXXXX" autocomplete="tel" required><br>
-      <label for="birthday" class="account-label sm-txt">Birthday</label><br>
+      <label for="forgotUserBirthday" class="account-label sm-txt">Birthday</label><br>
       <input type="date" name="forgotUser[birthday]" id="forgotUserBirthday" class="forgotUserInput birthday user-input" min="1920-01-01" max="2020-06-01" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" required><br>
       <ul id="invalid-forgot-username" class="invalid-fields-list"></ul>
       <button type="submit" name="forgot-pw-submit" role="button" onclick="disableAfterSubmit('forgotUserButton', 800); return validatePreLogin('forgotUserInput', 'invalid-forgot-username')" class="btn md-text blue-bg gold-text btn-style account-button" id="forgotUserButton">Recover Username</button>
@@ -43,11 +43,11 @@
     </div>
     <h2 id="forgotPWHeading" class="account-heading login-heading blue-text">Forgotten Password</h2>
     <form action="/forgotpass" method="POST">
-      <label for="email" class="account-label sm-txt">Email</label><br>
+      <label for="forgotPWEmail" class="account-label sm-txt">Email</label><br>
       <input type="email" name="forgotPW[email]" id="forgotPWEmail" class="forgotPassInput user-input" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autocomplete="email" required><br>
-      <label for="phone" class="account-label sm-txt">Phone Number</label><br>
+      <label for="forgotPWPhone" class="account-label sm-txt">Phone Number</label><br>
       <input type="tel" name="forgotPW[phone]" id="forgotPWPhone" class="forgotPassInput user-input" minlength="10" maxlength="16" placeholder="XXXXXXXXXX" size="20" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXXXXXXXXX" autocomplete="tel" required><br>
-      <label for="birthday" class="account-label sm-txt">Birthday</label><br>
+      <label for="forgotPWBirthday" class="account-label sm-txt">Birthday</label><br>
       <input type="date" name="forgotPW[birthday]" id="forgotPWBirthday" class="forgotPassInput birthday user-input" size="8" min="1920-01-01" max="2020-06-01" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" required><br>
       <ul id="invalid-forgot-password" class="invalid-fields-list"></ul>
       <button type="submit" name="forgot-user-submit" role="button" onclick="disableAfterSubmit('forgotPWButton', 800); return validatePreLogin('forgotPassInput', 'invalid-forgot-password')" class="btn md-text blue-bg gold-text btn-style account-button" id="forgotPWButton">Recover Password</button>

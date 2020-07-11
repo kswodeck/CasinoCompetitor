@@ -35,7 +35,7 @@
   </div>
   <h2 id="changePWHeading" class="login-heading blue-text">Update Password</h2>
   <form action="/forgotpass/<%= userId %>/?_method=PUT" method="POST">
-    <label for="password" class="account-label sm-txt">New Password</label><br>
+    <label for="changePassword" class="account-label sm-txt">New Password</label><br>
     <input type="password" name="password" id="changePassword" class="changePassInput password user-input" minlength="5" maxlength="25" placeholder="password" size="30" autocomplete="new-password" required><i id="changePassIcon" onclick="togglePasswordVisibility('changePassword', 'changePassIcon')" class="show-hide input-icon fas fa-eye"></i><br>
     <label for="repeatChangePassword" class="account-label sm-txt">Repeat Password</label><br>
     <input type="password" name="repeatChangePassword" id="repeatChangePassword" class="changePassInput password user-input" minlength="5" maxlength="25" placeholder="password" size="30" autocomplete="new-password" required><i id="repeatChangePassIcon" onclick="togglePasswordVisibility('repeatChangePassword', 'repeatChangePassIcon')" class="show-hide input-icon fas fa-eye"></i><br>

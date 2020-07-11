@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/public', {maxAge: 3600000}));
+app.use(express.static(__dirname + '/public', {maxAge: 7200000}));
 app.use('/javascripts', express.static(__dirname + '/node_modules/'));
 app.use(flash());
 app.set('view cache', true);

@@ -366,7 +366,6 @@ form > #farkle-roll-button, form > #farkle-end-button {
 
 .coins-img {
   width: calc(22px + 1vw);
-  height: calc(20px + 0.7vw);
 }
 #coins-popup-img, .coins-img {
   vertical-align: bottom;
