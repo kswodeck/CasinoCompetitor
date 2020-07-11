@@ -94,9 +94,9 @@ router.get('/leaderboard', isLoggedIn, (req, res) => {
           return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: allUsers, ranks: userRanks, search: search, curPage: page});
       } else {
         User.find({username: new RegExp(search, 'i')}).sort({coins: -1}).exec(function(err, users) {
-          if (err || !users) {
+          if (err || users.length == 0) {
             console.log(err); //no users found from search OR error
-            return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: allUsers, ranks: userRanks, search: "", curPage: 1});
+            return res.redirect('/leaderboard');
           } else {
             if (cur >= users.length || page < 1 || isNaN(page)) {
               return res.status(204).send();
