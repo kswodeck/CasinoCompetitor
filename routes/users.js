@@ -43,7 +43,8 @@ router.get('/', (req, res) => {
     } else if (!changedLastLogin){
       User.findOneAndUpdate({_id: req.user._id}, {$set: {loginStreak: newStreak, lastLogin: current, coins: newCoins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
     }
-    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins, updatePW: false});
+    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins, updatePW: false,
+    description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
   } else {
     var streak, coins;
     if (req.user) {
@@ -55,14 +56,16 @@ router.get('/', (req, res) => {
 });
 
 router.get('/cards', isLoggedIn, (req, res) => {
-  res.render('cards', {pageTitle: 'Competitive Poker', currentCoins: req.user.coins});
+  res.render('cards', {pageTitle: 'Competitive Poker', currentCoins: req.user.coins,
+  description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
 });
 router.put('/cards', isLoggedIn, (req, res) => {
   updateCoins(req, res);
 });
 
 router.get('/farkle', isLoggedIn, (req, res) => {
-  res.render('farkle', {pageTitle: 'Competitive Farkle', currentCoins: req.user.coins});
+  res.render('farkle', {pageTitle: 'Competitive Farkle', currentCoins: req.user.coins,
+  description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
 });
 router.put('/farkle', isLoggedIn, (req, res) => {
   updateCoins(req, res);
@@ -81,7 +84,8 @@ router.get('/leaderboard', isLoggedIn, (req, res) => {
   User.find({}).sort({coins: -1}).exec(function(err, allUsers) {
     if (err || !allUsers) {
       console.log(err);
-      return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: 0, users: 0, ranks: 0, search: "", curPage: 1});
+      return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: 0, users: 0, ranks: 0, search: "", curPage: 1,
+      description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
     } else {
       if (search == "") {
         if (cur >= allUsers.length || page < 1 || isNaN(page)) {
@@ -91,7 +95,8 @@ router.get('/leaderboard', isLoggedIn, (req, res) => {
           pageUsers.push(allUsers[i]);
           userRanks.push(i+1);
         }
-          return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: allUsers, ranks: userRanks, search: search, curPage: page});
+          return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: allUsers, ranks: userRanks, search: search, curPage: page,
+          description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
       } else {
         User.find({username: new RegExp(search, 'i')}).sort({coins: -1}).exec(function(err, users) {
           if (err || users.length == 0) {
@@ -112,7 +117,8 @@ router.get('/leaderboard', isLoggedIn, (req, res) => {
               }
               i++;
             }
-            return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: users, ranks: userRanks, search: search, curPage: page});
+            return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: users, ranks: userRanks, search: search, curPage: page,
+            description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
           }
         });
       }
@@ -121,7 +127,8 @@ router.get('/leaderboard', isLoggedIn, (req, res) => {
 });
 
 router.get('/register', isLoggedOut, (req, res) => {
-  res.render('register', {pageTitle: 'Create Account'});
+  res.render('register', {pageTitle: 'Create Account',
+  description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
 });
 router.post('/register', isLoggedOut, (req, res) => {
   User.find({email: req.body.email}, (err, emails) => {
@@ -156,7 +163,8 @@ router.post('/register', isLoggedOut, (req, res) => {
 });
 
 router.get('/login', isLoggedOut, (req, res) => {
-  res.render('login', {pageTitle: 'Login'});
+  res.render('login', {pageTitle: 'Login',
+  description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
 });
 router.post('/login', isLoggedOut, passport.authenticate('local', {
   failureRedirect: '/login',
@@ -173,7 +181,8 @@ router.get('/logout', isLoggedIn, (req, res) => {
 router.get('/account', isLoggedIn, (req, res) => {
   if (req.user) {
   let formattedBirthday = formatDate(req.user.birthday);
-  return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, error: false});
+  return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, error: false,
+  description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
   }
   res.redirect('/login');
 });
@@ -270,7 +279,8 @@ router.delete('/account', isLoggedIn, (req, res) => {
 });
 
 router.get('/forgotuser', isLoggedOut, (req, res) => {
-  res.render('forgotuser', {pageTitle: 'Forgot Username'});
+  res.render('forgotuser', {pageTitle: 'Forgot Username',
+  description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
 });
 router.post('/forgotuser', isLoggedOut, (req, res) => {
   var userBirthday = req.body.forgotUser.birthday;
@@ -306,7 +316,8 @@ router.get('/forgotpass', (req, res) => {
   if (req.query.username) {
     username = req.query.username;
   }
-  res.render('forgotpass', {pageTitle: 'Forgot Password', emailSent: emailSent, userId: userId, username: username, updatePW: false});
+  res.render('forgotpass', {pageTitle: 'Forgot Password', emailSent: emailSent, userId: userId, username: username, updatePW: false,
+  description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
 });
 router.post('/forgotpass', (req, res) => {
   var userBirthday = req.body.forgotPW.birthday;
@@ -345,7 +356,8 @@ router.get('/forgotpass/:id', isLoggedOut, (req, res) => { //route to update pas
     if (err || !user) {
       res.redirect('/');
     } else {
-      res.render('forgotpass', {pageTitle: 'Update Password', updatePW: true, emailSent: false, userId: req.params.id, username: req.params.username});
+      res.render('forgotpass', {pageTitle: 'Update Password', updatePW: true, emailSent: false, userId: req.params.id, username: req.params.username,
+      description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
     }
   });
 });
