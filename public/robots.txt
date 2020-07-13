@@ -3,11 +3,4 @@ Sitemap: https://www.casinocompetitor.com/sitemap.xml
 
 User-agent: *
 Allow: /
-Disallow: /forgotuser
-Disallow: /forgotpass
-Disallow: /account
-Disallow: /farkle
-Disallow: /cards
-Disallow: /leaderboard
-Disallow: /images/CompetitiveFarkleScoring.pdf
 Host: https://casinocompetitor.com
