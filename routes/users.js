@@ -56,16 +56,14 @@ router.get('/', (req, res) => {
 });
 
 router.get('/cards', isLoggedIn, (req, res) => {
-  res.render('cards', {pageTitle: 'Competitive Poker', currentCoins: req.user.coins,
-  description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
+  res.render('cards', {pageTitle: 'Competitive Poker', currentCoins: req.user.coins});
 });
 router.put('/cards', isLoggedIn, (req, res) => {
   updateCoins(req, res);
 });
 
 router.get('/farkle', isLoggedIn, (req, res) => {
-  res.render('farkle', {pageTitle: 'Competitive Farkle', currentCoins: req.user.coins,
-  description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
+  res.render('farkle', {pageTitle: 'Competitive Farkle', currentCoins: req.user.coins});
 });
 router.put('/farkle', isLoggedIn, (req, res) => {
   updateCoins(req, res);
@@ -127,8 +125,7 @@ router.get('/leaderboard', isLoggedIn, (req, res) => {
 });
 
 router.get('/register', isLoggedOut, (req, res) => {
-  res.render('register', {pageTitle: 'Create Account',
-  description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
+  res.render('register', {pageTitle: 'Create Account'});
 });
 router.post('/register', isLoggedOut, (req, res) => {
   User.find({email: req.body.email}, (err, emails) => {
@@ -163,8 +160,7 @@ router.post('/register', isLoggedOut, (req, res) => {
 });
 
 router.get('/login', isLoggedOut, (req, res) => {
-  res.render('login', {pageTitle: 'Login',
-  description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
+  res.render('login', {pageTitle: 'Login'});
 });
 router.post('/login', isLoggedOut, passport.authenticate('local', {
   failureRedirect: '/login',
@@ -181,8 +177,7 @@ router.get('/logout', isLoggedIn, (req, res) => {
 router.get('/account', isLoggedIn, (req, res) => {
   if (req.user) {
   let formattedBirthday = formatDate(req.user.birthday);
-  return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, error: false,
-  description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
+  return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, error: false});
   }
   res.redirect('/login');
 });
@@ -279,8 +274,7 @@ router.delete('/account', isLoggedIn, (req, res) => {
 });
 
 router.get('/forgotuser', isLoggedOut, (req, res) => {
-  res.render('forgotuser', {pageTitle: 'Forgot Username',
-  description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
+  res.render('forgotuser', {pageTitle: 'Forgot Username'});
 });
 router.post('/forgotuser', isLoggedOut, (req, res) => {
   var userBirthday = req.body.forgotUser.birthday;
@@ -316,8 +310,7 @@ router.get('/forgotpass', (req, res) => {
   if (req.query.username) {
     username = req.query.username;
   }
-  res.render('forgotpass', {pageTitle: 'Forgot Password', emailSent: emailSent, userId: userId, username: username, updatePW: false,
-  description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
+  res.render('forgotpass', {pageTitle: 'Forgot Password', emailSent: emailSent, userId: userId, username: username, updatePW: false});
 });
 router.post('/forgotpass', (req, res) => {
   var userBirthday = req.body.forgotPW.birthday;
