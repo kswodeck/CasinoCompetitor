@@ -115,6 +115,7 @@ function diceRoll() {
   for (var currentDice = 0 + diceHeld; currentDice < 6; currentDice++) {
     let currentDiceElement = document.getElementsByClassName('dice')[currentDice];
     let holdCurrentDice = document.getElementById('hold' + currentDice);
+    currentDiceElement.style.visibility = 'visible';
     currentDiceElement.classList.remove('spin-grow');
     holdCurrentDice.classList.add('text-opacity');
     diceArr.push(new Dice(roll(), currentDiceElement));

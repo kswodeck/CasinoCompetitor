@@ -6,11 +6,11 @@
         <form action="/account/?_method=PUT" method="POST">
           <div class="name-row row">
             <div id="firstNameCol" class="name-col col">
-              <label for="firstName" class="account-label sm-txt">First Name</label><br>
+              <label for="updateFirstName" class="account-label sm-txt">First Name</label><br>
               <input type="text" name="updateUser[firstName]" id="updateFirstName" class="my-account user-input" minlength="1" maxlength="30" value="<%= currentUser.firstName %>" size="20"  autocomplete="given-name" required>
             </div>
             <div id="lastNameCol" class="name-col col">
-              <label for="lastName" class="account-label sm-txt">Last Name</label><br>
+              <label for="updateLastName" class="account-label sm-txt">Last Name</label><br>
               <input type="text" name="updateUser[lastName]" id="updateLastName" class="my-account user-input" minlength="1" maxlength="40" value="<%= currentUser.lastName %>" size="20" autocomplete="family-name" required>
             </div>
           </div>
