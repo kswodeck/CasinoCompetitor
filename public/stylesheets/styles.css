@@ -687,7 +687,7 @@ border-radius: .25rem;
   min-width: 30%;
   text-align: center;
   margin-bottom: calc(2px + 0.3vh);
-  line-height: 1.5;
+  line-height: 1.7;
 }
 
 #contactFile {
@@ -719,24 +719,27 @@ border-radius: .25rem;
   cursor: pointer;
   color: darkblue;
   z-index: 2;
-  font-size: calc(16px + 0.25vw + 0.15vh);
+  font-size: calc(20px + 0.3vw + 0.2vh);
 }
 .input-icon:active {
   color: var(--darkcrimson);
 }
 .show-hide {
-  margin-left: calc(-20px - 0.5vw);
+  margin-left: calc(-24px - 0.5vw);
 }
 .edit-icon {
   margin-left: calc(2px + 0.2vw);
 }
 
-svg.navbar-toggler-icon, .btn, svg.dropdown-arrow, svg.input-icon {
+svg.navbar-toggler-icon, .btn, svg.dropdown-arrow {
   vertical-align: sub;
+}
+svg.input-icon, #search-button {
+  vertical-align: top;
 }
 
 .password {
-  margin-left: -8px;
+  margin-left: -2px;
 }
 .invalid-fields-list {
   margin: 1% auto 0 auto;
