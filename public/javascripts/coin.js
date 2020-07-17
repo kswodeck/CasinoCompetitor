@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 var headsWins = []; var tailsWins = [];
 const headWin = document.getElementById('head_win');
 const tailWin = document.getElementById('tail_win');
@@ -69,3 +68,6 @@ function clearTally () {
   headWin.innerText = headsWins.length;
   tailWin.innerText = tailsWins.length;
 }
+
+window.coinFlip = coinFlip; window.clearTally = clearTally;
+export * from './coin.js';

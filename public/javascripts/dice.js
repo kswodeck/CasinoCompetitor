@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 var onesWins = [], twosWins = [], threesWins = [], foursWins = [], fivesWins = [], sixesWins = []; // results arrays declared
 var diceRollDiv = document.getElementById('dice-roll-div');
 var diceRollButton = document.getElementById('dice-roll-button');
@@ -92,3 +91,6 @@ function clearTally () {
     totalTallys[i].innerText = '0';
   }
 }
+
+window.diceRoll = diceRoll; window.clearTally = clearTally;
+export * from './dice.js';
