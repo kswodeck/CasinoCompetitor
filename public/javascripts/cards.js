@@ -48,7 +48,7 @@ function getCards() {
   const betButton = document.getElementById('bet-button');
   currentWinSpan.innerText = 0;
   handRankingHeading.style.display = 'none';
-  winButton.style.backgroundColor = 'crimson';
+  winButton.style.backgroundColor = '#be0b2f';
   winButton.style.boxShadow = '0 6px var(--darkcrimson)';
   for (var currentCard = 0; currentCard < 5; currentCard++) {
     let holdCurrentCard = document.getElementById('hold' + currentCard);
@@ -254,7 +254,7 @@ function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunct
   if (handsDealt < 2) {
     resultText = getHandRanking(currentHand);
     if (resultText === 'Game Over') {
-      handRankingHeading.style.color = 'crimson'; // if no hand category has been acheived, red text
+      handRankingHeading.style.color = '#be0b2f'; // if no hand category has been acheived, red text
     } else {
       handRankingHeading.style.color = 'darkblue'; // if a hand category has been acheived, blue text
       if (handsDealt === 1) {

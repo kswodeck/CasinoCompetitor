@@ -42,7 +42,7 @@ function farkleRoll() {
   }
   currentWinSpan.innerText = 0;
   betButton.setAttribute('disabled', 'disabled');
-  winButton.style.backgroundColor = 'crimson';
+  winButton.style.backgroundColor = '#be0b2f';
   winButton.style.boxShadow = '0 6px var(--darkcrimson)';
   if (diceRolls === 0) {
     updateCoinsStart = new Promise(resolve => {
@@ -190,7 +190,7 @@ function farkleRollTeardown() {
   rollScoreHeading.innerText = getRollScore();
   setTimeout(() => {
     if (rollRankingHeading.innerText == 'Farkle') {
-      rollRankingHeading.style.color = 'crimson';
+      rollRankingHeading.style.color = '#be0b2f';
       if (players > 1) {
         diceRollButton.innerText = 'Show Scores';
       } else {

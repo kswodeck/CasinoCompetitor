@@ -11,26 +11,26 @@ if (titleTag.innerText == 'My Account') {
 }
 
 function validateAccountCreate() {
-  disableAfterSubmit('accountCreate', 1500);
   const inputs = document.getElementsByClassName('account-input');
-  removeWhiteSpace(inputs);
   const invalidList = document.getElementById('invalid-fields-list');
+  let cookieNames = ['firstName', 'lastName', 'email', 'username', 'phone', 'birthday'];
+  let cookieValues = ["firstName", "lastName", "newEmail", "createUsername", "createPhone", "newBirthday"];
+  let isValid = validateInputs(invalidList, inputs, 'accountCreate', 1500, cookieNames, cookieValues);
   const newPassword = document.getElementById('newPassword');
   const repeatPassword = document.getElementById('repeatPassword');
-  let isValid = validateInputs(invalidList, inputs);
   if (!isValid) {
     return false;
-  } 
+  }
   return validatePassMatch(newPassword, repeatPassword, invalidList);
 }
 
 function validateAccountUpdate() {
-  disableAfterSubmit('accountUpdateButton', 1500);
   const inputs = document.getElementsByClassName('my-account');
   const invalidList = document.getElementById('invalid-fields-list');
+  let cookieNames = ['firstName', 'lastName', 'email', 'username', 'phone', 'birthday'];
+  let cookieValues = ["updateFirstName", "updateLastName", "updateEmail", "updateUsername", "updatePhone", "updateBirthday"];
+  let isValid = validateInputs(invalidList, accountInputs, 'accountUpdateButton', 1500, cookieNames, cookieValues);
   const item = document.createElement('li');
-  removeWhiteSpace(inputs);
-  let isValid = validateInputs(invalidList, accountInputs);
   if (accountInputs[0].value == firstNameValue && accountInputs[1].value == lastNameValue && accountInputs[2].value == emailValue &&
     accountInputs[3].value == usernameValue && accountInputs[4].value == phoneValue && accountInputs[5].value == birthdayValue) {
       item.className = 'invalid-list';
@@ -45,13 +45,13 @@ function validateAccountUpdate() {
 }
 
 function validatePasswordUpdate() {
-  disableAfterSubmit('passwordUpdateButton', 1000);
-  let inputs = document.getElementsByClassName('updatePassInput');
-  var invalidList = document.getElementById('invalid-update-password');
-  var oldPassword = document.getElementById('oldPassword');
-  var updatePassword = document.getElementById('updatePassword');
-  var repeatPassword = document.getElementById('repeatNewPassword');
-  let isValid = validateInputs(invalidList, inputs);
+  const inputs = document.getElementsByClassName('updatePassInput');
+  const invalidList = document.getElementById('invalid-update-password');
+  let cookieNames = [], cookieValues = [];
+  let isValid = validateInputs(invalidList, inputs, 'passwordUpdateButton', 1000, cookieNames, cookieValues);
+  const oldPassword = document.getElementById('oldPassword');
+  const updatePassword = document.getElementById('updatePassword');
+  const repeatPassword = document.getElementById('repeatNewPassword');
   if (!isValid) {
     return false;
   }   
@@ -64,23 +64,23 @@ function validatePasswordUpdate() {
   } else {
     setTimeout(() => { // if there's only 1 more possible error, display it after timeout
       addToInvalidList('* current password is incorrect', oldPassword, invalidList);
-      oldPassword.style.borderColor = 'crimson';
-    }, 900);
+      oldPassword.style.borderColor = '#be0b2f';
+    }, 1000);
     return true;
   }
 }
 
 function validatePasswordChange() {
-  disableAfterSubmit('passwordChangeButton', 800);
-  let inputs = document.getElementsByClassName('changePassInput');
-  let invalidList = document.getElementById('invalid-change-password');
-  let updatePassword = document.getElementById('changePassword');
-  let repeatPassword = document.getElementById('repeatChangePassword');
-  let isValid = validateInputs(invalidList, inputs);
+  const inputs = document.getElementsByClassName('changePassInput');
+  const invalidList = document.getElementById('invalid-change-password');
+  let cookieNames = [], cookieValues = [];
+  let isValid = validateInputs(invalidList, inputs, 'passwordChangeButton', 1000, cookieNames, cookieValues);
+  const changePassword = document.getElementById('changePassword');
+  const repeatPassword = document.getElementById('repeatChangePassword');
   if (!isValid) {
     return false;
   } 
-  let match = validatePassMatch(updatePassword, repeatPassword, invalidList);
+  let match = validatePassMatch(changePassword, repeatPassword, invalidList);
   if (!match) {
     return false;
   }
@@ -88,17 +88,44 @@ function validatePasswordChange() {
 }
 
 function validatePreLogin(inputClass, list) {
+  let cookieNames = ['email', 'phone', 'birthday'];
+  let cookieValues = ['loginUsername'];
+  let disableButton = 'loginButton';
+  if (document.getElementById('forgotPWDialog').open) {
+    disableButton = 'forgotPWButton';
+    cookieValues = ['forgotPWEmail', 'forgotPWPhone', 'forgotPWBirthday'];
+  } else if (document.getElementById('forgotUserDialog').open) {
+    disableButton = 'forgotUserButton';
+    cookieValues = ['forgotUserEmail', 'forgotUserPhone', 'forgotUserBirthday'];
+  } else {
+    cookieNames = ['username'];
+  }
   const inputs = document.getElementsByClassName(inputClass);
-  removeWhiteSpace(inputs);
   const invalidList = document.getElementById(list);
-  let isValid = validateInputs(invalidList, inputs);
+  let isValid = validateInputs(invalidList, inputs, disableButton, 1500, cookieNames, cookieValues);
   if (!isValid) {
     return false;
   }
   return true;
 }
 
-function validateInputs(invalidList, inputs) {
+function validateContactUs() {
+  let invalidList = document.getElementById('invalid-fields-list');
+  let inputs = document.getElementsByClassName('account-input');
+  let cookieNames = [], cookieValues = [];
+  let isValid = validateInputs(invalidList, inputs, 'contactUsButton', 1000, cookieNames, cookieValues);
+  console.log(isValid);
+  if (isValid == false) {
+    console.log('false');
+    return false;
+  } else {
+    sendContactEmail();
+  }
+}
+
+function validateInputs(invalidList, inputs, button, disableTime, cookieNames, cookieValues) {
+  disableAfterSubmit(button, disableTime);
+  removeWhiteSpace(inputs);
   clearValidityMessages();
   let validity = true;
   let empty = false;
@@ -110,12 +137,13 @@ function validateInputs(invalidList, inputs) {
       validity = false;
     } else if (inputs[i].type == 'email') {
       if (!emailIsValid(inputs[i].value)) {
-        inputs[i].style.borderColor = 'crimson';
+        inputs[i].style.borderColor = '#be0b2f';
         validity = false;
       }
     }
     inputs[i].style.borderWidth = '0.06em';
   }
+  addCookies(cookieNames, cookieValues);
   if (empty == true) {
     console.log('empty');
     addToInvalidList('* please fill out all fields', inputs[inputs.length-1], invalidList);
@@ -130,7 +158,7 @@ function validateInputs(invalidList, inputs) {
 function validatePassMatch(password, repeatPassword, invalidList) {
   if (password.value != repeatPassword.value) {
       addToInvalidList('* repeat password must match password', password, invalidList);
-      repeatPassword.style.border = '0.06em solid crimson';
+      repeatPassword.style.border = '0.06em solid #be0b2f';
       return false;
   }
   return true;
@@ -161,6 +189,12 @@ function clearValidityMessages() {
   }
 }
 
+function disableAfterSubmit(button, time) {
+  let element = document.getElementById(button);
+  setTimeout(() => element.disabled = true, 5);
+  setTimeout(() => element.disabled = false, time);
+}
+
 function removeWhiteSpace(inputs) {
   for (let i = 0; i < inputs.length; i++) {
     let inputType = inputs[i].getAttribute('type');
@@ -171,12 +205,6 @@ function removeWhiteSpace(inputs) {
       inputs[i].value = inputs[i].value.replace(inputs[i].value.slice(-1),'');
     }
   }
-}
-
-function disableAfterSubmit(button, time) {
-  let element = document.getElementById(button);
-  setTimeout(() => element.disabled = true, 5);
-  setTimeout(() => element.disabled = false, time);
 }
 
 function validateKeys(evt, type) {
@@ -200,19 +228,6 @@ function validateKeys(evt, type) {
   }
 }
 
-function validateContactUs() {
-  let invalidList = document.getElementById('invalid-fields-list');
-  let inputs = document.getElementsByClassName('account-input');
-  let validity = validateInputs(invalidList, inputs);
-  console.log(validity);
-  if (validity == false) {
-    console.log('false');
-    return false;
-  } else {
-    sendContactEmail();
-  }
-}
-
 function sendContactEmail() {
   let name = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value;
   let email = document.getElementById('contactEmail').value;
@@ -226,6 +241,13 @@ function sendContactEmail() {
     To : "kristofferswodeck@live.com",
     From : "kmswodeck@gmail.com",
     Subject : "Contact Us Submission - " + subject,
-    Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 250px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: crimson; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><h3 style="color: darkblue; font-size: 20px; margin-bottom: 10px">From: ' + name + ' (' + email + ')</h3><p>You received a new contact us form submission:<br>' + '"' + text + '"' + '</p></div></html>'
+    Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 250px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: #be0b2f; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><h3 style="color: darkblue; font-size: 20px; margin-bottom: 10px">From: ' + name + ' (' + email + ')</h3><p>You received a new contact us form submission:<br>' + '"' + text + '"' + '</p></div></html>'
   }).then(() => document.getElementById('contactUsForm').submit());
+}
+
+function addCookies(inputs, values) {
+  for (let i = 0; i < inputs.length; i++) {
+    let value = document.getElementById(values[i]).value;
+    document.cookie = inputs[i] + '=' + value + '; max-age=2600000; path=/; domain=casinocompetitor.com; secure';
+  }
 }
