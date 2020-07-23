@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 const titleTag = document.getElementsByTagName('title')[0];
 if (titleTag.innerText == 'My Account') {
@@ -15,7 +16,7 @@ function validateAccountCreate() {
   const invalidList = document.getElementById('invalid-fields-list');
   let cookieNames = ['firstName', 'lastName', 'email', 'username', 'phone', 'birthday'];
   let cookieValues = ["firstName", "lastName", "newEmail", "createUsername", "createPhone", "newBirthday"];
-  let isValid = validateInputs(invalidList, inputs, 'accountCreate', 1500, cookieNames, cookieValues);
+  let isValid = validateInputs(invalidList, inputs, 'accountCreate', 1300, cookieNames, cookieValues);
   const newPassword = document.getElementById('newPassword');
   const repeatPassword = document.getElementById('repeatPassword');
   if (!isValid) {
@@ -29,7 +30,7 @@ function validateAccountUpdate() {
   const invalidList = document.getElementById('invalid-fields-list');
   let cookieNames = ['firstName', 'lastName', 'email', 'username', 'phone', 'birthday'];
   let cookieValues = ["updateFirstName", "updateLastName", "updateEmail", "updateUsername", "updatePhone", "updateBirthday"];
-  let isValid = validateInputs(invalidList, accountInputs, 'accountUpdateButton', 1500, cookieNames, cookieValues);
+  let isValid = validateInputs(invalidList, accountInputs, 'accountUpdateButton', 1200, cookieNames, cookieValues);
   const item = document.createElement('li');
   if (accountInputs[0].value == firstNameValue && accountInputs[1].value == lastNameValue && accountInputs[2].value == emailValue &&
     accountInputs[3].value == usernameValue && accountInputs[4].value == phoneValue && accountInputs[5].value == birthdayValue) {
@@ -102,7 +103,7 @@ function validatePreLogin(inputClass, list) {
   }
   const inputs = document.getElementsByClassName(inputClass);
   const invalidList = document.getElementById(list);
-  let isValid = validateInputs(invalidList, inputs, disableButton, 1500, cookieNames, cookieValues);
+  let isValid = validateInputs(invalidList, inputs, disableButton, 1200, cookieNames, cookieValues);
   if (!isValid) {
     return false;
   }
@@ -114,9 +115,7 @@ function validateContactUs() {
   let inputs = document.getElementsByClassName('account-input');
   let cookieNames = [], cookieValues = [];
   let isValid = validateInputs(invalidList, inputs, 'contactUsButton', 1000, cookieNames, cookieValues);
-  console.log(isValid);
   if (isValid == false) {
-    console.log('false');
     return false;
   } else {
     sendContactEmail();
@@ -145,7 +144,6 @@ function validateInputs(invalidList, inputs, button, disableTime, cookieNames, c
   }
   addCookies(cookieNames, cookieValues);
   if (empty == true) {
-    console.log('empty');
     addToInvalidList('* please fill out all fields', inputs[inputs.length-1], invalidList);
     return false;
   } else if (!validity) {
@@ -191,7 +189,7 @@ function clearValidityMessages() {
 
 function disableAfterSubmit(button, time) {
   let element = document.getElementById(button);
-  setTimeout(() => element.disabled = true, 5);
+  setTimeout(() => element.disabled = true, 50);
   setTimeout(() => element.disabled = false, time);
 }
 
@@ -217,9 +215,6 @@ function validateKeys(evt, type) {
       key = String.fromCharCode(key);
   }
   var regex = /[0-9]|\./;
-  // if (type == 'tel') { //phone number allowed characters
-  //     regex = /[0-9]|[-]|[+]|[(]|[)]|[ ]/;
-  // }
   if(!regex.test(key)) {
     theEvent.returnValue = false;
     if(theEvent.preventDefault) {
@@ -233,7 +228,6 @@ function sendContactEmail() {
   let email = document.getElementById('contactEmail').value;
   let subject = document.getElementById('contactSubject').value;
   let text = document.getElementById('contactTextArea').value;
-  // eslint-disable-next-line no-undef
   Email.send({
     Host : "smtp.elasticemail.com",
     Username : "kswodeck@yahoo.com",

@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 var express  = require('express');
-const { configureScope } = require('@sentry/node');
 var passport = require('passport'),
     router   = express.Router({mergeParams: true}),
     moment   = require('moment'),
+    badWords = require('../public/javascripts/words'),
     User     = require('../models/user');
 
 // account, authentication, and routes only for logged in users
@@ -43,8 +43,7 @@ router.get('/', (req, res) => {
     } else if (!changedLastLogin){
       User.findOneAndUpdate({_id: req.user._id}, {$set: {loginStreak: newStreak, lastLogin: current, coins: newCoins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
     }
-    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins, updatePW: false,
-    description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
+    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins, updatePW: false});
   } else {
     var streak, coins;
     if (req.user) {
@@ -81,9 +80,7 @@ router.get('/leaderboard', isLoggedIn, (req, res) => {
   var pageUsers = [], userRanks = [];
   User.find({}).sort({coins: -1}).exec(function(err, allUsers) {
     if (err || !allUsers) {
-      console.log(err);
-      return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: 0, users: 0, ranks: 0, search: "", curPage: 1,
-      description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
+      return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: 0, users: 0, ranks: 0, search: "", curPage: 1});
     } else {
       if (search == "") {
         if (cur >= allUsers.length || page < 1 || isNaN(page)) {
@@ -93,12 +90,10 @@ router.get('/leaderboard', isLoggedIn, (req, res) => {
           pageUsers.push(allUsers[i]);
           userRanks.push(i+1);
         }
-          return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: allUsers, ranks: userRanks, search: search, curPage: page,
-          description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
+          return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: allUsers, ranks: userRanks, search: search, curPage: page});
       } else {
         User.find({username: new RegExp(search, 'i')}).sort({coins: -1}).exec(function(err, users) {
-          if (err || users.length == 0) {
-            console.log(err); //no users found from search OR error
+          if (err || users.length == 0) { //no users found from search OR error
             return res.redirect('/leaderboard');
           } else {
             if (cur >= users.length || page < 1 || isNaN(page)) {
@@ -115,8 +110,7 @@ router.get('/leaderboard', isLoggedIn, (req, res) => {
               }
               i++;
             }
-            return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: users, ranks: userRanks, search: search, curPage: page,
-            description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
+            return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: users, ranks: userRanks, search: search, curPage: page});
           }
         });
       }
@@ -140,19 +134,24 @@ router.post('/register', isLoggedOut, (req, res) => {
           res.redirect('/register');
           // res.status(204).send(); // seem like best option to use this then timeout and display generic message on UI
         } else {
-          let momentBirthday = getLocalNoonDate(req.body.birthday);
-          var newUser = new User({email: req.body.email, username: req.body.username, firstName: req.body.firstName, lastName: req.body.lastName, phone: req.body.phone, birthday: momentBirthday});
-          User.register(newUser, req.body.password, (err, user) => {
-              if (err || !user){
-                req.flash('error', err);
-                res.redirect('/register');
-              } else {
-                console.log(user);
-                passport.authenticate('local')(req, res, () => {
-                  res.redirect('/?firstLogin=' + true);
-              });
-            }
-          });
+          const username = req.body.username;
+          if (containsBadWord(username)) {
+            req.flash('error', 'You must not use a bad word in your username');
+            return res.redirect('/register');
+          } else {
+            let momentBirthday = getLocalNoonDate(req.body.birthday);
+            var newUser = new User({email: req.body.email, username: username, firstName: req.body.first, lastName: req.body.last, phone: req.body.phone, birthday: momentBirthday});
+            User.register(newUser, req.body.password, (err, user) => {
+                if (err || !user){
+                  req.flash('error', err);
+                  res.redirect('/register');
+                } else {
+                  passport.authenticate('local')(req, res, () => {
+                    res.redirect('/?firstLogin=' + true);
+                });
+              }
+            });
+          }
         }
       });
     }
@@ -186,10 +185,8 @@ router.put('/account', isLoggedIn, (req, res) => {
   if (req.body.updatePassword) {
       curUser.changePassword(req.body.oldPassword, req.body.updatePassword, (err, user) => {
         if (err || !user){
-          console.log(err);
           return res.status(204).send();
         } else {
-          console.log('Password changed to: ' + req.body.updatePassword + 'for ' + user.username);
           req.flash('success', 'Account has been updated');
           res.redirect('/account');
         }
@@ -198,54 +195,51 @@ router.put('/account', isLoggedIn, (req, res) => {
     var formattedBirthday = formatDate(curUser.birthday);
     if (updated.firstName != curUser.firstName) {
       User.findOneAndUpdate({_id: curUser._id}, {$set: {firstName: updated.firstName}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
-      console.log('firstName updated from: ' + curUser.firstName + ' to ' + updated.firstName);
     } 
     if (updated.lastName != curUser.lastName) {
       User.findOneAndUpdate({_id: curUser._id}, {$set: {lastName: updated.lastName}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
-      console.log('lastName updated from: ' + curUser.lastName + ' to ' + updated.lastName);
     }
     if (updated.phone != curUser.phone) {
       User.findOneAndUpdate({_id: curUser._id}, {$set: {phone: updated.phone}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
-      console.log('phone updated from: ' + curUser.phone + ' to ' + updated.phone);
     }
     if (updated.birthday != formattedBirthday) {
       let momentBirthday =  getLocalNoonDate(updated.birthday);
       User.findOneAndUpdate({_id: curUser._id}, {$set: {birthday: momentBirthday}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
-      console.log('birthday updated from: ' + formattedBirthday + ' to ' + momentBirthday);
     }
     if (updated.email != curUser.email) {
       User.find({email: updated.email}, (err, result) => {
         if (err || result.length > 0) {
-          console.log('Email Num Results: ' + result.length + ', Error: ' + err);
           req.flash('invalidEmail', 'Email "' + updated.email + '" already exists');
           res.redirect('/account');
         } else {
           User.findOneAndUpdate({_id: curUser._id}, {$set: {email: updated.email}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
-          console.log('email updated from: ' + curUser.email + ' to ' + updated.email);
         }
       });
     } 
     if (updated.username != curUser.username) {
-      User.find({username: updated.username}, (err, result) => {
-        if (err || result.length > 0) {
-          console.log('Username Num Results: ' + result.length + ', Error: ' + err);
-          res.setTimeout(500, () => {
-            if (!res.headersSent) {
-              req.flash('invalidUser', 'Username "' + updated.username + '" already exists');
-              res.redirect('/account');
-            }
-          });
-        } else {
-          User.findOneAndUpdate({_id: curUser._id}, {$set: {username: updated.username}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
-          console.log('username updated from: ' + curUser.username + ' to ' + updated.username);
-          res.setTimeout(700, () => {
-            if (!res.headersSent) {
-              req.flash('error', 'Please login with your new username');
-              res.redirect('/login');
-            }
-          });
-        }
-      });
+      if (!containsBadWord(updated.username)) {
+        User.find({username: updated.username}, (err, result) => {
+          if (err || result.length > 0) {
+            res.setTimeout(500, () => {
+              if (!res.headersSent) {
+                req.flash('invalidUser', 'Username "' + updated.username + '" already exists');
+                res.redirect('/account');
+              }
+            });
+          } else {
+            User.findOneAndUpdate({_id: curUser._id}, {$set: {username: updated.username}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
+            res.setTimeout(700, () => {
+              if (!res.headersSent) {
+                req.flash('error', 'Please login with your new username');
+                res.redirect('/login');
+              }
+            });
+          }
+        });
+      } else {
+        req.flash('invalidUser', 'You must not use a bad word in your username');
+        return res.redirect('/account');
+      }
     } else {
       res.setTimeout(400, () => {
           req.flash('success', 'Account has been updated');
@@ -280,17 +274,12 @@ router.post('/forgotuser', isLoggedOut, (req, res) => {
   var userBirthday = req.body.forgotUser.birthday;
   var msg = 'No match found';
   User.find({email: req.body.forgotUser.email, phone: req.body.forgotUser.phone}, (err, users) => {
-    if (err || users.length < 1) {
-      console.log("email and phone combination doesn't exist");
-    } else {
+    if (!err || users.length > 0) {
       for (let i = 0; i < users.length; i++) {
         let storedBirthday = formatDate(users[i].birthday);
-        console.log('storedBirthday: ' + storedBirthday + ', userBirthday: ' + userBirthday);
         if (storedBirthday.includes(userBirthday)) {
           msg = 'Username: ' + users[i].username;
           break;
-        } else {
-          console.log('birthday not a match');
         }
       }
     }
@@ -328,7 +317,6 @@ router.post('/forgotpass', (req, res) => {
               req.flash('error', 'An error occured');
               res.redirect('/forgotpass');
             } else {
-              console.log('Match found, sending email');
               req.flash('success', 'password recovery email sent');
               res.setTimeout(500, () => {
                 res.redirect('/forgotpass?emailSent=' + req.body.forgotPW.email + '&userId=' + curUser._id + '&username=' + curUser.username);
@@ -349,8 +337,7 @@ router.get('/forgotpass/:id', isLoggedOut, (req, res) => { //route to update pas
     if (err || !user) {
       res.redirect('/');
     } else {
-      res.render('forgotpass', {pageTitle: 'Update Password', updatePW: true, emailSent: false, userId: req.params.id, username: req.params.username,
-      description: 'Compete at this virtual casino with games such as poker, farkle, dice rolling, and coin flipping. Play competitively to claim the top place on the leaderboard.'});
+      res.render('forgotpass', {pageTitle: 'Update Password', updatePW: true, emailSent: false, userId: req.params.id, username: req.params.username});
     }
   });
 });
@@ -365,10 +352,7 @@ router.put('/forgotpass/:id', isLoggedOut, (req, res) => { //route for forgotten
         } else {
           res.setTimeout(200, () => {
             req.user.setPassword(req.body.password, (e, user) => {
-              if (e || !user){
-                console.log(e);
-              } else {
-                console.log('Password changed to: ' + req.body.password);
+              if (!e || user){
                 req.user.save();
                 req.logout();
                 req.flash('error', 'Password has been updated');
@@ -399,11 +383,9 @@ function isLoggedOut(req, res, next){
 function updateCoins(req, res) {
   let newCoins = req.body.coins, curWin = req.body.currentWin;
   if (newCoins != req.user.coins) { //update coins
-    console.log('updating coins: ' + req.user.coins + ' to ' + newCoins);
     User.findOneAndUpdate({username: req.user.username}, {$set: {coins: newCoins}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
   }
   if (curWin > req.user.highestWin) { //update highestWin
-    console.log('updating highestWin: ' + req.user.highestWin + ' to ' + curWin);
     User.findOneAndUpdate({username: req.user.username}, {$set: {highestWin: curWin}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
   }
   return res.status(204).send();
@@ -430,6 +412,15 @@ function getMonthNum(month) {
   month === 'May' ? month = '05' : month === 'Jun' ? month = '06' : month === 'Jul' ? month = '07' :  month === 'Aug' ? month = '08' :
   month === 'Sep' ? month = '09' : month === 'Oct' ? month = '10' : month === 'Nov' ? month = '11' : month = '12';
   return month;
+}
+
+function containsBadWord(word) {
+  for (let i = 0; i < badWords.length; i++) {
+    if (word.includes(badWords[i])) {
+      return true;
+    }
+  }
+  return false;
 }
 
 module.exports = router;
