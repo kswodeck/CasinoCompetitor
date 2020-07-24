@@ -15,15 +15,15 @@
             </div>
           </div>
           <label for="updateEmail" class="account-label sm-txt">Email</label><br>
-          <input type="email" name="updateUser[email]" id="updateEmail" class="my-account user-input" minlength="8" maxlength="60" value="<%= currentUser.email %>" size="40" autocomplete="email" required><br>
+          <input type="email" name="updateUser[email]" id="updateEmail" class="my-account user-input" minlength="8" maxlength="60" value="<%= currentUser.email %>" size="40" autocomplete="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required><br>
           <label for="updateUsername" class="account-label sm-txt">Username</label><br>
           <input type="text" name="updateUser[username]" id="updateUsername" class="my-account user-input" minlength="5" maxlength="25" value="<%= currentUser.username %>" size="30" autocomplete="username" required><br>
           <label for="accountPassword" class="account-label sm-txt">Password</label><br>
           <input type="password" id="accountPassword" class="placeholderPassword user-input" value="password" size="30" autocomplete="off" disabled><i class="fas fa-pencil-alt edit-icon input-icon" onclick="displayDialog('updatePWDialog')" onkeypress="displayDialog('updatePWDialog')" tabindex="0"></i><br>
-          <label for="updatePhone" class="account-label sm-txt">Phone Number</label><br>
-          <input type="tel" name="updateUser[phone]" id="updatePhone" class="my-account user-input" minlength="10" maxlength="16" value="<%= currentUser.phone %>" inputmode="numeric" onkeypress="validateKeys(event, 'tel')" title="format: XXXXXXXXXX" autocomplete="tel" required><br>
           <label for="updateBirthday" class="account-label sm-txt">Birthday</label><br>
-          <input type="date" name="updateUser[birthday]" id="updateBirthday" class="my-account birthday user-input" min="1920-01-01" max="2020-06-01" value="<%= birthday %>" onkeypress="validateKeys(event, 'date')" pattern="^[0–9]$" title="format: mm-dd-yyyy" autocomplete="bday" required><br>
+          <input type="date" name="updateUser[birthday]" id="updateBirthday" class="my-account birthday user-input" min="1920-01-01" max="2020-06-01" value="<%= birthday %>" title="format: mm-dd-yyyy" autocomplete="bday" required><br>
+          <label for="updatePhone" class="account-label sm-txt">Phone Number</label><br>
+          <input type="tel" name="updateUser[phone]" id="updatePhone" class="my-account user-input" value="<%= currentUser.phone %>" minlength="10" maxlength="16" size="25" inputmode="numeric" onpaste="forceNumeric(event, 'tel')" onkeypress="forceNumeric(event, 'tel')" title="format: XXXXXXXXXX" placeholder="XXXXXXXXXX" autocomplete="tel" required><br>
           <ul id="invalid-fields-list" class="invalid-fields-list">
           <% if (invalidUser && invalidUser.length > 0) { %>
             <li class="invalid-list"><%= invalidUser %></li>

@@ -432,21 +432,20 @@ function clearValidityMessages() {
   }
 }
 
-function validateKeys(evt, type) {
+function forceNumeric(evt, type) {
   let key;
   let theEvent = evt || window.event;
-  if (theEvent.type === 'paste') {     // Handle paste
-      key = event.clipboardData.getData('text/plain');
+  if (theEvent.type === 'paste') { // Handle paste
+    key = theEvent.clipboardData.getData('text/plain');
   } else {
-      key = theEvent.keyCode || theEvent.which; // Handle key press
-      key = String.fromCharCode(key);
+    key = theEvent.keyCode || theEvent.which; // Handle key press
+    key = String.fromCharCode(key);
   }
-  var regex = /[0-9]|\./;
-  if(!regex.test(key)) {
+  var regex = /[0-9]/;
+  if(!regex.test(key) || isNaN(key)) {
     theEvent.returnValue = false;
-    if(theEvent.preventDefault) {
-      theEvent.preventDefault();
-    }
+    theEvent.preventDefault();
+    return false;
   }
 }
 
