@@ -64,7 +64,7 @@
     <label for="verifyPassword" class="account-label sm-txt">Confirm Password</label><br>
     <input type="password" name="password" id="verifyPassword" class="verifyPassInput password user-input" minlength="5" maxlength="25" placeholder="password" size="30" required><i id="verifyPassIcon" onclick="togglePasswordVisibility('verifyPassword', 'verifyPassIcon')" onkeypress="togglePasswordVisibility('verifyPassword', 'verifyPassIcon')" class="show-hide input-icon fas fa-eye" tabindex="0"></i>
     <ul id="invalid-verify-password" class="invalid-fields-list"></ul>
-    <button type="submit" name="password-verify" role="button" class="btn md-text red-bg gold-text btn-style account-button" id="passwordVerifyDeleteButton" onclick="disableAfterSubmit('passwordVerifyDeleteButton', 1000)">Delete Account</button>
+    <button type="submit" name="password-verify" role="button" class="btn md-text red-bg gold-text btn-style account-button" id="passwordVerifyDeleteButton" onclick="return validateAccountDelete()">Delete Account</button>
   </form>
 </dialog>
 <dialog id="updatePWDialog" class="container-fluid account-form-div account-dialog">
