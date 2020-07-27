@@ -313,9 +313,9 @@ function getHandRanking(hand) {
     }
     return false;
   }
-  function isStraightHand(v0, v1, v2, v3, v4) {
-    const compArray = [v0, v1, v2, v3, v4];
-    const minNum = Math.min(v0, v1, v2, v3, v4);
+  function isStraightHand(...values) {
+    const compArray = [...values]; //same as v0, v1, v2, v3, v4
+    const minNum = Math.min(...values);
     if (compArray.includes(minNum + 1) && compArray.includes(minNum + 2) && compArray.includes(minNum + 3) && compArray.includes(minNum + 4)) {
       return true;
     } else if (compArray.includes(10) && compArray.includes(11) && compArray.includes(12) && compArray.includes(13) && compArray.includes(1)) {
