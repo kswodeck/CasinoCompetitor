@@ -7,7 +7,7 @@ const express      = require('express'),
   minify         = require('express-minify'),
   methodOverride = require('method-override'),
   compression    = require('compression'),
-  // sslRedirect    = require('heroku-ssl-redirect'),
+  sslRedirect    = require('heroku-ssl-redirect'),
   app            = express(),
   User           = require('./models/user'),
   userRoutes     = require('./routes/users'),
@@ -22,7 +22,7 @@ const port = process.env.PORT || 5000;
 const dbURL = process.env.DATABASEURL;
 
 mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true});
-// app.use(sslRedirect());
+app.use(sslRedirect());
 app.use(compression());
 app.use(minify());
 app.use(bodyParser.json());
