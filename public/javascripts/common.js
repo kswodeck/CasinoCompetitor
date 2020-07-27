@@ -20,7 +20,7 @@ function displayLoginDialog(message){
       const exitButton = document.getElementById('loginDialogExit');
       exitButton.setAttribute('onclick', "location.href='/'");
     }
-    if (message && message != 'false') {
+    if (message && message != 'false' && message != false) {
       const item = document.createElement('li');
       item.innerText = message;
       document.getElementById('invalid-login').appendChild(item);

@@ -162,11 +162,10 @@ router.get('/login', isLoggedOut, (req, res) => {
   res.render('login', {pageTitle: 'Login'});
 });
 router.post('/login', isLoggedOut, passport.authenticate('local', {
+  successRedirect: '/?afterLogin=true',
   failureRedirect: '/login',
-  failureFlash: 'Incorrect username or password',
-}), (req, res) => {
-  res.redirect('/?afterLogin=' + true);
-});
+  failureFlash: 'Incorrect username or password'
+}));
 router.get('/logout', isLoggedIn, (req, res) => {
   req.logout();
   req.flash('popup', true);

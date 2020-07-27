@@ -34,7 +34,11 @@ app.use('/javascripts', express.static(__dirname + '/node_modules/'));
 app.use(flash());
 app.set('view cache', true);
 app.use(require('express-session')({ // Passport configuration
-  secret: 'secret',
+  cookie: {
+    sameSite: 'none',
+    maxAge: 36288000
+  },
+  secret: 'Casino Competitor is a great website!',
   resave: false,
   saveUninitialized: false
 }));
