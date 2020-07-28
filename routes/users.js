@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-var express  = require('express');
-var passport = require('passport'),
+var express  = require('express'),
+    passport = require('passport'),
     router   = express.Router({mergeParams: true}),
     moment   = require('moment'),
-    badWords = require('../public/javascripts/words'),
-    User     = require('../models/user');
+    User     = require('../models/user'),
+    badWords = require('../public/javascripts/words');
 
 // account, authentication, and routes only for logged in users
 router.get('/', (req, res) => {
@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
     afterLogin = false;
   }
   if (req.user && afterLogin) {
-    var current = new Date(User.getCurrentDate());
+    var current = new Date(getCurrentDate());
     let adjYesDate = moment().subtract(1, 'days').format();
     let strYesDate = adjYesDate.toString();
     let yesterday = strYesDate.slice(0, 10);
@@ -136,7 +136,7 @@ router.post('/register', isLoggedOut, (req, res) => {
         } else {
           const username = req.body.username;
           if (containsBadWord(username)) {
-            req.flash('error', 'You must not use a bad word in your username');
+            req.flash('error', 'You must not have a bad word in your username');
             return res.redirect('/register');
           } else {
             let momentBirthday = getLocalNoonDate(req.body.birthday);
@@ -236,7 +236,7 @@ router.put('/account', isLoggedIn, (req, res) => {
           }
         });
       } else {
-        req.flash('invalidUser', 'You must not use a bad word in your username');
+        req.flash('invalidUser', 'You must not have a bad word in your username');
         return res.redirect('/account');
       }
     } else {
@@ -413,6 +413,18 @@ function getMonthNum(month) {
   return month;
 }
 
+function getCurrentDate() {
+  let adjustedTime = moment().hour()+(moment().utcOffset()/60);
+  let todayDate = moment().date();
+  if (adjustedTime < 0) {
+    todayDate = (moment().date()-1);
+    adjustedTime = (24 + adjustedTime);
+  }
+  let dateReturned = moment().year() + '-'+ (moment().month()+1) + '-' + todayDate +
+  ' ' + adjustedTime + ':' + moment().minutes() + ':' + moment().seconds() + '.' + moment().milliseconds();
+  return dateReturned;
+}
+
 function containsBadWord(word) {
   for (let i = 0; i < badWords.length; i++) {
     if (word.includes(badWords[i])) {
@@ -423,3 +435,5 @@ function containsBadWord(word) {
 }
 
 module.exports = router;
+module.exports.getCurrentDate = getCurrentDate;
+

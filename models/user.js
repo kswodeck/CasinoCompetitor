@@ -1,18 +1,6 @@
 var          mongoose = require('mongoose'),
 passportLocalMongoose = require('passport-local-mongoose'),
-moment                = require('moment');
-
-function getCurrentDate() {
-  let adjustedTime = moment().hour()+(moment().utcOffset()/60);
-  let todayDate = moment().date();
-  if (adjustedTime < 0) {
-    todayDate = (moment().date()-1);
-    adjustedTime = (24 + adjustedTime);
-  }
-  let dateReturned = moment().year() + '-'+ (moment().month()+1) + '-' + todayDate +
-  ' ' + adjustedTime + ':' + moment().minutes() + ':' + moment().seconds() + '.' + moment().milliseconds();
-  return dateReturned;
-}
+       getCurrentDate = require('../routes/users').getCurrentDate;
 
 let curDate = getCurrentDate();
 
@@ -35,4 +23,3 @@ var UserSchema = new mongoose.Schema({ // schema for user data
 UserSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model("User", UserSchema);
-module.exports.getCurrentDate = getCurrentDate;

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const express      = require('express'),
   mongoose       = require('mongoose'),
   passport       = require('passport'),

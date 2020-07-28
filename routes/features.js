@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express'),
+    router  = express.Router();
 
 router.get('/casual-cards', (req, res) => {
     res.render('casual-cards', {pageTitle: 'Poker'});
@@ -24,6 +24,10 @@ router.post('/contact', (req, res) => {
   res.setTimeout(500, () => {
     res.render('contact', {pageTitle: 'Contact Us', emailSent: true});
   });
+});
+
+router.get('/blog', (req, res) => {
+  res.render('blog', {pageTitle: 'Community Blog'});
 });
 
 module.exports = router;
