@@ -1,10 +1,12 @@
 /* eslint-disable no-unused-vars */
-var express  = require('express'),
-    passport = require('passport'),
-    router   = express.Router({mergeParams: true}),
-    moment   = require('moment'),
-    User     = require('../models/user'),
-    badWords = require('../public/javascripts/words');
+const express  = require('express'),
+      passport = require('passport'),
+      router   = express.Router({mergeParams: true}),
+      moment   = require('moment'),
+      User     = require('../models/user'),
+      Post     = require('../models/post'),
+      badWords = require('../helpers/words'),
+      helpers  = require('../helpers/helpers');
 
 // account, authentication, and routes only for logged in users
 router.get('/', (req, res) => {
@@ -15,7 +17,7 @@ router.get('/', (req, res) => {
     afterLogin = false;
   }
   if (req.user && afterLogin) {
-    var current = new Date(getCurrentDate());
+    var current = new Date(helpers.getCurrentDate());
     let adjYesDate = moment().subtract(1, 'days').format();
     let strYesDate = adjYesDate.toString();
     let yesterday = strYesDate.slice(0, 10);
@@ -23,7 +25,7 @@ router.get('/', (req, res) => {
     let strCurDate = curDate.toString();
     let today = strCurDate.slice(0, 10);
     let last = new Date(req.user.lastLogin);
-    let lastLoginDate = formatDate(last);
+    let lastLoginDate = helpers.formatDate(last);
     var newStreak = 1;
     let addCoins = newStreak*10;
     var newCoins = req.user.coins + addCoins;
@@ -43,14 +45,14 @@ router.get('/', (req, res) => {
     } else if (!changedLastLogin){
       User.findOneAndUpdate({_id: req.user._id}, {$set: {loginStreak: newStreak, lastLogin: current, coins: newCoins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
     }
-    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins, updatePW: false});
+    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins});
   } else {
     var streak, coins;
     if (req.user) {
       streak = req.user.loginStreak;
       coins = req.user.coins;
     }
-    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: true, streak: streak, coins: coins, updatePW: false});
+    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: true, streak: streak, coins: coins});
   }
 });
 
@@ -139,7 +141,7 @@ router.post('/register', isLoggedOut, (req, res) => {
             req.flash('error', 'You must not have a bad word in your username');
             return res.redirect('/register');
           } else {
-            let momentBirthday = getLocalNoonDate(req.body.birthday);
+            let momentBirthday = helpers.getLocalNoonDate(req.body.birthday);
             var newUser = new User({email: req.body.email, username: username, firstName: req.body.first, lastName: req.body.last, phone: req.body.phone, birthday: momentBirthday});
             User.register(newUser, req.body.password, (err, user) => {
                 if (err || !user){
@@ -147,7 +149,7 @@ router.post('/register', isLoggedOut, (req, res) => {
                   res.redirect('/register');
                 } else {
                   passport.authenticate('local')(req, res, () => {
-                    res.redirect('/?firstLogin=' + true);
+                    res.redirect('/?afterLogin=true');
                 });
               }
             });
@@ -165,7 +167,9 @@ router.post('/login', isLoggedOut, passport.authenticate('local', {
   successRedirect: '/?afterLogin=true',
   failureRedirect: '/login',
   failureFlash: 'Incorrect username or password'
-}));
+}), (req, res) => {
+  req.logout();
+});
 router.get('/logout', isLoggedIn, (req, res) => {
   req.logout();
   req.flash('popup', true);
@@ -174,7 +178,7 @@ router.get('/logout', isLoggedIn, (req, res) => {
 
 router.get('/account', isLoggedIn, (req, res) => {
   if (req.user) {
-  let formattedBirthday = formatDate(req.user.birthday);
+  let formattedBirthday = helpers.formatDate(req.user.birthday);
   return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, error: false});
   }
   res.redirect('/login');
@@ -191,7 +195,7 @@ router.put('/account', isLoggedIn, (req, res) => {
         }
       });
   } else {
-    var formattedBirthday = formatDate(curUser.birthday);
+    var formattedBirthday = helpers.formatDate(curUser.birthday);
     if (updated.firstName != curUser.firstName) {
       User.findOneAndUpdate({_id: curUser._id}, {$set: {firstName: updated.firstName}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
     } 
@@ -202,7 +206,7 @@ router.put('/account', isLoggedIn, (req, res) => {
       User.findOneAndUpdate({_id: curUser._id}, {$set: {phone: updated.phone}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
     }
     if (updated.birthday != formattedBirthday) {
-      let momentBirthday =  getLocalNoonDate(updated.birthday);
+      let momentBirthday =  helpers.getLocalNoonDate(updated.birthday);
       User.findOneAndUpdate({_id: curUser._id}, {$set: {birthday: momentBirthday}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
     }
     if (updated.email != curUser.email) {
@@ -275,7 +279,7 @@ router.post('/forgotuser', isLoggedOut, (req, res) => {
   User.find({email: req.body.forgotUser.email, phone: req.body.forgotUser.phone}, (err, users) => {
     if (!err || users.length > 0) {
       for (let i = 0; i < users.length; i++) {
-        let storedBirthday = formatDate(users[i].birthday);
+        let storedBirthday = helpers.formatDate(users[i].birthday);
         if (storedBirthday.includes(userBirthday)) {
           msg = 'Username: ' + users[i].username;
           break;
@@ -308,7 +312,7 @@ router.post('/forgotpass', (req, res) => {
       return res.redirect('/forgotpass');
     } else {
       for (let i = 0; i < users.length; i++) {
-        let storedBirthday = formatDate(users[i].birthday);
+        let storedBirthday = helpers.formatDate(users[i].birthday);
         if (storedBirthday.includes(userBirthday)) {
           let curUser = users[i];
           User.findByIdAndUpdate(curUser._id, {passwordRecoveryActive: true}, {useFindAndModify: false}, (error, user) => {
@@ -390,41 +394,6 @@ function updateCoins(req, res) {
   return res.status(204).send();
 }
 
-function getLocalNoonDate(date) {
-  let adjustedTime = 12 + (moment().utcOffset()/60);
-  let inputDate = date + ' ' + adjustedTime + ':00';
-  return moment().format(inputDate);
-}
-
-function formatDate(date) {
-  let unformattedDate = date.toString();
-  let formattedYear = unformattedDate.slice(11, 15);
-  let formattedMonth = unformattedDate.slice(4, 7);
-  formattedMonth = getMonthNum(formattedMonth);
-  let formattedDay = unformattedDate.slice(8, 10);
-  let formattedDate = formattedYear + '-' + formattedMonth + '-' + formattedDay;
-  return formattedDate;
-}
-
-function getMonthNum(month) {
-  month === 'Jan' ? month = '01' : month === 'Feb' ? month = '02' : month === 'Mar' ? month = '03' : month === 'Apr' ? month = '04' :
-  month === 'May' ? month = '05' : month === 'Jun' ? month = '06' : month === 'Jul' ? month = '07' :  month === 'Aug' ? month = '08' :
-  month === 'Sep' ? month = '09' : month === 'Oct' ? month = '10' : month === 'Nov' ? month = '11' : month = '12';
-  return month;
-}
-
-function getCurrentDate() {
-  let adjustedTime = moment().hour()+(moment().utcOffset()/60);
-  let todayDate = moment().date();
-  if (adjustedTime < 0) {
-    todayDate = (moment().date()-1);
-    adjustedTime = (24 + adjustedTime);
-  }
-  let dateReturned = moment().year() + '-'+ (moment().month()+1) + '-' + todayDate +
-  ' ' + adjustedTime + ':' + moment().minutes() + ':' + moment().seconds() + '.' + moment().milliseconds();
-  return dateReturned;
-}
-
 function containsBadWord(word) {
   for (let i = 0; i < badWords.length; i++) {
     if (word.includes(badWords[i])) {
@@ -435,5 +404,4 @@ function containsBadWord(word) {
 }
 
 module.exports = router;
-module.exports.getCurrentDate = getCurrentDate;
 

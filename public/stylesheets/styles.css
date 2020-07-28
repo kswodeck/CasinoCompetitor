@@ -39,6 +39,7 @@ input, button {
 }
 ::-webkit-scrollbar-thumb:hover, #table-search-cell, #search-button {
   background-color: darkblue;
+  cursor: pointer;
 }
 
 #main-container {

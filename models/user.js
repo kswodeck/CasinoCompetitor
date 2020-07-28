@@ -1,8 +1,6 @@
-var          mongoose = require('mongoose'),
-passportLocalMongoose = require('passport-local-mongoose'),
-       getCurrentDate = require('../routes/users').getCurrentDate;
-
-let curDate = getCurrentDate();
+const          mongoose = require('mongoose'),
+  passportLocalMongoose = require('passport-local-mongoose'),
+               helpers  = require('../helpers/helpers');
 
 var UserSchema = new mongoose.Schema({ // schema for user data
   email: {type: String, minlength: 8, maxlength: 60},
@@ -10,10 +8,10 @@ var UserSchema = new mongoose.Schema({ // schema for user data
   password: {type: String, minlength: 5, maxlength: 25},
   firstName: {type: String, minlength: 1, maxlength: 40},
   lastName: {type: String, minlength: 1, maxlength: 50},
-  phone: {type: String, minlength: 10, maxlength: 20},
-  birthday: {type: Date, min: "1900-01-01", max: "2020-06-01"},
-  created: {type: Date, default: curDate},
-  lastLogin: {type: Date, default: curDate},
+  phone: {type: String, minlength: 10, maxlength: 16},
+  birthday: {type: Date, min: "1920-01-01", max: helpers.getCurrentDate()},
+  created: {type: Date, default: helpers.getCurrentDate()},
+  lastLogin: {type: Date, default: helpers.getCurrentDate()},
   loginStreak: {type: Number, default: 1},
   coins: {type: Number, default: 100},
   highestWin: {type: Number, default: 0},

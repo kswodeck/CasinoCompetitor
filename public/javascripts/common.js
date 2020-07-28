@@ -20,14 +20,17 @@ function displayLoginDialog(message){
       const exitButton = document.getElementById('loginDialogExit');
       exitButton.setAttribute('onclick', "location.href='/'");
     }
-    if (message && message != 'false' && message != false) {
-      const item = document.createElement('li');
-      item.innerText = message;
-      document.getElementById('invalid-login').appendChild(item);
-      if (message.includes('new') || message.includes('updated')) {
-        item.className = 'valid-list';
-      } else {
-        item.className = 'invalid-list';
+    if (message && message != 'false') {
+      let invalidLogin = document.getElementById('invalid-login');
+      if (invalidLogin.childNodes.length == 0) {
+        const item = document.createElement('li');
+        item.innerText = message;
+        invalidLogin.appendChild(item);
+        if (message.includes('new') || message.includes('updated')) {
+          item.className = 'valid-list';
+        } else {
+          item.className = 'invalid-list';
+        }
       }
     }
     if (typeof dialog.showModal === 'function') {
