@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
+import {outOfCoinsDialog, updateStoredCoins} from './games.js';
 var diceArr = [];
 var holdArr = [];
 var diceRolls = 0, diceHeld = 0, diceHeldThisRoll = 0, heldDiceScore = 0, totalScore = 0;
 var currentBet = 50, currentCoinsBet = 0;
 var hotDice = false, isSetup = false;
 var players = 1, curPlayer = 1;
-const diceRollDiv = document.getElementById('farkle-roll-div');
 const diceRollButton = document.getElementById('farkle-roll-button');
 const farkleEndButton = document.getElementById('farkle-end-button');
 const rollRankingHeading = document.getElementById('roll-ranking-heading');
@@ -28,6 +27,7 @@ if (pageTitle.innerText == 'Competitive Farkle' || pageHeading.innerText == 'Com
   var updateCoinsStart, updateCoinsEnd;
   if (totalCoinsNum < 10 || !totalCoinsNum) {
     outOfCoinsDialog();
+    diceRollButton.setAttribute('disabled', 'disabled');
   }
 } else {
   var quanityDiv = document.getElementById('player-quantity-input-div');
@@ -50,7 +50,7 @@ function farkleRoll() {
       totalCoinsSpan.innerText = totalCoins;
       resolve(5);
     });
-    updateStoredCoins(updateCoinsStart);
+    updateStoredCoins(updateCoinsStart, totalCoins, totalScore);
   }
   let continueRoll = farkleRollSetup();
   if (!continueRoll) {
@@ -247,7 +247,6 @@ function farkleRollTeardown() {
 }
 
 var roll = () => Math.floor((Math.random() * 6) + 1);
-
 var animateDice = (diceElement) => diceElement.classList.add('spin-grow');
 
 function getRollValues() {
@@ -691,7 +690,7 @@ function endTurnDialog() {
     totalCoinsSpan.innerText = totalCoins;
     resolve(5);
   });
-  updateStoredCoins(updateCoinsEnd);
+  updateStoredCoins(updateCoinsEnd, totalCoins, totalScore);
   const dialog = document.getElementById('endTurnDialog');
   diceRollButton.setAttribute('disabled', 'disabled');
   farkleEndButton.setAttribute('disabled', 'disabled');
@@ -810,7 +809,7 @@ function toggleDiceHold(currentHoldElement) {
   }
 }
 
-function toggleBet() {
+function toggleFarkleBet() {
   if (diceRolls === 0) {
     if (totalCoins - currentCoinsBet <= 0) {
       currentCoinsBet = 10;
@@ -823,35 +822,7 @@ function toggleBet() {
   }
 }
 
-function outOfCoinsDialog() {
-  const outOfCoinsDialog = document.getElementById('outOfCoinsDialog');
-  if (typeof outOfCoinsDialog.showModal === 'function') {
-    outOfCoinsDialog.showModal();
-    if (document.getElementsByClassName('backdrop')[0]) {
-      outOfCoinsDialog.style.cssText = '';
-      document.getElementsByClassName('backdrop')[0].style.cssText = '';
-    }
-  } else {
-    console.log('The <dialog> API is not supported by this browser');
-  }
-  document.getElementById('outOfCoinsCancel').onclick = () => outOfCoinsDialog.close();
-  diceRollButton.setAttribute('disabled', 'disabled');
-}
-
-function updateStoredCoins(updateCoins) {
-  updateCoins.then(() => {
-    let curWin;
-    diceRolls > 0 ? curWin = totalScore : curWin = 0;
-    let updateData = {coins: totalCoins, currentWin: curWin};
-    fetch('/cards', {
-      method: 'PUT',
-      body: JSON.stringify(updateData),
-      headers: {'Content-Type': 'application/json'}
-    }).then(res => {
-      if (!res.ok) {
-        throw Error(res.status);
-      }
-    }).then(res => res)
-    .catch(err => console.error(err));
-  });
-}
+window.toggleFarkleBet = toggleFarkleBet; window.toggleDiceHold = toggleDiceHold;
+window.endTurn = endTurn; window.endCasualTurn = endCasualTurn;
+window.farkleRoll = farkleRoll; window.casualFarkleRoll = casualFarkleRoll;
+window.endGameConfirm = endGameConfirm;

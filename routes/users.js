@@ -142,7 +142,7 @@ router.post('/register', isLoggedOut, (req, res) => {
             return res.redirect('/register');
           } else {
             let momentBirthday = helpers.getLocalNoonDate(req.body.birthday);
-            var newUser = new User({email: req.body.email, username: username, firstName: req.body.first, lastName: req.body.last, phone: req.body.phone, birthday: momentBirthday});
+            var newUser = new User({email: req.body.email, username: username, firstName: req.body.firstName, lastName: req.body.lastName, phone: req.body.phone, birthday: momentBirthday, profileImage: req.body.profileImage});
             User.register(newUser, req.body.password, (err, user) => {
                 if (err || !user){
                   req.flash('error', err);
@@ -177,11 +177,8 @@ router.get('/logout', isLoggedIn, (req, res) => {
 });
 
 router.get('/account', isLoggedIn, (req, res) => {
-  if (req.user) {
   let formattedBirthday = helpers.formatDate(req.user.birthday);
   return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, error: false});
-  }
-  res.redirect('/login');
 });
 router.put('/account', isLoggedIn, (req, res) => {
   var curUser = req.user, updated = req.body.updateUser;
@@ -208,6 +205,9 @@ router.put('/account', isLoggedIn, (req, res) => {
     if (updated.birthday != formattedBirthday) {
       let momentBirthday =  helpers.getLocalNoonDate(updated.birthday);
       User.findOneAndUpdate({_id: curUser._id}, {$set: {birthday: momentBirthday}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
+    }
+    if (updated.profileImage != curUser.profileImage) {
+      User.findOneAndUpdate({_id: curUser._id}, {$set: {profileImage: updated.profileImage}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
     }
     if (updated.email != curUser.email) {
       User.find({email: updated.email}, (err, result) => {

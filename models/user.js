@@ -15,6 +15,7 @@ var UserSchema = new mongoose.Schema({ // schema for user data
   loginStreak: {type: Number, default: 1},
   coins: {type: Number, default: 100},
   highestWin: {type: Number, default: 0},
+  profileImage: {type: String, default: 'smiley'},
   passwordRecoveryActive: {type: Boolean, default: false},
 });
 

@@ -170,16 +170,24 @@ button.btn:disabled, input.btn:disabled {
   cursor: default;
   pointer-events: none;
 }
-button.exit-dialog-button:active {
+button.exit-dialog-button:active, .avatarButton:hover {
   border-width: 0.08rem;
 }
 
 input:valid, #tableSearch:focus, #tableSearch:hover {
   border-color: green;
 }
-input:invalid, #tableSearch:active {
+input:invalid, #tableSearch:active, .avatarButton:hover {
   border-color: #be0b2f;
 }
+
+.horizontalList > li {display: inline;}
+.avatarItem {width: calc(40px + 1.5vw);}
+.avatarButton {
+  border-radius: 10%;
+  height: calc(44px + 1.5vw);
+}
+.avatarItem:hover, .avatarItem:active {border: none;}
 
 .col {
   flex-basis: 0;
@@ -224,7 +232,7 @@ input:invalid, #tableSearch:active {
   text-align: center;
 }
 
-#dice-clear-tally-col, #hand-ranking-heading, #roll-ranking-heading, #roll-score-heading, dialog:not([open]) {
+#dice-clear-tally-col, #hand-ranking-heading, #roll-ranking-heading, #roll-score-heading, dialog:not([open]), #profileImage {
   display: none;
 }
 
@@ -294,7 +302,7 @@ input:invalid, #tableSearch:active {
   border: 0.02em solid lightsteelblue;
   border-radius: 18%;
 }
-.card-slot-div .interactive-img:active, .numquantity:active, .numquantity:focus, #table-search-cell, #SignUpDiv {
+.card-slot-div .interactive-img:active, .numquantity:active, .numquantity:focus, #table-search-cell, #SignUpDiv, .avatarBorder, .avatarButton:active {
   border: 0.1rem solid darkblue;
 }
 .farkle-slot-div .interactive-img:active {
@@ -557,7 +565,7 @@ div.top-menu-div > a.dropdownLink {
 
 #dropdownCardsLink #dropdownMainLink, li a, #main-container, #dice-col, #dice-current-col, #dice-roll-tally-div,
 #dice-roll-current-div, #table-search-cell, .name-col, #leaderboard-div, #tableSearch, button.back-arrow, #search-button,
-#main-navbar, #main-links-row, a.dropdown-item, #linksDiv, div.top-menu-div, .dropdownList {
+#main-navbar, #main-links-row, a.dropdown-item, #linksDiv, div.top-menu-div, .dropdownList, ul.horizontalList, .avatarButton {
   padding: 0;
 } 
 
@@ -663,7 +671,7 @@ border-radius: .25rem;
 .username-welcome, #leaderboard-div {
   margin: 1.5% auto 0 auto;
 }
-.name-row, .dropdownList {
+.name-row, .dropdownList, ul.horizontalList {
   margin: 0 auto;
 }
 #firstNameCol {

@@ -3,7 +3,7 @@
     <h1 id="page-heading">Competitive Poker</h1>
     <div id = "card-prep-row" class="row">
       <div id="current-bet-div" class="col">
-        <button id="bet-button" class="btn betWinButton md-text gold-text" type="submit" name="bet-button" onclick="toggleBet()">bet<span id ="current-bet-span">1</span></button>
+        <button id="bet-button" class="btn betWinButton md-text gold-text" type="submit" name="bet-button" onclick="toggleCardsBet()">bet<span id ="current-bet-span">1</span></button>
       </div>
       <div id="card-play-div" class="col">
         <button type="submit" role="button" id="card-deal-button" class="btn lg-text gold-bg red-text btn-style" name="deal-button" onclick="getCards()">Deal Cards</button>
@@ -61,5 +61,5 @@
     </div>
   </div>
 </dialog>
-<script defer src="javascripts\cards.js"></script>
+<script defer type="module" src="javascripts\cards.js"></script>
 <%- include('partials/commondialogs') %>

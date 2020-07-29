@@ -26,6 +26,15 @@
         <input type="date" name="birthday" id="newBirthday" class="account-input birthday user-input" size="8" min="1920-01-01" max="2020-06-01" title="format: mm-dd-yyyy" autocomplete="bday" required><br>
         <label for="createPhone" class="account-label sm-txt">Phone Number</label><br>
         <input type="tel" name="phone" id="createPhone" class="account-input user-input" minlength="10" maxlength="16" size="25" inputmode="numeric" onpaste="forceNumeric(event, 'tel')" onkeypress="forceNumeric(event, 'tel')" title="format: XXXXXXXXXX" placeholder="XXXXXXXXXX" autocomplete="tel" required><br>
+        <label for="profileImage" class="account-label sm-txt">Profile Picture</label>
+        <input type="text" name="profileImage" id="profileImage" value="smiley" required>
+        <ul id="profileImageList" class="horizontalList">
+          <li><button type="button" class="avatarButton" onclick="selectAvatar(this)" name="male-avatar"><img src="images/male-avatar.webp" alt="male-avatar" class="avatarItem"></button></li>
+          <li><button type="button" class="avatarButton" onclick="selectAvatar(this)" name="smiley"><img src="images/smiley.webp" class="avatarItem" alt="smiley"></button></li>
+          <li><button type="button" class="avatarButton" onclick="selectAvatar(this)" name="smiley-money"><img src="images/smiley-money.webp" class="avatarItem" alt="smiley-money"></button></li>
+          <li><button type="button" class="avatarButton" onclick="selectAvatar(this)" name="smiley-neutral"><img src="images/smiley-neutral.webp" class="avatarItem" alt="smiley-neutral"></button></li>
+          <li><button type="button" class="avatarButton" onclick="selectAvatar(this)" name="female-avatar"><img src="images/female-avatar.webp" class="avatarItem" alt="female-avatar"></button></li>
+        </ul>  
         <ul id="invalid-fields-list" class="invalid-fields-list">
           <% if (error && error.length > 0) { %>
           <li class="invalid-list"><%= error %></li>

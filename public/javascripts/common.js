@@ -226,13 +226,15 @@ if (titleTag.innerText == 'My Account') {
   var usernameValue = accountInputs[3].value;
   var phoneValue = accountInputs[4].value;
   var birthdayValue = accountInputs[5].value;
+  var imageValue = accountInputs[6].value;
+  setTimeout(() => highlightUserAvatar(), 200);
 }
 
 function validateAccountCreate() {
   const inputs = document.getElementsByClassName('account-input');
   const invalidList = document.getElementById('invalid-fields-list');
-  let cookieNames = ['firstName', 'lastName', 'email', 'username', 'phone', 'birthday'];
-  let cookieValues = ["firstName", "lastName", "newEmail", "createUsername", "createPhone", "newBirthday"];
+  let cookieNames = ['firstName', 'lastName', 'email', 'username', 'phone', 'birthday', 'profileImage'];
+  let cookieValues = ["firstName", "lastName", "newEmail", "createUsername", "createPhone", "newBirthday", 'profileImage'];
   let isValid = validateInputs(invalidList, inputs, 'accountCreate', 1300, cookieNames, cookieValues);
   const newPassword = document.getElementById('newPassword');
   const repeatPassword = document.getElementById('repeatPassword');
@@ -244,12 +246,12 @@ function validateAccountCreate() {
 
 function validateAccountUpdate() {
   const invalidList = document.getElementById('invalid-fields-list');
-  let cookieNames = ['firstName', 'lastName', 'email', 'username', 'phone', 'birthday'];
-  let cookieValues = ["updateFirstName", "updateLastName", "updateEmail", "updateUsername", "updatePhone", "updateBirthday"];
+  let cookieNames = ['firstName', 'lastName', 'email', 'username', 'phone', 'birthday', 'profileImage'];
+  let cookieValues = ["updateFirstName", "updateLastName", "updateEmail", "updateUsername", "updatePhone", "updateBirthday", 'profileImage'];
   let isValid = validateInputs(invalidList, accountInputs, 'accountUpdateButton', 1200, cookieNames, cookieValues);
   const item = document.createElement('li');
   if (accountInputs[0].value == firstNameValue && accountInputs[1].value == lastNameValue && accountInputs[2].value == emailValue &&
-    accountInputs[3].value == usernameValue && accountInputs[4].value == phoneValue && accountInputs[5].value == birthdayValue) {
+    accountInputs[3].value == usernameValue && accountInputs[4].value == phoneValue && accountInputs[5].value == birthdayValue  && accountInputs[6].value == imageValue) {
       item.className = 'invalid-list';
       item.innerText = 'Please make changes before trying to update info';
       invalidList.appendChild(item);
@@ -450,6 +452,20 @@ function forceNumeric(evt, type) {
     theEvent.preventDefault();
     return false;
   }
+}
+
+function selectAvatar(avatar) {
+  document.getElementById('profileImage').value = avatar.name;
+  const avatars = document.getElementsByClassName('avatarButton');
+  for (i = 0; i < avatars.length; i++) {
+    avatars[i].classList.remove('avatarBorder');
+  }
+  avatar.classList.add('avatarBorder');
+}
+
+function highlightUserAvatar() {
+  let avatarValue = ".avatarButton[name=" + document.getElementById('profileImage').value + "]";
+  document.querySelector(avatarValue).classList.add('avatarBorder');
 }
 
 function sendContactEmail() {

@@ -16,14 +16,6 @@ function stopLoading() {
   mainContainer.style.opacity = 1;
 }
 
-function getLeaderboardResults(url) {
-  if (window.location.href != window.location.origin + url) {
-    startLoading();
-  }
-  window.location.href = url;
-  setTimeout(() => stopLoading(), 2000);
-}
-
 function searchLeaderboard() {
   if (event.type == 'click' || event.code == 'Enter') {
     const searchValue = document.getElementById('tableSearch').value;
@@ -54,4 +46,12 @@ function changePage(page, search) {
     url = '/leaderboard?page=' + page;
   }
   getLeaderboardResults(url);
+}
+
+function getLeaderboardResults(url) {
+  if (window.location.href != window.location.origin + url) {
+    startLoading();
+  }
+  window.location.href = url;
+  setTimeout(() => stopLoading(), 2000);
 }
