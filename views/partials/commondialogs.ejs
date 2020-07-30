@@ -64,7 +64,6 @@
     let dialogSup = document.getElementsByTagName('dialog');
     for (i = 0; i < dialogSup.length; i++) {
       if (dialogPolyfill) {
-        console.log('registering dialog');
         dialogPolyfill.registerDialog(dialogSup[i]);
       }
     }

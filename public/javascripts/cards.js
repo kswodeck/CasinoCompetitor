@@ -2,7 +2,7 @@ import {outOfCoinsDialog, updateStoredCoins} from './games.js';
 var cards = [], cards2 = [];
 var handsDealt = 0, currentHand = 0, currentWin = 0;
 const pageTitle = document.getElementsByTagName('title')[0];
-if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-heading').innerText == 'Competitive Poker') {
+if (pageTitle.innerText == 'Competitive Poker') {
   var totalCoinsSpan = document.getElementById('total-coins-span');
   let totalCoinsNum = parseInt(totalCoinsSpan.innerText);
   var currentBetSpan = document.getElementById('current-bet-span');
@@ -266,7 +266,7 @@ function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunct
       }, 250);
     }
   }
-  if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-heading').innerText == 'COMPETITIVE POKER') {
+  if (pageTitle.innerText == 'Competitive Poker') {
     if (handsDealt == 0) {
       updateStoredCoins(updateCoinsStart, totalCoins, currentWin);
     }

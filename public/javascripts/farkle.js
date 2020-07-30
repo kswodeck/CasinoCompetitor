@@ -12,9 +12,8 @@ const rollScoreHeading = document.getElementById('roll-score-heading');
 const rollScoreDiv = document.getElementById('farkle-roll-score-div');
 const totalScoreDiv = document.getElementById('farkle-total-score-div');
 const totalScoreText = document.getElementById('total-score-text');
-const pageTitle = document.getElementsByTagName('title')[0];
 const pageHeading = document.getElementById('page-heading');
-if (pageTitle.innerText == 'Competitive Farkle' || pageHeading.innerText == 'Competitive Farkle') {
+if (pageHeading.innerText == 'Competitive Farkle') {
   var totalCoinsSpan = document.getElementById('total-coins-span');
   var totalCoinsNum = parseInt(totalCoinsSpan.innerText);
   var currentBetSpan = document.getElementById('current-bet-span');
