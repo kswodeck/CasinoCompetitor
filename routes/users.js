@@ -71,46 +71,45 @@ router.put('/farkle', isLoggedIn, (req, res) => {
 });
 
 router.get('/leaderboard', isLoggedIn, (req, res) => {
-  var search = "", page = 1;
-  if (req.query.page) {
+  var search = "", page = 1; // initializes default variables
+  if (req.query.page) { // if a page query string exists
     page = req.query.page; //gets the page number from query string
   }
-  if (req.query.search) {
+  if (req.query.search) { // if a page query string exists
     search = req.query.search; //gets the search term from query string
   }
-  var cur = (page-1)*100;
-  var pageUsers = [], userRanks = [];
-  User.find({}).sort({coins: -1}).exec(function(err, allUsers) {
-    if (err || !allUsers) {
-      return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: 0, users: 0, ranks: 0, search: "", curPage: 1});
+  var cur = (page-1)*100; // calculates 100 users on the corresponding page
+  var pageUsers = [], userRanks = []; //declare arrays to store users and ranks
+  User.find({}).sort({coins: -1}).exec(function(err, allUsers) { //returns all users starting from highest coins
+    if (err || !allUsers) { // no users found or error
+      return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: 0, users: 0, ranks: 0, search: "", curPage: 1}); //returns empty page
     } else {
-      if (search == "") {
-        if (cur >= allUsers.length || page < 1 || isNaN(page)) {
-          return res.status(204).send();
+      if (search == "") { //no search was made
+        if (cur >= allUsers.length || page < 1 || isNaN(page)) { //handles invalid page queries
+          return res.status(204).send(); // return the same url the user come from
         }
-        for (let i = cur; i < cur+100 && i < allUsers.length; i++) { // gets 100 users on unsearched leaderboard
-          pageUsers.push(allUsers[i]);
-          userRanks.push(i+1);
+        for (let i = cur; i < cur+100 && i < allUsers.length; i++) { // gets top 100 users on unsearched leaderboard
+          pageUsers.push(allUsers[i]); //store users onto page
+          userRanks.push(i+1); //store ranks alongside users
         }
           return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: allUsers, ranks: userRanks, search: search, curPage: page});
       } else {
-        User.find({username: new RegExp(search, 'i')}).sort({coins: -1}).exec(function(err, users) {
+        User.find({username: new RegExp(search, 'i')}).sort({coins: -1}).exec(function(err, users) { //find users using the search query
           if (err || users.length == 0) { //no users found from search OR error
-            return res.redirect('/leaderboard');
+            return res.redirect('/leaderboard'); //restore leaderboard to initial state
           } else {
-            if (cur >= users.length || page < 1 || isNaN(page)) {
-              return res.status(204).send();
+            if (cur >= users.length || page < 1 || isNaN(page)) { //handles invalid page queries
+              return res.status(204).send(); // return the same url the user come from
             }
-            var i = cur, j = cur;
-            var numUsers = users.length, numAll = allUsers.length;
-            while (j < cur+100 && i < numAll && j < numUsers) { // sorts and ranks the searched leaderboard
-              let allId = allUsers[i]._id.toString(), usersId = users[j]._id.toString();
-              if (usersId == allId) {
-                pageUsers.push(users[j]);
-                userRanks.push(i+1);
-                j++;
+            var i = cur, j = cur; //initialize incrementing varariables according to the corresponding page
+            while (j < cur+100 && i < allUsers.lengt && j < users.length) { // sorts and ranks the searched leaderboard
+              let allId = allUsers[i]._id.toString(), usersId = users[j]._id.toString(); //converts user ids to strings
+              if (usersId == allId) { //only store users that exist and were searched and found
+                pageUsers.push(users[j]); //store found users onto page
+                userRanks.push(i+1); //store ranks alongside users
+                j++; //increment found user count
               }
-              i++;
+              i++; //increment all user count
             }
             return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: users, ranks: userRanks, search: search, curPage: page});
           }
@@ -165,11 +164,9 @@ router.get('/login', isLoggedOut, (req, res) => {
 });
 router.post('/login', isLoggedOut, passport.authenticate('local', {
   successRedirect: '/?afterLogin=true',
-  failureRedirect: '/login',
-  failureFlash: 'Incorrect username or password'
-}), (req, res) => {
-  req.logout();
-});
+  failureFlash: 'Incorrect username or password',
+  failureRedirect: '/login'
+}));
 router.get('/logout', isLoggedIn, (req, res) => {
   req.logout();
   req.flash('popup', true);

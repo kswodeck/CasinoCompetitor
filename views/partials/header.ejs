@@ -38,7 +38,7 @@
           <div id="main-links-row" class="row">
             <div id="mainDropdownDiv" class="col main-dropdown header-div">
               <% if (currentUser && currentUser.username.length < 15) { %>
-                <a href="/" role="button"><img src="images/<%= currentUser.profileImage %>.webp" alt="<%= currentUser.profileImage %>" class="avatarImage"></a>
+                <a class="avatarImage" href="/" role="button"><img src="images/<%= currentUser.profileImage %>.webp" alt="<%= currentUser.profileImage %>"></a>
               <% } %>
               <div id="mainDropdownContent" class="dropdownContent">
               <% if (currentUser && currentUser.username.length < 11) { %>
@@ -48,13 +48,13 @@
               <% } %>
                 <div class="dropdown-menu collapse navbar-collapse" id="mainDropdown">
                   <ul id ="mainDropdownList" class="dropdownList">
-                    <li class="dropdownListItem"><a class="gold-text dropdown-item" href="contact">Contact Us</a></li>
+                    <li class="dropdownListItem"><a class="gold-text dropdown-item" href="contact" role="button">Contact Us</a></li>
                 <% if (!currentUser){ %>
-                    <li class="dropdownListItem"><a class="gold-text dropdown-item" href="register">Sign Up</a></li>
-                    <li class="dropdownListItem"><a class="gold-text dropdown-item" href="#" onclick="displayLoginDialog('<%= error %>')">Log In</a></li>
+                    <li class="dropdownListItem"><a class="gold-text dropdown-item" href="register" role="button">Sign Up</a></li>
+                    <li class="dropdownListItem"><a class="gold-text dropdown-item" href="#" role="button" onclick="displayLoginDialog('<%= error %>')">Log In</a></li>
                 <% } else { %>
-                    <li class="dropdownListItem"><a class="gold-text dropdown-item" href="account">My Account</a></li>
-                    <li class="dropdownListItem"><a class="gold-text dropdown-item" href="logout">Log Out</a></li>
+                    <li class="dropdownListItem"><a class="gold-text dropdown-item" href="account" role="button">My Account</a></li>
+                    <li class="dropdownListItem"><a class="gold-text dropdown-item" href="logout" role="button">Log Out</a></li>
                 <% } %>
                   </ul>
                 </div>
@@ -64,29 +64,29 @@
               <div class="collapse navbar-collapse navbar-nav" id="navbar-content">
                 <div id="cardsDropdownContent" class="dropdownContent">
                   <div id="cardsLink" class="col top-menu-div cards-dropdown">
-                    <a class="gold-text dropdownLink" role="button" id="dropdownCardsLink" href="casual-cards">Poker<i class="fas fa-caret-down dropdown-arrow"></i></a>
+                    <a class="gold-text dropdownLink" id="dropdownCardsLink" href="casual-cards" role="button">Poker<i class="fas fa-caret-down dropdown-arrow"></i></a>
                     <div class="dropdown-menu" id="cardsDropdown">
                       <ul id ="cardsDropdownList" class="dropdownList">
                         <li class="dropdownListItem casual-item"><a class="gold-text dropdown-item" href="casual-cards">Casual</a></li>
-                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="cards">Competitive</a></li>
-                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="\images\jacks-better-hands.webp" target="_blank">Hand Ranks</a></li>
+                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="cards" role="button">Competitive</a></li>
+                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="\images\jacks-better-hands.webp" role="button" target="_blank">Hand Ranks</a></li>
                       </ul>
                     </div>
                   </div>
                 </div>
                 <div id="leaderboardLink" class="col top-menu-div">
-                  <a id="leaderboardText" class="gold-text" href="leaderboard">Leaderboard</a>
+                  <a id="leaderboardText" class="gold-text" href="leaderboard" role="button">Leaderboard</a>
                 </div>
                 <div id="farkleDropdownContent" class="dropdownContent">
                   <div id="farkleLink" class="col top-menu-div farkle-dropdown">
-                    <a class="gold-text dropdownLink" role="button" id="dropdownFarkleLink" href="casual-farkle">Farkle<i class="fas fa-caret-down dropdown-arrow"></i></a>
+                    <a class="gold-text dropdownLink" id="dropdownFarkleLink" href="casual-farkle" role="button">Farkle<i class="fas fa-caret-down dropdown-arrow"></i></a>
                     <div class="dropdown-menu" id="farkleDropdown">
                       <ul id ="farkleDropdownList" class="dropdownList">
-                        <li class="dropdownListItem casual-item"><a class="gold-text dropdown-item casual-link" href="casual-farkle">Casual</a></li>
-                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="farkle">Competitive</a></li>
-                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="\images\FarkleRules.pdf" target="_blank">Rules</a></li>
+                        <li class="dropdownListItem casual-item"><a class="gold-text dropdown-item casual-link" href="casual-farkle" role="button">Casual</a></li>
+                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="farkle" role="button">Competitive</a></li>
+                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="\images\FarkleRules.pdf" role="button" target="_blank">Rules</a></li>
                         <% if (currentUser){ %>
-                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="\images\CompetitiveFarkleScoring.pdf" target="_blank">Coin Scoring</a></li>
+                        <li class="dropdownListItem"><a class="gold-text dropdown-item" href="\images\CompetitiveFarkleScoring.pdf" role="button" target="_blank">Coin Scoring</a></li>
                         <% } %>
                       </ul>
                     </div>
@@ -98,7 +98,7 @@
             <% if (currentUser){ %>
             <span id="total-coins-span" class="sm-text"><%= currentUser.coins %></span><img loading="lazy" alt="coins" class="coins-img" id="coins-img" src="\images\coins.webp">
             <% } %>
-            <button id="hamburger-button" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation" onclick="toggleHamburger('navbar-content')">
+            <button id="hamburger-button" class="navbar-toggler" type="button" role="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation" onclick="toggleHamburger('navbar-content')">
               <i class="fas fa-bars navbar-toggler-icon"></i>
             </button>
           </div>

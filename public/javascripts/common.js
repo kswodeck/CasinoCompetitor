@@ -306,7 +306,7 @@ function validatePasswordChange() {
   return true;
 }
 
-function validatePreLogin(inputClass, list) {
+function validatePreLogin(inputClass, list, form) {
   let cookieNames = ['email', 'phone', 'birthday'];
   let cookieValues = ['loginUsername'];
   let disableButton = 'loginButton';
@@ -325,6 +325,7 @@ function validatePreLogin(inputClass, list) {
   if (!isValid) {
     return false;
   }
+  document.getElementById(form).submit();
   return true;
 }
 
