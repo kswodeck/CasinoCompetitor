@@ -37,8 +37,11 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="main-navbar" role="navigation">
           <div id="main-links-row" class="row">
             <div id="mainDropdownDiv" class="col main-dropdown header-div">
+              <% if (currentUser && currentUser.username.length < 15) { %>
+                <a href="/" role="button"><img src="images/<%= currentUser.profileImage %>.webp" alt="<%= currentUser.profileImage %>" class="avatarImage"></a>
+              <% } %>
               <div id="mainDropdownContent" class="dropdownContent">
-              <% if (currentUser && currentUser.username.length <= 10) { %>
+              <% if (currentUser && currentUser.username.length < 11) { %>
                 <a class="gold-text dropdownLink" href="/" role="button" id="dropdownMainLink"><%= currentUser.username %><i class="fas fa-caret-down dropdown-arrow"></i></a>
               <% } else { %>
                 <a class="gold-text dropdownLink" href="/" role="button" id="dropdownMainLink">Home<i class="fas fa-caret-down dropdown-arrow"></i></a>
