@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-
+var createAccountNames = ['firstName', 'lastName', 'email', 'username', 'password', 'newpassword', 'birthday', 'phone'];
+var accountNames = ['firstName', 'lastName', 'email', 'username', 'birthday', 'phone'];
+var loginNames = ['username', 'password'];
+var forgotNames = ['email', 'birthday', 'phone'];
 function restoreContainer() {
   if (event.code == 'Escape') {
     document.getElementById('mid-container').style.display = 'block';
@@ -8,6 +11,7 @@ function restoreContainer() {
 }
 
 function displayLoginDialog(message){
+  clearValidityMessages();
   const dialog = document.getElementById('loginDialog');
   const pageTitle = document.getElementsByTagName('title')[0];
   const hamContent = document.getElementById('navbar-content');
@@ -233,9 +237,8 @@ if (titleTag.innerText == 'My Account') {
 function validateAccountCreate() {
   const inputs = document.getElementsByClassName('account-input');
   const invalidList = document.getElementById('invalid-fields-list');
-  let cookieNames = ['firstName', 'lastName', 'email', 'username', 'phone', 'birthday', 'profileImage'];
-  let cookieValues = ["firstName", "lastName", "newEmail", "createUsername", "createPhone", "newBirthday", 'profileImage'];
-  let isValid = validateInputs(invalidList, inputs, 'accountCreate', 1300, cookieNames, cookieValues);
+  let values = [inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value, inputs[4].value, inputs[5].value, inputs[6].value, inputs[7].value];
+  let isValid = validateInputs(invalidList, inputs, 'accountCreate', 1300, createAccountNames, values);
   const newPassword = document.getElementById('newPassword');
   const repeatPassword = document.getElementById('repeatPassword');
   if (!isValid) {
@@ -246,9 +249,8 @@ function validateAccountCreate() {
 
 function validateAccountUpdate() {
   const invalidList = document.getElementById('invalid-fields-list');
-  let cookieNames = ['firstName', 'lastName', 'email', 'username', 'phone', 'birthday', 'profileImage'];
-  let cookieValues = ["updateFirstName", "updateLastName", "updateEmail", "updateUsername", "updatePhone", "updateBirthday", 'profileImage'];
-  let isValid = validateInputs(invalidList, accountInputs, 'accountUpdateButton', 1200, cookieNames, cookieValues);
+  let values = [accountInputs[0].value, accountInputs[1].value, accountInputs[2].value, accountInputs[3].value, accountInputs[4].value, accountInputs[5].value];
+  let isValid = validateInputs(invalidList, accountInputs, 'accountUpdateButton', 1200, accountNames, values);
   const item = document.createElement('li');
   if (accountInputs[0].value == firstNameValue && accountInputs[1].value == lastNameValue && accountInputs[2].value == emailValue &&
     accountInputs[3].value == usernameValue && accountInputs[4].value == phoneValue && accountInputs[5].value == birthdayValue  && accountInputs[6].value == imageValue) {
@@ -266,8 +268,7 @@ function validateAccountUpdate() {
 function validatePasswordUpdate() {
   const inputs = document.getElementsByClassName('updatePassInput');
   const invalidList = document.getElementById('invalid-update-password');
-  let cookieNames = [], cookieValues = [];
-  let isValid = validateInputs(invalidList, inputs, 'passwordUpdateButton', 1000, cookieNames, cookieValues);
+  let isValid = validateInputs(invalidList, inputs, 'passwordUpdateButton', 1000);
   const oldPassword = document.getElementById('oldPassword');
   const updatePassword = document.getElementById('updatePassword');
   const repeatPassword = document.getElementById('repeatNewPassword');
@@ -292,8 +293,7 @@ function validatePasswordUpdate() {
 function validatePasswordChange() {
   const inputs = document.getElementsByClassName('changePassInput');
   const invalidList = document.getElementById('invalid-change-password');
-  let cookieNames = [], cookieValues = [];
-  let isValid = validateInputs(invalidList, inputs, 'passwordChangeButton', 1000, cookieNames, cookieValues);
+  let isValid = validateInputs(invalidList, inputs, 'passwordChangeButton', 1000);
   const changePassword = document.getElementById('changePassword');
   const repeatPassword = document.getElementById('repeatChangePassword');
   if (!isValid) {
@@ -307,21 +307,21 @@ function validatePasswordChange() {
 }
 
 function validatePreLogin(inputClass, list, form) {
-  let cookieNames = ['email', 'phone', 'birthday'];
-  let cookieValues = ['loginUsername'];
+  const inputs = document.getElementsByClassName(inputClass);
+  let names = forgotNames;
+  let values = [inputs[0].value, inputs[1].value];
   let disableButton = 'loginButton';
   if (document.getElementById('forgotPWDialog').open) {
     disableButton = 'forgotPWButton';
-    cookieValues = ['forgotPWEmail', 'forgotPWPhone', 'forgotPWBirthday'];
+    values = [inputs[0].value, inputs[1].value, inputs[2].value];
   } else if (document.getElementById('forgotUserDialog').open) {
     disableButton = 'forgotUserButton';
-    cookieValues = ['forgotUserEmail', 'forgotUserPhone', 'forgotUserBirthday'];
+    values = [inputs[0].value, inputs[1].value, inputs[2].value];
   } else {
-    cookieNames = ['username'];
+    names = loginNames
   }
-  const inputs = document.getElementsByClassName(inputClass);
   const invalidList = document.getElementById(list);
-  let isValid = validateInputs(invalidList, inputs, disableButton, 1200, cookieNames, cookieValues);
+  let isValid = validateInputs(invalidList, inputs, disableButton, 1200, names, values);
   if (!isValid) {
     return false;
   }
@@ -332,8 +332,7 @@ function validatePreLogin(inputClass, list, form) {
 function validateAccountDelete() {
   let invalidList = document.getElementById('invalid-verify-password');
   let inputs = document.getElementsByClassName('verifyPassInput');
-  let cookieNames = [], cookieValues = [];
-  let isValid = validateInputs(invalidList, inputs, 'passwordVerifyDeleteButton', 1000, cookieNames, cookieValues);
+  let isValid = validateInputs(invalidList, inputs, 'passwordVerifyDeleteButton', 1000);
   if (isValid == false) {
     return false;
   }
@@ -343,8 +342,7 @@ function validateAccountDelete() {
 function validateContactUs() {
   let invalidList = document.getElementById('invalid-fields-list');
   let inputs = document.getElementsByClassName('account-input');
-  let cookieNames = [], cookieValues = [];
-  let isValid = validateInputs(invalidList, inputs, 'contactUsButton', 1000, cookieNames, cookieValues);
+  let isValid = validateInputs(invalidList, inputs, 'contactUsButton', 1000);
   if (isValid == false) {
     return false;
   } else {
@@ -352,7 +350,16 @@ function validateContactUs() {
   }
 }
 
-function validateInputs(invalidList, inputs, button, disableTime, cookieNames, cookieValues) {
+function validatePassMatch(password, repeatPassword, invalidList) {
+  if (password.value != repeatPassword.value) {
+      addToInvalidList('* repeat password must match password', password, invalidList);
+      repeatPassword.style.border = '0.06em solid #be0b2f';
+      return false;
+  }
+  return true;
+}
+
+function validateInputs(invalidList, inputs, button, disableTime, names=[], values=[]) {
   disableAfterSubmit(button, disableTime);
   removeWhiteSpace(inputs);
   clearValidityMessages();
@@ -372,7 +379,7 @@ function validateInputs(invalidList, inputs, button, disableTime, cookieNames, c
     }
     inputs[i].style.borderWidth = '0.06em';
   }
-  addCookies(cookieNames, cookieValues);
+  storeValues(names, values);
   if (empty == true) {
     addToInvalidList('* please fill out all fields', inputs[inputs.length-1], invalidList);
     return false;
@@ -400,21 +407,24 @@ function validateInputs(invalidList, inputs, button, disableTime, cookieNames, c
       }
     }
   }
-  function addCookies(inputs, values) {
-    for (let i = 0; i < inputs.length; i++) {
-      let value = document.getElementById(values[i]).value;
-      document.cookie = inputs[i] + '=' + value + '; max-age=2600000; path=/; domain=casinocompetitor.com; secure';
+  function storeValues(inputs=[], values=[]) {
+    for (let i = 0; i < values.length; i++) {
+      if (localStorage.getItem(inputs[i])) {
+        localStorage.removeItem(inputs[i]);
+      }
+      localStorage.setItem(inputs[i], values[i]);
     }
   }
 }
 
-function validatePassMatch(password, repeatPassword, invalidList) {
-  if (password.value != repeatPassword.value) {
-      addToInvalidList('* repeat password must match password', password, invalidList);
-      repeatPassword.style.border = '0.06em solid #be0b2f';
-      return false;
+function getFormValues(selector, names) {
+  if (localStorage.length > 0) {
+    const inputs = document.getElementsByClassName(selector);
+    for (let i = 0; i < inputs.length; i++) {
+      let storedVal = localStorage.getItem(names[i]);
+      if (storedVal !== null) inputs[i].value = storedVal;
+    }
   }
-  return true;
 }
 
 function addToInvalidList(str, el, invalidList) {

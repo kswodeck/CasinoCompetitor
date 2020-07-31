@@ -1,3 +1,9 @@
+<script>window.addEventListener('load', () => {
+  getFormValues('login-input', loginNames);
+  getFormValues('forgotUserInput', forgotNames);
+  getFormValues('forgotPassInput', forgotNames);
+  })
+</script>
 <dialog id="loginDialog" class="account-form-div account-dialog">
     <div class ="exit-button-div">
       <button id="loginDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('loginDialog')" >✖</button>
@@ -26,7 +32,7 @@
       <label for="forgotUserEmail" class="account-label sm-txt">Email</label><br>
       <input type="email" name="forgotUser[email]" id="forgotUserEmail" class="forgotUserInput user-input" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autocomplete="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required><br>
       <label for="forgotUserBirthday" class="account-label sm-txt">Birthday</label><br>
-      <input type="date" name="forgotUser[birthday]" id="forgotUserBirthday" class="forgotUserInput birthday user-input" min="1920-01-01" max="2020-06-01" title="format: mm-dd-yyyy" required><br>
+      <input type="date" name="forgotUser[birthday]" id="forgotUserBirthday" class="forgotUserInput birthday user-input" min="1920-01-01" max="2020-06-01" title="format: mm-dd-yyyy" autocomplete="bday" required><br>
       <label for="forgotUserPhone" class="account-label sm-txt">Phone Number</label><br>
       <input type="tel" name="forgotUser[phone]" id="forgotUserPhone" class="forgotUserInput user-input" minlength="10" maxlength="16" size="25" inputmode="numeric" onpaste="forceNumeric(event, 'tel')" onkeypress="forceNumeric(event, 'tel')" title="format: XXXXXXXXXX" placeholder="XXXXXXXXXX" autocomplete="tel" required><br>
       <ul id="invalid-forgot-username" class="invalid-fields-list"></ul>
@@ -42,11 +48,11 @@
       <button id="forgotPWDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('forgotPWDialog')">✖</button>
     </div>
     <h2 id="forgotPWHeading" class="account-heading login-heading blue-text">Forgotten Password</h2>
-    <form id="forgotUserForm" action="/forgotpass" method="POST">
+    <form id="forgotPWForm" action="/forgotpass" method="POST">
       <label for="forgotPWEmail" class="account-label sm-txt">Email</label><br>
       <input type="email" name="forgotPW[email]" id="forgotPWEmail" class="forgotPassInput user-input" minlength="8" maxlength="60" placeholder="username@domain.com" size="40" autocomplete="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required><br>
       <label for="forgotPWBirthday" class="account-label sm-txt">Birthday</label><br>
-      <input type="date" name="forgotPW[birthday]" id="forgotPWBirthday" class="forgotPassInput birthday user-input" size="8" min="1920-01-01" max="2020-06-01" title="format: mm-dd-yyyy" required><br>
+      <input type="date" name="forgotPW[birthday]" id="forgotPWBirthday" class="forgotPassInput birthday user-input" size="8" min="1920-01-01" max="2020-06-01" title="format: mm-dd-yyyy" autocomplete="bday" required><br>
       <label for="forgotPWPhone" class="account-label sm-txt">Phone Number</label><br>
       <input type="tel" name="forgotPW[phone]" id="forgotPWPhone" class="forgotPassInput user-input" minlength="10" maxlength="16" size="25" inputmode="numeric" onpaste="forceNumeric(event, 'tel')" onkeypress="forceNumeric(event, 'tel')" title="format: XXXXXXXXXX" placeholder="XXXXXXXXXX" autocomplete="tel" required><br>
       <ul id="invalid-forgot-password" class="invalid-fields-list"></ul>

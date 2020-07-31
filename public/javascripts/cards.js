@@ -11,7 +11,7 @@ if (pageTitle.innerText == 'Competitive Poker') {
   var updateCoinsStart, updateCoinsEnd;
   if (totalCoinsNum < 1 || !totalCoinsNum) {
     outOfCoinsDialog();
-    cardDealButton.setAttribute('disabled', 'disabled');
+    cardDealButton.disabled = true;
   }
 }
 const cardDealButton = document.getElementById('card-deal-button');
@@ -38,7 +38,7 @@ function preloader() { // preload card images
 } 
 
 function getCards() {
-  cardDealButton.setAttribute('disabled', 'disabled');
+  cardDealButton.disabled = true;
   if (totalCoins < 1 && handsDealt === 0) {
     outOfCoinsDialog();
     handsDealt = 2;

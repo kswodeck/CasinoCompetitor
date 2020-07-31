@@ -39,11 +39,11 @@
 
 <% if (popup && popup.length > 0){ %>
 <script>
-  window.onload = () => displayLogoutDialog();
+  window.addEventListener('onload', () => displayLogoutDialog());
 </script>
 <% } else if (currentUser && !loggedInToday) { %>
 <script>
-  window.onload = () => displayStreakDialog('<%= streak %>');
+  window.addEventListener('onload', () => displayStreakDialog('<%= streak %>'));
 </script>
 <% } %>
 

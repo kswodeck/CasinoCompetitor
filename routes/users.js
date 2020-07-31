@@ -101,7 +101,7 @@ router.get('/leaderboard', isLoggedIn, (req, res) => {
             if (cur >= users.length || page < 1 || isNaN(page)) { //handles invalid page queries
               return res.status(204).send(); // return the same url the user come from
             }
-            var i = cur, j = cur; //initialize incrementing varariables according to the corresponding page
+            var i = cur, j = cur; //initialize incrementing variables according to the corresponding page
             while (j < cur+100 && i < allUsers.lengt && j < users.length) { // sorts and ranks the searched leaderboard
               let allId = allUsers[i]._id.toString(), usersId = users[j]._id.toString(); //converts user ids to strings
               if (usersId == allId) { //only store users that exist and were searched and found
@@ -124,16 +124,14 @@ router.get('/register', isLoggedOut, (req, res) => {
 });
 router.post('/register', isLoggedOut, (req, res) => {
   User.find({email: req.body.email}, (err, emails) => {
-    if (err || emails.length > 0) { // desire to display UI errors without refreshing page (need user's editted values to stay)
+    if (err || emails.length > 0) {
       req.flash('error', 'Email "' + req.body.email + '" is already registered');
       res.redirect('/register');
-      // res.status(204).send(); // seem like best option to use this then timeout and display generic message on UI
     } else {
       User.find({username: req.body.username}, (err, usernames) => {
         if (err || usernames.length > 0) {
           req.flash('error', 'Username "' + req.body.username + '" is already registered');
           res.redirect('/register');
-          // res.status(204).send(); // seem like best option to use this then timeout and display generic message on UI
         } else {
           const username = req.body.username;
           if (containsBadWord(username)) {
