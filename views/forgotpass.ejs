@@ -2,9 +2,9 @@
 
 <div id="mid-container">
 </div>
-<% if (success && emailSent){ %>
+<% if (success && emailSent && !updatePW){ %>
 <script>
-  window.onload = () => {
+  window.addEventListener('DOMContentLoaded', (event) => {
     sendForgotPWEmail('<%= emailSent %>', '<%= userId %>', '<%= username %>');
     displayForgotDialog('forgotPWDialog', '<%= success %>');
     var uri = window.location.toString();
@@ -12,26 +12,31 @@
       var clean_uri = uri.substring(0, uri.indexOf("?"));
       window.history.replaceState({}, document.title, clean_uri);
     }
-  };
+  });
 </script>
-<% } else if (!currentUser) { %>
+<% } else if (!currentUser && error && !userId) { %>
 <script>
-  window.onload = () => displayForgotDialog('forgotPWDialog', '<%= error %>');
+  window.addEventListener('DOMContentLoaded', (event) => {
+    displayForgotDialog('forgotPWDialog', '<%= error %>');
+  });
+</script>
+<% } else if (!currentUser && updatePW && userId) { %>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    displayDialog('changePWDialog');
+  });
 </script>
 <% } else { %>
 <script>
-  window.onload = () => displayForgotDialog('forgotPWDialog', false);
-</script>
-<% } %>
-<% if (!currentUser && updatePW){ %>
-<script>
-  window.onload = () => displayDialog('changePWDialog');
+  window.addEventListener('DOMContentLoaded', (event) => {
+    displayForgotDialog('forgotPWDialog', false);
+  });
 </script>
 <% } %>
 
 <dialog id="changePWDialog" class="account-form-div account-dialog">
   <div class ="exit-button-div">
-    <button id="changePWDialogExit" class="exit-dialog-button md-text" onclick="window.location.href = '/login'">✖</button>
+    <button id="changePWDialogExit" class="exit-dialog-button md-text" onclick="backFromDialog('changePWDialog')">✖</button>
   </div>
   <h2 id="changePWHeading" class="login-heading blue-text">Update Password</h2>
   <form action="/forgotpass/<%= userId %>/?_method=PUT" method="POST">

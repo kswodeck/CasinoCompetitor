@@ -16,12 +16,12 @@
   </div>
 <dialog id="logoutDialog" class="account-form-div account-dialog">
   <div class ="exit-button-div">
-    <button id="logoutDialogExit" class="exit-dialog-button md-text" role="button" onclick="window.location.href = '/'" >✖</button>
+    <button id="logoutDialogExit" class="exit-dialog-button md-text" role="button" onclick="exitDialog('logoutDialog')" >✖</button>
   </div>
   <h2 id="logoutHeading" class="account-heading login-heading blue-text">You've been logged out</h2>
   <div id="logoutDialogDiv" class="row">
     <div class="col">
-      <button id="logoutLoginButton" class="btn sm-text red-bg gold-text btn-style" role="button" onclick="location.href='/login'">Log In</button>
+      <button id="logoutLoginButton" class="btn sm-text red-bg gold-text btn-style" role="button" onclick="backFromDialog('logoutDialog')">Log In</button>
     </div>
     <div class="col">
       <button id="logoutRegisterButton" class="btn sm-text red-bg gold-text btn-style" role="button" onclick="window.location.href='/register'">Sign Up</button>
@@ -39,11 +39,17 @@
 
 <% if (popup && popup.length > 0){ %>
 <script>
-  window.addEventListener('onload', () => displayLogoutDialog());
+  document.getElementById('mid-container').style.display = 'none';
+  window.addEventListener('DOMContentLoaded', (event) => {
+    displayLogoutDialog();
+  });
 </script>
 <% } else if (currentUser && !loggedInToday) { %>
 <script>
-  window.addEventListener('onload', () => displayStreakDialog('<%= streak %>'));
+  document.getElementById('mid-container').style.display = 'none';
+  window.addEventListener('DOMContentLoaded', (event) => {
+    displayStreakDialog('<%= streak %>');
+  });
 </script>
 <% } %>
 

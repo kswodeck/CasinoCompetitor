@@ -158,7 +158,7 @@ router.post('/register', isLoggedOut, (req, res) => {
 });
 
 router.get('/login', isLoggedOut, (req, res) => {
-  res.render('login', {pageTitle: 'Login'});
+  res.render('prelogin', {pageTitle: 'Login'});
 });
 router.post('/login', isLoggedOut, passport.authenticate('local', {
   successRedirect: '/?afterLogin=true',
@@ -266,7 +266,7 @@ router.delete('/account', isLoggedIn, (req, res) => {
 });
 
 router.get('/forgotuser', isLoggedOut, (req, res) => {
-  res.render('forgotuser', {pageTitle: 'Forgot Username'});
+  res.render('prelogin', {pageTitle: 'Forgot Username'});
 });
 router.post('/forgotuser', isLoggedOut, (req, res) => {
   var userBirthday = req.body.forgotUser.birthday;
@@ -286,7 +286,7 @@ router.post('/forgotuser', isLoggedOut, (req, res) => {
   });
 });
 
-router.get('/forgotpass', (req, res) => {
+router.get('/forgotpass', isLoggedOut, (req, res) => {
   let emailSent = false, userId = false, username = false;
   if (req.query.emailSent) {
     emailSent = req.query.emailSent;
@@ -299,7 +299,7 @@ router.get('/forgotpass', (req, res) => {
   }
   res.render('forgotpass', {pageTitle: 'Forgot Password', emailSent: emailSent, userId: userId, username: username, updatePW: false});
 });
-router.post('/forgotpass', (req, res) => {
+router.post('/forgotpass', isLoggedOut, (req, res) => {
   var userBirthday = req.body.forgotPW.birthday;
   User.find({email: req.body.forgotPW.email, phone: req.body.forgotPW.phone}, (err, users) => {
     if (err || users.length < 1) {
@@ -316,9 +316,7 @@ router.post('/forgotpass', (req, res) => {
               res.redirect('/forgotpass');
             } else {
               req.flash('success', 'password recovery email sent');
-              res.setTimeout(500, () => {
-                res.redirect('/forgotpass?emailSent=' + req.body.forgotPW.email + '&userId=' + curUser._id + '&username=' + curUser.username);
-              });
+              res.redirect('/forgotpass?emailSent=' + req.body.forgotPW.email + '&userId=' + curUser._id + '&username=' + curUser.username);
             }
           });
           break;
@@ -335,7 +333,7 @@ router.get('/forgotpass/:id', isLoggedOut, (req, res) => { //route to update pas
     if (err || !user) {
       res.redirect('/');
     } else {
-      res.render('forgotpass', {pageTitle: 'Update Password', updatePW: true, emailSent: false, userId: req.params.id, username: req.params.username});
+      res.render('forgotpass', {pageTitle: 'Update Password', emailSent: false, updatePW: true, userId: req.params.id, username: req.params.username});
     }
   });
 });

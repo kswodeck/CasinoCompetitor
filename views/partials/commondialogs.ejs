@@ -56,7 +56,7 @@
       <label for="forgotPWPhone" class="account-label sm-txt">Phone Number</label><br>
       <input type="tel" name="forgotPW[phone]" id="forgotPWPhone" class="forgotPassInput user-input" minlength="10" maxlength="16" size="25" inputmode="numeric" onpaste="forceNumeric(event, 'tel')" onkeypress="forceNumeric(event, 'tel')" title="format: XXXXXXXXXX" placeholder="XXXXXXXXXX" autocomplete="tel" required><br>
       <ul id="invalid-forgot-password" class="invalid-fields-list"></ul>
-      <button type="submit" name="forgot-user-submit" role="button" onclick="return validatePreLogin('forgotPassInput', 'invalid-forgot-password', 'forgotUserForm')" class="btn md-text blue-bg gold-text btn-style account-button" id="forgotPWButton">Recover Password</button>
+      <button type="submit" name="forgot-user-submit" role="button" onclick="return validatePreLogin('forgotPassInput', 'invalid-forgot-password', 'forgotPWForm')" class="btn md-text blue-bg gold-text btn-style account-button" id="forgotPWButton">Recover Password</button>
     </form>
     <div class ="back-button-div">
       <button id="forgotPWBackButton" class="back-arrow btn blue-text lg-text" name="back-arrow" onclick="backFromDialog('forgotPWDialog')"><i id="forgotPWBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
@@ -80,7 +80,7 @@
   gtag('js', new Date());
   gtag('config', 'G-EG1KEKWQS6');
   var imageObj = new Image();
-  imageObj.src = 'images/cards/blueBackCard.webp';
+  imageObj.src = window.origin + 'images/cards/blueBackCard.webp';
 </script>
 </body>
 </html>
