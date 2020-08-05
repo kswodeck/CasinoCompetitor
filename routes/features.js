@@ -26,8 +26,4 @@ router.post('/contact', (req, res) => {
   });
 });
 
-router.get('/blog', (req, res) => {
-  res.render('blog', {pageTitle: 'Community Blog'});
-});
-
 module.exports = router;

@@ -12,6 +12,7 @@ const express    = require('express'),
   app            = express(),
   User           = require('./models/user'),
   userRoutes     = require('./routes/users'),
+  blogRoutes     = require('./routes/blogs'),
   featureRoutes  = require('./routes/features'),
   Sentry         = require('@sentry/node');
                    require('dotenv').config();
@@ -59,6 +60,7 @@ app.use((req, res, next) => {
 
 app.use('/', featureRoutes);
 app.use('/', userRoutes);
+app.use('/', blogRoutes);
 
 app.use((req, res) => {
   return res.status(404).render('error', {pageTitle: 'Page Not Found', message: 'Route '+ req.url +' does not exist', status: 'Page Not Found: 404'});

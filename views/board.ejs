@@ -1,7 +1,17 @@
 <%- include('partials/header') %>
 
 <div id="mid-container">
-  <h1 id="page-heading">Community Blog</h1>
+  <div id="blog-table-div">
+    <table id ="board-table">
+      <thead>
+        <tr id="board-table-row">
+          <th id="board-table-heading" class="blog-board-cell md-text gold-text" scope="colgroup"><%= pageTitle %></th>
+        </tr>
+      </thead>
+      <tbody id ="board-table-body" class="sm-text">
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <%- include('partials/commondialogs') %>

@@ -37,9 +37,8 @@ input, button {
   -webkit-box-shadow: inset 0 0 6px #0000004d;
   background-color: #D1D7E5;
 }
-::-webkit-scrollbar-thumb:hover, #table-search-cell, #search-button, #board-table-heading {
+::-webkit-scrollbar-thumb:hover, #search-button, #table-search-cell, #board-table-heading {
   background-color: darkblue;
-  cursor: pointer;
 }
 
 #main-container {
@@ -118,7 +117,8 @@ ul {
 }
 .red-text, .input-icon:hover, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active, .loss,
 svg.back-icon:hover, svg.back-icon:active, .numquantity:hover, .numquantity:focus, .invalid-list, #table-search-icon:active, #hand-ranking-heading,
-#roll-ranking-heading, .dropdown-menu li:hover, .dropdown-menu li:hover a, .dropdownContent:hover .dropdownLink, svg:focus, button.back-arrow:focus {
+#roll-ranking-heading, .dropdown-menu li:hover, .dropdown-menu li:hover a, .dropdownContent:hover .dropdownLink, svg:focus, button.back-arrow:focus,
+a.blog-board-link {
   color: #be0b2f;
 }
 .blue-text, a.link-text {
@@ -256,7 +256,7 @@ input:invalid, #tableSearch:active, .avatarButton:hover {
   font-weight: bold;
   color: darkblue;
 }
-.loss, .win, #mustHoldDialog {
+.loss, .win, #mustHoldDialog, a.blog-board-link {
   font-weight: bold;
 }
 
@@ -276,7 +276,8 @@ input:invalid, #tableSearch:active, .avatarButton:hover {
 	        animation: 0.4s ease-in-out 0s 1 forwards flipCard;
 }
 
-.card-slot-div .interactive-img:hover, .farkle-slot-div .interactive-img:hover, .btn, input[type=button], button {
+.card-slot-div .interactive-img:hover, .farkle-slot-div .interactive-img:hover, .btn, input[type=button],
+button::-webkit-scrollbar-thumb:hover, #search-button {
   cursor: pointer;
 }
 .btn {
@@ -818,11 +819,17 @@ button.back-arrow {
   margin: 0 5px;
 }
 
-#board-table-heading {
-  padding: 0.5%
+#board-table-heading, .board-table-cell {
+  padding: 1%;
+  text-transform: capitalize;
 }
+
 .board-table-cell, #board-table {
-  border: .1rem solid #000;
+  border: .05rem solid #000;
+}
+
+#board-table-body {
+  background-color: var(--bluish);
 }
 
 #leaderboard-div, #blog-table-div {
