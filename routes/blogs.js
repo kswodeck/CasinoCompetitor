@@ -23,6 +23,7 @@ router.get('/blog', (req, res) => {
 
 router.get('/blog/:board', (req, res) => {
   res.render('board', {pageTitle: req.params.board});
+  //also need to get all the post/titles that are under the board (sorted by most recently editted or created)
 });
 
 module.exports = router;

@@ -7,7 +7,9 @@ var BlogSchema = new mongoose.Schema({ // schema for blogs data
   content: {type: String, minlength: 1, maxlength: 5000},
   board: {type: String, minlength: 2, maxlength: 50},
   created: {type: Date, default: helpers.getCurrentDate()},
-  editted: {type: Date, default: null}
+  editted: {type: Date, default: helpers.getCurrentDate()}
 });
+
+//figure out how to connect replys under the post
 
 module.exports = mongoose.model("Blog", BlogSchema);
