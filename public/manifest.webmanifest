@@ -28,12 +28,6 @@
       "short_name": "Casino Competitor",
       "description": "Compete at this virtual casino",
       "url": "/"
-    },
-    {
-      "name": "Create An Account",
-      "short_name": "Create Account",
-      "description": "Sign up to start competing",
-      "url": "/register"
     }
   ]
 }
