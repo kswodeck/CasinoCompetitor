@@ -1,9 +1,3 @@
-<script>window.addEventListener('load', () => {
-  getFormValues('login-input', loginNames);
-  getFormValues('forgotUserInput', forgotNames);
-  getFormValues('forgotPassInput', forgotNames);
-  })
-</script>
 <dialog id="loginDialog" class="account-form-div account-dialog">
     <div class ="exit-button-div">
       <button id="loginDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('loginDialog')" >✖</button>
@@ -64,6 +58,12 @@
     </div>
 </dialog>
 </div>
+<script defer>window.addEventListener('load', () => {
+  getFormValues('login-input', loginNames);
+  getFormValues('forgotUserInput', forgotNames);
+  getFormValues('forgotPassInput', forgotNames);
+  })
+</script>
 <script rel="preconnect" defer src="https://www.googletagmanager.com/gtag/js?id=G-EG1KEKWQS6"></script>
 <script defer>
   if (typeof document.createElement('dialog').show != 'function') {
