@@ -1,10 +1,12 @@
 /* eslint-disable no-unused-vars */
-var express  = require('express'),
-    passport = require('passport'),
-    router   = express.Router({mergeParams: true}),
-    moment   = require('moment'),
-    User     = require('../models/user'),
-    badWords = require('../public/javascripts/words');
+const express  = require('express'),
+      passport = require('passport'),
+      router   = express.Router({mergeParams: true}),
+      moment   = require('moment'),
+      User     = require('../models/user'),
+      Post     = require('../models/post'),
+      badWords = require('../helpers/words'),
+      helpers  = require('../helpers/helpers');
 
 // account, authentication, and routes only for logged in users
 router.get('/', (req, res) => {
@@ -15,7 +17,7 @@ router.get('/', (req, res) => {
     afterLogin = false;
   }
   if (req.user && afterLogin) {
-    var current = new Date(getCurrentDate());
+    var current = new Date(helpers.getCurrentDate());
     let adjYesDate = moment().subtract(1, 'days').format();
     let strYesDate = adjYesDate.toString();
     let yesterday = strYesDate.slice(0, 10);
@@ -23,7 +25,7 @@ router.get('/', (req, res) => {
     let strCurDate = curDate.toString();
     let today = strCurDate.slice(0, 10);
     let last = new Date(req.user.lastLogin);
-    let lastLoginDate = formatDate(last);
+    let lastLoginDate = helpers.formatDate(last);
     var newStreak = 1;
     let addCoins = newStreak*10;
     var newCoins = req.user.coins + addCoins;
@@ -43,14 +45,14 @@ router.get('/', (req, res) => {
     } else if (!changedLastLogin){
       User.findOneAndUpdate({_id: req.user._id}, {$set: {loginStreak: newStreak, lastLogin: current, coins: newCoins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
     }
-    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins, updatePW: false});
+    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins});
   } else {
     var streak, coins;
     if (req.user) {
       streak = req.user.loginStreak;
       coins = req.user.coins;
     }
-    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: true, streak: streak, coins: coins, updatePW: false});
+    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: true, streak: streak, coins: coins});
   }
 });
 
@@ -69,46 +71,45 @@ router.put('/farkle', isLoggedIn, (req, res) => {
 });
 
 router.get('/leaderboard', isLoggedIn, (req, res) => {
-  var search = "", page = 1;
-  if (req.query.page) {
+  var search = "", page = 1; // initializes default variables
+  if (req.query.page) { // if a page query string exists
     page = req.query.page; //gets the page number from query string
   }
-  if (req.query.search) {
+  if (req.query.search) { // if a page query string exists
     search = req.query.search; //gets the search term from query string
   }
-  var cur = (page-1)*100;
-  var pageUsers = [], userRanks = [];
-  User.find({}).sort({coins: -1}).exec(function(err, allUsers) {
-    if (err || !allUsers) {
-      return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: 0, users: 0, ranks: 0, search: "", curPage: 1});
+  var cur = (page-1)*100; // calculates 100 users on the corresponding page
+  var pageUsers = [], userRanks = []; //declare arrays to store users and ranks
+  User.find({}).sort({coins: -1}).exec(function(err, allUsers) { //returns all users starting from highest coins
+    if (err || !allUsers) { // no users found or error
+      return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: 0, users: 0, ranks: 0, search: "", curPage: 1}); //returns empty page
     } else {
-      if (search == "") {
-        if (cur >= allUsers.length || page < 1 || isNaN(page)) {
-          return res.status(204).send();
+      if (search == "") { //no search was made
+        if (cur >= allUsers.length || page < 1 || isNaN(page)) { //handles invalid page queries
+          return res.status(204).send(); // return the same url the user come from
         }
-        for (let i = cur; i < cur+100 && i < allUsers.length; i++) { // gets 100 users on unsearched leaderboard
-          pageUsers.push(allUsers[i]);
-          userRanks.push(i+1);
+        for (let i = cur; i < cur+100 && i < allUsers.length; i++) { // gets top 100 users on unsearched leaderboard
+          pageUsers.push(allUsers[i]); //store users onto page
+          userRanks.push(i+1); //store ranks alongside users
         }
           return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: allUsers, ranks: userRanks, search: search, curPage: page});
       } else {
-        User.find({username: new RegExp(search, 'i')}).sort({coins: -1}).exec(function(err, users) {
+        User.find({username: new RegExp(search, 'i')}).sort({coins: -1}).exec(function(err, users) { //find users using the search query
           if (err || users.length == 0) { //no users found from search OR error
-            return res.redirect('/leaderboard');
+            return res.redirect('/leaderboard'); //restore leaderboard to initial state
           } else {
-            if (cur >= users.length || page < 1 || isNaN(page)) {
-              return res.status(204).send();
+            if (cur >= users.length || page < 1 || isNaN(page)) { //handles invalid page queries
+              return res.status(204).send(); // return the same url the user come from
             }
-            var i = cur, j = cur;
-            var numUsers = users.length, numAll = allUsers.length;
-            while (j < cur+100 && i < numAll && j < numUsers) { // sorts and ranks the searched leaderboard
-              let allId = allUsers[i]._id.toString(), usersId = users[j]._id.toString();
-              if (usersId == allId) {
-                pageUsers.push(users[j]);
-                userRanks.push(i+1);
-                j++;
+            var i = cur, j = cur; //initialize incrementing variables according to the corresponding page
+            while (j < cur+100 && i < allUsers.lengt && j < users.length) { // sorts and ranks the searched leaderboard
+              let allId = allUsers[i]._id.toString(), usersId = users[j]._id.toString(); //converts user ids to strings
+              if (usersId == allId) { //only store users that exist and were searched and found
+                pageUsers.push(users[j]); //store found users onto page
+                userRanks.push(i+1); //store ranks alongside users
+                j++; //increment found user count
               }
-              i++;
+              i++; //increment all user count
             }
             return res.render('leaderboard', {pageTitle: 'Leaderboard', pageUsers: pageUsers, users: users, ranks: userRanks, search: search, curPage: page});
           }
@@ -123,31 +124,29 @@ router.get('/register', isLoggedOut, (req, res) => {
 });
 router.post('/register', isLoggedOut, (req, res) => {
   User.find({email: req.body.email}, (err, emails) => {
-    if (err || emails.length > 0) { // desire to display UI errors without refreshing page (need user's editted values to stay)
+    if (err || emails.length > 0) {
       req.flash('error', 'Email "' + req.body.email + '" is already registered');
       res.redirect('/register');
-      // res.status(204).send(); // seem like best option to use this then timeout and display generic message on UI
     } else {
       User.find({username: req.body.username}, (err, usernames) => {
         if (err || usernames.length > 0) {
           req.flash('error', 'Username "' + req.body.username + '" is already registered');
           res.redirect('/register');
-          // res.status(204).send(); // seem like best option to use this then timeout and display generic message on UI
         } else {
           const username = req.body.username;
           if (containsBadWord(username)) {
             req.flash('error', 'You must not have a bad word in your username');
             return res.redirect('/register');
           } else {
-            let momentBirthday = getLocalNoonDate(req.body.birthday);
-            var newUser = new User({email: req.body.email, username: username, firstName: req.body.first, lastName: req.body.last, phone: req.body.phone, birthday: momentBirthday});
+            let momentBirthday = helpers.getLocalNoonDate(req.body.birthday);
+            var newUser = new User({email: req.body.email, username: username, firstName: req.body.firstName, lastName: req.body.lastName, phone: req.body.phone, birthday: momentBirthday, profileImage: req.body.profileImage});
             User.register(newUser, req.body.password, (err, user) => {
                 if (err || !user){
                   req.flash('error', err);
                   res.redirect('/register');
                 } else {
                   passport.authenticate('local')(req, res, () => {
-                    res.redirect('/?firstLogin=' + true);
+                    res.redirect('/?afterLogin=true');
                 });
               }
             });
@@ -159,12 +158,12 @@ router.post('/register', isLoggedOut, (req, res) => {
 });
 
 router.get('/login', isLoggedOut, (req, res) => {
-  res.render('login', {pageTitle: 'Login'});
+  res.render('prelogin', {pageTitle: 'Login'});
 });
 router.post('/login', isLoggedOut, passport.authenticate('local', {
   successRedirect: '/?afterLogin=true',
-  failureRedirect: '/login',
-  failureFlash: 'Incorrect username or password'
+  failureFlash: 'Incorrect username or password',
+  failureRedirect: '/login'
 }));
 router.get('/logout', isLoggedIn, (req, res) => {
   req.logout();
@@ -173,11 +172,8 @@ router.get('/logout', isLoggedIn, (req, res) => {
 });
 
 router.get('/account', isLoggedIn, (req, res) => {
-  if (req.user) {
-  let formattedBirthday = formatDate(req.user.birthday);
+  let formattedBirthday = helpers.formatDate(req.user.birthday);
   return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, error: false});
-  }
-  res.redirect('/login');
 });
 router.put('/account', isLoggedIn, (req, res) => {
   var curUser = req.user, updated = req.body.updateUser;
@@ -191,7 +187,7 @@ router.put('/account', isLoggedIn, (req, res) => {
         }
       });
   } else {
-    var formattedBirthday = formatDate(curUser.birthday);
+    var formattedBirthday = helpers.formatDate(curUser.birthday);
     if (updated.firstName != curUser.firstName) {
       User.findOneAndUpdate({_id: curUser._id}, {$set: {firstName: updated.firstName}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
     } 
@@ -202,8 +198,11 @@ router.put('/account', isLoggedIn, (req, res) => {
       User.findOneAndUpdate({_id: curUser._id}, {$set: {phone: updated.phone}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
     }
     if (updated.birthday != formattedBirthday) {
-      let momentBirthday =  getLocalNoonDate(updated.birthday);
+      let momentBirthday =  helpers.getLocalNoonDate(updated.birthday);
       User.findOneAndUpdate({_id: curUser._id}, {$set: {birthday: momentBirthday}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
+    }
+    if (updated.profileImage != curUser.profileImage) {
+      User.findOneAndUpdate({_id: curUser._id}, {$set: {profileImage: updated.profileImage}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
     }
     if (updated.email != curUser.email) {
       User.find({email: updated.email}, (err, result) => {
@@ -267,7 +266,7 @@ router.delete('/account', isLoggedIn, (req, res) => {
 });
 
 router.get('/forgotuser', isLoggedOut, (req, res) => {
-  res.render('forgotuser', {pageTitle: 'Forgot Username'});
+  res.render('prelogin', {pageTitle: 'Forgot Username'});
 });
 router.post('/forgotuser', isLoggedOut, (req, res) => {
   var userBirthday = req.body.forgotUser.birthday;
@@ -275,7 +274,7 @@ router.post('/forgotuser', isLoggedOut, (req, res) => {
   User.find({email: req.body.forgotUser.email, phone: req.body.forgotUser.phone}, (err, users) => {
     if (!err || users.length > 0) {
       for (let i = 0; i < users.length; i++) {
-        let storedBirthday = formatDate(users[i].birthday);
+        let storedBirthday = helpers.formatDate(users[i].birthday);
         if (storedBirthday.includes(userBirthday)) {
           msg = 'Username: ' + users[i].username;
           break;
@@ -287,7 +286,7 @@ router.post('/forgotuser', isLoggedOut, (req, res) => {
   });
 });
 
-router.get('/forgotpass', (req, res) => {
+router.get('/forgotpass', isLoggedOut, (req, res) => {
   let emailSent = false, userId = false, username = false;
   if (req.query.emailSent) {
     emailSent = req.query.emailSent;
@@ -300,7 +299,7 @@ router.get('/forgotpass', (req, res) => {
   }
   res.render('forgotpass', {pageTitle: 'Forgot Password', emailSent: emailSent, userId: userId, username: username, updatePW: false});
 });
-router.post('/forgotpass', (req, res) => {
+router.post('/forgotpass', isLoggedOut, (req, res) => {
   var userBirthday = req.body.forgotPW.birthday;
   User.find({email: req.body.forgotPW.email, phone: req.body.forgotPW.phone}, (err, users) => {
     if (err || users.length < 1) {
@@ -308,7 +307,7 @@ router.post('/forgotpass', (req, res) => {
       return res.redirect('/forgotpass');
     } else {
       for (let i = 0; i < users.length; i++) {
-        let storedBirthday = formatDate(users[i].birthday);
+        let storedBirthday = helpers.formatDate(users[i].birthday);
         if (storedBirthday.includes(userBirthday)) {
           let curUser = users[i];
           User.findByIdAndUpdate(curUser._id, {passwordRecoveryActive: true}, {useFindAndModify: false}, (error, user) => {
@@ -317,9 +316,7 @@ router.post('/forgotpass', (req, res) => {
               res.redirect('/forgotpass');
             } else {
               req.flash('success', 'password recovery email sent');
-              res.setTimeout(500, () => {
-                res.redirect('/forgotpass?emailSent=' + req.body.forgotPW.email + '&userId=' + curUser._id + '&username=' + curUser.username);
-              });
+              res.redirect('/forgotpass?emailSent=' + req.body.forgotPW.email + '&userId=' + curUser._id + '&username=' + curUser.username);
             }
           });
           break;
@@ -336,7 +333,7 @@ router.get('/forgotpass/:id', isLoggedOut, (req, res) => { //route to update pas
     if (err || !user) {
       res.redirect('/');
     } else {
-      res.render('forgotpass', {pageTitle: 'Update Password', updatePW: true, emailSent: false, userId: req.params.id, username: req.params.username});
+      res.render('forgotpass', {pageTitle: 'Update Password', emailSent: false, updatePW: true, userId: req.params.id, username: req.params.username});
     }
   });
 });
@@ -390,41 +387,6 @@ function updateCoins(req, res) {
   return res.status(204).send();
 }
 
-function getLocalNoonDate(date) {
-  let adjustedTime = 12 + (moment().utcOffset()/60);
-  let inputDate = date + ' ' + adjustedTime + ':00';
-  return moment().format(inputDate);
-}
-
-function formatDate(date) {
-  let unformattedDate = date.toString();
-  let formattedYear = unformattedDate.slice(11, 15);
-  let formattedMonth = unformattedDate.slice(4, 7);
-  formattedMonth = getMonthNum(formattedMonth);
-  let formattedDay = unformattedDate.slice(8, 10);
-  let formattedDate = formattedYear + '-' + formattedMonth + '-' + formattedDay;
-  return formattedDate;
-}
-
-function getMonthNum(month) {
-  month === 'Jan' ? month = '01' : month === 'Feb' ? month = '02' : month === 'Mar' ? month = '03' : month === 'Apr' ? month = '04' :
-  month === 'May' ? month = '05' : month === 'Jun' ? month = '06' : month === 'Jul' ? month = '07' :  month === 'Aug' ? month = '08' :
-  month === 'Sep' ? month = '09' : month === 'Oct' ? month = '10' : month === 'Nov' ? month = '11' : month = '12';
-  return month;
-}
-
-function getCurrentDate() {
-  let adjustedTime = moment().hour()+(moment().utcOffset()/60);
-  let todayDate = moment().date();
-  if (adjustedTime < 0) {
-    todayDate = (moment().date()-1);
-    adjustedTime = (24 + adjustedTime);
-  }
-  let dateReturned = moment().year() + '-'+ (moment().month()+1) + '-' + todayDate +
-  ' ' + adjustedTime + ':' + moment().minutes() + ':' + moment().seconds() + '.' + moment().milliseconds();
-  return dateReturned;
-}
-
 function containsBadWord(word) {
   for (let i = 0; i < badWords.length; i++) {
     if (word.includes(badWords[i])) {
@@ -435,5 +397,4 @@ function containsBadWord(word) {
 }
 
 module.exports = router;
-module.exports.getCurrentDate = getCurrentDate;
 

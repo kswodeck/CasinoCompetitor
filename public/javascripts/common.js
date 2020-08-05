@@ -1,17 +1,38 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+/* refactored 8/3/2020 */
+const container = document.getElementById('mid-container');
+const pageTitle = document.getElementsByTagName('title')[0];
+const hamContent = document.getElementById('navbar-content');
+const mainDropdown = document.getElementById('mainDropdown');
+const backdrop = document.getElementsByClassName('backdrop')[0];
+const loginDialog = document.getElementById('loginDialog');
+const invalidList = document.getElementById('invalid-fields-list');
+const avatarImage = document.getElementById('profileImage');
+const createAccountNames = ['firstName', 'lastName', 'email', 'username', 'password', 'newpassword', 'birthday', 'phone'];
+const accountNames = ['firstName', 'lastName', 'email', 'username', 'birthday', 'phone'];
+const loginNames = ['username', 'password'];
+const forgotNames = ['email', 'birthday', 'phone'];
+if (pageTitle.innerText == 'My Account') {
+  var accountInputs = document.getElementsByClassName('my-account');
+  var firstNameValue = accountInputs[0].value;
+  var lastNameValue = accountInputs[1].value;
+  var emailValue = accountInputs[2].value;
+  var usernameValue = accountInputs[3].value;
+  var birthdayValue = accountInputs[4].value;
+  var phoneValue = accountInputs[5].value;
+  var imageValue = accountInputs[6].value;
+  setTimeout(() => highlightUserAvatar(), 200);
+}
 
 function restoreContainer() {
   if (event.code == 'Escape') {
-    document.getElementById('mid-container').style.display = 'block';
+    container.style.display = 'block';
   }
 }
 
 function displayLoginDialog(message){
-  const dialog = document.getElementById('loginDialog');
-  const pageTitle = document.getElementsByTagName('title')[0];
-  const hamContent = document.getElementById('navbar-content');
-  const mainDropdown = document.getElementById('mainDropdown');
+  clearValidityMessages();
   hamContent.classList.remove('show');
   hamContent.classList.add('collapse');
   mainDropdown.classList.remove('show');
@@ -20,18 +41,21 @@ function displayLoginDialog(message){
       const exitButton = document.getElementById('loginDialogExit');
       exitButton.setAttribute('onclick', "location.href='/'");
     }
-    if (message && message != 'false' && message != false) {
-      const item = document.createElement('li');
-      item.innerText = message;
-      document.getElementById('invalid-login').appendChild(item);
-      if (message.includes('new') || message.includes('updated')) {
-        item.className = 'valid-list';
-      } else {
-        item.className = 'invalid-list';
+    if (message && message != 'false') {
+      let invalidLogin = document.getElementById('invalid-login');
+      if (invalidLogin.childNodes.length == 0) {
+        const item = document.createElement('li');
+        item.innerText = message;
+        invalidLogin.appendChild(item);
+        if (message.includes('new') || message.includes('updated')) {
+          item.className = 'valid-list';
+        } else {
+          item.className = 'invalid-list';
+        }
       }
     }
-    if (typeof dialog.showModal === 'function') {
-      if (!dialog.hasAttribute('open')) {
+    if (typeof loginDialog.showModal === 'function') {
+      if (!loginDialog.hasAttribute('open')) {
         let forgotUser = document.getElementById('forgotUserDialog');
         let forgotPW = document.getElementById('forgotPWDialog');
         if (forgotUser.hasAttribute('open')) {
@@ -39,14 +63,14 @@ function displayLoginDialog(message){
           } else if (forgotPW.hasAttribute('open')) {
             backFromDialog('forgotPWDialog');
           } else {
-          dialog.showModal();
+            loginDialog.showModal();
           }
         }
-      if (document.getElementsByClassName('backdrop')[0]) {
-        dialog.style.cssText = '';
-        document.getElementsByClassName('backdrop')[0].style.cssText = '';
+      if (backdrop) {
+        loginDialog.style.cssText = '';
+        backdrop.style.cssText = '';
       }
-      document.getElementById('mid-container').style.display = 'none';
+      container.style.display = 'none';
     } else {
       console.log('The <dialog> API is not supported by this browser');
     }
@@ -54,31 +78,28 @@ function displayLoginDialog(message){
 
 function displayLogoutDialog(){
   const dialog = document.getElementById('logoutDialog');
-  const container = document.getElementById('mid-container');
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
-    if (document.getElementsByClassName('backdrop')[0]) {
+    if (backdrop) {
       dialog.style.cssText = '';
-      document.getElementsByClassName('backdrop')[0].style.cssText = '';
+      backdrop.style.cssText = '';
     }
     container.style.display = 'none';
-    setTimeout(() => window.location.reload(), 8000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
 }
 
 function displayForgotDialog(newDialog, message){
-    const loginDialog = document.getElementById(newDialog);
-    const pageTitle = document.getElementsByTagName('title')[0];
+    const dialog = document.getElementById(newDialog);
     let invalidList = document.getElementById('invalid-forgot-username');
-    if (typeof loginDialog.showModal === 'function') {
-      loginDialog.showModal();
-      if (document.getElementsByClassName('backdrop')[0]) {
-        loginDialog.style.cssText = '';
-        document.getElementsByClassName('backdrop')[0].style.cssText = '';
+    if (typeof dialog.showModal === 'function') {
+      dialog.showModal();
+      if (backdrop) {
+        dialog.style.cssText = '';
+        backdrop.style.cssText = '';
       }
-      document.getElementById('loginDialog').close();
+      loginDialog.close();
     } else {
       console.log('The <dialog> API is not supported by this browser');
     }
@@ -98,10 +119,9 @@ function displayForgotDialog(newDialog, message){
     const forgotPassExit = document.getElementById('forgotPWDialogExit');
     const forgotUserExit = document.getElementById('forgotUserDialogExit');
     if (pageTitle.innerText == 'Forgot Username' || pageTitle.innerText == 'Forgot Password') {
-      const exitButton = document.getElementById('loginDialogExit');
+      document.getElementById('loginDialogExit').setAttribute('onclick', "location.href='/'");
       forgotUserExit.setAttribute('onclick', "location.href='/login'");
       forgotPassExit.setAttribute('onclick', "location.href='/login'");
-      exitButton.setAttribute('onclick', "location.href='/'");
     }
     if (pageTitle.innerText == 'Login') {
       forgotUserExit.setAttribute('onclick', "location.href='/'");
@@ -112,45 +132,43 @@ function displayForgotDialog(newDialog, message){
 function exitDialog(currentDialog){
   clearValidityMessages();
   document.getElementById(currentDialog).close();
-  document.getElementById('mid-container').style.display = 'block';
+  container.style.display = 'block';
 }
 
 function backFromDialog(currentDialog){
   clearValidityMessages();
   document.getElementById(currentDialog).close();
-  document.getElementById('loginDialog').showModal();
-  if (document.getElementsByClassName('backdrop')[0]) {
-    document.getElementsByClassName('backdrop')[0].style.cssText = '';
-    document.getElementById('loginDialog').style.cssText = '';
+  loginDialog.showModal();
+  if (backdrop) {
+    backdrop.style.cssText = '';
+    loginDialog.style.cssText = '';
   }
 }
 
 function togglePasswordVisibility(passwordId, iconId){
-  const passwordInput = document.getElementById(passwordId);
-  const passwordIcon = document.getElementById(iconId);
   if (event.type == 'click' || event.code == 'Enter') {
+    const passwordInput = document.getElementById(passwordId);
+    const passwordIcon = document.getElementById(iconId);
     if (passwordInput.type === 'password') {
       passwordInput.type = 'text';
-      passwordIcon.classList.remove('fa-eye');
-      passwordIcon.classList.add('fa-eye-slash');
     } else {
       passwordInput.type = 'password';
-      passwordIcon.classList.remove('fa-eye-slash');
-      passwordIcon.classList.add('fa-eye');
-    }   
+    }
+    passwordIcon.classList.toggle('fa-eye');
+    passwordIcon.classList.toggle('fa-eye-slash');
   }
 }
 
 function displayDialog(dialog) {
   const curDialog = document.getElementById(dialog);
-  if (event.type == 'click' || event.code == 'Enter') {
+  if (!event || event.type == 'DOMContentLoaded' || event.type == 'click' || event.code == 'Enter') {
     if (typeof curDialog.showModal == 'function') {
       curDialog.showModal();
-      if (document.getElementsByClassName('backdrop')[0]) {
+      if (backdrop) {
         curDialog.style.cssText = '';
-        document.getElementsByClassName('backdrop')[0].style.cssText = '';
+        backdrop.style.cssText = '';
       }
-      document.getElementById('mid-container').style.display = 'none';
+      container.style.display = 'none';
     } else {
       console.log('The <dialog> API is not supported by this browser');
     }
@@ -163,90 +181,51 @@ function displayStreakDialog(streak){
   const loginCoinSpan = document.getElementById('login-streak-win');
   if (typeof dialog.showModal == 'function') {
     dialog.showModal();
-    if (document.getElementsByClassName('backdrop')[0]) {
+    if (backdrop) {
       dialog.style.cssText = '';
-      document.getElementsByClassName('backdrop')[0].style.cssText = '';
+      backdrop.style.cssText = '';
     }
-    document.getElementById('mid-container').style.display = 'none';
+    container.style.display = 'none';
     setTimeout(() => {
       if (dialog.hasAttribute('open')) {
-        document.getElementById('mid-container').style.display = 'block';
         window.location.reload();
+        container.style.display = 'block';
       }
     }, 10000);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
   if (streak == '1' || streak == 1) {
-    streakHeading.innerText = "You visited us " + streak + " day in a row!";
+    streakHeading.innerText = `You visited us ${streak} day in a row!`;
   } else {
-    streakHeading.innerText = "You visited us " + streak + " days in a row!";
+    streakHeading.innerText = `You visited us ${streak} days in a row!`;
   }
-  loginCoinSpan.innerText = "You earned " + streak*10 + " ";
+  loginCoinSpan.innerText = `You earned ${streak*10} `;
 }
 
 function toggleHamburger(dropdown) {
-  let hamContent = document.getElementById(dropdown);
-  let mainDropdown = document.getElementById('mainDropdown');
-  if (!hamContent.classList.contains('show')) {
-    hamContent.classList.remove('collapse');
-    hamContent.classList.add('show');
-    mainDropdown.classList.remove('collapse');
-    mainDropdown.classList.add('show');
-  } else {
-    hamContent.classList.remove('show');
-    hamContent.classList.add('collapse');
-    mainDropdown.classList.remove('show');
-    mainDropdown.classList.add('collapse');
-  }
-}
-
-function sendForgotPWEmail(email, id, username) {
-  let link = window.location.origin + '/forgotpass/' + id;
-  Email.send({
-    Host : "smtp.elasticemail.com",
-    Username : "kswodeck@yahoo.com",
-    Password : "F4382D25C5C4A0AA224EFC64D8C120EC5082",
-    To : email,
-    From : "kmswodeck@gmail.com",
-    Subject : "Forgotten Password Recovery",
-    Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 250px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: #be0b2f; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><p>Hi <strong>' + username + '!</strong> You requested to recover a misplaced password<br>Click the link below to create a new password for your account</p><a style="color: darkblue; font-size: 20px" href="' + link + '">Create New Password</a></div></html>'
-  }).then(message => console.log('Email sent: ' + message));
-}
-
-const titleTag = document.getElementsByTagName('title')[0];
-if (titleTag.innerText == 'My Account') {
-  var accountInputs = document.getElementsByClassName('my-account');
-  var firstNameValue = accountInputs[0].value;
-  var lastNameValue = accountInputs[1].value;
-  var emailValue = accountInputs[2].value;
-  var usernameValue = accountInputs[3].value;
-  var phoneValue = accountInputs[4].value;
-  var birthdayValue = accountInputs[5].value;
+  hamContent.classList.toggle('collapse');
+  hamContent.classList.toggle('show');
+  mainDropdown.classList.toggle('collapse');
+  mainDropdown.classList.toggle('show');
 }
 
 function validateAccountCreate() {
   const inputs = document.getElementsByClassName('account-input');
-  const invalidList = document.getElementById('invalid-fields-list');
-  let cookieNames = ['firstName', 'lastName', 'email', 'username', 'phone', 'birthday'];
-  let cookieValues = ["firstName", "lastName", "newEmail", "createUsername", "createPhone", "newBirthday"];
-  let isValid = validateInputs(invalidList, inputs, 'accountCreate', 1300, cookieNames, cookieValues);
+  let values = [inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value, inputs[4].value, inputs[5].value, inputs[6].value, inputs[7].value];
   const newPassword = document.getElementById('newPassword');
   const repeatPassword = document.getElementById('repeatPassword');
-  if (!isValid) {
+  if (!validateInputs(invalidList, inputs, 'accountCreate', 1300, createAccountNames, values)) {
     return false;
   }
   return validatePassMatch(newPassword, repeatPassword, invalidList);
 }
 
 function validateAccountUpdate() {
-  const invalidList = document.getElementById('invalid-fields-list');
-  let cookieNames = ['firstName', 'lastName', 'email', 'username', 'phone', 'birthday'];
-  let cookieValues = ["updateFirstName", "updateLastName", "updateEmail", "updateUsername", "updatePhone", "updateBirthday"];
-  let isValid = validateInputs(invalidList, accountInputs, 'accountUpdateButton', 1200, cookieNames, cookieValues);
+  let values = [accountInputs[0].value, accountInputs[1].value, accountInputs[2].value, accountInputs[3].value, accountInputs[4].value, accountInputs[5].value];
   const item = document.createElement('li');
-  if (accountInputs[0].value == firstNameValue && accountInputs[1].value == lastNameValue && accountInputs[2].value == emailValue &&
-    accountInputs[3].value == usernameValue && accountInputs[4].value == phoneValue && accountInputs[5].value == birthdayValue) {
+  if (values[0] == firstNameValue && values[1] == lastNameValue && values[2] == emailValue && values[3] == usernameValue &&
+    values[4] == birthdayValue && values[5] == phoneValue && accountInputs[6].value == imageValue) {
       item.className = 'invalid-list';
       item.innerText = 'Please make changes before trying to update info';
       invalidList.appendChild(item);
@@ -255,24 +234,21 @@ function validateAccountUpdate() {
       item.className = 'valid-list';
       item.innerText = 'Account has been updated';
     }
-  return isValid;
+  return validateInputs(invalidList, accountInputs, 'accountUpdateButton', 1200, accountNames, values);
 }
 
 function validatePasswordUpdate() {
   const inputs = document.getElementsByClassName('updatePassInput');
   const invalidList = document.getElementById('invalid-update-password');
-  let cookieNames = [], cookieValues = [];
-  let isValid = validateInputs(invalidList, inputs, 'passwordUpdateButton', 1000, cookieNames, cookieValues);
   const oldPassword = document.getElementById('oldPassword');
   const updatePassword = document.getElementById('updatePassword');
   const repeatPassword = document.getElementById('repeatNewPassword');
-  if (!isValid) {
+  if (!validateInputs(invalidList, inputs, 'passwordUpdateButton', 1000)) {
     return false;
   }   
-  let match = validatePassMatch(updatePassword, repeatPassword, invalidList);
-  if (!match) {
+  if (!validatePassMatch(updatePassword, repeatPassword, invalidList)) {
     return false;
-  } else if (oldPassword.value == updatePassword.value || oldPassword.value == repeatPassword.value) {
+  } else if (oldPassword.value == updatePassword.value) {
     addToInvalidList('* old and new passwords must be different', updatePassword, invalidList);
     return false;
   } else {
@@ -287,37 +263,30 @@ function validatePasswordUpdate() {
 function validatePasswordChange() {
   const inputs = document.getElementsByClassName('changePassInput');
   const invalidList = document.getElementById('invalid-change-password');
-  let cookieNames = [], cookieValues = [];
-  let isValid = validateInputs(invalidList, inputs, 'passwordChangeButton', 1000, cookieNames, cookieValues);
   const changePassword = document.getElementById('changePassword');
   const repeatPassword = document.getElementById('repeatChangePassword');
-  if (!isValid) {
+  if (!validateInputs(invalidList, inputs, 'passwordChangeButton', 1000)) {
     return false;
   } 
-  let match = validatePassMatch(changePassword, repeatPassword, invalidList);
-  if (!match) {
-    return false;
-  }
-  return true;
+  return validatePassMatch(changePassword, repeatPassword, invalidList);
 }
 
-function validatePreLogin(inputClass, list) {
-  let cookieNames = ['email', 'phone', 'birthday'];
-  let cookieValues = ['loginUsername'];
+function validatePreLogin(inputClass, list, form) {
+  const inputs = document.getElementsByClassName(inputClass);
+  const invalidList = document.getElementById(list);
+  let names = forgotNames;
+  let values = [inputs[0].value, inputs[1].value];
   let disableButton = 'loginButton';
   if (document.getElementById('forgotPWDialog').open) {
     disableButton = 'forgotPWButton';
-    cookieValues = ['forgotPWEmail', 'forgotPWPhone', 'forgotPWBirthday'];
+    values = [inputs[0].value, inputs[1].value, inputs[2].value];
   } else if (document.getElementById('forgotUserDialog').open) {
     disableButton = 'forgotUserButton';
-    cookieValues = ['forgotUserEmail', 'forgotUserPhone', 'forgotUserBirthday'];
+    values = [inputs[0].value, inputs[1].value, inputs[2].value];
   } else {
-    cookieNames = ['username'];
+    names = loginNames;
   }
-  const inputs = document.getElementsByClassName(inputClass);
-  const invalidList = document.getElementById(list);
-  let isValid = validateInputs(invalidList, inputs, disableButton, 1200, cookieNames, cookieValues);
-  if (!isValid) {
+  if (!validateInputs(invalidList, inputs, disableButton, 1200, names, values)) {
     return false;
   }
   return true;
@@ -326,27 +295,30 @@ function validatePreLogin(inputClass, list) {
 function validateAccountDelete() {
   let invalidList = document.getElementById('invalid-verify-password');
   let inputs = document.getElementsByClassName('verifyPassInput');
-  let cookieNames = [], cookieValues = [];
-  let isValid = validateInputs(invalidList, inputs, 'passwordVerifyDeleteButton', 1000, cookieNames, cookieValues);
-  if (isValid == false) {
+  if (!validateInputs(invalidList, inputs, 'passwordVerifyDeleteButton', 1000)) {
     return false;
   }
   return true;
 }
 
 function validateContactUs() {
-  let invalidList = document.getElementById('invalid-fields-list');
   let inputs = document.getElementsByClassName('account-input');
-  let cookieNames = [], cookieValues = [];
-  let isValid = validateInputs(invalidList, inputs, 'contactUsButton', 1000, cookieNames, cookieValues);
-  if (isValid == false) {
+  if (!validateInputs(invalidList, inputs, 'contactUsButton', 1000)) {
     return false;
-  } else {
-    sendContactEmail();
   }
+  sendContactEmail();
 }
 
-function validateInputs(invalidList, inputs, button, disableTime, cookieNames, cookieValues) {
+function validatePassMatch(password, repeatPassword, invalidList) {
+  if (password.value != repeatPassword.value) {
+    addToInvalidList('* repeat password must match password', password, invalidList);
+    repeatPassword.style.border = '0.06em solid #be0b2f';
+    return false;
+  }
+  return true;
+}
+
+function validateInputs(invalidList, inputs, button, disableTime, names=[], values=[]) {
   disableAfterSubmit(button, disableTime);
   removeWhiteSpace(inputs);
   clearValidityMessages();
@@ -366,8 +338,8 @@ function validateInputs(invalidList, inputs, button, disableTime, cookieNames, c
     }
     inputs[i].style.borderWidth = '0.06em';
   }
-  addCookies(cookieNames, cookieValues);
-  if (empty == true) {
+  storeValues(names, values);
+  if (empty) {
     addToInvalidList('* please fill out all fields', inputs[inputs.length-1], invalidList);
     return false;
   } else if (!validity) {
@@ -394,21 +366,24 @@ function validateInputs(invalidList, inputs, button, disableTime, cookieNames, c
       }
     }
   }
-  function addCookies(inputs, values) {
-    for (let i = 0; i < inputs.length; i++) {
-      let value = document.getElementById(values[i]).value;
-      document.cookie = inputs[i] + '=' + value + '; max-age=2600000; path=/; domain=casinocompetitor.com; secure';
+  function storeValues(inputs=[], values=[]) {
+    for (let i = 0; i < values.length; i++) {
+      if (localStorage.getItem(inputs[i])) {
+        localStorage.removeItem(inputs[i]);
+      }
+      localStorage.setItem(inputs[i], values[i]);
     }
   }
 }
 
-function validatePassMatch(password, repeatPassword, invalidList) {
-  if (password.value != repeatPassword.value) {
-      addToInvalidList('* repeat password must match password', password, invalidList);
-      repeatPassword.style.border = '0.06em solid #be0b2f';
-      return false;
+function getFormValues(selector, names) {
+  if (localStorage.length > 0) {
+    const inputs = document.getElementsByClassName(selector);
+    for (let i = 0; i < inputs.length; i++) {
+      let storedVal = localStorage.getItem(names[i]);
+      if (storedVal !== null) inputs[i].value = storedVal;
+    }
   }
-  return true;
 }
 
 function addToInvalidList(str, el, invalidList) {
@@ -449,6 +424,33 @@ function forceNumeric(evt, type) {
   }
 }
 
+function selectAvatar(avatar) {
+  avatarImage.value = avatar.name;
+  const avatars = document.getElementsByClassName('avatarButton');
+  for (i = 0; i < avatars.length; i++) {
+    avatars[i].classList.remove('avatarBorder');
+  }
+  avatar.classList.add('avatarBorder');
+}
+
+function highlightUserAvatar() {
+  let avatarValue = ".avatarButton[name=" + avatarImage.value + "]";
+  document.querySelector(avatarValue).classList.add('avatarBorder');
+}
+
+function sendForgotPWEmail(email, id, username) {
+  let link = window.location.origin + '/forgotpass/' + id;
+  Email.send({
+    Host : "smtp.elasticemail.com",
+    Username : "kswodeck@yahoo.com",
+    Password : "F4382D25C5C4A0AA224EFC64D8C120EC5082",
+    To : email,
+    From : "kmswodeck@gmail.com",
+    Subject : "Forgotten Password Recovery",
+    Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 280px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: #be0b2f; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><p>Hi <strong>' + username + '!</strong> You requested to recover a misplaced password<br>Click the link below to create a new password for your account</p><a style="color: darkblue; font-size: 20px" href="' + link + '">Create New Password</a></div></html>'
+  });
+}
+
 function sendContactEmail() {
   let name = document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value;
   let email = document.getElementById('contactEmail').value;
@@ -461,6 +463,6 @@ function sendContactEmail() {
     To : "kristofferswodeck@live.com",
     From : "kmswodeck@gmail.com",
     Subject : "Contact Us Submission - " + subject,
-    Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 250px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: #be0b2f; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><h3 style="color: darkblue; font-size: 20px; margin-bottom: 10px">From: ' + name + ' (' + email + ')</h3><p>You received a new contact us form submission:<br>' + '"' + text + '"' + '</p></div></html>'
+    Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 280px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: #be0b2f; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><h3 style="color: darkblue; font-size: 20px; margin-bottom: 10px">From: ' + name + ' (' + email + ')</h3><p>You received a new contact us form submission:<br>' + '"' + text + '"' + '</p></div></html>'
   }).then(() => document.getElementById('contactUsForm').submit());
 }

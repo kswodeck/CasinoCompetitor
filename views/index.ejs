@@ -5,32 +5,32 @@
   <img src="images\casinocompetitor.webp" alt="CasinoCompetitor" id="home-logo">
   <% if (currentUser){ %>
   <h3 id="usernameHome" class="username-welcome blue-text"><%= currentUser.username %></h3>
-  <button id="homePokerButton" class="homeButton btn lg-text gold-bg red-text btn-style" onclick="location.href='/cards'">Play Poker</button>
-  <button id="homeFarkleButton" class="homeButton btn lg-text gold-bg red-text btn-style" onclick="location.href='/farkle'">Play Farkle</button>
+  <button id="homePokerButton" class="homeButton btn lg-text gold-bg red-text btn-style" role="button" onclick="location.href='/cards'">Play Poker</button>
+  <button id="homeFarkleButton" class="homeButton btn lg-text gold-bg red-text btn-style" role="button" onclick="location.href='/farkle'">Play Farkle</button>
   <% } else { %>
   <div id="SignUpDiv">
     <h4 id="SignUpHome" class="blue-text md-text">Ready to start competing?</h3>
-    <button id="homeSignUpButton" class="homeButton btn md-text red-bg gold-text btn-style" onclick="location.href='/register'">Sign Up</button>
+    <button id="homeSignUpButton" class="homeButton btn md-text red-bg gold-text btn-style" role="button" onclick="location.href='/register'">Sign Up</button>
   </div>
   <% } %>
   </div>
 <dialog id="logoutDialog" class="account-form-div account-dialog">
   <div class ="exit-button-div">
-    <button id="logoutDialogExit" class="exit-dialog-button md-text" onclick="window.location.href = '/'" >✖</button>
+    <button id="logoutDialogExit" class="exit-dialog-button md-text" role="button" onclick="exitDialog('logoutDialog')" >✖</button>
   </div>
   <h2 id="logoutHeading" class="account-heading login-heading blue-text">You've been logged out</h2>
   <div id="logoutDialogDiv" class="row">
     <div class="col">
-      <button id="logoutLoginButton" class="btn sm-text red-bg gold-text btn-style" onclick="location.href='/login'">Log In</button>
+      <button id="logoutLoginButton" class="btn sm-text red-bg gold-text btn-style" role="button" onclick="backFromDialog('logoutDialog')">Log In</button>
     </div>
     <div class="col">
-      <button id="logoutRegisterButton" class="btn sm-text red-bg gold-text btn-style" onclick="window.location.href='/register'">Sign Up</button>
+      <button id="logoutRegisterButton" class="btn sm-text red-bg gold-text btn-style" role="button" onclick="window.location.href='/register'">Sign Up</button>
     </div>
   </div>
 </dialog>
 <dialog id="loginStreakDialog" class="account-form-div account-dialog">
   <div class ="exit-button-div">
-    <button id="streakDialogExit" class="exit-dialog-button md-text" onclick="window.location.reload()" >✖</button>
+    <button id="streakDialogExit" class="exit-dialog-button md-text" role="button" onclick="window.location.reload()" >✖</button>
   </div>
     <b id="streakHeading" class="blue-text md-text"></b><br>
     <b id="login-streak-win" class="red-text md-text"></b><img loading="lazy" alt="coins" id="loginStreakCoinImg" class="coins-img" src="images/coins.webp"><br>
@@ -39,11 +39,17 @@
 
 <% if (popup && popup.length > 0){ %>
 <script>
-  window.onload = () => displayLogoutDialog();
+  document.getElementById('mid-container').style.display = 'none';
+  window.addEventListener('DOMContentLoaded', (event) => {
+    displayLogoutDialog();
+  });
 </script>
 <% } else if (currentUser && !loggedInToday) { %>
 <script>
-  window.onload = () => displayStreakDialog('<%= streak %>');
+  document.getElementById('mid-container').style.display = 'none';
+  window.addEventListener('DOMContentLoaded', (event) => {
+    displayStreakDialog('<%= streak %>');
+  });
 </script>
 <% } %>
 

@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
+import {outOfCoinsDialog, updateStoredCoins} from './games.js';
 var diceArr = [];
 var holdArr = [];
 var diceRolls = 0, diceHeld = 0, diceHeldThisRoll = 0, heldDiceScore = 0, totalScore = 0;
 var currentBet = 50, currentCoinsBet = 0;
 var hotDice = false, isSetup = false;
 var players = 1, curPlayer = 1;
-const diceRollDiv = document.getElementById('farkle-roll-div');
 const diceRollButton = document.getElementById('farkle-roll-button');
 const farkleEndButton = document.getElementById('farkle-end-button');
 const rollRankingHeading = document.getElementById('roll-ranking-heading');
@@ -13,9 +12,8 @@ const rollScoreHeading = document.getElementById('roll-score-heading');
 const rollScoreDiv = document.getElementById('farkle-roll-score-div');
 const totalScoreDiv = document.getElementById('farkle-total-score-div');
 const totalScoreText = document.getElementById('total-score-text');
-const pageTitle = document.getElementsByTagName('title')[0];
 const pageHeading = document.getElementById('page-heading');
-if (pageTitle.innerText == 'Competitive Farkle' || pageHeading.innerText == 'Competitive Farkle') {
+if (pageHeading.innerText == 'Competitive Farkle') {
   var totalCoinsSpan = document.getElementById('total-coins-span');
   var totalCoinsNum = parseInt(totalCoinsSpan.innerText);
   var currentBetSpan = document.getElementById('current-bet-span');
@@ -28,20 +26,21 @@ if (pageTitle.innerText == 'Competitive Farkle' || pageHeading.innerText == 'Com
   var updateCoinsStart, updateCoinsEnd;
   if (totalCoinsNum < 10 || !totalCoinsNum) {
     outOfCoinsDialog();
+    diceRollButton.disabled = true;
   }
 } else {
   var quanityDiv = document.getElementById('player-quantity-input-div');
 }
 
 function farkleRoll() {
-  diceRollButton.setAttribute('disabled', 'disabled');
+  diceRollButton.disabled = true;
   currentBet = parseInt(currentBetSpan.innerText) / 10;
   if ((totalCoins < 10 || !totalCoinsNum) && diceRolls === 0) {
     outOfCoinsDialog();
     return false;
   }
   currentWinSpan.innerText = 0;
-  betButton.setAttribute('disabled', 'disabled');
+  betButton.disabled = true;
   winButton.style.backgroundColor = '#be0b2f';
   winButton.style.boxShadow = '0 6px var(--darkcrimson)';
   if (diceRolls === 0) {
@@ -50,7 +49,7 @@ function farkleRoll() {
       totalCoinsSpan.innerText = totalCoins;
       resolve(5);
     });
-    updateStoredCoins(updateCoinsStart);
+    updateStoredCoins(updateCoinsStart, totalCoins, totalScore);
   }
   let continueRoll = farkleRollSetup();
   if (!continueRoll) {
@@ -72,7 +71,7 @@ function casualFarkleRoll() {
   } else {
     isSetup = true;
   }
-  diceRollButton.setAttribute('disabled', 'disabled');
+  diceRollButton.disabled = true;
   let continueRoll = farkleRollSetup();
   if (!continueRoll) {
     return;
@@ -147,7 +146,7 @@ function farkleRollSetup() {
       }
     }
     if (totalDiceHeld == diceHeld && !hotDice) { //this means no additional dice were held this round
-      diceRollButton.removeAttribute('disabled');
+      diceRollButton.disabled = false;
       displayFarkleDialog('mustHoldDialog', 'mustHoldCancel');
       return false;
     }
@@ -166,7 +165,7 @@ function farkleRollSetup() {
       }
     }
   } else {
-    farkleEndButton.removeAttribute('disabled');
+    farkleEndButton.disabled = false;
   }
   if (diceRolls > 0 || hotDice) {
     heldDiceScore = saveCurrentRollScore();
@@ -178,7 +177,7 @@ function farkleRollSetup() {
     diceHeldThisRoll = 0;
     diceArr = [];
     hotDice = false;
-    farkleEndButton.removeAttribute('disabled');
+    farkleEndButton.disabled = false;
   }
   rollRankingHeading.style.display = 'none';
   rollScoreHeading.style.display = 'none';
@@ -196,7 +195,7 @@ function farkleRollTeardown() {
       } else {
         diceRollButton.innerText = 'Play Again';
       }
-      farkleEndButton.setAttribute('disabled', 'disabled');
+      farkleEndButton.disabled = true;
       diceRollButton.onclick = () => {
         if (players == 1) {
         window.location.reload();
@@ -243,11 +242,10 @@ function farkleRollTeardown() {
       setTimeout(() => displayFarkleDialog('hotDiceDialog', 'hotDiceCancel'), 200);
     }
   });
-  setTimeout(() => diceRollButton.removeAttribute('disabled'), 400);
+  setTimeout(() => diceRollButton.disabled = false, 400);
 }
 
 var roll = () => Math.floor((Math.random() * 6) + 1);
-
 var animateDice = (diceElement) => diceElement.classList.add('spin-grow');
 
 function getRollValues() {
@@ -512,7 +510,7 @@ function submitGameSetup(dialog) {
     playerScoresDiv.appendChild(lineBreak);
   }
   pageHeading.innerText = document.getElementsByClassName('farkle-player-input')[0].value + "'s Turn";
-  diceRollButton.removeAttribute('disabled');
+  diceRollButton.disabled = false;
 }
 
 function setUpTeardownMultiPlayers() {
@@ -532,7 +530,7 @@ function setUpTeardownMultiPlayers() {
   document.getElementById('multiPlayerScoreContinue').onclick = () => {
     nextPlayer();
     dialog.close();
-    diceRollButton.removeAttribute('disabled');
+    diceRollButton.disabled = false;
   };
 }
 
@@ -558,7 +556,7 @@ function resetRoll() {
   diceArr = [];
   diceRolls = 0, diceHeld = 0, diceHeldThisRoll = 0, heldDiceScore = 0, totalScore = 0;
   diceRollButton.innerText = "Roll Dice";
-  farkleEndButton.setAttribute('disabled', 'disabled');
+  farkleEndButton.disabled = true;
   pageHeading.innerText = document.getElementsByClassName('farkle-player-input')[curPlayer-1].value + "'s Turn";
   for (let i = 0; i < 6; i++) {
     document.getElementsByClassName('dice')[i].src = '';
@@ -691,10 +689,10 @@ function endTurnDialog() {
     totalCoinsSpan.innerText = totalCoins;
     resolve(5);
   });
-  updateStoredCoins(updateCoinsEnd);
+  updateStoredCoins(updateCoinsEnd, totalCoins, totalScore);
   const dialog = document.getElementById('endTurnDialog');
-  diceRollButton.setAttribute('disabled', 'disabled');
-  farkleEndButton.setAttribute('disabled', 'disabled');
+  diceRollButton.disabled = true;
+  farkleEndButton.disabled = true;
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
     if (document.getElementsByClassName('backdrop')[0]) {
@@ -710,8 +708,8 @@ function endTurnDialog() {
 
 function endCasualTurnDialog() {
   const dialog = document.getElementById('endTurnDialog');
-  diceRollButton.setAttribute('disabled', 'disabled');
-  farkleEndButton.setAttribute('disabled', 'disabled');
+  diceRollButton.disabled = true;
+  farkleEndButton.disabled = true;
   if (typeof dialog.showModal === 'function') {
     dialog.showModal();
     if (document.getElementsByClassName('backdrop')[0]) {
@@ -810,7 +808,7 @@ function toggleDiceHold(currentHoldElement) {
   }
 }
 
-function toggleBet() {
+function toggleFarkleBet() {
   if (diceRolls === 0) {
     if (totalCoins - currentCoinsBet <= 0) {
       currentCoinsBet = 10;
@@ -823,35 +821,7 @@ function toggleBet() {
   }
 }
 
-function outOfCoinsDialog() {
-  const outOfCoinsDialog = document.getElementById('outOfCoinsDialog');
-  if (typeof outOfCoinsDialog.showModal === 'function') {
-    outOfCoinsDialog.showModal();
-    if (document.getElementsByClassName('backdrop')[0]) {
-      outOfCoinsDialog.style.cssText = '';
-      document.getElementsByClassName('backdrop')[0].style.cssText = '';
-    }
-  } else {
-    console.log('The <dialog> API is not supported by this browser');
-  }
-  document.getElementById('outOfCoinsCancel').onclick = () => outOfCoinsDialog.close();
-  diceRollButton.setAttribute('disabled', 'disabled');
-}
-
-function updateStoredCoins(updateCoins) {
-  updateCoins.then(() => {
-    let curWin;
-    diceRolls > 0 ? curWin = totalScore : curWin = 0;
-    let updateData = {coins: totalCoins, currentWin: curWin};
-    fetch('/cards', {
-      method: 'PUT',
-      body: JSON.stringify(updateData),
-      headers: {'Content-Type': 'application/json'}
-    }).then(res => {
-      if (!res.ok) {
-        throw Error(res.status);
-      }
-    }).then(res => res)
-    .catch(err => console.error(err));
-  });
-}
+window.toggleFarkleBet = toggleFarkleBet; window.toggleDiceHold = toggleDiceHold;
+window.endTurn = endTurn; window.endCasualTurn = endCasualTurn;
+window.farkleRoll = farkleRoll; window.casualFarkleRoll = casualFarkleRoll;
+window.endGameConfirm = endGameConfirm;

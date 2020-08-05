@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-const express      = require('express'),
+const express    = require('express'),
   mongoose       = require('mongoose'),
   passport       = require('passport'),
   bodyParser     = require('body-parser'),
@@ -35,10 +35,7 @@ app.use('/javascripts', express.static(__dirname + '/node_modules/'));
 app.use(flash());
 app.set('view cache', true);
 app.use(require('express-session')({ // Passport configuration
-  cookie: {
-    sameSite: 'none',
-    maxAge: 36288000
-  },
+  cookie: {maxAge: 36288000},
   secret: 'Casino Competitor is a great website!',
   resave: false,
   saveUninitialized: false

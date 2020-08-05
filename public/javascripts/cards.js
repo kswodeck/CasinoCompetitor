@@ -1,9 +1,8 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
+import {outOfCoinsDialog, updateStoredCoins} from './games.js';
 var cards = [], cards2 = [];
 var handsDealt = 0, currentHand = 0, currentWin = 0;
 const pageTitle = document.getElementsByTagName('title')[0];
-if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-heading').innerText == 'Competitive Poker') {
+if (pageTitle.innerText == 'Competitive Poker') {
   var totalCoinsSpan = document.getElementById('total-coins-span');
   let totalCoinsNum = parseInt(totalCoinsSpan.innerText);
   var currentBetSpan = document.getElementById('current-bet-span');
@@ -12,6 +11,7 @@ if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-
   var updateCoinsStart, updateCoinsEnd;
   if (totalCoinsNum < 1 || !totalCoinsNum) {
     outOfCoinsDialog();
+    cardDealButton.disabled = true;
   }
 }
 const cardDealButton = document.getElementById('card-deal-button');
@@ -124,7 +124,7 @@ function getCards() {
     winButton.style.boxShadow = '0 6px var(--darkerblue)';
     currentWinSpan.innerText = currentWin;
     winCoinsDialog(resultText);
-    updateStoredCoins(updateCoinsEnd);
+    updateStoredCoins(updateCoinsEnd, totalCoins, currentWin);
   }
 }
 
@@ -166,9 +166,7 @@ function getCasualCards() {
 
 function getRandomCardValues() { //  for calculating the values of each card
   const currentValues = [Math.floor((Math.random() * 13) + 1), Math.floor((Math.random() * 4) + 1)];
-  const numValue = currentValues[0]; //  13 card value options excluding jokers. 1=ace, 11=jack, 12=queen, 13=king
-  const numSuit = currentValues[1]; //  4 card suit options excluding jokers. club,diamond,heart,spade
-  currentValues.push(numValue + '-' + numSuit);
+  currentValues.push(currentValues[0] + '-' + currentValues[1]);
   return currentValues;
 }
 class Card {
@@ -252,7 +250,7 @@ function lastHandTeardown(holdCurrentCard, currentCard) {
 
 function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunction){
   if (handsDealt < 2) {
-    resultText = getHandRanking(currentHand);
+    let resultText = getHandRanking(currentHand);
     if (resultText === 'Game Over') {
       handRankingHeading.style.color = '#be0b2f'; // if no hand category has been acheived, red text
     } else {
@@ -268,9 +266,9 @@ function getGameResults(handsDealt, handRankingHeading, cardDealButton, winFunct
       }, 250);
     }
   }
-  if (pageTitle.innerText == 'Competitive Poker' || document.getElementById('page-heading').innerText == 'COMPETITIVE POKER') {
+  if (pageTitle.innerText == 'Competitive Poker') {
     if (handsDealt == 0) {
-      updateStoredCoins(updateCoinsStart);
+      updateStoredCoins(updateCoinsStart, totalCoins, currentWin);
     }
   }
   setTimeout(() => cardDealButton.disabled = false, 400);
@@ -393,7 +391,7 @@ function toggleCardHold(currentHoldElement) {
   }
 }
 
-function toggleBet() {
+function toggleCardsBet() {
   if (handsDealt === 0) {
     if (totalCoins - currentBet <= 0) {
       currentBet = 1;
@@ -406,18 +404,20 @@ function toggleBet() {
   }
 }
 
-function outOfCoinsDialog() {
-  const outOfCoinsDialog = document.getElementById('outOfCoinsDialog');
-  if (typeof outOfCoinsDialog.showModal === 'function') {
-    outOfCoinsDialog.showModal();
+function winHandDialog(result) {
+  const winDialog = document.getElementById('winHandDialog');
+  if (typeof winDialog.showModal === 'function') {
+    document.getElementById('hand-win-popup-span').innerText = result;
+    winDialog.showModal();
     if (document.getElementsByClassName('backdrop')[0]) {
-      outOfCoinsDialog.style.cssText = '';
+      winDialog.style.cssText = '';
       document.getElementsByClassName('backdrop')[0].style.cssText = '';
     }
+    setTimeout(() => winDialog.close(), 2500);
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
-  document.getElementById('outOfCoinsCancel').onclick = () => outOfCoinsDialog.close();
+  document.getElementById('winHandCancel').onclick = () => winDialog.close();
 }
 
 function winCoinsDialog(result) {
@@ -437,22 +437,6 @@ function winCoinsDialog(result) {
   document.getElementById('winCoinsCancel').onclick = () => coinsDialog.close();
 }
 
-function winHandDialog(result) {
-  const winDialog = document.getElementById('winHandDialog');
-  if (typeof winDialog.showModal === 'function') {
-    document.getElementById('hand-win-popup-span').innerText = result;
-    winDialog.showModal();
-    if (document.getElementsByClassName('backdrop')[0]) {
-      winDialog.style.cssText = '';
-      document.getElementsByClassName('backdrop')[0].style.cssText = '';
-    }
-    setTimeout(() => winDialog.close(), 2500);
-  } else {
-    console.log('The <dialog> API is not supported by this browser');
-  }
-  document.getElementById('winHandCancel').onclick = () => winDialog.close();
-}
-
 function toggleOddsTable() {
   let oddsDiv = document.getElementById('hand-odds-div');
   let showHideOddsButton = document.getElementById('show-hide-odds-button');
@@ -465,22 +449,6 @@ function toggleOddsTable() {
   }
 }
 
-function updateStoredCoins(updateCoins) {
-  updateCoins.then(() => {
-    if ((currentWin != 0 && cards2.length != 0) || cards2.length == 0) {
-      const updateData = {coins: totalCoins, currentWin: currentWin};
-      fetch('/cards', {
-        method: 'PUT',
-        body: JSON.stringify(updateData),
-        headers: {'Content-Type': 'application/json'}
-      }).then(res => {
-        if (!res.ok) {
-          throw Error(res.status);
-        }
-      }).then(res => res)
-      .catch(err => console.error(err));
-    } else {
-      return false;
-    }
-  });
-}
+window.getCasualCards = getCasualCards; window.getCards = getCards;
+window.toggleCardsBet = toggleCardsBet; window.toggleOddsTable = toggleOddsTable;
+window.toggleCardHold = toggleCardHold;
