@@ -37,7 +37,7 @@ input, button {
   -webkit-box-shadow: inset 0 0 6px #0000004d;
   background-color: #D1D7E5;
 }
-::-webkit-scrollbar-thumb:hover, #table-search-cell, #search-button {
+::-webkit-scrollbar-thumb:hover, #table-search-cell, #search-button, #board-table-heading {
   background-color: darkblue;
   cursor: pointer;
 }
@@ -570,8 +570,8 @@ div.top-menu-div > a.dropdownLink {
 }
 
 #dropdownCardsLink #dropdownMainLink, li a, #main-container, #dice-col, #dice-current-col, #dice-roll-tally-div,
-#dice-roll-current-div, #table-search-cell, .name-col, #leaderboard-div, #tableSearch, button.back-arrow, #search-button,
-#main-navbar, #main-links-row, a.dropdown-item, #linksDiv, div.top-menu-div, .dropdownList, ul.horizontalList, .avatarButton {
+#dice-roll-current-div, #table-search-cell, .name-col, #leaderboard-div, #blog-table-div, #tableSearch, button.back-arrow,
+#search-button, #main-navbar, #main-links-row, a.dropdown-item, #linksDiv, div.top-menu-div, .dropdownList {
   padding: 0;
 } 
 
@@ -674,7 +674,7 @@ border-radius: .25rem;
   text-shadow: 2px 4px 5px lightsteelblue;
   font-size: calc(20px + 0.85vw)
 }
-.username-welcome, #leaderboard-div {
+.username-welcome, #leaderboard-div, #blog-table-div {
   margin: 1.5% auto 0 auto;
 }
 .name-row, .dropdownList, ul.horizontalList {
@@ -818,7 +818,14 @@ button.back-arrow {
   margin: 0 5px;
 }
 
-#leaderboard-div {
+#board-table-heading {
+  padding: 0.5%
+}
+.board-table-cell, #board-table {
+  border: .1rem solid #000;
+}
+
+#leaderboard-div, #blog-table-div {
   width: calc(150px + 80%);
   max-width: 99%;
 }
@@ -834,7 +841,7 @@ button.back-arrow {
   border: 1px solid lightsteelblue;
   border-radius: 2px;
 }
-#leaderboard-table {
+#leaderboard-table, #board-table {
   width: 100%;
 }
 .leaderboard-head, .leaderboard-cell, #leaderboard-table {
@@ -867,7 +874,7 @@ button.page-button {
   font-size:calc(14px + 0.6vw);
 }
 
-#mid-container, #dialog-popup-text, #winHandDiv, .account-form-div, #show-hide-odds-div,
+#mid-container, #dialog-popup-text, #winHandDiv, .account-form-div, #show-hide-odds-div, #blog-table-div,
 #leaderboard-div, #tableSearch, #leaderboardLink, #farkle-container, dialog, div.farkle-div, .backdrop {
   text-align: center;
 }
