@@ -2,14 +2,32 @@
 
 <div id="mid-container">
   <div id="blog-table-div">
-    <table id ="board-table">
+    <table id="board-table">
       <thead>
         <tr id="board-table-row">
-          <th id="board-table-heading" class="blog-board-cell md-text gold-text" scope="colgroup"><%= pageTitle %></th>
+          <th scope="col" colspan="1" class="blog-board-cell board-table-heading gold-text">
+          <div class ="back-button-div">
+            <button id="BoardBackButton" class="back-arrow btn lg-text gold-text" name="back-arrow" onclick="window.location.href='/blog'"><i id="BoardBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
+            <b class="back-button-label sm-text" onclick="window.location.href='/blog'">Back to Boards</b>
+          </div>
+          </th>
+          <th id="board-table-heading" class="blog-board-cell board-table-heading md-text gold-text" scope="col" colspan="1"><%= pageTitle %></th>
+          <th scope="col" colspan="1" class="blog-board-cell board-table-heading"></th>
         </tr>
       </thead>
+      <% if (boardPosts && boardPosts.length > 0) { %>
       <tbody id ="board-table-body" class="sm-text">
+        <% for (let i = 0; i < boardPosts.length; i++) { %>
+        <tr class ="board-table-row">
+          <td class ="board-table-cell" scope="col" colspan="3"><a class="blog-board-link" href="/blog/<%= pageTitle %>/<%= boardPosts[i].id %>"><%= boardPosts[i].title %></a></td>
+        </tr>
+        <% } %>
       </tbody>
+      <% } else if (!currentUser) { %>
+      <tr class ="board-table-row">
+        <td class ="board-table-cell blue-text" scope="col" colspan="3">There are no posts on this board. <a class="blog-board-link" href="/register">Sign Up</a> to create a new post.</td>
+      </tr>
+      <% } %>
     </table>
   </div>
 </div>

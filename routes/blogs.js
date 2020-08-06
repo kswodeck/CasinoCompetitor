@@ -5,7 +5,12 @@ const express  = require('express'),
       badWords = require('../helpers/words'),
       helpers  = require('../helpers/helpers');
 
-//Blog.create({userId: , title: 'Poker Tips!', content: 'Here are some poker tips', board: 'poker'});
+// Blog.create({userId: '5edd99e1de86290004f56157', title: 'Poker Tips!', body: 'Here are poker tips from kswodeck', board: 'poker'});
+// Blog.create({userId: '5eddac7fc8e4e800042c089e', title: 'Poker Tips!', body: 'Here are poker tips from tatums', board: 'poker'});
+// Blog.create({userId: '5edd99e1de86290004f56157', title: 'Poker Tips!', body: 'Here are more poker tips from kswodeck', board: 'poker'});
+// Blog.create({userId: '5eddac7fc8e4e800042c089e', title: 'Poker Tips!', body: 'Here are more poker tips from tatums', board: 'poker'});
+
+// Blog.create({userId: , title: 'Poker Tips!', body: 'Here are some poker tips', board: 'poker'});
 //restful routes
 // Index = /blog. GET (blog.ejs template)
 // Board = /blog/:board. GET (board.ejs template)
@@ -22,8 +27,12 @@ router.get('/blog', (req, res) => {
 });
 
 router.get('/blog/:board', (req, res) => {
-  res.render('board', {pageTitle: req.params.board});
-  //also need to get all the post/titles that are under the board (sorted by most recently editted or created)
+  Blog.find({board: req.params.board}).sort({editted: 1, created: 1}).exec(function(err, posts) {
+    if (err || !posts) {
+      console.log(err);
+    }
+    res.render('board', {pageTitle: req.params.board, boardPosts: posts});
+  });
 });
 
 module.exports = router;

@@ -37,8 +37,8 @@ input, button {
   -webkit-box-shadow: inset 0 0 6px #0000004d;
   background-color: #D1D7E5;
 }
-::-webkit-scrollbar-thumb:hover, #search-button, #table-search-cell, #board-table-heading {
-  background-color: darkblue;
+::-webkit-scrollbar-thumb:hover, #search-button, #table-search-cell, .board-table-heading {
+  background-color: #00008b;
 }
 
 #main-container {
@@ -57,7 +57,7 @@ input, button {
   display: none;
   font-size: calc(50px + 6vw + 5vh);
   font-weight: 800;
-  color: darkblue;
+  color: #00008b;
 }
 .animateLoad::after {
   content:'';
@@ -82,7 +82,7 @@ input, button {
   font-size: calc(11px + 0.3vw);
 }
 button.gold-bg, input.gold-bg.btn, button.gold-bg:focus, input.gold-bg.btn:focus {
-  background-color: gold;
+  background-color: #ffd700;
   box-shadow: 0 6px var(--darkgold);
 }
 button.red-bg, input.red-bg.btn, button.red-bg:focus, input.red-bg.btn:focus {
@@ -90,7 +90,7 @@ button.red-bg, input.red-bg.btn, button.red-bg:focus, input.red-bg.btn:focus {
   box-shadow: 0 6px var(--darkcrimson);
 }
 button.blue-bg, input.blue-bg.btn, button.blue-bg:focus, input.blue-bg.btn:focus, button.page-button, button.page-button:focus {
-  background-color: darkblue;
+  background-color: #00008b;
   box-shadow: 0 6px var(--darkerblue);
 }
 button.btn-style, input.btn-style {
@@ -113,7 +113,7 @@ ul {
   list-style: none;
 }
 .gold-text, .warning-list, #go-button-link, #footer a:hover, #table-search-icon:hover, button.page-button {
-  color: gold;
+  color: #ffd700;
 }
 .red-text, .input-icon:hover, button.exit-dialog-button:hover, #header a:active, a.link-text:active, .back-button-label:active, .loss,
 svg.back-icon:hover, svg.back-icon:active, .numquantity:hover, .numquantity:focus, .invalid-list, #table-search-icon:active, #hand-ranking-heading,
@@ -122,7 +122,7 @@ a.blog-board-link {
   color: #be0b2f;
 }
 .blue-text, a.link-text {
-  color: darkblue;
+  color: #00008b;
 }
 .green-text, .valid-list, .win {
   color: green;
@@ -132,7 +132,7 @@ a.blog-board-link {
 }
 
 button.gold-bg:hover, input.gold-bg.btn:hover {
-  color: darkblue;
+  color: #00008b;
   box-shadow: 0 4px var(--darkgold);
   top: 2px;
 }
@@ -141,7 +141,7 @@ button.gold-bg:active, input.gold-bg.btn:active {
   top: 6px;
 }
 button.red-bg:hover, input.red-bg.btn:hover {
-  color: gold;
+  color: #ffd700;
   box-shadow: 0 4px var(--darkcrimson);
   top: 2px;
 }
@@ -150,7 +150,7 @@ button.red-bg:active, input.red-bg.btn:active {
   top: 6px;
 }
 button.blue-bg:hover, input.blue-bg.btn:hover, button.btn.page-button:hover {
-  color: gold;
+  color: #ffd700;
   box-shadow: 0 4px var(--darkerblue);
   top: 2px;
 }
@@ -162,7 +162,7 @@ button.gold-bg:disabled, input.gold-bg.btn:disabled {
   color: #be0b2f;
 }
 button.red-bg:disabled, input.red-bg.btn:disabled, button.blue-bg:disabled, input.blue-bg.btn:disabled {
-  color: gold;
+  color: #ffd700;
 }
 
 button.btn:disabled, input.btn:disabled {
@@ -203,7 +203,7 @@ input:invalid, #tableSearch:active, .avatarButton:hover {
 }
 
 .numquantity {
-  background-color: gold;
+  background-color: #ffd700;
   border: 1px solid #be0b2f;
   width: calc(40px + 0.2vw);
   height: calc(20px + 0.1vw);
@@ -215,7 +215,7 @@ input:invalid, #tableSearch:active, .avatarButton:hover {
 
 #coin-flip-tally-div, #dice-roll-tally-div, #dice-roll-current-div, .farkle-score-div {
   margin: 2% auto;
-  border: calc(1px + 0.2vw) solid darkblue;
+  border: calc(1px + 0.2vw) solid #00008b;
   line-height: 1.25;
   padding: 0.2%;
   text-align: center;
@@ -226,7 +226,7 @@ input:invalid, #tableSearch:active, .avatarButton:hover {
 #hand-odds-div {
   max-width: 270px;
   display: none;
-  border: calc(1px + 0.2vw) solid darkblue;
+  border: calc(1px + 0.2vw) solid #00008b;
   line-height: 1.25;
   padding: 0.2% 0.1%;
   text-align: center;
@@ -234,6 +234,10 @@ input:invalid, #tableSearch:active, .avatarButton:hover {
 
 #dice-clear-tally-col, #hand-ranking-heading, #roll-ranking-heading, #roll-score-heading, dialog:not([open]), #profileImage {
   display: none;
+}
+table#board-table {
+  table-layout: fixed ;
+  width: 100% ;
 }
 
 .table-heading, .current-table-heading {
@@ -254,7 +258,7 @@ input:invalid, #tableSearch:active, .avatarButton:hover {
 }
 .result, #home-heading, #page-heading, .leaderboard-head, .main-heading, .roll-score, #leaderboard-heading, #choosePlayersHeading, #playerScoresHeading {
   font-weight: bold;
-  color: darkblue;
+  color: #00008b;
 }
 .loss, .win, #mustHoldDialog, a.blog-board-link {
   font-weight: bold;
@@ -304,10 +308,10 @@ button::-webkit-scrollbar-thumb:hover, #search-button {
   border-radius: 18%;
 }
 .card-slot-div .interactive-img:active, .numquantity:active, .numquantity:focus, #table-search-cell, #SignUpDiv, .avatarBorder, .avatarButton:active {
-  border: 0.1rem solid darkblue;
+  border: 0.1rem solid #00008b;
 }
 .farkle-slot-div .interactive-img:active {
-  border: 0.05em solid darkblue;
+  border: 0.05em solid #00008b;
 }
 .farkle-slot-div {
   max-height: 200px;
@@ -383,7 +387,7 @@ form > #farkle-roll-button, form > #farkle-end-button {
 }
 
 #total-coins-span {
-  color: gold;
+  color: #ffd700;
   font-weight: bold;
   margin-right: 1.2%;
   text-align: right;
@@ -421,7 +425,7 @@ button.betWinButton:active {
 .winner, #winner, #final_winner, .hold-card-text, .hold-dice-text {
   font-size: calc(9px + 0.6vw);
   font-weight: bold;
-  color: darkblue;
+  color: #00008b;
   text-shadow: 5px 10px 9px lightsteelblue;
   display: block;
   text-transform: uppercase;
@@ -459,7 +463,7 @@ button.betWinButton:active {
   z-index: 10;
 }
 #hamburger-button {
-  color: gold;
+  color: #ffd700;
   border-color: #343a40;
   display: none;
 }
@@ -538,7 +542,7 @@ div.dropdown-menu {
 
 #dropdownMainLink {
   font-size: 130%;
-  color: gold;
+  color: #ffd700;
   font-weight: bold;
   text-decoration: underline;
 }
@@ -733,7 +737,7 @@ border-radius: .25rem;
 
 .input-icon {
   cursor: pointer;
-  color: darkblue;
+  color: #00008b;
   z-index: 2;
   font-size: calc(20px + 0.3vw + 0.2vh);
 }
@@ -819,8 +823,11 @@ button.back-arrow {
   margin: 0 5px;
 }
 
-#board-table-heading, .board-table-cell {
+.board-table-heading, .board-table-cell {
   padding: 1%;
+}
+
+title, #board-table-heading, .blog-board-link {
   text-transform: capitalize;
 }
 
@@ -876,7 +883,7 @@ button.page-button {
 }
 
 #coin-win-popup-span, #number-coins-won, #hand-win-popup-span, #endTurnPopupSpan, #farklePopupSpan {
-  color: darkblue;
+  color: #00008b;
   font-weight: bold;
   font-size:calc(14px + 0.6vw);
 }
@@ -895,7 +902,7 @@ button.page-button {
 }
 
 dialog:not(.account-form-div) {
-  border: 3px solid darkblue;
+  border: 3px solid #00008b;
   border-radius: 10px;
   top: calc(10vh + 20%);
   left: 0px;
@@ -1088,7 +1095,7 @@ dialog::-webkit-backdrop, div.backdrop, dialog::backdrop {
     top: calc(2px + 2.5vh + 2vw);
   }
   .dropdownContent:hover .dropdownLink {
-    color: gold;
+    color: #ffd700;
   }
   #linksDiv {
     flex-grow: 0;
