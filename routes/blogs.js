@@ -47,7 +47,11 @@ router.get('/blog/:board/:id', (req, res) => {
         if (err || !user) {
           console.log(err);
         }
-        res.render('post', {pageTitle: post.title, board: req.params.board, post: post, user: user});
+        let sameUser = false;
+        if (req.user._id.toString() == user._id.toString()) {
+          sameUser = true;
+        }
+        res.render('post', {pageTitle: post.title, board: req.params.board, post: post, user: user, sameUser: sameUser});
       });
     }
   });

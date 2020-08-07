@@ -1,9 +1,11 @@
-function enablePostEdit() {
-  console.log(document.getElementById('postTextArea'));
-  document.getElementById('postTextArea').disabled = false;
+function enablePostEdit(user) {
+  if (user && user != 'false') {
+    document.getElementById('postTextArea').disabled = false;
+  }
 }
 
-function disablePostEdit() {
-  console.log(document.getElementById('postTextArea'));
-  document.getElementById('postTextArea').disabled = true;
+function disablePostEdit(user) {
+  if (user && user != 'false') {
+    document.getElementById('postTextArea').disabled = true;
+  }
 }
