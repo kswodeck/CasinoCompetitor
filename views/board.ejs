@@ -7,7 +7,7 @@
         <tr id="board-table-row">
           <th scope="col" colspan="1" class="blog-board-cell board-table-heading">
           <div class ="back-button-div">
-            <button id="BoardBackButton" class="back-arrow btn lg-text gold-text" name="back-arrow" onclick="window.location.href='/blog'"><i id="BoardBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
+            <button id="boardBackButton" class="back-arrow btn lg-text gold-text" name="back-arrow" onclick="window.location.href='/blog'"><i id="BoardBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
             <b class="back-button-label gold-text sm-text" onclick="window.location.href='/blog'">Back to Boards</b>
           </div>
           </th>
@@ -27,7 +27,11 @@
       <tr class ="board-table-row">
         <td class ="board-table-cell blue-text" scope="col" colspan="3">There are no posts on this board. <a class="blog-board-link" href="/register">Sign Up</a> to create a new post.</td>
       </tr>
-      <% } %>
+      <% } else { %>
+        <tr class ="board-table-row"> <!-- Add href link to new post or.. add an onclick to open new post dialog -->
+          <td class ="board-table-cell blue-text" scope="col" colspan="3">There are no posts on this board. <a class="blog-board-link" href="#">Create a new post</a></td>
+        </tr>
+        <% } %>
     </table>
   </div>
 </div>

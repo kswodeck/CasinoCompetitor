@@ -20,6 +20,7 @@ body {
   --darkcrimson: #5f0003;
   --darkerblue: #000064;
   --darkgrey: #343a40;
+  --whitish: #d6dde6;
 }
 
 input, button {
@@ -94,7 +95,6 @@ button.blue-bg, input.blue-bg.btn, button.blue-bg:focus, input.blue-bg.btn:focus
   box-shadow: 0 6px var(--darkerblue);
 }
 button.btn-style, input.btn-style {
-  white-space: nowrap;
   font-weight: bold;
   margin: 0.8% auto calc(6px + 0.2vh) auto;
   border: none;
@@ -121,7 +121,7 @@ svg.back-icon:hover, svg.back-icon:active, .numquantity:hover, .numquantity:focu
 a.blog-board-link {
   color: #be0b2f;
 }
-.blue-text, a.link-text {
+.blue-text, a.link-text, #postDelete:hover {
   color: #00008b;
 }
 .green-text, .valid-list, .win {
@@ -181,14 +181,6 @@ input:invalid, #tableSearch:active, .avatarButton:hover {
   border-color: #be0b2f;
 }
 
-.horizontalList > li {display: inline;}
-.avatarItem {width: calc(40px + 1.5vw);}
-.avatarButton {
-  border-radius: 10%;
-  height: calc(44px + 1.5vw);
-}
-.avatarItem:hover, .avatarItem:active {border: none;}
-
 .col {
   flex-basis: 0;
   flex-grow: 1;
@@ -196,11 +188,22 @@ input:invalid, #tableSearch:active, .avatarButton:hover {
   position: relative;
   width: 100%;
 }
-
 .row {
   display: flex;
   flex-wrap: wrap;
 }
+
+#postDelete, .dropdownContent{
+  white-space: nowrap;
+}
+
+.horizontalList > li {display: inline;}
+.avatarItem {width: calc(40px + 1.5vw);}
+.avatarButton {
+  border-radius: 10%;
+  height: calc(44px + 1.5vw);
+}
+.avatarItem:hover, .avatarItem:active {border: none;}
 
 .numquantity {
   background-color: #ffd700;
@@ -281,7 +284,7 @@ table#board-table {
 }
 
 .card-slot-div .interactive-img:hover, .farkle-slot-div .interactive-img:hover, .btn, input[type=button],
-button::-webkit-scrollbar-thumb:hover, #search-button {
+button::-webkit-scrollbar-thumb:hover, #search-button, .exit-dialog-button, #postDelete, .dropdownContent {
   cursor: pointer;
 }
 .btn {
@@ -531,13 +534,29 @@ div.dropdown-menu {
   color: #be0b2f;
   cursor: pointer;
 }
-.fa-caret-down, .farkle-player-score, #winnerScoreTotal, .avatarImage {
+.fa-caret-down, .farkle-player-score, #winnerScoreTotal, .avatarImage, #user-coins-img {
   margin-left: 3px;
 }
 .avatarImage {
   z-index: 1001;
   width: calc(25px + 0.5vw);
   height: calc(25px + 0.5vw);
+}
+.postImage {
+  z-index: 1001;
+  width: calc(40px + 0.8vw);
+  height: calc(40px + 0.8vw);
+}
+
+#post-user-info-list {
+  margin: 2% 0 0 2%;
+}
+#user-post-div {
+  background-color: var(--whitish);
+  padding-right: calc(5px + .3vw);
+}
+#postUpdateButton {
+  opacity: .6;
 }
 
 #dropdownMainLink {
@@ -571,12 +590,13 @@ div.top-menu-div > a.dropdownLink {
   padding: 10% 0;
 }
 #coins-img {
-  margin-right: 3%
+  margin-right: 3%;
 }
 
-#dropdownCardsLink #dropdownMainLink, li a, #main-container, #dice-col, #dice-current-col, #dice-roll-tally-div,
+#dropdownCardsLink #dropdownMainLink, li a, #main-container, #dice-col, #dice-current-col, #dice-roll-tally-div, .invalid-fields-list,
 #dice-roll-current-div, #table-search-cell, .name-col, #leaderboard-div, #blog-table-div, #tableSearch, button.back-arrow,
-#search-button, #main-navbar, #main-links-row, a.dropdown-item, #linksDiv, div.top-menu-div, .dropdownList {
+dialog.account-dialog, #search-button, #main-navbar, #main-links-row, a.dropdown-item, #linksDiv, div.top-menu-div, .dropdownList,
+#post-user-info-list {
   padding: 0;
 } 
 
@@ -605,8 +625,11 @@ div.top-menu-div > a.dropdownLink {
   justify-content: space-between;
   align-items: center;
 }
-#main-links-row, #farkle-roll-div {
+#main-links-row, #farkle-roll-div, .post-col, .post-top-row {
   display: flex;
+}
+.post-top-row {
+  justify-content: space-between;
 }
 .navbar-nav {
   display: flex;
@@ -646,10 +669,6 @@ border-radius: .25rem;
   padding: 1.5% 2% 1.5% 1%;
 }
 
-.dropdownContent {
-  cursor: pointer;
-  white-space: nowrap;
-}
 .dropdownListItem {
   height: 25px;
 }
@@ -684,7 +703,6 @@ h2#form-heading {
   border: 1px inset var(--lightcrimson);
   background-color: var(--bluish);
   background-image: radial-gradient(ellipse, var(--bluish) 30%, #979CA580, #9CA2AD80, #A5ABB680, #AEB3BD80);
-  padding-bottom: 10px;
 }
 
 #postTextArea {
@@ -692,16 +710,24 @@ h2#form-heading {
   width: calc(50px + 70vw);
   line-height: 1.5;
   border: none;
-  color: #00008b;
-  font-weight: bold;
+  font-weight: 600;
+  resize: none;
 }
 #postTextArea:disabled {
-  cursor: default;
-  background-color: #dde1e780;
+  background-color: #e9e8e8f3;
 }
 
 #postDeleteButton {
   visibility: hidden;
+  height: calc(35px + .75vw);
+  width: calc(45px + .1vw + .5vh);
+}
+#postDeleteButton, #postDelete {
+  visibility: hidden;
+}
+#postDelete {
+  align-self: center;
+  margin-right: 3%;
 }
 
 #form-heading, .login-heading, .username-welcome {
@@ -774,6 +800,9 @@ h2#form-heading {
 .input-icon:active {
   color: var(--darkcrimson);
 }
+#postDelete:active {
+  color: var(--darkerblue);
+}
 .show-hide {
   margin-left: calc(-24px - 0.5vw);
 }
@@ -795,7 +824,6 @@ svg.input-icon, #search-button {
   margin: 1% auto 0 auto;
   list-style-type: none;
   text-align: center;
-  padding: 0;
   font-weight: bold;
   font-size: calc(11px + 0.3vw);
   text-shadow: 0px 0px 8px #e6e6e6;
@@ -820,7 +848,6 @@ dialog[open] {
 }
 dialog.account-dialog {
   border-radius: 0;
-  padding: 0;
   top: calc(120px + 2.2vh + 1vw + 5%);
 }
 #loginStreakDialog, #changePWDialog, #verifyPWDialog {
@@ -830,7 +857,7 @@ dialog.account-dialog {
 .exit-button-div, #table-search-row, #collapse-button-div, #current-bet-div {
   text-align: right;
 }
-.back-button-div, .numquantity, #current-win-div {
+.back-button-div, .numquantity, #current-win-div, #user-post-div {
   text-align: left;
 }
 
@@ -841,8 +868,9 @@ dialog.account-dialog {
   background-color: var(--bluish);
   font-weight: bold;
   border: 1px inset lightsteelblue;
-  padding: 0.4% 2%;
+  padding: calc(1px + .1vw) calc(6px + .6vw);
   margin-top: 0;
+  box-sizing: content-box;
 }
 .exit-dialog-button:hover, input.farkle-player-input {
   border: 1px outset lightsteelblue;
@@ -878,7 +906,7 @@ title, #board-table-heading, .blog-board-link {
   color: #fff;
   vertical-align: baseline;
 }
-button.back-arrow {
+button.back-arrow, #user-coins-img {
   vertical-align: middle;
 }
 #tableSearch {
@@ -888,7 +916,7 @@ button.back-arrow {
 #leaderboard-table, #board-table {
   width: 100%;
 }
-.leaderboard-head, .leaderboard-cell, #leaderboard-table {
+.leaderboard-head, .leaderboard-cell, #leaderboard-table, #user-post-div {
   border: 0.01em solid #00000099
 }
 .leaderboard-row:nth-child(odd) {
@@ -923,9 +951,9 @@ button.page-button {
   text-align: center;
 }
 
-#coins-popup-img, #coins-farkle-img {
-  width: calc(18px + 0.8vw);
-  height: calc(18px + 0.8vw);
+#coins-popup-img, #coins-farkle-img, #user-coins-img {
+  width: calc(18px + 0.6vw);
+  height: calc(18px + 0.6vw);
 }
 .coinsWon {
   margin: 0 1px 0 4px;
@@ -1160,12 +1188,11 @@ dialog::-webkit-backdrop, div.backdrop, dialog::backdrop {
     display: inline-block;
     font-size: calc(20px + 0.5vw + 0.5vh);
   }
-  #mainDropdownDiv {
+  #mainDropdownDiv, div.top-menu-div > a, #post-user-info-list {
     white-space: nowrap;
   }
   div.top-menu-div > a {
     padding: 4%;
-    white-space: nowrap;
   }
   #cardsDropdown a, #farkleDropdown a, #leaderboardText {
     padding: 1% 0;

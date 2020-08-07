@@ -48,7 +48,7 @@ router.get('/blog/:board/:id', (req, res) => {
           console.log(err);
         }
         let sameUser = false;
-        if (req.user._id.toString() == user._id.toString()) {
+        if (req.user && req.user._id.toString() == user._id.toString()) {
           sameUser = true;
         }
         res.render('post', {pageTitle: post.title, board: req.params.board, post: post, user: user, sameUser: sameUser});

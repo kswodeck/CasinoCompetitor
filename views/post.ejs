@@ -1,26 +1,37 @@
 <%- include('partials/header') %>
-<script src="\javascripts\posts.js"></script>
 <div id="mid-container">
   <div id="postDiv">
-    <div class ="exit-button-div">
-      <button id="postDeleteButton" class="exit-dialog-button md-text">✖</button>
+    <div class="post-top-row">
+      <div id="user-post-div" class="post-col">
+        <img src="/images/<%= user.profileImage %>.webp" class="postImage" alt="<%= user.profileImage %>">
+        <ul id="post-user-info-list" class="red-text sm-text">
+          <li><b class="post-username"><%= user.username %></b></li>
+          <li><b class="user-coins"><%= user.coins %></b><img loading="lazy" alt="coins" id="user-coins-img" src="/images/coins.webp"></li>
+        </ul>
+      </div>
+      <div class ="exit-button-div post-col">
+        <b id="postDelete" class="red-text sm-text">Delete Post</b>
+        <button id="postDeleteButton" class="exit-dialog-button lg-text">✖</button>
+      </div>
     </div>
     <h2 id="form-heading" class="account-heading blue-text"><%= post.title %></h2>
     <form action="/blog/<%= board %>/<%= post.id %>?_method=PUT" method="POST" id="postForm" onclick="enablePostEdit('<%= sameUser %>')">
-      <label for="postTextArea" class="account-label sm-txt"><%= user.username %></label><br>
-      <textarea id="postTextArea" name="postBody" maxlength="5000" disabled required><%= post.body %></textarea>
+      <label for="postTextArea" class="account-label sm-txt"></label><br>
+      <textarea id="postTextArea" class="blue-text" name="postBody" maxlength="5000" onkeydown="handleContent()" disabled required><%= post.body %></textarea>
       <ul id="invalid-fields-list" class="invalid-post-list"></ul>
     </form>
     <% if (sameUser) { %>
-      <button type="submit" role="button" name="post-update" class="btn md-text blue-bg gold-text btn-style account-button" id="postUpdateButton">Update Post</button>
+      <button type="submit" role="button" name="edit-post" class="btn md-text blue-bg gold-text btn-style account-button" id="editPostButton" disabled>Edit Post</button>
       <script defer>
+        document.getElementById('postDelete').style.visibility = "visible";
         document.getElementById('postDeleteButton').style.visibility = "visible";
       </script>
       <% } %>
     <div class ="back-button-div">
-      <button id="BoardBackButton" class="back-arrow btn lg-text blue-text" name="back-arrow" onclick="window.location.href='/blog/<%= board %>'"><i id="BoardBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
+      <button id="boardBackButton" class="back-arrow btn lg-text blue-text" name="back-arrow" onclick="window.location.href='/blog/<%= board %>'"><i id="BoardBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
       <b class="back-button-label blue-text sm-text" onclick="window.location.href='/blog/<%= board %>'">Back to Board</b>
     </div>
   </div>
 </div>
+<script defer src="\javascripts\posts.js"></script>
 <%- include('partials/commondialogs') %>
