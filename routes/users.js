@@ -4,7 +4,6 @@ const express  = require('express'),
       router   = express.Router({mergeParams: true}),
       moment   = require('moment'),
       User     = require('../models/user'),
-      Blog     = require('../models/blog'),
       badWords = require('../helpers/words'),
       helpers  = require('../helpers/helpers');
 

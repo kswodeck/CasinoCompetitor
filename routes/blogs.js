@@ -1,6 +1,8 @@
 const express  = require('express'),
+      passport = require('passport'),
       router   = express.Router({mergeParams: true}),
       moment   = require('moment'),
+      User     = require('../models/user'),
       Blog     = require('../models/blog'),
       badWords = require('../helpers/words'),
       helpers  = require('../helpers/helpers');
@@ -19,7 +21,7 @@ const express  = require('express'),
 // Show = /blog/:board/:id. GET (post.ejs template)
 // Edit = /blog/:board/:id/edit. GET (consider making this a dialog popup instead of a route)
 // Update = /blog/:board/:id. PUT (take to /blog/:board/:id after updated)
-// Delete = /blog/:board/:id. DELETE (take to /blog/:board after updated) (confirmation message displays)
+// Delete = /blog/:board/:id. DELETE (take to /blog/:board after updated) (confirmation message displays after clicking "X"/delete button)
 
 // blog related routes
 router.get('/blog', (req, res) => {
@@ -31,7 +33,23 @@ router.get('/blog/:board', (req, res) => {
     if (err || !posts) {
       console.log(err);
     }
-    res.render('board', {pageTitle: req.params.board, boardPosts: posts});
+    res.render('board', {pageTitle: req.params.board, posts: posts});
+  });
+});
+
+router.get('/blog/:board/:id', (req, res) => {
+  Blog.findById(req.params.id, (err, post) => {
+    if (err || !post) {
+      console.log(err);
+      res.render('blog', {pageTitle: 'Community Blog'});
+    } else {
+      User.findById(post.userId, (err, user) => {
+        if (err || !user) {
+          console.log(err);
+        }
+        res.render('post', {pageTitle: post.title, board: req.params.board, post: post, user: user});
+      });
+    }
   });
 });
 

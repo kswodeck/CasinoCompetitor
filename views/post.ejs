@@ -1,7 +1,30 @@
 <%- include('partials/header') %>
-
+<script src="\javascripts\posts.js"></script>
 <div id="mid-container">
-  <h1 id="page-heading"><%= post.title %></h1>
+  <div id="postDiv">
+    <div class ="exit-button-div">
+      <button id="postDeleteButton" class="exit-dialog-button md-text">✖</button>
+    </div>
+    <h2 id="form-heading" class="account-heading blue-text"><%= post.title %></h2>
+    <form action="/blog/<%= board %>/<%= post.id %>?_method=PUT" method="POST">
+      <label for="postTextArea" class="account-label sm-txt"><%= user.username %></label><br>
+      <textarea id="postTextArea" name="postBody" maxlength="5000" disabled required><%= post.body %></textarea>
+      <ul id="invalid-fields-list" class="invalid-post-list"></ul>
+    </form>
+    <% if (currentUser && currentUser.username == user.username) { %>
+      <button type="submit" role="button" name="post-update" class="btn md-text blue-bg gold-text btn-style account-button" id="postUpdateButton">Update Post</button>
+      <script defer>
+        setTimeout(() => { //issues with click events.. not working
+        document.getElementById('postDeleteButton').style.visibility = "visible";
+        document.getElementById('postTextArea').addEventListener("click", enablePostEdit());
+        document.getElementById('pageBody').addEventListener("click", disablePostEdit());
+        }, 200);
+      </script>
+      <% } %>
+    <div class ="back-button-div">
+      <button id="BoardBackButton" class="back-arrow btn lg-text blue-text" name="back-arrow" onclick="window.location.href='/blog/<%= board %>'"><i id="BoardBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
+      <b class="back-button-label blue-text sm-text" onclick="window.location.href='/blog/<%= board %>'">Back to Board</b>
+    </div>
+  </div>
 </div>
-
 <%- include('partials/commondialogs') %>

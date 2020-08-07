@@ -674,6 +674,36 @@ border-radius: .25rem;
   padding-bottom: 10px;
 }
 
+h2#form-heading {
+  margin: 0 auto 2% 0;
+}
+
+#postDiv {
+  max-width: 1200px;
+  width: calc(180px + 70vw);
+  border: 1px inset var(--lightcrimson);
+  background-color: var(--bluish);
+  background-image: radial-gradient(ellipse, var(--bluish) 30%, #979CA580, #9CA2AD80, #A5ABB680, #AEB3BD80);
+  padding-bottom: 10px;
+}
+
+#postTextArea {
+  max-width: 1100px;
+  width: calc(50px + 70vw);
+  line-height: 1.5;
+  border: none;
+  color: #00008b;
+  font-weight: bold;
+}
+#postTextArea:disabled {
+  cursor: default;
+  background-color: #dde1e780;
+}
+
+#postDeleteButton {
+  visibility: hidden;
+}
+
 #form-heading, .login-heading, .username-welcome {
   font-weight: bold;
   text-shadow: 2px 4px 5px lightsteelblue;
@@ -888,8 +918,8 @@ button.page-button {
   font-size:calc(14px + 0.6vw);
 }
 
-#mid-container, #dialog-popup-text, #winHandDiv, .account-form-div, #show-hide-odds-div, #blog-table-div,
-#leaderboard-div, #tableSearch, #leaderboardLink, #farkle-container, dialog, div.farkle-div, .backdrop {
+#mid-container, #dialog-popup-text, #winHandDiv, .account-form-div, #postDiv, #show-hide-odds-div, #blog-table-div,
+#leaderboard-div, #tableSearch, #leaderboardLink, #farkle-container, dialog, div.farkle-div, .backdrop, #postTextArea {
   text-align: center;
 }
 
@@ -931,7 +961,7 @@ dialog.sm-dialog {
   text-decoration: none;
 }
 
-#dialogButtonDiv, #logoutDialogDiv, #accountUpdateDiv, #confirmDialogDiv {
+#dialogButtonDiv, #logoutDialogDiv, #accountUpdateDiv, #confirmDialogDiv, #postDiv {
   justify-content: space-around;
   margin: 3% auto 2.5% auto;
 }
@@ -1028,11 +1058,10 @@ dialog::-webkit-backdrop, div.backdrop, dialog::backdrop {
     flex-wrap: nowrap;
     justify-content: center;
   }
-  dialog.account-form-div, div.account-form-div {
+  dialog.account-form-div, div.account-form-div, #postDiv {
     max-width: 98%;
   }
   div.account-form-div {
-    width: 100%;
     margin: 0;
   }
   div.name-row {
