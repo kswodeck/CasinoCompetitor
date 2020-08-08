@@ -6,6 +6,7 @@
   <% if (currentUser){ %>
   <h3 id="usernameHome" class="username-welcome blue-text"><%= currentUser.username %></h3>
   <button id="homePokerButton" class="homeButton btn lg-text gold-bg red-text btn-style" role="button" onclick="location.href='/cards'">Play Poker</button>
+  <button id="homeBlogButton" class="homeButton btn lg-text gold-bg red-text btn-style" role="button" onclick="location.href='/blog'">View Blog</button>
   <button id="homeFarkleButton" class="homeButton btn lg-text gold-bg red-text btn-style" role="button" onclick="location.href='/farkle'">Play Farkle</button>
   <% } else { %>
   <div id="SignUpDiv">
