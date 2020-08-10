@@ -38,7 +38,7 @@
           <div id="main-links-row" class="row">
             <div id="mainDropdownDiv" class="col main-dropdown header-div">
               <% if (currentUser && currentUser.username.length < 15) { %>
-                <a href="/" role="button"><img src="/images/<%= currentUser.profileImage %>.webp" class="avatarImage" alt="<%= currentUser.profileImage %>"></a>
+                <img src="/images/<%= currentUser.profileImage %>.webp" onclick="window.location ='/'" class="avatarImage" alt="<%= currentUser.profileImage %>">
               <% } %>
               <div id="mainDropdownContent" class="dropdownContent">
               <% if (currentUser && currentUser.username.length < 11) { %>

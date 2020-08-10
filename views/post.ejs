@@ -14,9 +14,9 @@
         <button id="postDeleteButton" class="exit-dialog-button lg-text">✖</button>
       </div>
     </div>
-    <h2 id="form-heading" class="account-heading blue-text"><%= post.title %></h2>
+    <h2 id="form-heading" class="post-heading account-heading blue-text"><%= post.title %></h2>
     <form action="/blog/<%= board %>/<%= post.id %>?_method=PUT" method="POST" id="postForm" onclick="enablePostEdit('<%= sameUser %>')">
-      <label for="postTextArea" id="postTextLabel" class="account-label sm-txt"></label><br>
+      <label for="postTextArea" id="postTextLabel" class="account-label"></label><br>
       <textarea id="postTextArea" class="blue-text xs-text" name="postBody" maxlength="20000" rows="1" cols="10" wrap="hard" form="postForm" onkeydown="handleContent()" disabled required><%= post.body %></textarea>
       <ul id="invalid-post-list" class="invalid-fields-list"></ul>
     </form>
