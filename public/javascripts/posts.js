@@ -1,7 +1,10 @@
+import './common.js';
+
 const postTextArea = document.getElementById('postTextArea');
 const editPostButton = document.getElementById('editPostButton');
+const textAreaInput = document.getElementsByClassName('postTextInput');
+const postInvalidList = document.getElementById('invalid-post-list');
 let postTextVal = postTextArea.value;
-let postLength = postTextArea.length;
 
 function enablePostEdit(user) {
   if (user && user != 'false' && postTextArea.disabled == true) {
@@ -28,3 +31,15 @@ function handleContent(user) {
     }
   }, 50);
 }
+
+function validateBlogEdit(user) {
+  if (user && user != 'false' && postTextArea.disabled == false) {
+    disablePostEdit(user);
+    return validateInputs(postInvalidList,  textAreaInput, 'editPostButton')
+  }
+}
+
+window.enablePostEdit = enablePostEdit; window.handleContent = handleContent;
+window.validateBlogEdit = validateBlogEdit;
+
+export * from './posts.js';

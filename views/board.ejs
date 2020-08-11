@@ -35,5 +35,14 @@
     </table>
   </div>
 </div>
-
 <%- include('partials/commondialogs') %>
+
+<% if (deleted && sucess) { %>
+<dialog id="deletedPostDialog" class="sm-dialog">
+  <b class="blue-text sm-text">Your post has been deleted</b>
+  <div id="deletedPostDiv" class="farkle-div">
+      <button id="deletedPostCancel" class="btn sm-text red-bg gold-text btn-style"  onclick="exitDialog('deletedPostDialog')">OK</button>
+    </div>
+</dialog>
+<script defer>setTimeout(() => displayDialog('deletedPostDialog'), 200);</script>
+<% } %>

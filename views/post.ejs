@@ -10,18 +10,18 @@
         </ul>
       </div>
       <div class ="exit-button-div post-col">
-        <b id="postDelete" class="red-text sm-text">Delete Post</b>
-        <button id="postDeleteButton" class="exit-dialog-button lg-text">✖</button>
+        <b id="postDelete" class="red-text sm-text" onclick="displayDialog('postDeleteDialog')">Delete Post</b>
+        <button id="postDeleteButton" class="exit-dialog-button lg-text" onclick="displayDialog('postDeleteDialog')">✖</button>
       </div>
     </div>
     <h2 id="form-heading" class="post-heading account-heading blue-text"><%= post.title %></h2>
     <form action="/blog/<%= board %>/<%= post.id %>?_method=PUT" method="POST" id="postForm" onclick="enablePostEdit('<%= sameUser %>')">
       <label for="postTextArea" id="postTextLabel" class="account-label"></label><br>
-      <textarea id="postTextArea" class="blue-text xs-text" name="postBody" maxlength="20000" rows="1" cols="10" wrap="hard" form="postForm" onkeydown="handleContent()" disabled required><%= post.body %></textarea>
+      <textarea id="postTextArea" class="blue-text xs-text postTextInput" name="postBody" maxlength="20000" rows="1" cols="10" wrap="hard" form="postForm" onkeydown="handleContent()" disabled required><%= post.body %></textarea>
       <ul id="invalid-post-list" class="invalid-fields-list"></ul>
     </form>
     <% if (sameUser) { %>
-      <button type="submit" role="button" name="edit-post" onclick="disablePostEdit('<%= sameUser %>')" class="btn md-text blue-bg gold-text btn-style account-button" id="editPostButton" disabled>Edit Post</button>
+      <button type="submit" role="button" name="edit-post" onclick="return validateBlogEdit('<%= sameUser %>')" class="btn md-text blue-bg gold-text btn-style account-button" id="editPostButton" form="postForm" disabled>Edit Post</button>
       <script defer>
         document.getElementById('postDelete').style.visibility = "visible";
         document.getElementById('postDeleteButton').style.visibility = "visible";
@@ -33,5 +33,21 @@
     </div>
   </div>
 </div>
-<script defer onload="handleContent('<%= sameUser %>')" src="\javascripts\posts.js"></script>
+<dialog id="postDeleteDialog" class="container-fluid account-form-div account-dialog">
+  <div class ="exit-button-div">
+    <button id="postDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('postDeleteDialog')">✖</button>
+  </div>
+  <h4 id="confirmHeading" class="md-text blue-text login-heading">Are you sure you want to delete your post?</h4>
+  <div id="confirmDialogDiv" class="row">
+    <form action="/blog/<%= board %>/<%= post.id %>?deleted=true?_method=DELETE" method="POST">'
+      <div class="col">
+        <button id="confirmButton" type="submit" class="btn sm-text red-bg gold-text btn-style" onclick="exitDialog('postDeleteDialog')">Yes</button>
+      </div>
+      <div class="col">
+        <button id="cancelButton" class="btn sm-text blue-bg gold-text btn-style" onclick="exitDialog('postDeleteDialog')">No</button>
+      </div>
+    </form>
+  </div>
+</dialog>
+<script type="module" defer onload="handleContent('<%= sameUser %>')">import '/javascripts/posts.js';</script>
 <%- include('partials/commondialogs') %>

@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 /* refactored 8/3/2020 */
 const container = document.getElementById('mid-container');
 const pageTitle = document.getElementsByTagName('title')[0];
@@ -168,7 +166,6 @@ function displayDialog(dialog) {
         curDialog.style.cssText = '';
         backdrop.style.cssText = '';
       }
-      container.style.display = 'none';
     } else {
       console.log('The <dialog> API is not supported by this browser');
     }
@@ -185,11 +182,9 @@ function displayStreakDialog(streak){
       dialog.style.cssText = '';
       backdrop.style.cssText = '';
     }
-    container.style.display = 'none';
     setTimeout(() => {
       if (dialog.hasAttribute('open')) {
         window.location.reload();
-        container.style.display = 'block';
       }
     }, 10000);
   } else {
@@ -318,7 +313,7 @@ function validatePassMatch(password, repeatPassword, invalidList) {
   return true;
 }
 
-function validateInputs(invalidList, inputs, button, disableTime, names=[], values=[]) {
+function validateInputs(invalidList, inputs, button, disableTime=1000, names=[], values=[]) {
   disableAfterSubmit(button, disableTime);
   removeWhiteSpace(inputs);
   clearValidityMessages();
@@ -347,32 +342,35 @@ function validateInputs(invalidList, inputs, button, disableTime, names=[], valu
     return false;
   }
   return validity;
-  function emailIsValid(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
-  function disableAfterSubmit(button, time) {
-    let element = document.getElementById(button);
-    setTimeout(() => element.disabled = true, 50);
-    setTimeout(() => element.disabled = false, time);
-  }
-  function removeWhiteSpace(inputs) {
-    for (let i = 0; i < inputs.length; i++) {
-      let inputType = inputs[i].getAttribute('type');
-      while (inputs[i].value.startsWith(' ') && inputType != 'password') {
-        inputs[i].value = inputs[i].value.substr(1);
-      }
-      while (inputs[i].value.endsWith(' ') && inputType != 'password') {
-        inputs[i].value = inputs[i].value.replace(inputs[i].value.slice(-1),'');
-      }
+}
+function emailIsValid(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function disableAfterSubmit(button, time=1000) {
+  let element = document.getElementById(button);
+  setTimeout(() => element.disabled = true, 50);
+  setTimeout(() => element.disabled = false, time);
+}
+
+function removeWhiteSpace(inputs) {
+  for (let i = 0; i < inputs.length; i++) {
+    let inputType = inputs[i].getAttribute('type');
+    while (inputs[i].value.startsWith(' ') && inputType != 'password') {
+      inputs[i].value = inputs[i].value.substr(1);
+    }
+    while (inputs[i].value.endsWith(' ') && inputType != 'password') {
+      inputs[i].value = inputs[i].value.replace(inputs[i].value.slice(-1),'');
     }
   }
-  function storeValues(inputs=[], values=[]) {
-    for (let i = 0; i < values.length; i++) {
-      if (localStorage.getItem(inputs[i])) {
-        localStorage.removeItem(inputs[i]);
-      }
-      localStorage.setItem(inputs[i], values[i]);
+}
+
+function storeValues(inputs=[], values=[]) {
+  for (let i = 0; i < values.length; i++) {
+    if (localStorage.getItem(inputs[i])) {
+      localStorage.removeItem(inputs[i]);
     }
+    localStorage.setItem(inputs[i], values[i]);
   }
 }
 
@@ -399,11 +397,9 @@ function clearValidityMessages() {
   let validMessages = document.getElementsByClassName('valid-list');
   for (let i = 0; i < invalidMessages.length; i++) {
     invalidMessages[i].remove;
-    invalidMessages[i].style.display = 'none';
   }
   for (let i = 0; i < validMessages.length; i++) {
     validMessages[i].remove;
-    validMessages[i].style.display = 'none';
   }
 }
 
@@ -466,3 +462,18 @@ function sendContactEmail() {
     Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 280px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: #be0b2f; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><h3 style="color: darkblue; font-size: 20px; margin-bottom: 10px">From: ' + name + ' (' + email + ')</h3><p>You received a new contact us form submission:<br>' + '"' + text + '"' + '</p></div></html>'
   }).then(() => document.getElementById('contactUsForm').submit());
 }
+
+window.restoreContainer = restoreContainer; window.displayLoginDialog = displayLoginDialog;
+window.displayLoginDialog = displayLoginDialog; window.displayLogoutDialog = displayLogoutDialog;
+window.exitDialog = exitDialog; window.backFromDialog = backFromDialog;
+window.togglePasswordVisibility = togglePasswordVisibility; window.displayDialog = displayDialog;
+window.displayStreakDialog = displayStreakDialog; window.toggleHamburger = toggleHamburger;
+window.validateAccountCreate = validateAccountCreate; window.validateAccountUpdate = validateAccountUpdate;
+window.validatePasswordUpdate = validatePasswordUpdate; window.validatePasswordChange = validatePasswordChange;
+window.validatePreLogin = validatePreLogin; window.validateAccountDelete = validateAccountDelete;
+window.validateContactUs = validateContactUs; window.validateInputs = validateInputs;
+window.disableAfterSubmit = disableAfterSubmit; window.removeWhiteSpace = removeWhiteSpace;
+window.getFormValues = getFormValues; window.forceNumeric = forceNumeric;
+window.selectAvatar = selectAvatar; window.sendForgotPWEmail = sendForgotPWEmail;
+window.displayForgotDialog = displayForgotDialog;
+export * from './common.js';

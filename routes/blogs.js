@@ -29,11 +29,15 @@ router.get('/blog', (req, res) => {
 });
 
 router.get('/blog/:board', (req, res) => {
+  let postDeleted = false;
+  if (req.query.deleted) {
+    postDeleted = req.query.deleted;
+  }
   Blog.find({board: req.params.board}).sort({editted: 1, created: 1}).exec(function(err, posts) {
     if (err || !posts) {
       console.log(err);
     }
-    res.render('board', {pageTitle: req.params.board, posts: posts});
+    res.render('board', {pageTitle: req.params.board, posts: posts, deleted: postDeleted});
   });
 });
 
@@ -53,6 +57,18 @@ router.get('/blog/:board/:id', (req, res) => {
         }
         res.render('post', {pageTitle: post.title, board: req.params.board, post: post, user: user, sameUser: sameUser});
       });
+    }
+  });
+});
+
+router.delete('/blog/:board/:id', isLoggedIn, (req, res) => {
+  Blog.findByIdAndDelete(req.params.id, (err, post) => {
+    if (err || !post) {
+      req.flash('error', err);
+      res.redirect('/blog/', req.params.board);
+    } else {
+      req.flash('success', 'Successfully deleted your post');
+      res.redirect('/blog/', req.params.board);
     }
   });
 });

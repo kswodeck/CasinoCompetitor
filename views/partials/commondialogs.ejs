@@ -59,10 +59,10 @@
 </dialog>
 </div>
 <script defer>window.addEventListener('load', () => {
-  getFormValues('login-input', loginNames);
-  getFormValues('forgotUserInput', forgotNames);
-  getFormValues('forgotPassInput', forgotNames);
-  })
+  getFormValues('login-input', ['username', 'password']);
+  getFormValues('forgotUserInput', ['email', 'birthday', 'phone']);
+  getFormValues('forgotPassInput', ['email', 'birthday', 'phone']);
+  });
 </script>
 <script rel="preconnect" defer src="https://www.googletagmanager.com/gtag/js?id=G-EG1KEKWQS6"></script>
 <script defer>

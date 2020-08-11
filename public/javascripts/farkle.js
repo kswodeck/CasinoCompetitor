@@ -13,7 +13,7 @@ const rollScoreDiv = document.getElementById('farkle-roll-score-div');
 const totalScoreDiv = document.getElementById('farkle-total-score-div');
 const totalScoreText = document.getElementById('total-score-text');
 const pageHeading = document.getElementById('page-heading');
-if (pageHeading.innerText == 'Competitive Farkle') {
+if (pageHeading.innerText == 'COMPETITIVE FARKLE') {
   var totalCoinsSpan = document.getElementById('total-coins-span');
   var totalCoinsNum = parseInt(totalCoinsSpan.innerText);
   var currentBetSpan = document.getElementById('current-bet-span');

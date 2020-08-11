@@ -36,6 +36,43 @@ function getCurrentDate() {
   return dateReturned;
 }
 
-module.exports.getLocalNoonDate = getLocalNoonDate;
+function isLoggedIn(req, res, next){
+  if(req.isAuthenticated()){
+    return next();
+  }
+  req.flash('error', 'Please login to access this feature');
+  res.redirect('/login');
+}
+function isLoggedOut(req, res, next){
+  if(!req.isAuthenticated()){
+    return next();
+  }
+  res.redirect('/');
+}
+
+function updateCoins(req, res) {
+  let newCoins = req.body.coins, curWin = req.body.currentWin;
+  if (newCoins != req.user.coins) { //update coins
+    User.findOneAndUpdate({username: req.user.username}, {$set: {coins: newCoins}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
+  }
+  if (curWin > req.user.highestWin) { //update highestWin
+    User.findOneAndUpdate({username: req.user.username}, {$set: {highestWin: curWin}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
+  }
+  return res.status(204).send();
+}
+
+function containsBadWord(word) {
+  for (let i = 0; i < badWords.length; i++) {
+    if (word.includes(badWords[i])) {
+      return true;
+    }
+  }
+  return false;
+}
+
+module.exports.isLoggedIn = isLoggedIn;
+module.exports.isLoggedOut = isLoggedOut;
+module.exports.updateCoins = updateCoins;
+module.exports.containsBadWord = containsBadWord;
 module.exports.formatDate = formatDate;
 module.exports.getCurrentDate = getCurrentDate;
