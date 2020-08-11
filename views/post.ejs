@@ -27,9 +27,15 @@
         document.getElementById('postDeleteButton').style.visibility = "visible";
       </script>
       <% } %>
-    <div id="boardBackDiv" class="back-button-div">
-      <button id="boardBackButton" class="back-arrow btn lg-text blue-text" name="back-arrow" onclick="window.location.href='/blog/<%= board %>'"><i id="BoardBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
-      <b class="back-button-label blue-text sm-text" onclick="window.location.href='/blog/<%= board %>'">Back to Board</b>
+    <div class="row" id="postBottomRow">
+      <div id="boardBackDiv" class="back-button-div col">
+        <button id="boardBackButton" class="back-arrow btn lg-text blue-text" name="back-arrow" onclick="window.location.href='/blog/<%= board %>'"><i id="BoardBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
+        <b class="back-button-label blue-text sm-text" onclick="window.location.href='/blog/<%= board %>'">Back to Board</b>
+      </div>
+      <div id="postBottomRightDiv" class="col xs-text red-text">
+        <span id="postCreatedText" class="postBottomRightText">created on <b><%= created %></b></span><br>
+        <span id="postEdittedText" class="postBottomRightText">last editted <b><%= editted %></b></span>
+      </div>
     </div>
   </div>
 </div>

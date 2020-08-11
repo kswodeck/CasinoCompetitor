@@ -554,6 +554,9 @@ div.dropdown-menu {
   background-color: var(--whitish);
   padding-right: calc(5px + .3vw);
 }
+#editPostButton {
+  margin-bottom: 0;
+}
 #editPostButton:disabled {
   opacity: .6;
 }
@@ -684,7 +687,7 @@ border-radius: .25rem;
   border: 2px outset var(--lightthemeblue);
   border-radius: 30px;
   background-color: var(--bluish);
-  background-image: radial-gradient(ellipse, var(--bluish) 30%, #979CA580, #9CA2AD80, #A5ABB680, #AEB3BD80);
+  background-image: radial-gradient(ellipse, var(--bluish) 30%, #c3c8d2d9, #bcc1cad9, #b4b9c3d9, #adb2b9d9);
   padding-bottom: 10px;
 }
 
@@ -734,8 +737,11 @@ h2#form-heading {
   text-shadow: 2px 4px 5px lightsteelblue;
   font-size: calc(20px + 0.85vw)
 }
-.username-welcome, #leaderboard-div, #blog-table-div {
+.username-welcome {
   margin: 1.5% auto 0 auto;
+}
+#leaderboard-div, #blog-table-div {
+  margin: 1.5% auto;
 }
 .name-row, .dropdownList, ul.horizontalList, #postTextLabel {
   margin: 0 auto;
@@ -782,7 +788,7 @@ h2#form-heading {
 #roll-ranking-heading, .num-quantity-input-div, #hand-odds-div {
   margin: 1% auto 0 auto;
 }
-#roll-score-heading {
+#roll-score-heading, .post-info-row {
   margin-top: 0.5%;
 }
 #farkle-end-button:disabled {
@@ -852,10 +858,10 @@ dialog.account-dialog {
   padding-bottom: 1.5%;
 }
 
-.exit-button-div, #table-search-row, #collapse-button-div, #current-bet-div {
+.exit-button-div, #table-search-row, #collapse-button-div, #current-bet-div, .editted-col, #postBottomRightDiv {
   text-align: right;
 }
-.back-button-div, .numquantity, #current-win-div, #user-post-div {
+.back-button-div, .numquantity, #current-win-div, #user-post-div, .created-col {
   text-align: left;
 }
 
@@ -879,20 +885,26 @@ button.back-arrow {
   margin: 0 5px;
 }
 
-.board-table-heading, .board-table-cell {
+.board-table-heading, .post-table-cell {
   padding: 1%;
+}
+.board-table-cell {
+  padding: 1% 1% 0;
 }
 
 title, #board-table-heading, .blog-board-link {
   text-transform: capitalize;
 }
 
-.board-table-cell, #board-table {
+.board-table-cell, #board-table, .post-table-cell {
   border: .05rem solid #000;
 }
 
 #board-table-body {
   background-color: var(--bluish);
+}
+#postBottomRightDiv {
+  margin: 0 .5% .1% 0;
 }
 
 #leaderboard-div, #blog-table-div {
@@ -1087,8 +1099,11 @@ dialog::-webkit-backdrop, div.backdrop, dialog::backdrop {
     flex-wrap: nowrap;
     justify-content: center;
   }
-  .board-table-cell, .board-table-heading {
+  .board-table-heading, .post-table-cell {
     padding: 1% 0;
+  }
+  .board-table-cell {
+    padding: 1% 0 0;
   }
   dialog.account-form-div, div.account-form-div, #blog-table-div, #leaderboard-heading, #accountUpdateDiv,
   #confirmDialogDiv, #dialogButtonDiv, #logoutDialogDiv, #postDiv {

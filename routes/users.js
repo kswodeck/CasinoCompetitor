@@ -16,18 +16,15 @@ router.get('/', (req, res) => {
     afterLogin = false;
   }
   if (req.user && afterLogin) {
-    var current = new Date(helpers.getCurrentDate());
-    let adjYesDate = moment().subtract(1, 'days').format();
-    let strYesDate = adjYesDate.toString();
-    let yesterday = strYesDate.slice(0, 10);
-    let curDate = moment().format();
-    let strCurDate = curDate.toString();
-    let today = strCurDate.slice(0, 10);
+    let adjYesDate = new Date(moment().subtract(1, 'days').format());
+    let yesterday = helpers.formatDate(adjYesDate);
+    let current = new Date(helpers.getCurrentDate());
+    let today = helpers.formatDate(current);
     let last = new Date(req.user.lastLogin);
     let lastLoginDate = helpers.formatDate(last);
-    var newStreak = 1;
+    let newStreak = 1;
     let addCoins = newStreak*10;
-    var newCoins = req.user.coins + addCoins;
+    let newCoins = req.user.coins + addCoins;
     if (yesterday == lastLoginDate) {
       newStreak = req.user.loginStreak + 1;
       addCoins = newStreak*10;
@@ -44,14 +41,14 @@ router.get('/', (req, res) => {
     } else if (!changedLastLogin){
       User.findOneAndUpdate({_id: req.user._id}, {$set: {loginStreak: newStreak, lastLogin: current, coins: newCoins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
     }
-    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins});
+    res.render('index', {pageTitle: 'Casino Competitor', loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins});
   } else {
-    var streak, coins;
+    let streak, coins;
     if (req.user) {
       streak = req.user.loginStreak;
       coins = req.user.coins;
     }
-    res.render('index', {pageTitle: 'Casino Competitor', fromLogout: false, loggedInToday: true, streak: streak, coins: coins});
+    res.render('index', {pageTitle: 'Casino Competitor', loggedInToday: true, streak: streak, coins: coins});
   }
 });
 
@@ -137,7 +134,7 @@ router.post('/register', helpers.isLoggedOut, (req, res) => {
             req.flash('error', 'You must not have a bad word in your username');
             return res.redirect('/register');
           } else {
-            let momentBirthday = helpers.helpers.getLocalNoonDate(req.body.birthday);
+            let momentBirthday = helpers.getLocalNoonDate(req.body.birthday);
             var newUser = new User({email: req.body.email, username: username, firstName: req.body.firstName, lastName: req.body.lastName, phone: req.body.phone, birthday: momentBirthday, profileImage: req.body.profileImage});
             User.register(newUser, req.body.password, (err, user) => {
                 if (err || !user){
@@ -197,7 +194,7 @@ router.put('/account', helpers.isLoggedIn, (req, res) => {
       User.findOneAndUpdate({_id: curUser._id}, {$set: {phone: updated.phone}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
     }
     if (updated.birthday != formattedBirthday) {
-      let momentBirthday =  helpers.helpers.getLocalNoonDate(updated.birthday);
+      let momentBirthday =  helpers.getLocalNoonDate(updated.birthday);
       User.findOneAndUpdate({_id: curUser._id}, {$set: {birthday: momentBirthday}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
     }
     if (updated.profileImage != curUser.profileImage) {

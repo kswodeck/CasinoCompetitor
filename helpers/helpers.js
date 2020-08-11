@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 const moment   = require('moment');
 
-function getLocalNoonDate(date) {
-  let adjustedTime = 12 + (moment().utcOffset()/60);
+function getLocalNoonDate(date) { //used to assume birthday times
+  let adjustedTime = 12 + (moment().utcOffset()/60); //makes the date time 12
   let inputDate = date + ' ' + adjustedTime + ':00';
   return moment().format(inputDate);
 }
@@ -13,7 +12,8 @@ function formatDate(date) {
   let formattedMonth = unformattedDate.slice(4, 7);
   formattedMonth = getMonthNum(formattedMonth);
   let formattedDay = unformattedDate.slice(8, 10);
-  let formattedDate = formattedYear + '-' + formattedMonth + '-' + formattedDay;
+  // let formattedDate = formattedYear + '-' + formattedMonth + '-' + formattedDay; // yyyy-mm-dd format
+  let formattedDate = formattedMonth + '-' + formattedDay + '-' + formattedYear; // mm-dd-yyyy format
   return formattedDate;
 }
 
@@ -70,6 +70,7 @@ function containsBadWord(word) {
   return false;
 }
 
+module.exports.getLocalNoonDate = getLocalNoonDate;
 module.exports.isLoggedIn = isLoggedIn;
 module.exports.isLoggedOut = isLoggedOut;
 module.exports.updateCoins = updateCoins;

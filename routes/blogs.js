@@ -1,3 +1,5 @@
+const { format } = require('path');
+
 const express  = require('express'),
       passport = require('passport'),
       router   = express.Router({mergeParams: true}),
@@ -7,10 +9,10 @@ const express  = require('express'),
       badWords = require('../helpers/words'),
       helpers  = require('../helpers/helpers');
 
-//Blog.create({userId: '5edd99e1de86290004f56157', title: 'Poker Tips! 5', body: 'Here are poker tips from kswodeck', board: 'Poker'});
-//Blog.create({userId: '5eddac7fc8e4e800042c089e', title: 'Poker Tips!', body: 'Here are poker tips from tatums', board: 'Poker'});
-// Blog.create({userId: '5edd99e1de86290004f56157', title: 'Poker Tips!', body: 'Here are more poker tips from kswodeck', board: 'Poker'});
-//Blog.create({userId: '5eddac7fc8e4e800042c089e', title: 'Poker Tips! 6', body: 'Here are more poker tips from tatums', board: 'Poker'});
+// Blog.create({userId: '5edd99e1de86290004f56157', username: 'tatums96', title: 'Poker Tips! 4', body: 'Here are poker tips from tatums96', board: 'Poker'});
+// Blog.create({userId: '5eddac7fc8e4e800042c089e', username: 'kswodeck', title: 'Poker Tips! 1', body: 'Here are poker tips from kswodeck', board: 'Poker'});
+// Blog.create({userId: '5edd99e1de86290004f56157', username: 'tatums96', title: 'Poker Tips! 2', body: 'Here are more poker tips from tatums96', board: 'Poker'});
+// Blog.create({userId: '5eddac7fc8e4e800042c089e', username: 'kswodeck', title: 'Poker Tips! 3', body: 'Here are more poker tips from kswodeck', board: 'Poker'});
 
 // Blog.create({userId: , title: 'Poker Tips!', body: 'Here are some poker tips', board: 'poker'});
 //restful routes
@@ -30,14 +32,19 @@ router.get('/blog', (req, res) => {
 
 router.get('/blog/:board', (req, res) => {
   let postDeleted = false;
-  if (req.query.deleted) {
+  if (req.query.deleted && req.user) {
     postDeleted = req.query.deleted;
   }
   Blog.find({board: req.params.board}).sort({editted: 1, created: 1}).exec(function(err, posts) {
     if (err || !posts) {
       console.log(err);
     }
-    res.render('board', {pageTitle: req.params.board, posts: posts, deleted: postDeleted});
+    let created = [], editted = []
+    for (let i = 0; i < posts.length; i++) {
+      created.push(helpers.formatDate(posts[i].created));
+      editted.push(helpers.formatDate(posts[i].editted));
+    }
+    res.render('board', {pageTitle: req.params.board, posts: posts, deleted: postDeleted, editted: editted, created: created});
   });
 });
 
@@ -55,7 +62,9 @@ router.get('/blog/:board/:id', (req, res) => {
         if (req.user && req.user._id.toString() == user._id.toString()) {
           sameUser = true;
         }
-        res.render('post', {pageTitle: post.title, board: req.params.board, post: post, user: user, sameUser: sameUser});
+        let created = helpers.formatDate(post.created);
+        let editted = helpers.formatDate(post.editted);
+        res.render('post', {pageTitle: post.title, board: req.params.board, post: post, user: user, sameUser: sameUser, created: created, editted: editted});
       });
     }
   });

@@ -31,14 +31,11 @@
         </tbody>
       </table>
       <% let numPages = Math.ceil(users.length / 100) %>
-      <% let startPage = curPage - 4 %>
-      <% let endPage = curPage + 4 %>
+      <% let startPage = curPage - 4; let endPage = curPage + 4; %>
       <% if (curPage < 5) { %>
-        <% startPage = 1 %>
-        <% endPage = 9 %>
+        <% startPage = 1; endPage = 9; %>
       <% } else if (numPages - 4 < curPage) { %>
-        <% endPage = numPages %>
-        <% startPage = numPages - 8 %>
+        <% endPage = numPages; startPage = numPages - 8; %>
       <% } %>
         <% if (numPages > 1) { %>
         <nav id="leaderboard-pagination" aria-label="Page navigation">
