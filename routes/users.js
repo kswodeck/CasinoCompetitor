@@ -55,21 +55,21 @@ router.get('/', (req, res) => {
   }
 });
 
-router.get('/cards', isLoggedIn, (req, res) => {
+router.get('/cards', helpers.isLoggedIn, (req, res) => {
   res.render('cards', {pageTitle: 'Competitive Poker', currentCoins: req.user.coins});
 });
-router.put('/cards', isLoggedIn, (req, res) => {
-  updateCoins(req, res);
+router.put('/cards', helpers.isLoggedIn, (req, res) => {
+  helpers.updateCoins(req, res);
 });
 
-router.get('/farkle', isLoggedIn, (req, res) => {
+router.get('/farkle', helpers.isLoggedIn, (req, res) => {
   res.render('farkle', {pageTitle: 'Competitive Farkle', currentCoins: req.user.coins});
 });
-router.put('/farkle', isLoggedIn, (req, res) => {
-  updateCoins(req, res);
+router.put('/farkle', helpers.isLoggedIn, (req, res) => {
+  helpers.updateCoins(req, res);
 });
 
-router.get('/leaderboard', isLoggedIn, (req, res) => {
+router.get('/leaderboard', helpers.isLoggedIn, (req, res) => {
   var search = "", page = 1; // initializes default variables
   if (req.query.page) { // if a page query string exists
     page = req.query.page; //gets the page number from query string
@@ -118,10 +118,10 @@ router.get('/leaderboard', isLoggedIn, (req, res) => {
   });
 });
 
-router.get('/register', isLoggedOut, (req, res) => {
+router.get('/register', helpers.isLoggedOut, (req, res) => {
   res.render('register', {pageTitle: 'Create Account'});
 });
-router.post('/register', isLoggedOut, (req, res) => {
+router.post('/register', helpers.isLoggedOut, (req, res) => {
   User.find({email: req.body.email}, (err, emails) => {
     if (err || emails.length > 0) {
       req.flash('error', 'Email "' + req.body.email + '" is already registered');
@@ -133,11 +133,11 @@ router.post('/register', isLoggedOut, (req, res) => {
           res.redirect('/register');
         } else {
           const username = req.body.username;
-          if (containsBadWord(username)) {
+          if (helpers.containsBadWord(username)) {
             req.flash('error', 'You must not have a bad word in your username');
             return res.redirect('/register');
           } else {
-            let momentBirthday = helpers.getLocalNoonDate(req.body.birthday);
+            let momentBirthday = helpers.helpers.getLocalNoonDate(req.body.birthday);
             var newUser = new User({email: req.body.email, username: username, firstName: req.body.firstName, lastName: req.body.lastName, phone: req.body.phone, birthday: momentBirthday, profileImage: req.body.profileImage});
             User.register(newUser, req.body.password, (err, user) => {
                 if (err || !user){
@@ -156,25 +156,25 @@ router.post('/register', isLoggedOut, (req, res) => {
   });
 });
 
-router.get('/login', isLoggedOut, (req, res) => {
+router.get('/login', helpers.isLoggedOut, (req, res) => {
   res.render('prelogin', {pageTitle: 'Login'});
 });
-router.post('/login', isLoggedOut, passport.authenticate('local', {
+router.post('/login', helpers.isLoggedOut, passport.authenticate('local', {
   successRedirect: '/?afterLogin=true',
   failureFlash: 'Incorrect username or password',
   failureRedirect: '/login'
 }));
-router.get('/logout', isLoggedIn, (req, res) => {
+router.get('/logout', helpers.isLoggedIn, (req, res) => {
   req.logout();
   req.flash('popup', true);
   res.redirect('/');
 });
 
-router.get('/account', isLoggedIn, (req, res) => {
+router.get('/account', helpers.isLoggedIn, (req, res) => {
   let formattedBirthday = helpers.formatDate(req.user.birthday);
   return res.render('account', {pageTitle: 'My Account', birthday: formattedBirthday, error: false});
 });
-router.put('/account', isLoggedIn, (req, res) => {
+router.put('/account', helpers.isLoggedIn, (req, res) => {
   var curUser = req.user, updated = req.body.updateUser;
   if (req.body.updatePassword) {
       curUser.changePassword(req.body.oldPassword, req.body.updatePassword, (err, user) => {
@@ -197,7 +197,7 @@ router.put('/account', isLoggedIn, (req, res) => {
       User.findOneAndUpdate({_id: curUser._id}, {$set: {phone: updated.phone}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
     }
     if (updated.birthday != formattedBirthday) {
-      let momentBirthday =  helpers.getLocalNoonDate(updated.birthday);
+      let momentBirthday =  helpers.helpers.getLocalNoonDate(updated.birthday);
       User.findOneAndUpdate({_id: curUser._id}, {$set: {birthday: momentBirthday}}, {useFindAndModify: false, rawResult: true}, (req, res) => {});
     }
     if (updated.profileImage != curUser.profileImage) {
@@ -214,7 +214,7 @@ router.put('/account', isLoggedIn, (req, res) => {
       });
     } 
     if (updated.username != curUser.username) {
-      if (!containsBadWord(updated.username)) {
+      if (!helpers.containsBadWord(updated.username)) {
         User.find({username: updated.username}, (err, result) => {
           if (err || result.length > 0) {
             res.setTimeout(500, () => {
@@ -245,7 +245,7 @@ router.put('/account', isLoggedIn, (req, res) => {
     }
   }
 });
-router.delete('/account', isLoggedIn, (req, res) => {
+router.delete('/account', helpers.isLoggedIn, (req, res) => {
   req.user.changePassword(req.body.password, req.body.password, (err, user) => {
     if (err || !user){
       req.flash('invalidPW', 'You entered an incorrect password');
@@ -264,10 +264,10 @@ router.delete('/account', isLoggedIn, (req, res) => {
   });
 });
 
-router.get('/forgotuser', isLoggedOut, (req, res) => {
+router.get('/forgotuser', helpers.isLoggedOut, (req, res) => {
   res.render('prelogin', {pageTitle: 'Forgot Username'});
 });
-router.post('/forgotuser', isLoggedOut, (req, res) => {
+router.post('/forgotuser', helpers.isLoggedOut, (req, res) => {
   var userBirthday = req.body.forgotUser.birthday;
   var msg = 'No match found';
   User.find({email: req.body.forgotUser.email, phone: req.body.forgotUser.phone}, (err, users) => {
@@ -285,7 +285,7 @@ router.post('/forgotuser', isLoggedOut, (req, res) => {
   });
 });
 
-router.get('/forgotpass', isLoggedOut, (req, res) => {
+router.get('/forgotpass', helpers.isLoggedOut, (req, res) => {
   let emailSent = false, userId = false, username = false;
   if (req.query.emailSent) {
     emailSent = req.query.emailSent;
@@ -298,7 +298,7 @@ router.get('/forgotpass', isLoggedOut, (req, res) => {
   }
   res.render('forgotpass', {pageTitle: 'Forgot Password', emailSent: emailSent, userId: userId, username: username, updatePW: false});
 });
-router.post('/forgotpass', isLoggedOut, (req, res) => {
+router.post('/forgotpass', helpers.isLoggedOut, (req, res) => {
   var userBirthday = req.body.forgotPW.birthday;
   User.find({email: req.body.forgotPW.email, phone: req.body.forgotPW.phone}, (err, users) => {
     if (err || users.length < 1) {
@@ -327,7 +327,7 @@ router.post('/forgotpass', isLoggedOut, (req, res) => {
     }
   });
 });
-router.get('/forgotpass/:id', isLoggedOut, (req, res) => { //route to update password page for forgot password update
+router.get('/forgotpass/:id', helpers.isLoggedOut, (req, res) => { //route to update password page for forgot password update
   User.findOne({_id: req.params.id, passwordRecoveryActive: true}, (err, user) => {
     if (err || !user) {
       res.redirect('/');
@@ -336,7 +336,7 @@ router.get('/forgotpass/:id', isLoggedOut, (req, res) => { //route to update pas
     }
   });
 });
-router.put('/forgotpass/:id', isLoggedOut, (req, res) => { //route for forgotten password update
+router.put('/forgotpass/:id', helpers.isLoggedOut, (req, res) => { //route for forgotten password update
   User.findByIdAndUpdate(req.params.id, {passwordRecoveryActive: false}, {useFindAndModify: false}, (error, user) => {
     if (error || !user) {
       res.redirect('/forgotpass');

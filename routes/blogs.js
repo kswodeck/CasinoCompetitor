@@ -7,10 +7,10 @@ const express  = require('express'),
       badWords = require('../helpers/words'),
       helpers  = require('../helpers/helpers');
 
-// Blog.create({userId: '5edd99e1de86290004f56157', title: 'Poker Tips!', body: 'Here are poker tips from kswodeck', board: 'poker'});
-// Blog.create({userId: '5eddac7fc8e4e800042c089e', title: 'Poker Tips!', body: 'Here are poker tips from tatums', board: 'poker'});
-// Blog.create({userId: '5edd99e1de86290004f56157', title: 'Poker Tips!', body: 'Here are more poker tips from kswodeck', board: 'poker'});
-// Blog.create({userId: '5eddac7fc8e4e800042c089e', title: 'Poker Tips!', body: 'Here are more poker tips from tatums', board: 'poker'});
+//Blog.create({userId: '5edd99e1de86290004f56157', title: 'Poker Tips! 5', body: 'Here are poker tips from kswodeck', board: 'Poker'});
+//Blog.create({userId: '5eddac7fc8e4e800042c089e', title: 'Poker Tips!', body: 'Here are poker tips from tatums', board: 'Poker'});
+// Blog.create({userId: '5edd99e1de86290004f56157', title: 'Poker Tips!', body: 'Here are more poker tips from kswodeck', board: 'Poker'});
+//Blog.create({userId: '5eddac7fc8e4e800042c089e', title: 'Poker Tips! 6', body: 'Here are more poker tips from tatums', board: 'Poker'});
 
 // Blog.create({userId: , title: 'Poker Tips!', body: 'Here are some poker tips', board: 'poker'});
 //restful routes
@@ -61,14 +61,14 @@ router.get('/blog/:board/:id', (req, res) => {
   });
 });
 
-router.delete('/blog/:board/:id', isLoggedIn, (req, res) => {
+router.delete('/blog/:board/:id', helpers.isLoggedIn, (req, res) => {
   Blog.findByIdAndDelete(req.params.id, (err, post) => {
     if (err || !post) {
       req.flash('error', err);
-      res.redirect('/blog/', req.params.board);
+      res.redirect('/blog/' + req.params.board);
     } else {
-      req.flash('success', 'Successfully deleted your post');
-      res.redirect('/blog/', req.params.board);
+      req.flash('deleteSuccess', 'Your post has been deleted');
+      res.redirect('/blog/' + req.params.board + '?deleted=true');
     }
   });
 });
