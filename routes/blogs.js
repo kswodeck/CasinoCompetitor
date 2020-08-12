@@ -16,14 +16,13 @@ const express  = require('express'),
 
 // Blog.create({userId: , title: 'Poker Tips!', body: 'Here are some poker tips', board: 'poker'});
 //restful routes
-// Index = /blog. GET (blog.ejs template)
-// Board = /blog/:board. GET (board.ejs template)
+// Index = /blog. GET (blog.ejs template) DONE
+// Board = /blog/:board. GET (board.ejs template) DONE
 // New = /blog/:board/new. GET (consider making this a dialog popup instead of a route)
 // Create = /blog. POST (take to /blog/:board/:id after created) 
-// Show = /blog/:board/:id. GET (post.ejs template)
-// Edit = /blog/:board/:id/edit. GET (consider making this a dialog popup instead of a route)
-// Update = /blog/:board/:id. PUT (take to /blog/:board/:id after updated)
-// Delete = /blog/:board/:id. DELETE (take to /blog/:board after updated) (confirmation message displays after clicking "X"/delete button)
+// Show = /blog/:board/:id. GET (post.ejs template) DONE
+// Update = /blog/:board/:id. PUT (take to /blog/:board/:id after updated) DONE
+// Delete = /blog/:board/:id. DELETE (take to /blog/:board after deleted) DONE
 
 // blog related routes
 router.get('/blog', (req, res) => {
