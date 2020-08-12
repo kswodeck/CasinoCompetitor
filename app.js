@@ -55,8 +55,10 @@ app.use((req, res, next) => {
   res.locals.invalidEmail = req.flash('invalidEmail');
   res.locals.popup = req.flash('popup');
   res.locals.invalidPW = req.flash('invalidPW');
-  res.locals.deleteSuccess = req.flash('deleteSuccess');
   res.locals.updateSuccess = req.flash('updateSuccess');
+  res.locals.deleteSuccess = req.flash('deleteSuccess');
+  res.locals.badTitle = req.flash('badTitle');
+  res.locals.badText = req.flash('badText');
   next();
 });
 

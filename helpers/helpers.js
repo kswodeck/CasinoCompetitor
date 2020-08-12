@@ -1,4 +1,5 @@
-const moment   = require('moment');
+const moment   = require('moment'),
+      badWords = require('../helpers/words');
 
 function getLocalNoonDate(date) { //used to assume birthday times
   let adjustedTime = 12 + (moment().utcOffset()/60); //makes the date time 12

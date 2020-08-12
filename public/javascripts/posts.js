@@ -1,10 +1,11 @@
 import './common.js';
 
 const postTextArea = document.getElementById('postTextArea');
-const editPostButton = document.getElementById('editPostButton');
-const textAreaInput = document.getElementsByClassName('postTextInput');
-const postInvalidList = document.getElementById('invalid-post-list');
-let postTextVal = postTextArea.value;
+if (document.getElementsByTagName('title')[0].innerText != 'Create New Post') {
+var editPostButton = document.getElementById('editPostButton');
+var textAreaInput = document.getElementsByClassName('postTextInput');
+var postTextVal = postTextArea.value;
+}
 
 function enablePostEdit(user) {
   if (user && user != 'false' && postTextArea.disabled == true) {
@@ -18,28 +19,31 @@ function disablePostEdit(user) {
   }
 }
 
-function handleContent(user) {
+function handleContent(user='new', input=postTextArea) {
   setTimeout(() => {
-    postTextArea.style.height = 'auto';
-    postTextArea.style.height = postTextArea.scrollHeight + 'px';
-    postTextArea.blur()
-    postTextArea.focus()
-    if (postTextVal == postTextArea.value && user != 'false') {
-      editPostButton.disabled = true;
-    } else if (postTextVal != postTextArea.value && user != 'false') {
-      editPostButton.disabled = false;
+    input.style.height = 'auto';
+    input.style.height = input.scrollHeight + 'px';
+    input.blur()
+    input.focus()
+    if (user != 'new') {
+      if (postTextVal == input.value && user != 'false') {
+        editPostButton.disabled = true;
+      } else if (postTextVal != input.value && user != 'false') {
+        editPostButton.disabled = false;
+      }
     }
   }, 50);
 }
 
-function validateBlogEdit(user) {
+function validatePostEdit(user) {
   if (user && user != 'false' && postTextArea.disabled == false) {
+    const postInvalidList = document.getElementById('invalid-post-list');
     disablePostEdit(user);
-    return validateInputs(postInvalidList,  textAreaInput, 'editPostButton')
+    return validateInputs(postInvalidList, textAreaInput, 'editPostButton', 800, ['postTextArea'], [postTextArea.value]);
   }
 }
 
 window.enablePostEdit = enablePostEdit; window.handleContent = handleContent;
-window.validateBlogEdit = validateBlogEdit;
+window.validatePostEdit = validatePostEdit;
 
 export * from './posts.js';

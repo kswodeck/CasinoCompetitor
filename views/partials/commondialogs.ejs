@@ -57,6 +57,12 @@
       <span class="back-button-label blue-text sm-text" onclick="backFromDialog('forgotPWDialog')">Back to Login</span>
     </div>
 </dialog>
+<dialog id="generalPostDialog" class="md-dialog">
+  <b class="blue-text sm-text" id="generalPostText"></b>
+  <div id="generalPostDiv">
+      <button id="generalPostCancel" class="btn sm-text red-bg gold-text btn-style"  onclick="exitDialog('generalPostDialog')">OK</button>
+    </div>
+</dialog>
 </div>
 <script defer>window.addEventListener('load', () => {
   getFormValues('login-input', ['username', 'password']);

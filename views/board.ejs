@@ -12,7 +12,13 @@
           </div>
           </th>
           <th id="board-table-heading" class="blog-board-cell board-table-heading md-text gold-text" scope="col" colspan="1"><%= pageTitle %></th>
-          <th scope="col" colspan="1" class="blog-board-cell board-table-heading"></th>
+          <th scope="col" colspan="1" class="blog-board-cell board-table-heading">
+            <% if (currentUser) { %>
+            <div id="createPostDiv">
+              <button id="createPostButton" class="btn sm-text red-text btn-style gold-bg" name="create-post" onclick="window.location.href='/blog/<%= pageTitle %>/new'">Create Post</button>
+            </div>
+            <% } %>
+          </th>
         </tr>
       </thead>
       <% if (posts && posts.length > 0) { %>
@@ -21,9 +27,9 @@
         <tr class ="board-table-row">
           <td class ="board-table-cell" scope="col" colspan="3"><a class="blog-board-link" href="/blog/<%= pageTitle %>/<%= posts[i].id %>"><%= posts[i].title %></a><br>
             <div class="row post-info-row xs-text blue-text">
-              <div class="col post-col-info created-col">created on <b><%= created[i] %></b></div>
-              <div class="col post-col-info user-col">created by <b><%= posts[i].username %></b></div>
-              <div class="col post-col-info editted-col">last editted <b><%= editted[i] %></b></div>
+              <div class="col post-col-info created-col">created: <b><%= created[i] %></b></div>
+              <div class="col post-col-info user-col">author: <b><%= posts[i].username %></b></div>
+              <div class="col post-col-info editted-col">editted: <b><%= editted[i] %></b></div>
             </div>
           </td>
         </tr>
@@ -35,29 +41,30 @@
       </tr>
       <% } else { %>
         <tr class ="board-table-row">
-          <td class ="board-table-cell blue-text" scope="col" colspan="3">There are no posts on this board. <a class="blog-board-link" href="#">Create a new post</a></td>
+          <td class ="board-table-cell blue-text" scope="col" colspan="3">There are no posts on this board. <a class="blog-board-link" href="/blog/<%= pageTitle %>/new">Create a new post</a></td>
         </tr>
         <% } %>
     </table>
   </div>
 </div>
 <%- include('partials/commondialogs') %>
-
 <% if (deleted && deleteSuccess && deleteSuccess.length > 0) { %>
-<dialog id="deletedPostDialog" class="sm-dialog">
-  <b class="blue-text sm-text">Your post has been deleted</b>
-  <div id="deletedPostDiv" class="farkle-div">
-      <button id="deletedPostCancel" class="btn sm-text red-bg gold-text btn-style"  onclick="exitDialog('deletedPostDialog')">OK</button>
-    </div>
-</dialog>
 <script defer>
 setTimeout(() => {
-  displayDialog('deletedPostDialog');
+  displayDialog('generalPostDialog', '<%= deleteSuccess %>');
   var uri = window.location.toString();
-  if (uri.indexOf("?") > 0) {
-    var clean_uri = uri.substring(0, uri.indexOf("?"));
+  if (uri.indexOf('?') > 0) {
+    var clean_uri = uri.substring(0, uri.indexOf('?'));
     window.history.replaceState({}, document.title, clean_uri);
   }
 }, 150);
+</script>
+<% } else if (success && success.length > 0) { %>
+<script defer>
+  setTimeout(() => displayDialog('generalPostDialog', '<%= success %>'), 150);
+</script>
+<% } else if (error && error.length > 0) { %>
+<script defer>
+  setTimeout(() => displayDialog('generalPostDialog', '<%= error %>'), 150);
 </script>
 <% } %>

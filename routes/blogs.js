@@ -4,7 +4,6 @@ const express  = require('express'),
       moment   = require('moment'),
       User     = require('../models/user'),
       Blog     = require('../models/blog'),
-      badWords = require('../helpers/words'),
       helpers  = require('../helpers/helpers');
 
 // Blog.create({userId: '5edd99e1de86290004f56157', username: 'tatums96', title: 'Poker Tips! 4', body: 'Here are poker tips from tatums96', board: 'Poker'});
@@ -30,7 +29,7 @@ router.get('/blog/:board', (req, res) => {
   if (req.query.deleted && req.user) {
     postDeleted = req.query.deleted;
   }
-  Blog.find({board: req.params.board}).sort({editted: 1, created: 1}).exec(function(err, posts) {
+  Blog.find({board: req.params.board}).sort({editted: 'desc', created: 'desc'}).exec(function(err, posts) {
     if (err || !posts) {
       console.log(err);
     }
@@ -41,6 +40,29 @@ router.get('/blog/:board', (req, res) => {
     }
     res.render('board', {pageTitle: req.params.board, posts: posts, deleted: postDeleted, editted: editted, created: created});
   });
+});
+router.post('/blog/:board', helpers.isLoggedIn, (req, res) => {
+  if (helpers.containsBadWord(req.body.newPostText.toString().toLowerCase())) {
+    req.flash('badText', 'You must not have a bad word in your post');
+    res.redirect('/blog/' + req.params.board + '/new');
+  } else if (helpers.containsBadWord(req.body.newPostTitle.toString().toLowerCase())) {
+    req.flash('badTitle', 'You must not have a bad word in your title');
+    res.redirect('/blog/' + req.params.board + '/new');
+  } else {
+    Blog.create({userId: req.user._id, username: req.user.username, title: req.body.newPostTitle, body: req.body.newPostText, board: req.params.board}, (err, post) => {
+      if (err || !post){
+        console.log('error:', err);
+        res.redirect('/blog/' + req.params.board);
+      } else {
+        req.flash('success', 'Your post has been created');
+        res.redirect('/blog/' + req.params.board + '/' + post._id);
+      }
+    });
+  }
+});
+
+router.get('/blog/:board/new', (req, res) => {
+  res.render('newpost', {pageTitle: 'Create New Post', board: req.params.board});
 });
 
 router.get('/blog/:board/:id', (req, res) => {
@@ -66,17 +88,22 @@ router.get('/blog/:board/:id', (req, res) => {
 });
 
 router.put('/blog/:board/:id', helpers.isLoggedIn, (req, res) => {
-  let current = new Date(helpers.getCurrentDate());
-  Blog.findByIdAndUpdate(req.params.id, {editted: current, body: req.body.postBody}, {useFindAndModify: false}, (err, post) => {
-    if (err || !post) {
-      console.log(err);
-    } else {
+  //consider ability to update post title (do bad word check also)
+  if (helpers.containsBadWord(req.body.postTextArea.toString().toLowerCase())) {
+    req.flash('badText', 'You must not have a bad word in your post');
+    res.redirect('/blog/' + req.params.board + '/' + req.params.id);
+  } else {
+    let current = new Date(helpers.getCurrentDate());
+    Blog.findByIdAndUpdate(req.params.id, {editted: current, body: req.body.postTextArea}, {useFindAndModify: false}, (err, post) => {
+      if (err || !post) {
+        console.log(err);
+      } else {
       req.flash('updateSuccess', 'Your post has been updated');
       res.redirect('/blog/' + req.params.board + '/' + req.params.id);
-    }
-  });
+      }
+    });
+  }
 });
-
 router.delete('/blog/:board/:id', helpers.isLoggedIn, (req, res) => {
   Blog.findByIdAndDelete(req.params.id, (err, post) => {
     if (err || !post) {

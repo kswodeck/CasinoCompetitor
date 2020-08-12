@@ -173,10 +173,10 @@ button.exit-dialog-button:active, .avatarButton:hover {
   border-width: 0.08rem;
 }
 
-input:valid, #tableSearch:focus, #tableSearch:hover {
+input:valid, #tableSearch:focus, #tableSearch:hover, textarea:valid {
   border-color: green;
 }
-input:invalid, #tableSearch:active, .avatarButton:hover {
+input:invalid, #tableSearch:active, .avatarButton:hover, textarea:invalid {
   border-color: #be0b2f;
 }
 
@@ -561,6 +561,15 @@ div.dropdown-menu {
 #editPostButton:disabled {
   opacity: .6;
 }
+#newPostTitle {
+  margin-bottom: 1.5%;
+}
+#newPostTitle {
+  margin-bottom: 1.5%;
+}
+.postTextArea, #newPostTitle {
+  border-radius: 5px;
+}
 
 #dropdownMainLink {
   font-size: 130%;
@@ -692,11 +701,11 @@ border-radius: .25rem;
   padding-bottom: 10px;
 }
 
-h2#form-heading {
+.form-heading {
   margin: 1% auto;
 }
 
-#postDiv {
+.postDiv {
   max-width: 1200px;
   width: calc(180px + 70vw);
   border: 1px inset var(--lightcrimson);
@@ -704,7 +713,7 @@ h2#form-heading {
   background-image: radial-gradient(ellipse, var(--bluish) 30%, #979CA580, #9CA2AD80, #A5ABB680, #AEB3BD80);
 }
 
-#postTextArea {
+.postTextArea {
   max-width: 1100px;
   width: calc(80px + 70vw);
   height: auto;
@@ -713,10 +722,9 @@ h2#form-heading {
   border: none;
   resize: none;
   overflow: hidden;
-  border-radius: 5px;
   scroll-behavior: smooth;
 }
-#postTextArea:disabled {
+.postTextArea:disabled {
   background-color: #ecedee;
 }
 
@@ -859,7 +867,7 @@ dialog.account-dialog {
   padding-bottom: 1.5%;
 }
 
-.exit-button-div, #table-search-row, #collapse-button-div, #current-bet-div, .editted-col, #postBottomRightDiv {
+.exit-button-div, #table-search-row, #collapse-button-div, #current-bet-div, .editted-col, #postBottomRightDiv, #createPostDiv {
   text-align: right;
 }
 .back-button-div, .numquantity, #current-win-div, #user-post-div, .created-col {
@@ -957,8 +965,8 @@ button.page-button {
   font-size:calc(14px + 0.6vw);
 }
 
-#mid-container, #dialog-popup-text, #winHandDiv, .account-form-div, #postDiv, #show-hide-odds-div, #blog-table-div,
-#leaderboard-div, #tableSearch, #leaderboardLink, #farkle-container, dialog, div.farkle-div, .backdrop, #postTextArea {
+#mid-container, #dialog-popup-text, #winHandDiv, .account-form-div, .postDiv, #show-hide-odds-div, #blog-table-div,
+#leaderboard-div, #tableSearch, #leaderboardLink, #farkle-container, dialog, div.farkle-div, .backdrop, .postTextArea, #newPostTitle {
   text-align: center;
 }
 
@@ -1000,7 +1008,7 @@ dialog.sm-dialog {
   text-decoration: none;
 }
 
-#dialogButtonDiv, #logoutDialogDiv, #accountUpdateDiv, #confirmDialogDiv, #postDiv {
+#dialogButtonDiv, #logoutDialogDiv, #accountUpdateDiv, #confirmDialogDiv, .postDiv {
   justify-content: space-around;
   margin: 3% auto 2.5% auto;
 }
@@ -1103,25 +1111,28 @@ dialog::-webkit-backdrop, div.backdrop, dialog::backdrop {
   .board-table-heading, .post-table-cell {
     padding: 1% 0;
   }
+  #createPostButton {
+    padding: 0.5%;
+  }
   .board-table-cell {
     padding: 1% 0 0;
   }
   dialog.account-form-div, div.account-form-div, #blog-table-div, #leaderboard-heading, #accountUpdateDiv,
-  #confirmDialogDiv, #dialogButtonDiv, #logoutDialogDiv, #postDiv {
+  #confirmDialogDiv, #dialogButtonDiv, #logoutDialogDiv, .postDiv {
     padding-bottom: 3px;
   }
   .post-heading, div.name-col, #header, dialog.account-form-div, div.account-form-div, #blog-table-div, #leaderboard-heading,
-  #accountUpdateDiv, #confirmDialogDiv, #dialogButtonDiv, #logoutDialogDiv, #postDiv {
+  #accountUpdateDiv, #confirmDialogDiv, #dialogButtonDiv, #logoutDialogDiv, .postDiv {
     margin: 0 auto;
   }
   dialog.account-form-div, div.account-form-div, #blog-table-div, #accountUpdateDiv, #confirmDialogDiv,
-  #dialogButtonDiv, #logoutDialogDiv, #postDiv {
+  #dialogButtonDiv, #logoutDialogDiv, .postDiv {
     width: 100%;
     border: none;
     border-radius: 0;
   }
   dialog.account-form-div, div.account-form-div, #blog-table-div, #leaderboard-heading, #accountUpdateDiv,
-  #confirmDialogDiv, #dialogButtonDiv, #logoutDialogDiv, #postDiv
+  #confirmDialogDiv, #dialogButtonDiv, #logoutDialogDiv, .postDiv
   div.name-row {
     justify-content: center;
     flex-wrap: nowrap;
@@ -1159,7 +1170,7 @@ dialog::-webkit-backdrop, div.backdrop, dialog::backdrop {
 }
 
 @media (max-width: 767px) {
-  div.dropdown-menu {
+  div.dropdown-menu, #newPostDiv {
     padding-top: 1%;
   }
   #farkle-roll-div .dice {

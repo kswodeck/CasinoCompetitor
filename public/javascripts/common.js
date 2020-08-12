@@ -157,7 +157,7 @@ function togglePasswordVisibility(passwordId, iconId){
   }
 }
 
-function displayDialog(dialog) {
+function displayDialog(dialog, message=false) {
   const curDialog = document.getElementById(dialog);
   if (!event || event.type == 'DOMContentLoaded' || event.type == 'click' || event.code == 'Enter') {
     if (typeof curDialog.showModal == 'function') {
@@ -168,6 +168,9 @@ function displayDialog(dialog) {
       }
     } else {
       console.log('The <dialog> API is not supported by this browser');
+    }
+    if (message != false) {
+      document.getElementById('generalPostText').innerText = message;
     }
   }
 }
@@ -379,7 +382,7 @@ function getFormValues(selector, names) {
     const inputs = document.getElementsByClassName(selector);
     for (let i = 0; i < inputs.length; i++) {
       let storedVal = localStorage.getItem(names[i]);
-      if (storedVal !== null) inputs[i].value = storedVal;
+      if (storedVal != null && storedVal != undefined) inputs[i].value = storedVal;
     }
   }
 }
@@ -395,11 +398,11 @@ function addToInvalidList(str, el, invalidList) {
 function clearValidityMessages() {
   let invalidMessages = document.getElementsByClassName('invalid-list');
   let validMessages = document.getElementsByClassName('valid-list');
-  for (let i = 0; i < invalidMessages.length; i++) {
-    invalidMessages[i].remove;
+  while(invalidMessages.length > 0) {
+    invalidMessages[0].remove();
   }
-  for (let i = 0; i < validMessages.length; i++) {
-    validMessages[i].remove;
+  while(validMessages.length > 0) {
+    validMessages[0].remove();
   }
 }
 

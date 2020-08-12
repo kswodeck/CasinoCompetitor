@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+<script>window.addEventListener('load', () => {
+  getFormValues('postTextInput', ['newPostTitle', 'newPostText']);
+  handleContent('new', document.getElementById('newPostText'));
+  });
+  </script>
+<div id="mid-container">
+  <div id="newPostDiv" class="postDiv">
+    <h2 id="form-heading" class="post-heading form-heading blue-text">Create A New Post</h2>
+    <form action="/blog/<%= board %>" method="POST" id="newPostForm">
+      <label for="newPostTitle" id="postTitleLabel" class="sm-text account-label"></label><br>
+      <input type="text" id="newPostTitle" class="md-text post-heading blue-text postTextInput" name="newPostTitle" minlength="2", maxlength="40" placeholder="Post Title" size="30" autocomplete="off" required>
+      <label for="newPostText" id="newPostLabel" class="account-label"></label><br>
+      <textarea id="newPostText" class="blue-text xs-text postTextInput postTextArea" name="newPostText" minlength="2" maxlength="20000" rows="1" cols="10" wrap="hard" form="newPostForm" onkeydown="handleContent('new', document.getElementById('newPostText'))" placeholder="type your post content here..." required></textarea>
+      <ul id="invalid-post-list" class="invalid-fields-list">
+        <% if (badText && badText.length > 0) { %>
+          <li class="invalid-list"><%= badText %></li>
+        <% } else if (badTitle && badTitle.length > 0) { %>
+            <li class="invalid-list"><%= badTitle %></li>
+        <% } %>
+      </ul>
+      <button type="submit" role="button" name="create-post" onclick="return validateInputs(document.getElementById('invalid-post-list'), document.getElementsByClassName('postTextInput'), 'createPostButton', 800, ['newPostTitle', 'newPostText'], [document.getElementById('newPostTitle').value, document.getElementById('newPostText').value])" class="btn md-text blue-bg gold-text btn-style account-button" id="createPostButton" form="newPostForm">Create Post</button>
+    </form>
+    <div class="row" id="postBottomRow">
+      <div id="boardBackDiv" class="back-button-div col">
+        <button id="boardBackButton" class="back-arrow btn lg-text blue-text" name="back-arrow" onclick="window.location.href='/blog/<%= board %>'"><i id="BoardBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
+        <b class="back-button-label blue-text sm-text" onclick="window.location.href='/blog/<%= board %>'">Back to Board</b>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="module" defer onload="handleContent('new', document.getElementById('newPostText'))">import '/javascripts/posts.js';</script>
+<%- include('partials/commondialogs') %>

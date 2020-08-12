@@ -1,6 +1,8 @@
 <%- include('partials/header') %>
+<!-- <script>window.addEventListener('load', () => getFormValues('postTextInput', ['postTextArea']))</script> -->
+<script>window.addEventListener('load', () => handleContent('<%= sameUser %>'))</script>
 <div id="mid-container">
-  <div id="postDiv">
+  <div id="postDiv" class="postDiv">
     <div class="post-top-row">
       <div id="user-post-div" class="post-col">
         <img src="/images/<%= user.profileImage %>.webp" class="postImage" alt="<%= user.profileImage %>">
@@ -17,10 +19,18 @@
     <h2 id="form-heading" class="post-heading account-heading blue-text"><%= post.title %></h2>
     <form action="/blog/<%= board %>/<%= post.id %>?_method=PUT" method="POST" id="postForm" onclick="enablePostEdit('<%= sameUser %>')">
       <label for="postTextArea" id="postTextLabel" class="account-label"></label><br>
-      <textarea id="postTextArea" class="blue-text xs-text postTextInput" name="postBody" maxlength="20000" rows="1" cols="10" wrap="hard" form="postForm" onkeydown="handleContent()" disabled required><%= post.body %></textarea>
-      <ul id="invalid-post-list" class="invalid-fields-list"></ul>
+      <textarea id="postTextArea" class="blue-text xs-text postTextInput postTextArea" name="postTextArea" maxlength="20000" rows="1" cols="10" wrap="hard" form="postForm" onkeydown="handleContent('<%= sameUser %>')" disabled required><%= post.body %></textarea>
+      <ul id="invalid-post-list" class="invalid-fields-list">
+        <% if (updateSuccess && updateSuccess.length > 0) { %>
+          <li class="valid-list"><%= updateSuccess %></li>
+        <% } else if (badText && badText.length > 0) { %>
+          <li class="invalid-list"><%= badText %></li>
+        <% } else if (badTitle && badTitle.length > 0) { %>
+            <li class="invalid-list"><%= badTitle %></li>
+        <% } %>
+      </ul>
     <% if (sameUser) { %>
-      <button type="submit" role="button" name="edit-post" onclick="return validateBlogEdit('<%= sameUser %>')" class="btn md-text blue-bg gold-text btn-style account-button" id="editPostButton" form="postForm" disabled>Update Post</button>
+      <button type="submit" role="button" name="edit-post" onclick="return validatePostEdit('<%= sameUser %>')" class="btn md-text blue-bg gold-text btn-style account-button" id="editPostButton" form="postForm" disabled>Update Post</button>
       <script defer>
         document.getElementById('postDelete').style.visibility = "visible";
         document.getElementById('postDeleteButton').style.visibility = "visible";
@@ -54,18 +64,6 @@
       </div>
   </div>
 </dialog>
-<% if (updateSuccess && updateSuccess.length > 0) { %>
-  <dialog id="updatedPostDialog" class="sm-dialog">
-    <b class="blue-text sm-text">Your post has been updated</b>
-    <div id="updatedPostDiv" class="farkle-div">
-        <button id="updatedPostCancel" class="btn sm-text red-bg gold-text btn-style"  onclick="exitDialog('updatedPostDialog')">OK</button>
-      </div>
-  </dialog>
-  <script defer>
-  setTimeout(() => {
-    displayDialog('updatedPostDialog');
-  }, 100);
-  </script>
-  <% } %>
 <script type="module" defer onload="handleContent('<%= sameUser %>')">import '/javascripts/posts.js';</script>
+<script onload=""></script>
 <%- include('partials/commondialogs') %>
