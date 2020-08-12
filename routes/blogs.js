@@ -1,5 +1,3 @@
-const { format } = require('path');
-
 const express  = require('express'),
       passport = require('passport'),
       router   = express.Router({mergeParams: true}),
@@ -14,8 +12,6 @@ const express  = require('express'),
 // Blog.create({userId: '5edd99e1de86290004f56157', username: 'tatums96', title: 'Poker Tips! 2', body: 'Here are more poker tips from tatums96', board: 'Poker'});
 // Blog.create({userId: '5eddac7fc8e4e800042c089e', username: 'kswodeck', title: 'Poker Tips! 3', body: 'Here are more poker tips from kswodeck', board: 'Poker'});
 
-// Blog.create({userId: , title: 'Poker Tips!', body: 'Here are some poker tips', board: 'poker'});
-//restful routes
 // Index = /blog. GET (blog.ejs template) DONE
 // Board = /blog/:board. GET (board.ejs template) DONE
 // New = /blog/:board/new. GET (consider making this a dialog popup instead of a route)
