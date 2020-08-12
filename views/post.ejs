@@ -10,7 +10,7 @@
         </ul>
       </div>
       <div class ="exit-button-div post-col">
-        <b id="postDelete" class="red-text sm-text" onclick="displayDialog('postDeleteDialog')">Delete Post</b>
+        <b id="postDelete" class="sm-text delete-button-label" onclick="displayDialog('postDeleteDialog')">Delete Post</b>
         <button id="postDeleteButton" class="exit-dialog-button lg-text" onclick="displayDialog('postDeleteDialog')">✖</button>
       </div>
     </div>
@@ -19,14 +19,14 @@
       <label for="postTextArea" id="postTextLabel" class="account-label"></label><br>
       <textarea id="postTextArea" class="blue-text xs-text postTextInput" name="postBody" maxlength="20000" rows="1" cols="10" wrap="hard" form="postForm" onkeydown="handleContent()" disabled required><%= post.body %></textarea>
       <ul id="invalid-post-list" class="invalid-fields-list"></ul>
-    </form>
     <% if (sameUser) { %>
-      <button type="submit" role="button" name="edit-post" onclick="return validateBlogEdit('<%= sameUser %>')" class="btn md-text blue-bg gold-text btn-style account-button" id="editPostButton" form="postForm" disabled>Edit Post</button>
+      <button type="submit" role="button" name="edit-post" onclick="return validateBlogEdit('<%= sameUser %>')" class="btn md-text blue-bg gold-text btn-style account-button" id="editPostButton" form="postForm" disabled>Update Post</button>
       <script defer>
         document.getElementById('postDelete').style.visibility = "visible";
         document.getElementById('postDeleteButton').style.visibility = "visible";
       </script>
       <% } %>
+    </form>
     <div class="row" id="postBottomRow">
       <div id="boardBackDiv" class="back-button-div col">
         <button id="boardBackButton" class="back-arrow btn lg-text blue-text" name="back-arrow" onclick="window.location.href='/blog/<%= board %>'"><i id="BoardBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
@@ -54,5 +54,18 @@
       </div>
   </div>
 </dialog>
+<% if (updateSuccess && updateSuccess.length > 0) { %>
+  <dialog id="updatedPostDialog" class="sm-dialog">
+    <b class="blue-text sm-text">Your post has been updated</b>
+    <div id="updatedPostDiv" class="farkle-div">
+        <button id="updatedPostCancel" class="btn sm-text red-bg gold-text btn-style"  onclick="exitDialog('updatedPostDialog')">OK</button>
+      </div>
+  </dialog>
+  <script defer>
+  setTimeout(() => {
+    displayDialog('updatedPostDialog');
+  }, 100);
+  </script>
+  <% } %>
 <script type="module" defer onload="handleContent('<%= sameUser %>')">import '/javascripts/posts.js';</script>
 <%- include('partials/commondialogs') %>

@@ -70,6 +70,18 @@ router.get('/blog/:board/:id', (req, res) => {
   });
 });
 
+router.put('/blog/:board/:id', helpers.isLoggedIn, (req, res) => {
+  let current = new Date(helpers.getCurrentDate());
+  Blog.findByIdAndUpdate(req.params.id, {editted: current, body: req.body.postBody}, {useFindAndModify: false}, (err, post) => {
+    if (err || !post) {
+      console.log(err);
+    } else {
+      req.flash('updateSuccess', 'Your post has been updated');
+      res.redirect('/blog/' + req.params.board + '/' + req.params.id);
+    }
+  });
+});
+
 router.delete('/blog/:board/:id', helpers.isLoggedIn, (req, res) => {
   Blog.findByIdAndDelete(req.params.id, (err, post) => {
     if (err || !post) {

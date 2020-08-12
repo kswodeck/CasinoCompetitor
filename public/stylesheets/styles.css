@@ -11,7 +11,7 @@ body {
   background-image: radial-gradient(ellipse, #fff 40%, #ebedf1d9, #dadde4d9, #cacfdad9);
 }
 :root {
-  --bluish: #cacfdad9;
+  --bluish: #bec6d2d9;
   --lightthemeblue: #5165b4b3;
   --lightcrimson: #fa0a32;
   --lightthemegold: #ffd900b3;
@@ -37,7 +37,7 @@ input, button {
   -webkit-box-shadow: inset 0 0 6px #0000004d;
   background-color: #D1D7E5;
 }
-::-webkit-scrollbar-thumb:hover, #search-button, #table-search-cell, .board-table-heading {
+::-webkit-scrollbar-thumb:hover, #search-button, #table-search-cell, .board-table-heading, thead > #board-table-row {
   background-color: #00008b;
 }
 
@@ -282,8 +282,9 @@ table#board-table {
 	        animation: 0.4s ease-in-out 0s 1 forwards flipCard;
 }
 
-.card-slot-div .interactive-img:hover, .farkle-slot-div .interactive-img:hover, .btn, input[type=button], #hamburger-button,
-button::-webkit-scrollbar-thumb:hover, #search-button, .exit-dialog-button, #postDelete, .dropdownContent, .avatarButton {
+.card-slot-div .interactive-img:hover, .farkle-slot-div .interactive-img:hover, .btn, button, button.btn, input[type=button],
+#hamburger-button, button::-webkit-scrollbar-thumb:hover, #search-button, .exit-dialog-button, #postDelete, .dropdownContent,
+.avatarButton {
   cursor: pointer;
 }
 .btn {
@@ -518,7 +519,7 @@ button.betWinButton:active {
 div.dropdown-menu {
   position: absolute;
   left: 0;
-  z-index: 1000;
+  z-index: 12;
   max-width: 180px;
   min-width: 160px;
   text-align: center;
@@ -529,7 +530,7 @@ div.dropdown-menu {
   border-radius: .25rem;
 }
 
-#header a:hover, #current-link, a.link-text:hover, .back-button-label:hover {
+#header a:hover, #current-link, a.link-text:hover, .back-button-label:hover, b.delete-button-label {
   color: #be0b2f;
   cursor: pointer;
 }
@@ -537,12 +538,12 @@ div.dropdown-menu {
   margin-left: 3px;
 }
 .avatarImage {
-  z-index: 1001;
+  z-index: 13;
   width: calc(30px + .4vw);
   height: calc(30px + .4vw);
 }
 .postImage {
-  z-index: 1001;
+  z-index: 13;
   width: calc(40px + 0.8vw);
   height: calc(40px + 0.8vw);
 }
@@ -687,7 +688,7 @@ border-radius: .25rem;
   border: 2px outset var(--lightthemeblue);
   border-radius: 30px;
   background-color: var(--bluish);
-  background-image: radial-gradient(ellipse, var(--bluish) 30%, #c3c8d2d9, #bcc1cad9, #b4b9c3d9, #adb2b9d9);
+  background-image: radial-gradient(ellipse, var(--bluish) 30%, rgba(186, 193, 205, 0.85), rgba(182, 188, 200, 0.85), rgba(175, 182, 195, 0.85), rgba(170, 175, 190, 0.85));
   padding-bottom: 10px;
 }
 
