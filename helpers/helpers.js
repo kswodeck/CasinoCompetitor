@@ -65,6 +65,7 @@ function updateCoins(req, res) {
 function containsBadWord(word) {
   for (let i = 0; i < badWords.length; i++) {
     if (word.includes(badWords[i])) {
+      console.log(word);
       return true;
     }
   }

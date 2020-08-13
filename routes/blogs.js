@@ -88,13 +88,15 @@ router.get('/blog/:board/:id', (req, res) => {
 });
 
 router.put('/blog/:board/:id', helpers.isLoggedIn, (req, res) => {
-  //consider ability to update post title (do bad word check also)
-  if (helpers.containsBadWord(req.body.postTextArea.toString().toLowerCase())) {
+  if (helpers.containsBadWord(req.body.postTitle.toString().toLowerCase())) {
+    req.flash('badTitle', 'You must not have a bad word in your title');
+    res.redirect('/blog/' + req.params.board + '/' + req.params.id);
+  } else if (helpers.containsBadWord(req.body.postTextArea.toString().toLowerCase())) {
     req.flash('badText', 'You must not have a bad word in your post');
     res.redirect('/blog/' + req.params.board + '/' + req.params.id);
   } else {
     let current = new Date(helpers.getCurrentDate());
-    Blog.findByIdAndUpdate(req.params.id, {editted: current, body: req.body.postTextArea}, {useFindAndModify: false}, (err, post) => {
+    Blog.findByIdAndUpdate(req.params.id, {editted: current, title: req.body.postTitle, body: req.body.postTextArea}, {useFindAndModify: false}, (err, post) => {
       if (err || !post) {
         console.log(err);
       } else {

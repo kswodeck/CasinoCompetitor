@@ -1,6 +1,6 @@
 <%- include('partials/header') %>
 <!-- <script>window.addEventListener('load', () => getFormValues('postTextInput', ['postTextArea']))</script> -->
-<script>window.addEventListener('load', () => handleContent('<%= sameUser %>'))</script>
+<script>window.addEventListener('load', () => handleContent(document.getElementById('postTextArea'), '<%= sameUser %>'))</script>
 <div id="mid-container">
   <div id="postDiv" class="postDiv">
     <div class="post-top-row">
@@ -16,10 +16,13 @@
         <button id="postDeleteButton" class="exit-dialog-button lg-text" onclick="displayDialog('postDeleteDialog')">✖</button>
       </div>
     </div>
-    <h2 id="form-heading" class="post-heading account-heading blue-text"><%= post.title %></h2>
     <form action="/blog/<%= board %>/<%= post.id %>?_method=PUT" method="POST" id="postForm" onclick="enablePostEdit('<%= sameUser %>')">
-      <label for="postTextArea" id="postTextLabel" class="account-label"></label><br>
-      <textarea id="postTextArea" class="blue-text xs-text postTextInput postTextArea" name="postTextArea" maxlength="20000" rows="1" cols="10" wrap="hard" form="postForm" onkeydown="handleContent('<%= sameUser %>')" disabled required><%= post.body %></textarea>
+      <div id="postFormDiv">
+        <label for="postTitle" id="postTitleLabel" class="account-label"></label>
+        <input type="text" id="postTitle" class="lg-text post-heading postTextInput" name="postTitle" value="<%= post.title %>" minlength="2", maxlength="40" size="30" form="postForm" onkeydown="handleContent(this, '<%= sameUser %>')" autocomplete="off" required disabled>
+        <label for="postTextArea" id="postTextLabel" class="account-label"></label>
+        <textarea id="postTextArea" class="blue-text xs-text postTextInput postTextArea" name="postTextArea" maxlength="20000" rows="1" cols="10" wrap="hard" form="postForm" onkeydown="handleContent(this, '<%= sameUser %>')" disabled required><%= post.body %></textarea>
+      </div>
       <ul id="invalid-post-list" class="invalid-fields-list">
         <% if (updateSuccess && updateSuccess.length > 0) { %>
           <li class="valid-list"><%= updateSuccess %></li>
@@ -64,6 +67,6 @@
       </div>
   </div>
 </dialog>
-<script type="module" defer onload="handleContent('<%= sameUser %>')">import '/javascripts/posts.js';</script>
+<script type="module" defer>import '/javascripts/posts.js';</script>
 <script onload=""></script>
 <%- include('partials/commondialogs') %>

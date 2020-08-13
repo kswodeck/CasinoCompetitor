@@ -1,38 +1,42 @@
 import './common.js';
 
+const postTitle = document.getElementById('postTitle');
 const postTextArea = document.getElementById('postTextArea');
 if (document.getElementsByTagName('title')[0].innerText != 'Create New Post') {
 var editPostButton = document.getElementById('editPostButton');
 var textAreaInput = document.getElementsByClassName('postTextInput');
 var postTextVal = postTextArea.value;
+var postTitleVal = postTitle.value;
 }
 
-function enablePostEdit(user) {
-  if (user && user != 'false' && postTextArea.disabled == true) {
+function enablePostEdit(user='false') {
+  if (user && user != 'false') {
     postTextArea.disabled = false;
+    postTitle.disabled = false;
   }
 }
 
-function disablePostEdit(user) {
-  if (user && user != 'false' && postTextArea.disabled == false) {
+function disablePostEdit(user='false') {
+  if (user && user != 'false') {
+    postTextArea.disabled = true;
     postTextArea.disabled = true;
   }
 }
 
-function handleContent(user='new', input=postTextArea) {
+function handleContent(el=postTextArea, user='false', input1=postTextArea, input2=postTitle) {
   setTimeout(() => {
-    input.style.height = 'auto';
-    input.style.height = input.scrollHeight + 'px';
-    input.blur()
-    input.focus()
-    if (user != 'new') {
-      if (postTextVal == input.value && user != 'false') {
+    input1.style.height = 'auto';
+    input1.style.height = input1.scrollHeight + 'px';
+    el.blur()
+    el.focus()
+    if (user != 'new' && user != 'false') {
+      if (postTextVal == input1.value && postTitleVal ==  input2.value) {
         editPostButton.disabled = true;
-      } else if (postTextVal != input.value && user != 'false') {
+      } else if (postTextVal != input1.value || postTitleVal !=  input2.value) {
         editPostButton.disabled = false;
       }
     }
-  }, 50);
+  }, 100);
 }
 
 function validatePostEdit(user) {
