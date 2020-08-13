@@ -42,11 +42,14 @@ router.get('/blog/:board', (req, res) => {
   });
 });
 router.post('/blog/:board', helpers.isLoggedIn, (req, res) => {
-  if (helpers.containsBadWord(req.body.newPostText.toString().toLowerCase())) {
-    req.flash('badText', "Please don't use profanity in your post");
-    res.redirect('/blog/' + req.params.board + '/new');
-  } else if (helpers.containsBadWord(req.body.newPostTitle.toString().toLowerCase())) {
-    req.flash('badTitle', "Please don't use profanity in your title");
+  let badText = helpers.containsBadWord(req.body.newPostText.toString().toLowerCase());
+  let badTitle = helpers.containsBadWord(req.body.newPostTitle.toString().toLowerCase());
+  if (badText || badTitle) {
+    let badWord = badTitle;
+    if (badText) {
+      badWord = badText;
+    }
+    req.flash('badText', "Please don't use profanity:", badWord);
     res.redirect('/blog/' + req.params.board + '/new');
   } else {
     Blog.create({userId: req.user._id, username: req.user.username, title: req.body.newPostTitle, body: req.body.newPostText, board: req.params.board}, (err, post) => {
@@ -88,8 +91,14 @@ router.get('/blog/:board/:id', (req, res) => {
 });
 
 router.put('/blog/:board/:id', helpers.isLoggedIn, (req, res) => {
-  if (helpers.containsBadWord(req.body.postTitle.toString().toLowerCase()) || helpers.containsBadWord(req.body.postTextArea.toString().toLowerCase())) {
-    req.flash('badText', "Please don't use profanity");
+  let badText = helpers.containsBadWord(req.body.postTitle.toString().toLowerCase());
+  let badTitle = helpers.containsBadWord(req.body.postTextArea.toString().toLowerCase());
+  if (badText || badTitle) {
+    let badWord = badTitle;
+    if (badText) {
+      badWord = badText;
+    }
+    req.flash('badText', "Please don't use profanity:", badWord);
     res.redirect('/blog/' + req.params.board + '/' + req.params.id);
   } else {
     let current = new Date(helpers.getCurrentDate());

@@ -21,7 +21,7 @@
         <label for="postTitle" id="postTitleLabel" class="account-label"></label>
         <input type="text" id="postTitle" class="lg-text post-heading postTextInput" name="postTitle" value="<%= post.title %>" minlength="2", maxlength="40" size="30" form="postForm" onkeydown="handleContent(this, '<%= sameUser %>')" autocomplete="off" required disabled>
         <label for="postTextArea" id="postTextLabel" class="account-label"></label>
-        <textarea id="postTextArea" class="blue-text xs-text postTextInput postTextArea" name="postTextArea" maxlength="20000" rows="1" cols="10" wrap="hard" form="postForm" onkeydown="handleContent(this, '<%= sameUser %>')" disabled required><%= post.body %></textarea>
+        <textarea id="postTextArea" class="blue-text xs-text postTextInput postTextArea" name="postTextArea" maxlength="50000" rows="1" cols="10" wrap="hard" form="postForm" onkeydown="handleContent(this, '<%= sameUser %>')" disabled required><%= post.body %></textarea>
       </div>
       <ul id="invalid-post-list" class="invalid-fields-list">
         <% if (updateSuccess && updateSuccess.length > 0) { %>

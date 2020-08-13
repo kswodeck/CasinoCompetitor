@@ -66,7 +66,7 @@ function containsBadWord(word) {
   for (let i = 0; i < badWords.length; i++) {
     if (word.includes(badWords[i])) {
       console.log(badWords[i]);
-      return true;
+      return badWords[i];
     }
   }
   return false;

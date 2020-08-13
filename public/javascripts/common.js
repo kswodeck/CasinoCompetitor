@@ -318,7 +318,9 @@ function validatePassMatch(password, repeatPassword, invalidList) {
 
 function validateInputs(invalidList, inputs, button, disableTime=1000, names=[], values=[]) {
   disableAfterSubmit(button, disableTime);
-  removeWhiteSpace(inputs);
+  if (invalidList != document.getElementById('invalid-post-list')) {
+    removeWhiteSpace(inputs);
+  }
   clearValidityMessages();
   let validity = true;
   let empty = false;
