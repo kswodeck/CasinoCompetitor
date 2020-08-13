@@ -131,7 +131,7 @@ router.post('/register', helpers.isLoggedOut, (req, res) => {
         } else {
           const username = req.body.username;
           if (helpers.containsBadWord(username)) {
-            req.flash('error', 'You must not have a bad word in your username');
+            req.flash('error', "Please don't use profanity in your username");
             return res.redirect('/register');
           } else {
             let momentBirthday = helpers.getLocalNoonDate(req.body.birthday);
@@ -231,7 +231,7 @@ router.put('/account', helpers.isLoggedIn, (req, res) => {
           }
         });
       } else {
-        req.flash('invalidUser', 'You must not have a bad word in your username');
+        req.flash('invalidUser', "Please don't use profanity in your username");
         return res.redirect('/account');
       }
     } else {

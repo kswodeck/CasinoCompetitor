@@ -15,8 +15,6 @@
       <ul id="invalid-post-list" class="invalid-fields-list">
         <% if (badText && badText.length > 0) { %>
           <li class="invalid-list"><%= badText %></li>
-        <% } else if (badTitle && badTitle.length > 0) { %>
-            <li class="invalid-list"><%= badTitle %></li>
         <% } %>
       </ul>
       <button type="submit" role="button" name="create-post" onclick="return validateInputs(document.getElementById('invalid-post-list'), document.getElementsByClassName('postTextInput'), 'createPostButton', 800, ['newPostTitle', 'newPostText'], [document.getElementById('newPostTitle').value, document.getElementById('newPostText').value])" class="btn md-text blue-bg gold-text btn-style account-button" id="createPostButton" form="newPostForm">Create Post</button>
