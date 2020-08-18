@@ -234,7 +234,8 @@ input:invalid, #tableSearch:active, .avatarButton:hover, textarea:invalid {
   text-align: center;
 }
 
-#dice-clear-tally-col, #hand-ranking-heading, #roll-ranking-heading, #roll-score-heading, dialog:not([open]), #profileImage, #postTitleLabel {
+#dice-clear-tally-col, #hand-ranking-heading, #roll-ranking-heading, #roll-score-heading, dialog:not([open]), #profileImage,
+#postTitleLabel, #addCommentTextLabel {
   display: none;
 }
 table#board-table {
@@ -262,7 +263,7 @@ table#board-table {
   font-weight: bold;
   color: #00008b;
 }
-.loss, .win, #mustHoldDialog, a.blog-board-link {
+.loss, .win, #mustHoldDialog, a.blog-board-link, #signUpLink {
   font-weight: bold;
 }
 
@@ -548,11 +549,20 @@ div.dropdown-menu {
   height: calc(40px + 0.8vw);
 }
 
-#postFormDiv {
+#postFormDiv, #addCommentDiv {
   display: inline-block;
   background: #dce1ebd9;
-  padding: 1%;
+}
+#postFormDiv {
   max-width: 1100px;
+}
+#addCommentDiv {
+  margin-bottom: 1%;
+  box-sizing: border-box;
+  max-width: 1200px;
+  width: calc(180px + 70vw);
+  border: 1px inset #00008b;
+  background-image: radial-gradient(ellipse,var(--bluish) 30%,#979CA580,#9ca2AD80,#a5aBB680,#aeb3BD80);
 }
 #post-user-info-list {
   margin: 2% 0 0 2%;
@@ -726,6 +736,9 @@ border-radius: .25rem;
   margin: 1% auto;
 }
 
+#postDiv {
+  margin-bottom: 0;
+}
 .postDiv {
   max-width: 1200px;
   width: calc(180px + 70vw);
@@ -770,7 +783,7 @@ border-radius: .25rem;
 #leaderboard-div, #blog-table-div {
   margin: 1.5% auto;
 }
-.name-row, .dropdownList, ul.horizontalList, #postTextLabel, #invalid-post-list {
+.name-row, .dropdownList, ul.horizontalList, #postTextLabel, #invalid-post-list, #invalid-new-comment-list {
   margin: 0 auto;
 }
 #firstNameCol {
@@ -815,7 +828,7 @@ border-radius: .25rem;
 #roll-ranking-heading, .num-quantity-input-div, #hand-odds-div {
   margin: 1% auto 0 auto;
 }
-#roll-score-heading, .post-info-row {
+#roll-score-heading, .post-info-row, #addCommentForm {
   margin-top: 0.5%;
 }
 #farkle-end-button:disabled {
@@ -912,7 +925,7 @@ button.back-arrow {
   margin: 0 5px;
 }
 
-.board-table-heading, .post-table-cell, #postFormDiv {
+.board-table-heading, .post-table-cell, #postFormDiv, #addCommentDiv {
   padding: 1%;
 }
 .board-table-cell {

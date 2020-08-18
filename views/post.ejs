@@ -20,7 +20,7 @@
         <label for="postTitle" id="postTitleLabel" class="account-label"></label>
         <input type="text" id="postTitle" class="lg-text post-heading postTextInput" name="postTitle" value="<%= post.title %>" minlength="2", maxlength="40" size="30" form="postForm" onkeydown="handleContent(this, '<%= sameUser %>')" autocomplete="off" required disabled>
         <label for="postTextArea" id="postTextLabel" class="account-label"></label>
-        <textarea id="postTextArea" class="blue-text xs-text postTextInput postTextArea" name="postTextArea" maxlength="50000" rows="1" cols="10" wrap="hard" form="postForm" onkeydown="handleContent(this, '<%= sameUser %>')" disabled required><%= post.body %></textarea>
+        <textarea id="postTextArea" class="blue-text xs-text postTextInput postTextArea" name="postTextArea" minlength="2" maxlength="50000" rows="1" cols="10" wrap="hard" form="postForm" onkeydown="handleContent(this, '<%= sameUser %>')" disabled required><%= post.body %></textarea>
       </div>
       <ul id="invalid-post-list" class="invalid-fields-list">
         <% if (updateSuccess && updateSuccess.length > 0) { %>
@@ -45,6 +45,27 @@
         <span id="postEdittedText" class="postBottomRightText">last editted <b><%= editted %></b></span>
       </div>
     </div>
+    <% if (post.comments.length > 0) { %>
+      <div id="commentsDiv">
+      <% for (let i = 0; i < post.comments.length; i++) { %>
+        <div class="commentDiv">
+          <textarea id="commentTextArea<%= i %>" class="blue-text xs-text postTextInput postTextArea" name="commentTextArea<%= i %>" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="commentForm<%= i %>" onkeydown="handleContent(this, '<%= sameUser %>', this)" disabled required><%= post.comments[i].body %></textarea>
+        </div>
+      <% } %>
+      </div>
+    <% } %>
+  </div>
+  <div id="addCommentDiv">
+    <form action="/blog/<%= board %>/<%= post.id %>/comment" method="POST" id="addCommentForm">
+      <label for="addCommentTextArea" id="addCommentTextLabel" class="xs-text account-label"></label>
+      <textarea id="addCommentTextArea" class="blue-text xs-text addCommentInput postTextArea" name="addCommentTextArea" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="addCommentForm" placeholder="type your comment here..." onkeydown="handleContent(this, 'false', this)"required></textarea>
+      <ul id="invalid-new-comment-list" class="invalid-fields-list"></ul>
+      <% if (currentUser) { %>
+      <button type="submit" role="button" id="addCommentButton" class="btn xs-text gold-bg red-text btn-style account-button" name="addCommentButton" form="addCommentForm" onclick="return validateInputs(document.getElementById('invalid-new-comment-list'), document.getElementsByClassName('addCommentInput'), 'addCommentButton', 800)">Add Comment</button>
+      <% } else { %>
+        <span class="blue-text xs-text"><a role="button" id="signUpLink" class="red-text" href='/register'>Sign Up</a> to add a comment to this post.</span>
+      <% } %>
+    </form>
   </div>
 </div>
 <dialog id="postDeleteDialog" class="container-fluid account-form-div account-dialog">

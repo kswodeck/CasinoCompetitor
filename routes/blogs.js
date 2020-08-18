@@ -4,6 +4,7 @@ const express  = require('express'),
       moment   = require('moment'),
       User     = require('../models/user'),
       Blog     = require('../models/blog'),
+      Comment     = require('../models/comment'),
       helpers  = require('../public/javascripts/helpers');
 
 // Blog.create({userId: '5edd99e1de86290004f56157', username: 'tatums96', title: 'Poker Tips! 4', body: 'Here are poker tips from tatums96', board: 'Poker'});
@@ -50,7 +51,7 @@ router.get('/blog/:board/new', (req, res) => {
 });
 
 router.get('/blog/:board/:id', (req, res) => {
-  Blog.findById(req.params.id, (err, post) => {
+  Blog.findById(req.params.id).populate('comments').exec((err, post) => {
     if (err || !post) {
       console.log(err);
       res.render('blog', {pageTitle: 'Community Blog'});
@@ -90,6 +91,72 @@ router.delete('/blog/:board/:id', helpers.isLoggedIn, (req, res) => {
     } else {
       req.flash('deleteSuccess', 'Your post has been deleted');
       res.redirect('/blog/' + req.params.board + '?deleted=true');
+    }
+  });
+});
+
+router.post('/blog/:board/:id/comment', (req, res) => {
+  Blog.findById(req.params.id).populate('comments').exec((err, post) => {
+    if (err || !post) {
+      console.log(err);
+      res.render('blog', {pageTitle: 'Community Blog'});
+    } else {
+      User.findById(post.userId, (err, user) => {
+        if (err || !user) {
+          console.log(err);
+        }
+        let sameUser = false;
+        if (req.user && req.user._id.toString() == user._id.toString()) {
+          sameUser = true;
+        }
+        let created = helpers.formatDate(post.created);
+        let editted = helpers.formatDate(post.editted);
+        res.render('post', {pageTitle: post.title, board: req.params.board, post: post, user: user, sameUser: sameUser, created: created, editted: editted});
+      });
+    }
+  });
+});
+
+router.put('/blog/:board/:id/comment', (req, res) => {
+  Blog.findById(req.params.id).populate('comments').exec((err, post) => {
+    if (err || !post) {
+      console.log(err);
+      res.render('blog', {pageTitle: 'Community Blog'});
+    } else {
+      User.findById(post.userId, (err, user) => {
+        if (err || !user) {
+          console.log(err);
+        }
+        let sameUser = false;
+        if (req.user && req.user._id.toString() == user._id.toString()) {
+          sameUser = true;
+        }
+        let created = helpers.formatDate(post.created);
+        let editted = helpers.formatDate(post.editted);
+        res.render('post', {pageTitle: post.title, board: req.params.board, post: post, user: user, sameUser: sameUser, created: created, editted: editted});
+      });
+    }
+  });
+});
+
+router.delete('/blog/:board/:id/comment', (req, res) => {
+  Blog.findById(req.params.id).populate('comments').exec((err, post) => {
+    if (err || !post) {
+      console.log(err);
+      res.render('blog', {pageTitle: 'Community Blog'});
+    } else {
+      User.findById(post.userId, (err, user) => {
+        if (err || !user) {
+          console.log(err);
+        }
+        let sameUser = false;
+        if (req.user && req.user._id.toString() == user._id.toString()) {
+          sameUser = true;
+        }
+        let created = helpers.formatDate(post.created);
+        let editted = helpers.formatDate(post.editted);
+        res.render('post', {pageTitle: post.title, board: req.params.board, post: post, user: user, sameUser: sameUser, created: created, editted: editted});
+      });
     }
   });
 });

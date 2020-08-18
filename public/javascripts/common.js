@@ -338,7 +338,7 @@ function validateInputs(invalidList, inputs, button, disableTime=1000, names=[],
         validity = false;
       }
     } else if ((inputs[i].getAttribute('id').includes('sername') && pageTitle.innerText.includes('Account'))
-    || inputs[i].getAttribute('id').includes('ostText') || inputs[i].getAttribute('id').includes('ostTitle') && !isProfane) {
+    || inputs[i].type == 'textarea' || inputs[i].getAttribute('id').includes('ostTitle') && !isProfane) {
       isProfane = checkProfanity(inputs[i].value);
     }
     inputs[i].style.borderWidth = '0.06em';

@@ -8,7 +8,13 @@ var BlogSchema = new mongoose.Schema({ // schema for blogs data
   body: {type: String, minlength: 2, maxlength: 50000},
   board: {type: String, minlength: 2, maxlength: 50},
   created: {type: Date, default: helpers.getCurrentDate()},
-  editted: {type: Date, default: helpers.getCurrentDate()}
+  editted: {type: Date, default: helpers.getCurrentDate()},
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment"
+    }
+  ]
 });
 
 //figure out how to connect replys under the post
