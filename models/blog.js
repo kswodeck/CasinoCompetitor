@@ -1,5 +1,5 @@
 const          mongoose = require('mongoose'),
-               helpers  = require('../helpers/helpers');
+               helpers  = require('../public/javascripts/helpers');
 
 var BlogSchema = new mongoose.Schema({ // schema for blogs data
   userId: {type: String, minlength: 24, maxlength: 24},

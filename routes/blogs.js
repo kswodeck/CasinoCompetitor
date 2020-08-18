@@ -4,20 +4,12 @@ const express  = require('express'),
       moment   = require('moment'),
       User     = require('../models/user'),
       Blog     = require('../models/blog'),
-      helpers  = require('../helpers/helpers');
+      helpers  = require('../public/javascripts/helpers');
 
 // Blog.create({userId: '5edd99e1de86290004f56157', username: 'tatums96', title: 'Poker Tips! 4', body: 'Here are poker tips from tatums96', board: 'Poker'});
 // Blog.create({userId: '5eddac7fc8e4e800042c089e', username: 'kswodeck', title: 'Poker Tips! 1', body: 'Here are poker tips from kswodeck', board: 'Poker'});
 // Blog.create({userId: '5edd99e1de86290004f56157', username: 'tatums96', title: 'Poker Tips! 2', body: 'Here are more poker tips from tatums96', board: 'Poker'});
 // Blog.create({userId: '5eddac7fc8e4e800042c089e', username: 'kswodeck', title: 'Poker Tips! 3', body: 'Here are more poker tips from kswodeck', board: 'Poker'});
-
-// Index = /blog. GET (blog.ejs template) DONE
-// Board = /blog/:board. GET (board.ejs template) DONE
-// New = /blog/:board/new. GET (consider making this a dialog popup instead of a route)
-// Create = /blog. POST (take to /blog/:board/:id after created) 
-// Show = /blog/:board/:id. GET (post.ejs template) DONE
-// Update = /blog/:board/:id. PUT (take to /blog/:board/:id after updated) DONE
-// Delete = /blog/:board/:id. DELETE (take to /blog/:board after deleted) DONE
 
 // blog related routes
 router.get('/blog', (req, res) => {
@@ -42,26 +34,15 @@ router.get('/blog/:board', (req, res) => {
   });
 });
 router.post('/blog/:board', helpers.isLoggedIn, (req, res) => {
-  let badText = helpers.containsBadWord(req.body.newPostText.toString().toLowerCase());
-  let badTitle = helpers.containsBadWord(req.body.newPostTitle.toString().toLowerCase());
-  if (badText || badTitle) {
-    let badWord = badTitle;
-    if (badText) {
-      badWord = badText;
+  Blog.create({userId: req.user._id, username: req.user.username, title: req.body.newPostTitle, body: req.body.newPostText, board: req.params.board}, (err, post) => {
+    if (err || !post){
+      console.log('error:', err);
+      res.redirect('/blog/' + req.params.board);
+    } else {
+      req.flash('success', 'Your post has been created');
+      res.redirect('/blog/' + req.params.board + '/' + post._id);
     }
-    req.flash('badText', "Please don't use profanity:", badWord);
-    res.redirect('/blog/' + req.params.board + '/new');
-  } else {
-    Blog.create({userId: req.user._id, username: req.user.username, title: req.body.newPostTitle, body: req.body.newPostText, board: req.params.board}, (err, post) => {
-      if (err || !post){
-        console.log('error:', err);
-        res.redirect('/blog/' + req.params.board);
-      } else {
-        req.flash('success', 'Your post has been created');
-        res.redirect('/blog/' + req.params.board + '/' + post._id);
-      }
-    });
-  }
+  });
 });
 
 router.get('/blog/:board/new', (req, res) => {
@@ -91,26 +72,15 @@ router.get('/blog/:board/:id', (req, res) => {
 });
 
 router.put('/blog/:board/:id', helpers.isLoggedIn, (req, res) => {
-  let badText = helpers.containsBadWord(req.body.postTitle.toString().toLowerCase());
-  let badTitle = helpers.containsBadWord(req.body.postTextArea.toString().toLowerCase());
-  if (badText || badTitle) {
-    let badWord = badTitle;
-    if (badText) {
-      badWord = badText;
-    }
-    req.flash('badText', "Please don't use profanity:", badWord);
+  let current = new Date(helpers.getCurrentDate());
+  Blog.findByIdAndUpdate(req.params.id, {editted: current, title: req.body.postTitle, body: req.body.postTextArea}, {useFindAndModify: false}, (err, post) => {
+    if (err || !post) {
+      console.log(err);
+    } else {
+    req.flash('updateSuccess', 'Your post has been updated');
     res.redirect('/blog/' + req.params.board + '/' + req.params.id);
-  } else {
-    let current = new Date(helpers.getCurrentDate());
-    Blog.findByIdAndUpdate(req.params.id, {editted: current, title: req.body.postTitle, body: req.body.postTextArea}, {useFindAndModify: false}, (err, post) => {
-      if (err || !post) {
-        console.log(err);
-      } else {
-      req.flash('updateSuccess', 'Your post has been updated');
-      res.redirect('/blog/' + req.params.board + '/' + req.params.id);
-      }
-    });
-  }
+    }
+  });
 });
 router.delete('/blog/:board/:id', helpers.isLoggedIn, (req, res) => {
   Blog.findByIdAndDelete(req.params.id, (err, post) => {

@@ -43,7 +43,7 @@ function validatePostEdit(user) {
   if (user && user != 'false' && postTextArea.disabled == false) {
     const postInvalidList = document.getElementById('invalid-post-list');
     disablePostEdit(user);
-    return validateInputs(postInvalidList, textAreaInput, 'editPostButton', 800, ['postTextArea'], [postTextArea.value]);
+    return validateInputs(postInvalidList, textAreaInput, 'editPostButton', 800);
   }
 }
 

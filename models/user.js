@@ -1,6 +1,6 @@
 const          mongoose = require('mongoose'),
   passportLocalMongoose = require('passport-local-mongoose'),
-               helpers  = require('../helpers/helpers');
+               helpers  = require('../public/javascripts/helpers');
 
 var UserSchema = new mongoose.Schema({ // schema for user data
   email: {type: String, minlength: 8, maxlength: 60},

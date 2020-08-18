@@ -1,5 +1,4 @@
 <%- include('partials/header') %>
-<!-- <script>window.addEventListener('load', () => getFormValues('postTextInput', ['postTextArea']))</script> -->
 <script>window.addEventListener('load', () => handleContent(document.getElementById('postTextArea'), '<%= sameUser %>'))</script>
 <div id="mid-container">
   <div id="postDiv" class="postDiv">
@@ -26,8 +25,6 @@
       <ul id="invalid-post-list" class="invalid-fields-list">
         <% if (updateSuccess && updateSuccess.length > 0) { %>
           <li class="valid-list"><%= updateSuccess %></li>
-        <% } else if (badText && badText.length > 0) { %>
-          <li class="invalid-list"><%= badText %></li>
         <% } %>
       </ul>
     <% if (sameUser) { %>

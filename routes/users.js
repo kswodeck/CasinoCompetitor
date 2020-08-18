@@ -4,8 +4,7 @@ const express  = require('express'),
       router   = express.Router({mergeParams: true}),
       moment   = require('moment'),
       User     = require('../models/user'),
-      badWords = require('../helpers/words'),
-      helpers  = require('../helpers/helpers');
+      helpers  = require('../public/javascripts/helpers');
 
 // account, authentication, and routes only for logged in users
 router.get('/', (req, res) => {
@@ -130,23 +129,18 @@ router.post('/register', helpers.isLoggedOut, (req, res) => {
           res.redirect('/register');
         } else {
           const username = req.body.username;
-          if (helpers.containsBadWord(username)) {
-            req.flash('error', "Please don't use profanity in your username");
-            return res.redirect('/register');
-          } else {
-            let momentBirthday = helpers.getLocalNoonDate(req.body.birthday);
-            var newUser = new User({email: req.body.email, username: username, firstName: req.body.firstName, lastName: req.body.lastName, phone: req.body.phone, birthday: momentBirthday, profileImage: req.body.profileImage});
-            User.register(newUser, req.body.password, (err, user) => {
-                if (err || !user){
-                  req.flash('error', err);
-                  res.redirect('/register');
-                } else {
-                  passport.authenticate('local')(req, res, () => {
-                    res.redirect('/?afterLogin=true');
-                });
-              }
-            });
-          }
+          let momentBirthday = helpers.getLocalNoonDate(req.body.birthday);
+          var newUser = new User({email: req.body.email, username: username, firstName: req.body.firstName, lastName: req.body.lastName, phone: req.body.phone, birthday: momentBirthday, profileImage: req.body.profileImage});
+          User.register(newUser, req.body.password, (err, user) => {
+              if (err || !user){
+                req.flash('error', err);
+                res.redirect('/register');
+              } else {
+                passport.authenticate('local')(req, res, () => {
+                  res.redirect('/?afterLogin=true');
+              });
+            }
+          });
         }
       });
     }
@@ -211,7 +205,6 @@ router.put('/account', helpers.isLoggedIn, (req, res) => {
       });
     } 
     if (updated.username != curUser.username) {
-      if (!helpers.containsBadWord(updated.username)) {
         User.find({username: updated.username}, (err, result) => {
           if (err || result.length > 0) {
             res.setTimeout(500, () => {
@@ -230,10 +223,6 @@ router.put('/account', helpers.isLoggedIn, (req, res) => {
             });
           }
         });
-      } else {
-        req.flash('invalidUser', "Please don't use profanity in your username");
-        return res.redirect('/account');
-      }
     } else {
       res.setTimeout(400, () => {
           req.flash('success', 'Account has been updated');

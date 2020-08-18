@@ -1,4 +1,5 @@
 /* refactored 8/3/2020 */
+import {badWords} from '/javascripts/words.js';
 const container = document.getElementById('mid-container');
 const pageTitle = document.getElementsByTagName('title')[0];
 const hamContent = document.getElementById('navbar-content');
@@ -324,6 +325,7 @@ function validateInputs(invalidList, inputs, button, disableTime=1000, names=[],
   clearValidityMessages();
   let validity = true;
   let empty = false;
+  let isProfane = false;
   for (let i = 0; i < inputs.length; i++) {
     if (!inputs[i].checkValidity()) {
       if (!inputs[i].value) {
@@ -335,6 +337,9 @@ function validateInputs(invalidList, inputs, button, disableTime=1000, names=[],
         inputs[i].style.borderColor = '#be0b2f';
         validity = false;
       }
+    } else if ((inputs[i].getAttribute('id').includes('sername') && pageTitle.innerText.includes('Account'))
+    || inputs[i].getAttribute('id').includes('ostText') || inputs[i].getAttribute('id').includes('ostTitle') && !isProfane) {
+      isProfane = checkProfanity(inputs[i].value);
     }
     inputs[i].style.borderWidth = '0.06em';
   }
@@ -345,11 +350,24 @@ function validateInputs(invalidList, inputs, button, disableTime=1000, names=[],
   } else if (!validity) {
     addToInvalidList('* all fields must be valid', inputs[inputs.length-1], invalidList);
     return false;
+  } else if (isProfane) {
+    addToInvalidList("* Please don't use profanity: " + isProfane, inputs[inputs.length-1], invalidList);
+    return false;
   }
   return validity;
 }
 function emailIsValid(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function checkProfanity(word) {
+  for (let i = 0; i < badWords.length; i++) { //imported badWords from words.js
+    if (word.includes(badWords[i])) {
+      console.log(badWords[i]);
+      return badWords[i];
+    }
+  }
+  return false;
 }
 
 function disableAfterSubmit(button, time=1000) {

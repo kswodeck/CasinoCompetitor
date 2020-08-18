@@ -1,5 +1,4 @@
-const moment   = require('moment'),
-      badWords = require('../helpers/words');
+const moment   = require('moment');
 
 function getLocalNoonDate(date) { //used to assume birthday times
   let adjustedTime = 12 + (moment().utcOffset()/60); //makes the date time 12
@@ -13,8 +12,8 @@ function formatDate(date) {
   let formattedMonth = unformattedDate.slice(4, 7);
   formattedMonth = getMonthNum(formattedMonth);
   let formattedDay = unformattedDate.slice(8, 10);
-  // let formattedDate = formattedYear + '-' + formattedMonth + '-' + formattedDay; // yyyy-mm-dd format
-  let formattedDate = formattedMonth + '-' + formattedDay + '-' + formattedYear; // mm-dd-yyyy format
+  let formattedDate = formattedYear + '-' + formattedMonth + '-' + formattedDay; // yyyy-mm-dd format
+  // let formattedDate = formattedMonth + '-' + formattedDay + '-' + formattedYear; // mm-dd-yyyy format
   return formattedDate;
 }
 
@@ -62,20 +61,9 @@ function updateCoins(req, res) {
   return res.status(204).send();
 }
 
-function containsBadWord(word) {
-  for (let i = 0; i < badWords.length; i++) {
-    if (word.includes(badWords[i])) {
-      console.log(badWords[i]);
-      return badWords[i];
-    }
-  }
-  return false;
-}
-
 module.exports.getLocalNoonDate = getLocalNoonDate;
 module.exports.isLoggedIn = isLoggedIn;
 module.exports.isLoggedOut = isLoggedOut;
 module.exports.updateCoins = updateCoins;
-module.exports.containsBadWord = containsBadWord;
 module.exports.formatDate = formatDate;
 module.exports.getCurrentDate = getCurrentDate;
