@@ -47,11 +47,16 @@
     </div>
     <% if (post.comments.length > 0) { %>
       <div id="commentsDiv">
-      <% for (let i = 0; i < post.comments.length; i++) { %>
+      <% post.comments.forEach((comment, i) => { %>
         <div class="commentDiv">
-          <textarea id="commentTextArea<%= i %>" class="blue-text xs-text postTextInput postTextArea" name="commentTextArea<%= i %>" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="commentForm<%= i %>" onkeydown="handleContent(this, '<%= sameUser %>', this)" disabled required><%= post.comments[i].body %></textarea>
+          <textarea id="commentTextArea<%= i %>" class="blue-text xs-text postTextInput postTextArea" name="commentTextArea<%= i %>" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="commentForm<%= i %>" onkeydown="handleContent(this, '<%= sameUser %>', this)" disabled required><%= post.comment.body %></textarea>
+          <ul id="comment-user-info-list" class="red-text sm-text">
+            <li><b class="post-username"><%= comment.username %></b></li>
+            <li><b class="post-username"><%= comment.created %></b></li>
+            <li><b class="post-username"><%= comment.editted %></b></li>
+          </ul>
         </div>
-      <% } %>
+      <% }); %>
       </div>
     <% } %>
   </div>
