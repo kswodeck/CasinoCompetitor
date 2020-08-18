@@ -652,7 +652,7 @@ dialog.account-dialog, #search-button, #main-navbar, #main-links-row, a.dropdown
 #main-links-row, #farkle-roll-div, .post-col, .post-top-row {
   display: flex;
 }
-.post-top-row {
+.post-top-row, #navbar-content {
   justify-content: space-between;
 }
 .navbar-nav {
@@ -684,12 +684,17 @@ border-radius: .25rem;
   margin-left: 2%;
   padding: 1% 0 1.5% 0;
 }
-#farkleDropdown, #cardsDropdown {
+#farkleDropdown, #cardsDropdown, #communityDropdown {
   top: 25px;
-  left: -50px;
   padding-top: 5%;
 }
-#farkleDropdownContent, #cardsDropdownContent {
+#farkleDropdown, #cardsDropdown {
+  left: -50px;
+}
+#communityDropdown {
+  left: -30px;
+}
+#farkleDropdownContent, #cardsDropdownContent, #communityDropdownContent {
   padding: 1.5% 2% 1.5% 1%;
 }
 
@@ -979,7 +984,7 @@ button.page-button {
 }
 
 #mid-container, #dialog-popup-text, #winHandDiv, .account-form-div, .postDiv, #show-hide-odds-div, #blog-table-div, #postTitle,
-#leaderboard-div, #tableSearch, #leaderboardLink, #farkle-container, dialog, div.farkle-div, .backdrop, .postTextArea, #newPostTitle {
+#leaderboard-div, #tableSearch, #communityLink, #farkle-container, dialog, div.farkle-div, .backdrop, .postTextArea, #newPostTitle {
   text-align: center;
 }
 
@@ -1217,7 +1222,7 @@ dialog::-webkit-backdrop, div.backdrop, dialog::backdrop {
   #mainDropdownContent, .avatarImage {
     margin-left: 0.2%;
   }
-  #cardsDropdown, #farkleDropdown {
+  #cardsDropdown, #farkleDropdown, #communityDropdown {
     display: inline;
     position: static;
     min-width: auto;
@@ -1244,7 +1249,7 @@ dialog::-webkit-backdrop, div.backdrop, dialog::backdrop {
   div.top-menu-div > a {
     padding: 4%;
   }
-  #cardsDropdown a, #farkleDropdown a, #leaderboardText {
+  #cardsDropdown a, #farkleDropdown a, #communityText, #communityDropdown a {
     padding: 1% 0;
   }
   #dice-prep-div {
