@@ -50,7 +50,7 @@ router.get('/blog/:board/new', (req, res) => {
   res.render('newpost', {pageTitle: 'Create New Post', board: req.params.board});
 });
 
-router.get('/blog/:board/:id', (req, res) => {
+router.get('/blog/:board/:id', (req, res) => { //make sure this works with comments
   Blog.findById(req.params.id).populate('comments').exec((err, post) => {
     if (err || !post) {
       console.log(err);
@@ -95,68 +95,45 @@ router.delete('/blog/:board/:id', helpers.isLoggedIn, (req, res) => {
   });
 });
 
-router.post('/blog/:board/:id/comment', (req, res) => {
-  Blog.findById(req.params.id).populate('comments').exec((err, post) => {
+router.post('/blog/:board/:id/comment', (req, res) => { //make sure this works
+  Blog.findById(req.params.id, (err, post) => {
     if (err || !post) {
       console.log(err);
-      res.render('blog', {pageTitle: 'Community Blog'});
+      res.redirect('/blog/' + req.params.board);
     } else {
-      User.findById(post.userId, (err, user) => {
-        if (err || !user) {
+      Comment.create({username: post.username, body: req.body.addCommentTextArea}, (err, comment) => {
+        if (err || !comment) {
           console.log(err);
+        } else {
+          post.comments.push(comment);
+          post.save();
+          res.redirect('/blog/' + post.board + '/' + post._id);
         }
-        let sameUser = false;
-        if (req.user && req.user._id.toString() == user._id.toString()) {
-          sameUser = true;
-        }
-        let created = helpers.formatDate(post.created);
-        let editted = helpers.formatDate(post.editted);
-        res.render('post', {pageTitle: post.title, board: req.params.board, post: post, user: user, sameUser: sameUser, created: created, editted: editted});
       });
     }
   });
 });
 
-router.put('/blog/:board/:id/comment', (req, res) => {
-  Blog.findById(req.params.id).populate('comments').exec((err, post) => {
+router.put('/blog/:board/:id/comment', (req, res) => { //update blog and specific comments linked
+  Blog.findById(req.params.id, (err, post) => {
     if (err || !post) {
       console.log(err);
-      res.render('blog', {pageTitle: 'Community Blog'});
+      res.redirect('/blog/' + req.params.board);
     } else {
-      User.findById(post.userId, (err, user) => {
-        if (err || !user) {
-          console.log(err);
-        }
-        let sameUser = false;
-        if (req.user && req.user._id.toString() == user._id.toString()) {
-          sameUser = true;
-        }
-        let created = helpers.formatDate(post.created);
-        let editted = helpers.formatDate(post.editted);
-        res.render('post', {pageTitle: post.title, board: req.params.board, post: post, user: user, sameUser: sameUser, created: created, editted: editted});
-      });
+      req.flash('updateSuccess', 'Your comment has been updated'); //will need updateSuccess on post view
+      res.redirect('/blog/' + post.board + '/' + post._id);
     }
   });
 });
 
-router.delete('/blog/:board/:id/comment', (req, res) => {
-  Blog.findById(req.params.id).populate('comments').exec((err, post) => {
+router.delete('/blog/:board/:id/comment', helpers.isLoggedIn, (req, res) => {
+  Blog.findByIdAndUpdate(req.params.id, (err, post) => { //this will be updating/deleting comment on a blog post
     if (err || !post) {
-      console.log(err);
-      res.render('blog', {pageTitle: 'Community Blog'});
+      req.flash('error', err);
+      res.redirect('/blog/' + req.params.board);
     } else {
-      User.findById(post.userId, (err, user) => {
-        if (err || !user) {
-          console.log(err);
-        }
-        let sameUser = false;
-        if (req.user && req.user._id.toString() == user._id.toString()) {
-          sameUser = true;
-        }
-        let created = helpers.formatDate(post.created);
-        let editted = helpers.formatDate(post.editted);
-        res.render('post', {pageTitle: post.title, board: req.params.board, post: post, user: user, sameUser: sameUser, created: created, editted: editted});
-      });
+      req.flash('updateSuccess', 'Your comment has been deleted');
+      res.redirect('/blog/' + post.board + '/' + post._id);
     }
   });
 });
