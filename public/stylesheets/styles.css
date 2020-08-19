@@ -72,7 +72,7 @@ input, button {
 .lg-text {
   font-size: calc(20px + 0.9vw);
 }
-.md-text, #confirmHeading {
+.md-text, h4.confirmHeading {
   font-size: calc(15px + 0.5vw);
 }
 .sm-text {
@@ -1039,7 +1039,7 @@ dialog.sm-dialog {
   text-decoration: none;
 }
 
-#dialogButtonDiv, #logoutDialogDiv, #accountUpdateDiv, #confirmDialogDiv, .postDiv {
+#dialogButtonDiv, #logoutDialogDiv, #accountUpdateDiv, .confirmDialogDiv, .postDiv {
   justify-content: space-around;
   margin: 3% auto 2.5% auto;
 }
@@ -1149,21 +1149,21 @@ dialog::-webkit-backdrop, div.backdrop, dialog::backdrop {
     padding: 1% 0 0;
   }
   dialog.account-form-div, div.account-form-div, #blog-table-div, #leaderboard-heading, #accountUpdateDiv,
-  #confirmDialogDiv, #dialogButtonDiv, #logoutDialogDiv, .postDiv {
+  .confirmDialogDiv, #dialogButtonDiv, #logoutDialogDiv, .postDiv {
     padding-bottom: 3px;
   }
   .post-heading, div.name-col, #header, dialog.account-form-div, div.account-form-div, #blog-table-div, #leaderboard-heading,
-  #accountUpdateDiv, #confirmDialogDiv, #dialogButtonDiv, #logoutDialogDiv, .postDiv {
+  #accountUpdateDiv, .confirmDialogDiv, #dialogButtonDiv, #logoutDialogDiv, .postDiv {
     margin: 0 auto;
   }
-  dialog.account-form-div, div.account-form-div, #blog-table-div, #accountUpdateDiv, #confirmDialogDiv,
+  dialog.account-form-div, div.account-form-div, #blog-table-div, #accountUpdateDiv, .confirmDialogDiv,
   #dialogButtonDiv, #logoutDialogDiv, .postDiv {
     width: 100%;
     border: none;
     border-radius: 0;
   }
   dialog.account-form-div, div.account-form-div, #blog-table-div, #leaderboard-heading, #accountUpdateDiv,
-  #confirmDialogDiv, #dialogButtonDiv, #logoutDialogDiv, .postDiv
+  .confirmDialogDiv, #dialogButtonDiv, #logoutDialogDiv, .postDiv
   div.name-row {
     justify-content: center;
     flex-wrap: nowrap;

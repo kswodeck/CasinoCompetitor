@@ -57,6 +57,8 @@ app.use((req, res, next) => {
   res.locals.invalidPW = req.flash('invalidPW');
   res.locals.updateSuccess = req.flash('updateSuccess');
   res.locals.deleteSuccess = req.flash('deleteSuccess');
+  res.locals.updateComment = req.flash('updateComment');
+  res.locals.deleteComment = req.flash('deleteComment');
   next();
 });
 

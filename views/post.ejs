@@ -48,14 +48,30 @@
     <% if (post.comments.length > 0) { %>
       <div id="commentsDiv">
       <% post.comments.forEach((comment, i) => { %>
-        <div class="commentDiv">
-          <textarea id="commentTextArea<%= i %>" class="blue-text xs-text postTextInput postTextArea" name="commentTextArea<%= i %>" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="commentForm<%= i %>" onkeydown="handleContent(this, '<%= sameUser %>', this)" disabled required><%= post.comment.body %></textarea>
-          <ul id="comment-user-info-list" class="red-text sm-text">
-            <li><b class="post-username"><%= comment.username %></b></li>
-            <li><b class="post-username"><%= comment.created %></b></li>
-            <li><b class="post-username"><%= comment.editted %></b></li>
-          </ul>
+        <div class ="exit-button-div post-col">
+          <b id="commentDelete<%= i %>" class="sm-text delete-button-label comment-delete" onclick="document.getElementById('commentDeleteDialog').setAttribute('action', '/blog/<%= board %>/<%= post.id %>/<%= i %>?_method=DELETE'); ('commentDeleteDialog')">Delete Post</b>
+          <button id="commentDeleteButton<%= i %>" class="exit-dialog-button lg-text comment-delete-button" onclick="document.getElementById('commentDeleteDialog').setAttribute('action', '/blog/<%= board %>/<%= post.id %>/<%= i %>?_method=DELETE'); ('commentDeleteDialog')">✖</button>
         </div>
+        <form action="/blog/<%= board %>/<%= post.id %>/<%= i %>?_method=PUT" method="POST" id="commentForm<%= i %>">
+          <div class="commentDiv">
+            <input type="text" name="<%= i %>">
+            <textarea id="commentTextArea<%= i %>" class="blue-text xs-text postCommentInput<%= i %> postTextArea" name="commentTextArea<%= i %>" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="commentForm<%= i %>" onkeydown="handleContent(this, false, this)" disabled required><%= post.comment.body %></textarea>
+            <ul id="comment-list<%= i %>" class="red-text sm-text">
+              <li><b class="post-username"><%= comment.username %></b></li>
+              <li><b class="post-username"><%= comment.created %></b></li>
+              <li><b class="post-username"><%= comment.editted %></b></li>
+            </ul>
+            <ul id="invalid-comment-list<%= i %>" class="red-text sm-text" class="invalid-fields-list">
+            <% if (updateComment && updateComment.length > 0) { %>
+              <li class="valid-list"><%= updateComment %></li>
+            <% } %>
+            </ul>
+            <% if (comment.username == currentUser.username) { %>
+            <button type="submit" role="button" id="commentButton<%= i %>" class="btn sm-text blue-bg gold-text btn-style account-button" name="commentButton<%= i %>" form="commentForm<%= i %>" onclick="return validateInputs(document.getElementById('invalid-comment-list<%= i %>'), document.getElementsByClassName('postCommentInput<%= i %>'), 'commentButton<%= i %>', 800)">Update Comment</button>
+            <script>document.getElementById('commentTextArea<%= i %>').disabled = false;</script>
+            <% } %>
+          </div>
+        </form>
       <% }); %>
       </div>
     <% } %>
@@ -63,7 +79,7 @@
   <div id="addCommentDiv">
     <form action="/blog/<%= board %>/<%= post.id %>/comment" method="POST" id="addCommentForm">
       <label for="addCommentTextArea" id="addCommentTextLabel" class="xs-text account-label"></label>
-      <textarea id="addCommentTextArea" class="blue-text xs-text addCommentInput postTextArea" name="addCommentTextArea" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="addCommentForm" placeholder="type your comment here..." onkeydown="handleContent(this, 'false', this)"required></textarea>
+      <textarea id="addCommentTextArea" class="blue-text xs-text addCommentInput postTextArea" name="addCommentTextArea" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="addCommentForm" placeholder="type your comment here..." onkeydown="handleContent(this, false, this)"required></textarea>
       <ul id="invalid-new-comment-list" class="invalid-fields-list"></ul>
       <% if (currentUser) { %>
       <button type="submit" role="button" id="addCommentButton" class="btn xs-text gold-bg red-text btn-style account-button" name="addCommentButton" form="addCommentForm" onclick="return validateInputs(document.getElementById('invalid-new-comment-list'), document.getElementsByClassName('addCommentInput'), 'addCommentButton', 800)">Add Comment</button>
@@ -77,15 +93,32 @@
   <div class ="exit-button-div">
     <button id="postDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('postDeleteDialog')">✖</button>
   </div>
-  <h4 id="confirmHeading" class="md-text blue-text login-heading">Are you sure you want to delete your post?</h4>
-  <div id="confirmDialogDiv" class="row">
-    <form action="/blog/<%= board %>/<%= post.id %>?_method=DELETE&deleted=true" method="POST" id="deletePostForm"></form>
+  <h4 class="md-text blue-text login-heading confirmHeading">Are you sure you want to delete your post?</h4>
+  <div class="row confirmDialogDiv">
+    <form action="/blog/<%= board %>/<%= post.id %>?_method=DELETE&deleted=true" method="POST" id="deletePostForm">
       <div class="col">
-        <button form="deletePostForm" id="confirmButton" type="submit" class="btn sm-text red-bg gold-text btn-style" onclick="exitDialog('postDeleteDialog')">Yes</button>
+        <button form="deletePostForm" type="submit" class="btn sm-text red-bg gold-text btn-style" onclick="exitDialog('postDeleteDialog')">Yes</button>
       </div>
       <div class="col">
-        <button id="cancelButton" class="btn sm-text blue-bg gold-text btn-style" onclick="exitDialog('postDeleteDialog')">No</button>
+        <button class="btn sm-text blue-bg gold-text btn-style" onclick="exitDialog('postDeleteDialog')">No</button>
       </div>
+    </form>
+  </div>
+</dialog>
+<dialog id="commentDeleteDialog" class="container-fluid account-form-div account-dialog">
+  <div class ="exit-button-div">
+    <button id="commentDialogExit" class="exit-dialog-button md-text" onclick="exitDialog('commentDeleteDialog')">✖</button>
+  </div>
+  <h4 class="md-text blue-text login-heading confirmHeading">Are you sure you want to delete your comment?</h4>
+  <div class="row confirmDialogDiv">
+    <form method="POST" id="deleteCommentForm">
+      <div class="col">
+        <button form="deleteCommentForm" type="submit" class="btn sm-text red-bg gold-text btn-style" onclick="exitDialog('commentDeleteDialog')">Yes</button>
+      </div>
+      <div class="col">
+        <button class="btn sm-text blue-bg gold-text btn-style" onclick="exitDialog('commentDeleteDialog')">No</button>
+      </div>
+    </form>
   </div>
 </dialog>
 <script type="module" defer>import '/javascripts/posts.js';</script>

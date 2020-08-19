@@ -50,7 +50,7 @@ router.get('/blog/:board/new', (req, res) => {
   res.render('newpost', {pageTitle: 'Create New Post', board: req.params.board});
 });
 
-router.get('/blog/:board/:id', (req, res) => { //make sure this works with comments
+router.get('/blog/:board/:id', (req, res) => { //make sure this works
   Blog.findById(req.params.id).populate('comments').exec((err, post) => {
     if (err || !post) {
       console.log(err);
@@ -95,7 +95,7 @@ router.delete('/blog/:board/:id', helpers.isLoggedIn, (req, res) => {
   });
 });
 
-router.post('/blog/:board/:id/comment', (req, res) => { //make sure this works
+router.post('/blog/:board/:id', (req, res) => { //make sure this works for creating commentts
   Blog.findById(req.params.id, (err, post) => {
     if (err || !post) {
       console.log(err);
@@ -114,24 +114,24 @@ router.post('/blog/:board/:id/comment', (req, res) => { //make sure this works
   });
 });
 
-router.put('/blog/:board/:id/comment', (req, res) => { //update blog and specific comments linked. find way to access comments in array
+router.put('/blog/:board/:id/:comment', (req, res) => { //update blog and specific comments linked. find way to access comments in array
   let current = new Date(helpers.getCurrentDate());
   Blog.findByIdAndUpdate(req.params.id, {editted: current, body: req.body.postTextArea}, {useFindAndModify: false}, (err, post) => {
     if (err || !post) {
       res.redirect('/blog/' + post.board + '/' + post._id);
     } else {
-      req.flash('updateSuccess', 'Your comment has been updated'); //will need updateSuccess on post view
+      req.flash('updateComment', 'updateComment');
       res.redirect('/blog/' + post.board + '/' + post._id);
     }
   });
 });
 
-router.delete('/blog/:board/:id/comment', helpers.isLoggedIn, (req, res) => {
+router.delete('/blog/:board/:id/:comment', helpers.isLoggedIn, (req, res) => {
   Blog.findByIdAndUpdate(req.params.id, (err, post) => { //this will be updating/deleting comment on a blog post. just perform removal from array
     if (err || !post) {
       res.redirect('/blog/' + post.board + '/' + post._id);
     } else {
-      req.flash('updateSuccess', 'Your comment has been deleted');
+      req.flash('deleteComment', 'Your comment has been deleted');
       res.redirect('/blog/' + post.board + '/' + post._id);
     }
   });
