@@ -114,11 +114,11 @@ router.post('/blog/:board/:id/comment', (req, res) => { //make sure this works
   });
 });
 
-router.put('/blog/:board/:id/comment', (req, res) => { //update blog and specific comments linked
-  Blog.findById(req.params.id, (err, post) => {
+router.put('/blog/:board/:id/comment', (req, res) => { //update blog and specific comments linked. find way to access comments in array
+  let current = new Date(helpers.getCurrentDate());
+  Blog.findByIdAndUpdate(req.params.id, {editted: current, body: req.body.postTextArea}, {useFindAndModify: false}, (err, post) => {
     if (err || !post) {
-      console.log(err);
-      res.redirect('/blog/' + req.params.board);
+      res.redirect('/blog/' + post.board + '/' + post._id);
     } else {
       req.flash('updateSuccess', 'Your comment has been updated'); //will need updateSuccess on post view
       res.redirect('/blog/' + post.board + '/' + post._id);
@@ -127,10 +127,9 @@ router.put('/blog/:board/:id/comment', (req, res) => { //update blog and specifi
 });
 
 router.delete('/blog/:board/:id/comment', helpers.isLoggedIn, (req, res) => {
-  Blog.findByIdAndUpdate(req.params.id, (err, post) => { //this will be updating/deleting comment on a blog post
+  Blog.findByIdAndUpdate(req.params.id, (err, post) => { //this will be updating/deleting comment on a blog post. just perform removal from array
     if (err || !post) {
-      req.flash('error', err);
-      res.redirect('/blog/' + req.params.board);
+      res.redirect('/blog/' + post.board + '/' + post._id);
     } else {
       req.flash('updateSuccess', 'Your comment has been deleted');
       res.redirect('/blog/' + post.board + '/' + post._id);
