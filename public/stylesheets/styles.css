@@ -29,7 +29,7 @@ input, button {
   width: calc(5px + 0.1vw + 0.05vh);
   height: calc(5px + 0.05vw + 0.1vh);
 }
-::-webkit-scrollbar-thumb, ::-webkit-scrollbar, #header, div.dropdown-menu {
+::-webkit-scrollbar-thumb, ::-webkit-scrollbar, #header, div.dropdown-menu, .ql-toolbar.ql-snow {
   background-color: #343a40;
 }
 ::-webkit-scrollbar-track {
@@ -120,7 +120,7 @@ svg.back-icon:hover, svg.back-icon:active, .numquantity:hover, .numquantity:focu
 a.blog-board-link {
   color: #be0b2f;
 }
-.blue-text, a.link-text, .delete-button-label:hover {
+.blue-text, a.link-text, .delete-button-label:hover, .ql-editor.ql-blank::before {
   color: #00008b;
 }
 .green-text, .valid-list, .win {
@@ -235,7 +235,7 @@ input:invalid, #tableSearch:active, .avatarButton:hover, textarea:invalid {
 }
 
 #dice-clear-tally-col, #hand-ranking-heading, #roll-ranking-heading, #roll-score-heading, dialog:not([open]), #profileImage,
-#postTitleLabel, #addCommentTextLabel, .commentNumInput {
+#postTitleLabel, #addCommentTextLabel, .commentNumInput, #postInput {
   display: none;
 }
 table#board-table {
@@ -587,7 +587,6 @@ div.dropdown-menu {
   background: none;
 }
 #postTitle {
-  background-color: #fff;
   border: none;
   font-weight: bold;
   max-width: 800px;
@@ -685,7 +684,13 @@ border-radius: .25rem;
 }
 
 .dropdown-menu li:hover {
-  background-color: #ddd;
+  background-color: #fff;
+}
+.ql-editor, #postTitle {
+  background-color: #ebedf1d9;
+}
+.ql-container.ql-snow .ql-editor blockquote {
+  border-left: 4px solid #00008b;
 }
 #mainDropdownContent {
   margin-left: 2%;
@@ -754,6 +759,19 @@ border-radius: .25rem;
   resize: none;
   overflow: hidden;
   scroll-behavior: smooth;
+}
+
+div.ql-snow .ql-stroke {
+  stroke: #fff;
+}
+div.ql-snow .ql-fill, div.ql-snow .ql-stroke.ql-fill {
+  fill: #fff;
+}
+div.ql-snow .ql-fill:hover, div.ql-snow .ql-stroke.ql-fill:hover, div.ql-snow .ql-fill:active, div.ql-snow .ql-stroke.ql-fill:active {
+  fill: #fff;
+}
+div.ql-snow .ql-picker.ql-header .ql-picker-item::before {
+  color: #343a40;
 }
 
 #postDeleteButton {
@@ -960,7 +978,8 @@ title, #board-table-heading {
   max-width: 99%;
 }
 
-#table-search-icon {
+#table-search-icon, div.ql-snow .ql-picker.ql-expanded .ql-picker-label, div.ql-snow .ql-picker.ql-header .ql-picker-label::before,
+div.ql-snow .ql-picker.ql-expanded .ql-picker-label .ql-stroke {
   color: #fff;
   vertical-align: baseline;
 }

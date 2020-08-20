@@ -1,13 +1,11 @@
 <%- include('partials/header') %>
 <script>
 window.addEventListener('load', () => {
-  setTimeout(() => {
-    let comments = document.getElementsByClassName('postCommentArea');
-    for (let i = 0; i < comments.length; i++) {
-      handleContent(null, comments[i], 'false');
-    }
-    handleContent(null);
-  }, 800);
+  let comments = document.getElementsByClassName('postCommentArea');
+  for (let i = 0; i < comments.length; i++) {
+    handleContent(comments[i], 'false');
+  }
+  handleContent(document.getElementById('postTextArea'), '<%= sameUser %>')
 });
 </script>
 <div id="mid-container">
@@ -25,15 +23,12 @@ window.addEventListener('load', () => {
         <button id="postDeleteButton" class="exit-dialog-button lg-text" onclick="displayDialog('postDeleteDialog')">✖</button>
       </div>
     </div>
-    <form action="/blog/<%= board %>/<%= post.id %>?_method=PUT" method="POST" id="postForm">
+    <form action="/blog/<%= board %>/<%= post.id %>?_method=PUT" method="POST" id="postForm" onclick="enablePostEdit('<%= sameUser %>')">
       <div id="postFormDiv">
         <label for="postTitle" id="postTitleLabel" class="account-label"></label>
-        <input type="text" id="postTitle" class="lg-text post-heading postTextInput" name="postTitle" value="<%= post.title %>" minlength="2", maxlength="40" size="30" form="postForm" onkeydown="handleContent(event, this, '<%= sameUser %>')" autocomplete="off" required disabled>
-        <label for="postTextArea" id="postTextLabel" class="account-label"></label><br>
-        <input id="textInput" name="postTextArea" type="hidden" form="postForm">
-        <div id="editor-container" class="blue-text xs-text postTextInput postTextArea" onkeydown="handleContent(event, this, '<%= sameUser %>')">
-          <p><%= post.body %></p>
-        </div>
+        <input type="text" id="postTitle" class="lg-text post-heading postTextInput" name="postTitle" value="<%= post.title %>" minlength="2", maxlength="40" size="30" form="postForm" onkeydown="handleContent(this, '<%= sameUser %>')" autocomplete="off" required disabled>
+        <label for="postTextArea" id="postTextLabel" class="account-label"></label>
+        <textarea class="blue-text xs-text postTextInput postTextArea" name="postTextArea" minlength="2" maxlength="50000" rows="1" cols="10" wrap="hard" form="postForm" onkeydown="handleContent(this, '<%= sameUser %>')" disabled required><%= post.body %></textarea>
       </div>
       <ul id="invalid-post-list" class="invalid-fields-list">
         <% if (updateSuccess && updateSuccess.length > 0) { %>
@@ -45,7 +40,6 @@ window.addEventListener('load', () => {
       <script defer>
         document.getElementById('postDelete').style.visibility = "visible";
         document.getElementById('postDeleteButton').style.visibility = "visible";
-        document.addEventListener('DOMContentLoaded', () => enablePostEdit('<%= sameUser %>'), false);
       </script>
       <% } %>
     </form>
@@ -70,7 +64,7 @@ window.addEventListener('load', () => {
           <div class="commentDiv">
             <input class="commentNumInput" value="<%= i %>" name="commentNum">
             <label for="commentTextArea<%= i %>" class="red-text sm-text account-label commentUser"><%= comment.username %></label><br>
-            <textarea id="commentTextArea<%= i %>" class="blue-text xs-text postCommentArea postCommentInput<%= i %> postTextArea" name="commentTextArea" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="commentForm<%= i %>" onkeydown="handleContent(event, this, 'false', this)" disabled required><%= comment.body %></textarea>
+            <textarea id="commentTextArea<%= i %>" class="blue-text xs-text postCommentArea postCommentInput<%= i %> postTextArea" name="commentTextArea" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="commentForm<%= i %>" onkeydown="handleContent(this, 'false', this)" disabled required><%= comment.body %></textarea>
             <% if (currentUser && comment.username == currentUser.username) { %>
             <button type="submit" role="button" id="commentButton<%= i %>" class="btn sm-text gold-bg red-text btn-style account-button" name="commentButton<%= i %>" form="commentForm<%= i %>" onclick="return validateInputs(document.getElementById('invalid-comment-list<%= i %>'), document.getElementsByClassName('postCommentInput<%= i %>'), 'commentButton<%= i %>', 800)">Update Comment</button>
             <script>
@@ -88,7 +82,7 @@ window.addEventListener('load', () => {
   <div id="addCommentDiv">
     <form action="/blog/<%= board %>/<%= post.id %>" method="POST" id="addCommentForm">
       <label for="addCommentTextArea" id="addCommentTextLabel" class="xs-text account-label"></label>
-      <textarea id="addCommentTextArea" class="blue-text xs-text addCommentInput postTextArea" name="addCommentTextArea" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="addCommentForm" placeholder="type your comment here..." onkeydown="handleContent(event, this, 'false', this)"required></textarea>
+      <textarea id="addCommentTextArea" class="blue-text xs-text addCommentInput postTextArea" name="addCommentTextArea" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="addCommentForm" placeholder="type your comment here..." onkeydown="handleContent(this, 'false', this)"required></textarea>
       <ul id="invalid-new-comment-list" class="invalid-fields-list"></ul>
       <% if (currentUser) { %>
       <button type="submit" role="button" id="addCommentButton" class="btn xs-text red-bg gold-text btn-style account-button" name="addCommentButton" form="addCommentForm" onclick="return validateInputs(document.getElementById('invalid-new-comment-list'), document.getElementsByClassName('addCommentInput'), 'addCommentButton', 800)">Add Comment</button>
@@ -130,9 +124,7 @@ window.addEventListener('load', () => {
     </div>
   </form>
 </dialog>
-<script src="/javascripts/quill/dist/quill.min.js" defer></script>
 <script type="module" defer>import '/javascripts/posts.js';</script>
-<link href="/javascripts/quill/dist/quill.snow.css" rel="stylesheet">
 <% if (updateComment && updateComment.length > 0) { %>
   <script defer>
     setTimeout(() => displayDialog('generalPostDialog', '<%= updateComment %>'), 150);

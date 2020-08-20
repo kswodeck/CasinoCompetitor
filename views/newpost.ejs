@@ -1,6 +1,8 @@
 <%- include('partials/header') %>
 <script>window.addEventListener('load', () => {
-  handleContent(document.getElementById('newPostText'), 'new', document.getElementById('newPostText'));
+    setTimeout(() => {
+      handleContent(null, document.getElementById('newPostText'), 'new', document.getElementById('newPostText'));
+  }, 500);
   });
   </script>
 <div id="mid-container">
@@ -10,7 +12,7 @@
       <label for="newPostTitle" id="postTitleLabel" class="sm-text account-label"></label><br>
       <input type="text" id="newPostTitle" class="md-text post-heading blue-text postTextInput" name="newPostTitle" minlength="2", maxlength="40" placeholder="Post Title" autocomplete="off" required>
       <label for="newPostText" id="newPostLabel" class="account-label"></label><br>
-      <textarea id="newPostText" class="blue-text xs-text postTextInput postTextArea" name="newPostText" minlength="2" maxlength="50000" rows="1" cols="10" wrap="hard" form="newPostForm" onkeydown="handleContent(this, 'new', document.getElementById('newPostText'))" placeholder="type your post content here..." required></textarea>
+      <textarea id="newPostText" class="blue-text xs-text postTextInput postTextArea" name="newPostText" minlength="2" maxlength="50000" rows="1" cols="10" wrap="hard" form="newPostForm" onkeydown="handleContent(event, this, 'new', document.getElementById('newPostText'))" placeholder="type your post content here..." required></textarea>
       <ul id="invalid-post-list" class="invalid-fields-list"></ul>
       <button type="submit" role="button" name="create-post" onclick="return validateInputs(document.getElementById('invalid-post-list'), document.getElementsByClassName('postTextInput'), 'createPostButton', 800)" class="btn md-text blue-bg gold-text btn-style account-button" id="createPostButton" form="newPostForm">Create Post</button>
     </form>
