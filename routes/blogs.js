@@ -116,27 +116,39 @@ router.post('/blog/:board/:id', (req, res) => { //make sure this works for creat
 
 router.put('/blog/:board/:id/:comment', (req, res) => { //update blog and specific comments linked. find way to access comments in array
   let current = new Date(helpers.getCurrentDate());
-  Blog.findByIdAndUpdate(req.params.id, {editted: current, body: req.body.postTextArea}, {useFindAndModify: false}, (err, post) => {
+  let text = req.body.commentTextArea;
+  Blog.findById(req.params.id, (err, post) => { 
     if (err || !post) {
       res.redirect('/blog/' + post.board + '/' + post._id);
     } else {
-      req.flash('updateComment', 'Your comment has been updated');
-      res.redirect('/blog/' + post.board + '/' + post._id);
+      Comment.findByIdAndUpdate(post.comments[req.params.comment]._id, {body: text, editted: current}, {useFindAndModify: false}, (error, updated) => {
+        if (error || !updated) {
+          res.redirect('/blog/' + post.board + '/' + post._id);
+        } else {
+          console.log(updated);
+          req.flash('updateComment', 'Your comment has been updated');
+          res.redirect('/blog/' + post.board + '/' + post._id);
+        }
+      });
     }
   });
 });
 
-router.delete('/blog/:board/:id/:comment', helpers.isLoggedIn, (req, res) => { //this not working now. Not deleting
-  console.log('in the comment delete route');
-  let index = req.params.comment; // fix this all
-  Blog.findByIdAndUpdate(req.params.id, {useFindAndModify: false}, (err, post) => { //this will be updating/deleting comment on a blog post. just perform removal from array
+router.delete('/blog/:board/:id/:comment', helpers.isLoggedIn, (req, res) => {
+  Blog.findById(req.params.id, (err, post) => { 
     if (err || !post) {
       res.redirect('/blog/' + post.board + '/' + post._id);
     } else {
-      console.log(post.comments);
-      post.comments.splice(req.params.comment, 1); //this not deleting
-      req.flash('deleteComment', 'Your comment has been deleted');
-      res.redirect('/blog/' + post.board + '/' + post._id);
+      Comment.findByIdAndDelete(post.comments[req.params.comment]._id, (error, deleted) => {
+        if (error || !deleted) {
+          res.redirect('/blog/' + post.board + '/' + post._id);
+        } else {
+          post.comments.splice(req.params.comment, 1); //this not deleting
+          post.save();
+          req.flash('deleteComment', 'Your comment has been deleted');
+          res.redirect('/blog/' + post.board + '/' + post._id);
+        }
+      });
     }
   });
 });

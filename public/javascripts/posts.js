@@ -25,10 +25,10 @@ function disablePostEdit(user='false') {
 
 function handleContent(el=postTextArea, user='false', input1=postTextArea, input2=postTitle) {
   setTimeout(() => {
-    input1.style.height = 'auto';
-    input1.style.height = input1.scrollHeight + 'px';
-    el.blur()
-    el.focus()
+    el.style.height = 'auto';
+    el.style.height = el.scrollHeight + 'px';
+    el.blur();
+    el.focus();
     if (user != 'new' && user != 'false') {
       if (postTextVal == input1.value && postTitleVal ==  input2.value) {
         editPostButton.disabled = true;
