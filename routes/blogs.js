@@ -4,7 +4,7 @@ const express  = require('express'),
       moment   = require('moment'),
       User     = require('../models/user'),
       Blog     = require('../models/blog'),
-      Comment     = require('../models/comment'),
+      Comment  = require('../models/comment'),
       helpers  = require('../public/javascripts/helpers');
 
 // Blog.create({userId: '5edd99e1de86290004f56157', username: 'tatums96', title: 'Poker Tips! 4', body: 'Here are poker tips from tatums96', board: 'Poker'});
@@ -120,17 +120,21 @@ router.put('/blog/:board/:id/:comment', (req, res) => { //update blog and specif
     if (err || !post) {
       res.redirect('/blog/' + post.board + '/' + post._id);
     } else {
-      req.flash('updateComment', 'updateComment');
+      req.flash('updateComment', 'Your comment has been updated');
       res.redirect('/blog/' + post.board + '/' + post._id);
     }
   });
 });
 
-router.delete('/blog/:board/:id/:comment', helpers.isLoggedIn, (req, res) => {
-  Blog.findByIdAndUpdate(req.params.id, (err, post) => { //this will be updating/deleting comment on a blog post. just perform removal from array
+router.delete('/blog/:board/:id/:comment', helpers.isLoggedIn, (req, res) => { //this not working now. Not deleting
+  console.log('in the comment delete route');
+  let index = req.params.comment; // fix this all
+  Blog.findByIdAndUpdate(req.params.id, {useFindAndModify: false}, (err, post) => { //this will be updating/deleting comment on a blog post. just perform removal from array
     if (err || !post) {
       res.redirect('/blog/' + post.board + '/' + post._id);
     } else {
+      console.log(post.comments);
+      post.comments.splice(req.params.comment, 1); //this not deleting
       req.flash('deleteComment', 'Your comment has been deleted');
       res.redirect('/blog/' + post.board + '/' + post._id);
     }

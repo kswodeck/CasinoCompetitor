@@ -120,7 +120,7 @@ svg.back-icon:hover, svg.back-icon:active, .numquantity:hover, .numquantity:focu
 a.blog-board-link {
   color: #be0b2f;
 }
-.blue-text, a.link-text, #postDelete:hover {
+.blue-text, a.link-text, .delete-button-label:hover {
   color: #00008b;
 }
 .green-text, .valid-list, .win {
@@ -192,7 +192,7 @@ input:invalid, #tableSearch:active, .avatarButton:hover, textarea:invalid {
   flex-wrap: wrap;
 }
 
-#postDelete, .dropdownContent{
+.delete-button-label, .dropdownContent{
   white-space: nowrap;
 }
 
@@ -235,7 +235,7 @@ input:invalid, #tableSearch:active, .avatarButton:hover, textarea:invalid {
 }
 
 #dice-clear-tally-col, #hand-ranking-heading, #roll-ranking-heading, #roll-score-heading, dialog:not([open]), #profileImage,
-#postTitleLabel, #addCommentTextLabel {
+#postTitleLabel, #addCommentTextLabel, .commentNumInput {
   display: none;
 }
 table#board-table {
@@ -284,7 +284,7 @@ table#board-table {
 }
 
 .card-slot-div .interactive-img:hover, .farkle-slot-div .interactive-img:hover, .btn, button, button.btn, input[type=button],
-#hamburger-button, button::-webkit-scrollbar-thumb:hover, #search-button, .exit-dialog-button, #postDelete, .dropdownContent,
+#hamburger-button, button::-webkit-scrollbar-thumb:hover, #search-button, .exit-dialog-button, .delete-button-label, .dropdownContent,
 .avatarButton {
   cursor: pointer;
 }
@@ -507,7 +507,7 @@ button.betWinButton:active {
   flex-grow: 1;
   justify-content: center;
 }
-#collapse-button-div {
+#collapse-button-div, .commentDeleteDiv {
   justify-content: flex-end;
   align-items: center;
 }
@@ -549,7 +549,7 @@ div.dropdown-menu {
   height: calc(40px + 0.8vw);
 }
 
-#postFormDiv, #addCommentDiv {
+#postFormDiv, #addCommentDiv, .postCommentArea:disabled {
   display: inline-block;
   background: #dce1ebd9;
 }
@@ -564,7 +564,7 @@ div.dropdown-menu {
   border: 1px inset #00008b;
   background-image: radial-gradient(ellipse,var(--bluish) 30%,#979CA580,#9ca2AD80,#a5aBB680,#aeb3BD80);
 }
-#post-user-info-list {
+.post-user-info-list {
   margin: 2% 0 0 2%;
 }
 #user-post-div {
@@ -575,9 +575,6 @@ div.dropdown-menu {
   opacity: .6;
 }
 #newPostTitle, #postTitle {
-  margin-bottom: 1.5%;
-}
-#newPostTitle {
   margin-bottom: 1.5%;
 }
 .postTextArea, #newPostTitle, #postTitle {
@@ -618,7 +615,7 @@ button.btn, input.btn, input.user-input {
   transition: none;
 }
 
-#dropdownCardsLink {
+#dropdownCardsLink, .commentDiv {
   margin-bottom: 2px;
 }
 #mainDropdown {
@@ -634,7 +631,7 @@ div.top-menu-div > a.dropdownLink {
 #dropdownCardsLink #dropdownMainLink, li a, #main-container, #dice-col, #dice-current-col, #dice-roll-tally-div, .invalid-fields-list,
 #dice-roll-current-div, #table-search-cell, .name-col, #leaderboard-div, #blog-table-div, #tableSearch, button.back-arrow,
 dialog.account-dialog, #search-button, #main-navbar, #main-links-row, a.dropdown-item, #linksDiv, div.top-menu-div, .dropdownList,
-#post-user-info-list, #profileImageList, .avatarButton {
+.post-user-info-list, #profileImageList, .avatarButton {
   padding: 0;
 } 
 
@@ -764,7 +761,7 @@ border-radius: .25rem;
   height: calc(35px + .75vw);
   width: calc(45px + .1vw + .5vh);
 }
-#postDeleteButton, #postDelete {
+#postDeleteButton, .delete-button-label, .comment-delete-button {
   visibility: hidden;
 }
 #postDelete {
@@ -794,7 +791,6 @@ border-radius: .25rem;
  }
 .account-label {
   font-weight: bold;
-  color: #000;
   margin: 5px auto 0 auto;
 }
 .placeholderPassword {
@@ -828,7 +824,7 @@ border-radius: .25rem;
 #roll-ranking-heading, .num-quantity-input-div, #hand-odds-div {
   margin: 1% auto 0 auto;
 }
-#roll-score-heading, .post-info-row, #addCommentForm {
+#roll-score-heading, .post-info-row, #addCommentForm, .postCommentArea {
   margin-top: 0.5%;
 }
 #farkle-end-button:disabled {
@@ -844,7 +840,7 @@ border-radius: .25rem;
 .input-icon:active {
   color: var(--darkcrimson);
 }
-#postDelete:active {
+.delete-button-label:active {
   color: var(--darkerblue);
 }
 .show-hide {
@@ -919,13 +915,25 @@ dialog.account-dialog {
 .exit-dialog-button:hover, input.farkle-player-input {
   border: 1px outset lightsteelblue;
 }
+.comment-delete {
+  margin-right: 0.5%;
+}
+.commentDeleteDiv {
+  border-top: 1px solid darkblue;
+}
+.commentsDiv, #addCommentDiv {
+  padding-bottom: 0.5%;
+}
+#addCommentDiv {
+  padding-top: 0.8%;
+}
 
 button.back-arrow {
   line-height: 1.2;
   margin: 0 5px;
 }
 
-.board-table-heading, .post-table-cell, #postFormDiv, #addCommentDiv {
+.board-table-heading, .post-table-cell, #postFormDiv {
   padding: 1%;
 }
 .board-table-cell {
@@ -1132,7 +1140,7 @@ dialog::-webkit-backdrop, div.backdrop, dialog::backdrop {
 
 /* small breakpoint */
 @media (max-width: 575px) {
-  #backBoards, #postDelete {
+  #backBoards, .delete-button-label {
     display: none;
   }
   #farkle-prep-row {
@@ -1256,7 +1264,7 @@ dialog::-webkit-backdrop, div.backdrop, dialog::backdrop {
     display: inline-block;
     font-size: calc(20px + 0.5vw + 0.5vh);
   }
-  #mainDropdownDiv, div.top-menu-div > a, #post-user-info-list {
+  #mainDropdownDiv, div.top-menu-div > a, .post-user-info-list {
     white-space: nowrap;
   }
   div.top-menu-div > a {
