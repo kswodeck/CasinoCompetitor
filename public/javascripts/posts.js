@@ -60,6 +60,5 @@ function handleContent(evt=null, el=postTextArea, user='false', input1=postTextA
 }
 
 window.enablePostEdit = enablePostEdit; window.handleContent = handleContent;
-window.validatePostEdit = validatePostEdit;
 
 export * from './posts.js';
