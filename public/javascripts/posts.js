@@ -5,7 +5,6 @@ var postTitle = document.getElementById('postTitle');
 var postTextArea = document.getElementById('editor-container');
 if (document.getElementsByTagName('title')[0].innerText != 'Create New Post') {
   var editPostButton = document.getElementById('editPostButton');
-  var textAreaInput = document.getElementsByClassName('postTextInput');
   var postTextVal = postTextArea.innerText; //.value
   var postTitleVal = postTitle.value;
   }
@@ -58,14 +57,6 @@ function handleContent(evt=null, el=postTextArea, user='false', input1=postTextA
       }
     }
   }, 150);
-}
-
-function validatePostEdit(user = 'false') {
-  if (user && user != 'false' && postTextArea.disabled == 'false') {
-    const postInvalidList = document.getElementById('invalid-post-list');
-    disablePostEdit(user);
-    return validateInputs(postInvalidList, textAreaInput, 'editPostButton', 800);
-  }
 }
 
 window.enablePostEdit = enablePostEdit; window.handleContent = handleContent;

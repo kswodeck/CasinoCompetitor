@@ -41,7 +41,7 @@ window.addEventListener('load', () => {
         <% } %>
       </ul>
     <% if (sameUser) { %>
-      <button type="submit" role="button" name="edit-post" onclick="return validatePostEdit('<%= sameUser %>')" class="btn md-text blue-bg gold-text btn-style account-button" id="editPostButton" form="postForm" disabled>Update Post</button>
+      <button type="submit" role="button" name="edit-post" onclick="return validateInputs(document.getElementById('invalid-post-list'), document.getElementsByClassName('postTextInput'), 'editPostButton', 800)" class="btn md-text blue-bg gold-text btn-style account-button" id="editPostButton" form="postForm" disabled>Update Post</button>
       <script defer>
         document.getElementById('postDelete').style.visibility = "visible";
         document.getElementById('postDeleteButton').style.visibility = "visible";
