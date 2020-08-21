@@ -1,43 +1,71 @@
 import './common.js';
 
 // const postTextArea = document.getElementById('postTextArea');
+var documentIsReady = new Promise(resolve => {
+  document.onreadystatechange = function () {
+    if (document.readyState == "complete") {
+      resolve(5);
+    }
+  }
+});
+
 var postTitle = document.getElementById('postTitle');
 var postTextArea = document.getElementById('editor-container');
+var editors = document.querySelectorAll('.postEditor');
 if (document.getElementsByTagName('title')[0].innerText != 'Create New Post') {
   var editPostButton = document.getElementById('editPostButton');
   var postTextVal = postTextArea.innerText; //.value
   var postTitleVal = postTitle.value;
   }
 
-function enablePostEdit(user='false') {
-  if (user !='false' && document.getElementsByClassName('ql-editor').length < 1) {
-    var quill = new Quill('#editor-container', {
-      modules: {
-        toolbar: [
-          [{ header: [1, 2, false] }],
-          ['bold', 'italic', 'underline'],
-          ['link', 'blockquote', 'image'],
-          [{ list: 'ordered' }, { list: 'bullet' }]
-        ]
-      },
-      placeholder: 'type your post content here...',
-      theme: 'snow'
-    });
-    var form = document.getElementById('postForm');
-    form.onsubmit = function() { // Populate hidden form on submit
-      var textInput = document.getElementById('textInput');
-      textInput.value = JSON.stringify(quill.getContents());
-      console.log("Submitted", form.serialize(), form.serializeArray());
-      alert('Open the console to see the submit data!')
-    return false;
-    };
+function renderTextHtml(htmlText, parentEl, user='false', sameCommenter='NA') {
+  documentIsReady.then(() => {
+    let el = parentEl.childNodes[0];
+    console.log(el);
+    if (user = 'false' && sameCommenter == 'NA' ) {
+      el = document.getElementById('editor-container'); //not working for textarea. Make sure text shows up
+    }
+    el.innerHTML = htmlText;  //not making the text edittable. Removing all the children.
+    el.innerHTML = el.innerText;
+  }).then(() => {
+    handleContent(null, parentEl, user, parentEl);
+  })
+}
+  
+function enablePostEdit(user='false', elId='editor-container') {
+  let editorId = '#' + elId;
+  let editor = document.querySelector(editorId);
+  let placeholdText = 'type your comment here...';
+  var form = editor.parentNode;
+  var textInput = document.getElementById('commentTextInput' + elId.slice(15)); //uses the comment number from id
+  if (editor.id.includes('addComment')) {
+    textInput = document.getElementById('addCommentTextInput');
   }
-  document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(() => {
-      postTextArea.setAttribute('onkeydown', handleContent(event, this, user));
-    }, 200);
-  }, false);
+  if (!editor.className.includes('Comment')) {
+    textInput = document.getElementById('textInput');
+    placeholdText = 'type your post content here...';
+    form = form.parentNode;
     postTitle.disabled = false;
+  }
+  if (user !='false') {
+      var quill = new Quill(editorId, {
+        modules: {
+          toolbar: [
+            [{ header: [1, 2, false] }],
+            ['bold', 'italic', 'underline'],
+            ['link', 'blockquote'], //consider adding back 'image' (probably not)
+            [{ list: 'ordered' }, { list: 'bullet' }]
+          ]
+        },
+        placeholder: placeholdText,
+        theme: 'snow'
+      });
+      documentIsReady.then(() => {
+        form.onsubmit = function() { // Populate hidden form on submit
+          textInput.value = editor.childNodes[0].innerHTML;
+        };
+      });
+  }
 }
 
 function handleContent(evt=null, el=postTextArea, user='false', input1=postTextArea, input2=postTitle) {
@@ -56,9 +84,10 @@ function handleContent(evt=null, el=postTextArea, user='false', input1=postTextA
         editPostButton.disabled = false;
       }
     }
-  }, 150);
+  }, 100);
 }
 
 window.enablePostEdit = enablePostEdit; window.handleContent = handleContent;
+window.renderTextHtml = renderTextHtml;
 
 export * from './posts.js';

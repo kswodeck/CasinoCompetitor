@@ -327,12 +327,12 @@ function validateInputs(invalidList, inputs, button, disableTime=1000, names=[],
   let empty = false;
   let isProfane = false;
   for (let i = 0; i < inputs.length; i++) {
-    if (!inputs[i].checkValidity()) {
+    if (inputs[i].tagName != 'DIV' && !inputs[i].checkValidity()) {
       if (!inputs[i].value) {
         empty = true;
       }
       validity = false;
-    } else if (inputs[i].type == 'email') {
+    } else if (inputs[i].tagName != 'DIV' && inputs[i].type == 'email') {
       if (!emailIsValid(inputs[i].value)) {
         inputs[i].style.borderColor = '#be0b2f';
         validity = false;
@@ -340,6 +340,8 @@ function validateInputs(invalidList, inputs, button, disableTime=1000, names=[],
     } else if ((inputs[i].getAttribute('id').includes('sername') && pageTitle.innerText.includes('Account'))
     || inputs[i].type == 'textarea' || inputs[i].getAttribute('id').includes('ostTitle') && !isProfane) {
       isProfane = checkProfanity(inputs[i].value);
+    } else if (inputs[i].tagName == 'DIV' && inputs[i].className.includes('postEditor')) {
+      isProfane = checkProfanity(inputs[i].innerHTML);
     }
     inputs[i].style.borderWidth = '0.06em';
   }
@@ -363,7 +365,6 @@ function emailIsValid(email) {
 function checkProfanity(word) {
   for (let i = 0; i < badWords.length; i++) { //imported badWords from words.js
     if (word.includes(badWords[i])) {
-      console.log(badWords[i]);
       return badWords[i];
     }
   }

@@ -1,13 +1,13 @@
 <%- include('partials/header') %>
 <script>
-window.addEventListener('load', () => {
+document.addEventListener('DOMContentLoaded', () => {
+  renderTextHtml('<%= post.body %>', document.getElementById('editor-container'), '<%= sameUser %>');
   setTimeout(() => {
     let comments = document.getElementsByClassName('postCommentArea');
     for (let i = 0; i < comments.length; i++) {
-      handleContent(null, comments[i], 'false');
+      handleContent(null, comments[i]);
     }
-    handleContent(null);
-  }, 800);
+  }, 100);
 });
 </script>
 <div id="mid-container">
@@ -25,15 +25,18 @@ window.addEventListener('load', () => {
         <button id="postDeleteButton" class="exit-dialog-button lg-text" onclick="displayDialog('postDeleteDialog')">✖</button>
       </div>
     </div>
-    <form action="/blog/<%= board %>/<%= post.id %>?_method=PUT" method="POST" id="postForm">
+    <form action="/blog/<%= board %>/<%= post.id %>?_method=PUT" method="POST" id="postForm" class="postCommentForm">
       <div id="postFormDiv">
         <label for="postTitle" id="postTitleLabel" class="account-label"></label>
         <input type="text" id="postTitle" class="lg-text post-heading postTextInput" name="postTitle" value="<%= post.title %>" minlength="2", maxlength="40" size="30" form="postForm" onkeydown="handleContent(event, this, '<%= sameUser %>')" autocomplete="off" required disabled>
         <label for="postTextArea" id="postTextLabel" class="account-label"></label><br>
-        <input id="textInput" name="postTextArea" type="hidden" form="postForm">
-        <div id="editor-container" class="blue-text xs-text postTextInput postTextArea" onkeydown="handleContent(event, this, '<%= sameUser %>')">
-          <p><%= post.body %></p>
+        <input type="hidden" id="textInput" name="postTextArea" form="postForm">
+        <% if (!sameUser) { %>
+        <textarea id="editor-container" class="blue-text postTextInput postTextArea" minlength="2" maxlength="50000" rows="1" cols="10" wrap="hard" disabled required></textarea>
+        <% } else { %>
+        <div id="editor-container" class="blue-text xs-text postTextArea postTextInput postEditor" onkeydown="handleContent(event, this, '<%= sameUser %>')">
         </div>
+        <% } %>
       </div>
       <ul id="invalid-post-list" class="invalid-fields-list">
         <% if (updateSuccess && updateSuccess.length > 0) { %>
@@ -52,7 +55,7 @@ window.addEventListener('load', () => {
     <div class="row" id="postBottomRow">
       <div id="boardBackDiv" class="back-button-div col">
         <button id="boardBackButton" class="back-arrow btn lg-text blue-text" name="back-arrow" onclick="window.location.href='/blog/<%= board %>'"><i id="BoardBackArrow" class="fas fa-long-arrow-alt-left back-icon"></i></button>
-        <b class="back-button-label blue-text sm-text" onclick="window.location.href='/blog/<%= board %>'">Back to Board</b>
+        <b id="postBackButton" class="back-button-label blue-text sm-text" onclick="window.location.href='/blog/<%= board %>'">Back to Board</b>
       </div>
       <div id="postBottomRightDiv" class="col xs-text red-text">
         <span id="postCreatedText" class="postBottomRightText">created on <b><%= created %></b></span><br>
@@ -66,15 +69,18 @@ window.addEventListener('load', () => {
           <b id="commentDelete<%= i %>" class="xs-text delete-button-label comment-delete" onclick="document.getElementById('deleteCommentForm').setAttribute('action', '/blog/<%= board %>/<%= post.id %>/<%= i %>?_method=DELETE'); displayDialog('commentDeleteDialog')">Delete Comment</b>
           <button id="commentDeleteButton<%= i %>" class="exit-dialog-button md-text comment-delete-button" onclick="document.getElementById('deleteCommentForm').setAttribute('action', '/blog/<%= board %>/<%= post.id %>/<%= i %>?_method=DELETE'); displayDialog('commentDeleteDialog')">✖</button>
         </div>
-        <form action="/blog/<%= board %>/<%= post.id %>/<%= i %>?_method=PUT" method="POST" id="commentForm<%= i %>">
+        <form action="/blog/<%= board %>/<%= post.id %>/<%= i %>?_method=PUT" method="POST" id="commentForm<%= i %>" class="postCommentForm">
           <div class="commentDiv">
             <input class="commentNumInput" value="<%= i %>" name="commentNum">
+            <!-- <label for="commentTextInput<%= i %>" class="red-text sm-text account-label commentUser"><%= comment.username %></label><br> -->
+            <!-- <input type="hidden" id="commentTextInput<%= i %>" name="commentTextArea" form="commentForm<%= i %>"> -->
             <label for="commentTextArea<%= i %>" class="red-text sm-text account-label commentUser"><%= comment.username %></label><br>
             <textarea id="commentTextArea<%= i %>" class="blue-text xs-text postCommentArea postCommentInput<%= i %> postTextArea" name="commentTextArea" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="commentForm<%= i %>" onkeydown="handleContent(event, this, 'false', this)" disabled required><%= comment.body %></textarea>
             <% if (currentUser && comment.username == currentUser.username) { %>
+              <% let sameCommenter = true; %>
             <button type="submit" role="button" id="commentButton<%= i %>" class="btn sm-text gold-bg red-text btn-style account-button" name="commentButton<%= i %>" form="commentForm<%= i %>" onclick="return validateInputs(document.getElementById('invalid-comment-list<%= i %>'), document.getElementsByClassName('postCommentInput<%= i %>'), 'commentButton<%= i %>', 800)">Update Comment</button>
             <script>
-            document.getElementById('commentTextArea<%= i %>').disabled = false;
+            document.getElementById('commentTextArea<%= i %>').disabled = false; //will need to remove this
             document.getElementById('commentDelete<%= i %>').style.visibility = "visible";
             document.getElementById('commentDeleteButton<%= i %>').style.visibility = "visible";
             </script>
@@ -86,7 +92,9 @@ window.addEventListener('load', () => {
     <% } %>
   </div>
   <div id="addCommentDiv">
-    <form action="/blog/<%= board %>/<%= post.id %>" method="POST" id="addCommentForm">
+    <form action="/blog/<%= board %>/<%= post.id %>" method="POST" id="addCommentForm" class="postCommentForm">
+      <!-- <label for="addCommentTextInput" class="addCommentUser"></label><br> -->
+      <!-- <input type="hidden" id="addCommentTextInput" name="addCommentTextArea" form="addCommentForm"> -->
       <label for="addCommentTextArea" id="addCommentTextLabel" class="xs-text account-label"></label>
       <textarea id="addCommentTextArea" class="blue-text xs-text addCommentInput postTextArea" name="addCommentTextArea" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="addCommentForm" placeholder="type your comment here..." onkeydown="handleContent(event, this, 'false', this)"required></textarea>
       <ul id="invalid-new-comment-list" class="invalid-fields-list"></ul>

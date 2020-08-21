@@ -125,7 +125,6 @@ router.put('/blog/:board/:id/:comment', (req, res) => { //update blog and specif
         if (error || !updated) {
           res.redirect('/blog/' + post.board + '/' + post._id);
         } else {
-          console.log(updated);
           req.flash('updateComment', 'Your comment has been updated');
           res.redirect('/blog/' + post.board + '/' + post._id);
         }

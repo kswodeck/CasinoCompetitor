@@ -120,7 +120,7 @@ svg.back-icon:hover, svg.back-icon:active, .numquantity:hover, .numquantity:focu
 a.blog-board-link {
   color: #be0b2f;
 }
-.blue-text, a.link-text, .delete-button-label:hover, .ql-editor.ql-blank::before {
+.blue-text, a.link-text, .delete-button-label:hover, div.ql-editor.ql-blank::before {
   color: #00008b;
 }
 .green-text, .valid-list, .win {
@@ -760,6 +760,10 @@ border-radius: .25rem;
   overflow: hidden;
   scroll-behavior: smooth;
 }
+div.ql-editor {
+  text-align: center;
+  overflow: hidden;
+}
 
 div.ql-snow .ql-stroke {
   stroke: #fff;
@@ -1159,7 +1163,7 @@ dialog::-webkit-backdrop, div.backdrop, dialog::backdrop {
 
 /* small breakpoint */
 @media (max-width: 575px) {
-  #backBoards, .delete-button-label {
+  #backBoards, .delete-button-label, #postBackButton {
     display: none;
   }
   #farkle-prep-row {
