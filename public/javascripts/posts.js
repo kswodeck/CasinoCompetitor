@@ -20,12 +20,11 @@ if (document.getElementsByTagName('title')[0].innerText != 'Create New Post') {
 
 function renderTextHtml(htmlText, parentEl, user='false', sameCommenter='NA') {
   documentIsReady.then(() => {
-    let el = parentEl.childNodes[0];
-    console.log(el);
-    if (user = 'false' && sameCommenter == 'NA' ) {
-      el = document.getElementById('editor-container'); //not working for textarea. Make sure text shows up
+    let el = parentEl;
+    if (sameCommenter == 'NA' && sameUser == 'true') {
+      el = el.childNodes[0]; //not working for not sameuser textarea. Make sure text shows up
     }
-    el.innerHTML = htmlText;  //not making the text edittable. Removing all the children.
+    el.innerHTML = htmlText;
     el.innerHTML = el.innerText;
   }).then(() => {
     handleContent(null, parentEl, user, parentEl);
