@@ -1,20 +1,20 @@
 <%- include('partials/header') %>
-<script>window.addEventListener('load', () => {
-    setTimeout(() => {
-      handleContent(null, document.getElementById('newPostText'), 'new', document.getElementById('newPostText'));
-  }, 500);
-  });
+<script>
+  document.addEventListener('DOMContentLoaded', () => enablePostEdit('new'));
   </script>
 <div id="mid-container">
   <div id="newPostDiv" class="postDiv">
     <h2 id="form-heading" class="post-heading form-heading blue-text">Create A New Post</h2>
     <form action="/blog/<%= board %>" method="POST" id="newPostForm">
-      <label for="newPostTitle" id="postTitleLabel" class="sm-text account-label"></label><br>
-      <input type="text" id="newPostTitle" class="md-text post-heading blue-text postTextInput" name="newPostTitle" minlength="2", maxlength="40" placeholder="Post Title" autocomplete="off" required>
-      <label for="newPostText" id="newPostLabel" class="account-label"></label><br>
-      <textarea id="newPostText" class="blue-text xs-text postTextInput postTextArea" name="newPostText" minlength="2" maxlength="50000" rows="1" cols="10" wrap="hard" form="newPostForm" onkeydown="handleContent(event, this, 'new', document.getElementById('newPostText'))" placeholder="type your post content here..." required></textarea>
-      <ul id="invalid-post-list" class="invalid-fields-list"></ul>
-      <button type="submit" role="button" name="create-post" onclick="return validateInputs(document.getElementById('invalid-post-list'), document.getElementsByClassName('postTextInput'), 'createPostButton', 800)" class="btn md-text blue-bg gold-text btn-style account-button" id="createPostButton" form="newPostForm">Create Post</button>
+      <div id="postFormDiv">
+        <label for="newPostTitle" id="postTitleLabel" class="md-text account-label"></label><br>
+        <input type="text" id="newPostTitle" class="lg-text post-heading blue-text postTextInput" name="newPostTitle" minlength="2" maxlength="40" placeholder="Post Title" size="30" form="newPostForm" onkeydown="handleContent(event, this, 'new')"  autocomplete="off" required>
+        <label for="newPostText" id="postTextLabel" class="account-label"></label><br>
+        <input type="hidden" id="textInput" name="newPostText" form="newPostForm">
+        <div id="editor-container" class="blue-text xs-text postTextArea postTextInput postEditor" onkeydown="handleContent(event, this, 'new')"></div>
+        <ul id="invalid-post-list" class="invalid-fields-list"></ul>
+        <button type="submit" role="button" name="create-post" onclick="return validateInputs(document.getElementById('invalid-post-list'), document.getElementsByClassName('postTextInput'), 'createPostButton', 800)" class="btn md-text blue-bg gold-text btn-style account-button" id="createPostButton" form="newPostForm">Create Post</button>
+      </div>
     </form>
     <div class="row" id="postBottomRow">
       <div id="boardBackDiv" class="back-button-div col">
@@ -24,5 +24,7 @@
     </div>
   </div>
 </div>
+<script src="/javascripts/quill/dist/quill.min.js" defer></script>
 <script type="module" defer>import '/javascripts/posts.js';</script>
+<link href="/javascripts/quill/dist/quill.snow.css" rel="stylesheet">
 <%- include('partials/commondialogs') %>

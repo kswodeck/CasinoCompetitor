@@ -6,12 +6,11 @@ var documentIsReady = new Promise(resolve => {
     if (document.readyState == "complete") {
       resolve(5);
     }
-  }
+  };
 });
 
 var postTitle = document.getElementById('postTitle');
 var postTextArea = document.getElementById('editor-container');
-var editors = document.querySelectorAll('.postEditor');
 if (document.getElementsByTagName('title')[0].innerText != 'Create New Post') {
   var editPostButton = document.getElementById('editPostButton');
   var postTextVal = postTextArea.innerText; //.value
@@ -20,15 +19,16 @@ if (document.getElementsByTagName('title')[0].innerText != 'Create New Post') {
 
 function renderTextHtml(htmlText, parentEl, user='false', sameCommenter='NA') {
   documentIsReady.then(() => {
+    console.log(htmlText);
     let el = parentEl;
-    if (sameCommenter == 'NA' && sameUser == 'true') {
-      el = el.childNodes[0]; //not working for not sameuser textarea. Make sure text shows up
+    if (sameCommenter == 'NA' && user == 'true') {
+      el = el.childNodes[0];
     }
     el.innerHTML = htmlText;
     el.innerHTML = el.innerText;
   }).then(() => {
     handleContent(null, parentEl, user, parentEl);
-  })
+  });
 }
   
 function enablePostEdit(user='false', elId='editor-container') {
@@ -44,6 +44,7 @@ function enablePostEdit(user='false', elId='editor-container') {
     textInput = document.getElementById('textInput');
     placeholdText = 'type your post content here...';
     form = form.parentNode;
+    if (document.getElementsByTagName('title')[0].innerText != 'Create New Post')
     postTitle.disabled = false;
   }
   if (user !='false') {
