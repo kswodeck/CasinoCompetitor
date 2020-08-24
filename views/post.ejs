@@ -32,9 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
         <label for="postTextArea" id="postTextLabel" class="account-label"></label><br>
         <input type="hidden" id="textInput" name="postTextArea" form="postForm">
         <% if (!sameUser) { %>
-        <textarea id="editor-container" class="blue-text postTextInput postTextArea" minlength="2" maxlength="50000" rows="1" cols="10" wrap="hard" disabled required></textarea>
+        <textarea id="editor-container" class="postTextInput postTextArea" minlength="2" maxlength="50000" rows="1" cols="10" wrap="hard" disabled required></textarea>
         <% } else { %>
-        <div id="editor-container" class="blue-text xs-text postTextArea postTextInput postEditor" onkeydown="handleContent(event, this, '<%= sameUser %>')">
+        <div id="editor-container" class="xs-text postTextArea postTextInput postEditor" onkeydown="handleContent(event, this, '<%= sameUser %>')">
         </div>
         <% } %>
       </div>
