@@ -50,10 +50,10 @@ function enablePostEdit(user='false', elId='editor-container') {
       var quill = new Quill(editorId, {
         modules: {
           toolbar: [
-            [{ header: [1, 2, false] }],
-            ['bold', 'italic', 'underline'],
-            ['link', 'blockquote'], //consider adding back 'image' (probably not)
-            [{ list: 'ordered' }, { list: 'bullet' }]
+            [{header: [2, 3, 4, 5, 6, false]}, [{'size': ['small', false, 'large', 'huge']}]],
+            ['bold', 'italic', 'underline', 'strike', {'script': 'sub'}, {'script': 'super'}, 'link'],
+            ['blockquote', { 'indent': '+1'}, {'direction': 'rtl'}, {list: 'ordered'}, {list: 'bullet'}],
+            [{'color': []}, {'background': []}, {'align': []}, ['clean']]
           ]
         },
         placeholder: placeholdText,
