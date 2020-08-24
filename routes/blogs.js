@@ -7,11 +7,6 @@ const express  = require('express'),
       Comment  = require('../models/comment'),
       helpers  = require('../public/javascripts/helpers');
 
-// Blog.create({userId: '5edd99e1de86290004f56157', username: 'tatums96', title: 'Poker Tips! 4', body: 'Here are poker tips from tatums96', board: 'Poker'});
-// Blog.create({userId: '5eddac7fc8e4e800042c089e', username: 'kswodeck', title: 'Poker Tips! 1', body: 'Here are poker tips from kswodeck', board: 'Poker'});
-// Blog.create({userId: '5edd99e1de86290004f56157', username: 'tatums96', title: 'Poker Tips! 2', body: 'Here are more poker tips from tatums96', board: 'Poker'});
-// Blog.create({userId: '5eddac7fc8e4e800042c089e', username: 'kswodeck', title: 'Poker Tips! 3', body: 'Here are more poker tips from kswodeck', board: 'Poker'});
-
 // blog related routes
 router.get('/blog', (req, res) => {
   res.render('blog', {pageTitle: 'Community Blog'});
@@ -84,18 +79,26 @@ router.put('/blog/:board/:id', helpers.isLoggedIn, (req, res) => {
   });
 });
 router.delete('/blog/:board/:id', helpers.isLoggedIn, (req, res) => {
-  Blog.findByIdAndDelete(req.params.id, (err, post) => {
-    if (err || !post) {
-      req.flash('error', err);
+  Blog.findByIdAndDelete(req.params.id, (err, deletedPost) => {
+    if (err || !deletedPost) {
+      req.flash('error', error);
       res.redirect('/blog/' + req.params.board);
     } else { 
+      for (let i = 0; i < deletedPost.comments.length; i++) {
+        Comment.findByIdAndDelete(deletedPost.comments[i]._id, (commentError, deleted) => {
+          if (commentError || !deleted) {
+            console.log(commentError);
+            res.redirect('/blog/' + req.params.board);
+          }
+        });
+      }
       req.flash('deleteSuccess', 'Your post has been deleted');
       res.redirect('/blog/' + req.params.board + '?deleted=true');
     }
   });
 });
 
-router.post('/blog/:board/:id', (req, res) => { //make sure this works for creating commentts
+router.post('/blog/:board/:id', (req, res) => {
   Blog.findById(req.params.id, (err, post) => {
     if (err || !post) {
       console.log(err);
@@ -114,7 +117,7 @@ router.post('/blog/:board/:id', (req, res) => { //make sure this works for creat
   });
 });
 
-router.put('/blog/:board/:id/:comment', (req, res) => { //update blog and specific comments linked. find way to access comments in array
+router.put('/blog/:board/:id/:comment', (req, res) => {
   let current = new Date(helpers.getCurrentDate());
   let text = req.body.commentTextArea;
   Blog.findById(req.params.id, (err, post) => { 

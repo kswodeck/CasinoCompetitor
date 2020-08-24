@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <input type="text" id="postTitle" class="lg-text post-heading postTextInput" name="postTitle" value="<%= post.title %>" minlength="2", maxlength="40" size="30" form="postForm" onkeydown="handleContent(event, this, '<%= sameUser %>')" placeholder="Post Title" autocomplete="off" required disabled>
         <label for="postTextArea" id="postTextLabel" class="account-label"></label><br>
         <input type="hidden" id="textInput" name="postTextArea" form="postForm">
-        <div id="editor-container" class="blue-text xs-text postTextArea postTextInput postEditor" onkeydown="handleContent(event, this, '<%= sameUser %>')"></div>
+        <div id="editor-container" class="xs-text postTextArea postTextInput postEditor" onkeydown="handleContent(event, this, '<%= sameUser %>')"></div>
       </div>
       <ul id="invalid-post-list" class="invalid-fields-list">
         <% if (updateSuccess && updateSuccess.length > 0) { %>

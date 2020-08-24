@@ -120,7 +120,7 @@ svg.back-icon:hover, svg.back-icon:active, .numquantity:hover, .numquantity:focu
 a.blog-board-link {
   color: #be0b2f;
 }
-.blue-text, a.link-text, .delete-button-label:hover, div.ql-editor.ql-blank::before {
+.blue-text, a.link-text, .delete-button-label:hover {
   color: #00008b;
 }
 .green-text, .valid-list, .win {
@@ -765,12 +765,17 @@ div.ql-snow div.ql-tooltip {
   scroll-behavior: smooth;
 }
 div.ql-editor {
-  text-align: center;
   overflow: hidden;
 }
 
 div.ql-snow .ql-stroke {
   stroke: #fff;
+}
+div.ql-snow #ql-picker-options-3 .ql-picker-item line.ql-stroke {
+  stroke: #343a40;
+}
+div.ql-snow #ql-picker-options-3 .ql-picker-item line.ql-stroke:hover, div.ql-snow #ql-picker-options-3 .ql-picker-item line.ql-stroke:active {
+  stroke: #00008b;
 }
 div.ql-snow .ql-fill, div.ql-snow .ql-stroke.ql-fill {
   fill: #fff;

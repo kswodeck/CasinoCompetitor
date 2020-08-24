@@ -19,7 +19,6 @@ if (document.getElementsByTagName('title')[0].innerText != 'Create New Post') {
 
 function renderTextHtml(htmlText, parentEl, user='false', sameCommenter='NA') {
   documentIsReady.then(() => {
-    console.log(htmlText);
     let el = parentEl;
     if (sameCommenter == 'NA' && user == 'true') {
       el = el.childNodes[0];
@@ -51,10 +50,9 @@ function enablePostEdit(user='false', elId='editor-container') {
       var quill = new Quill(editorId, {
         modules: {
           toolbar: [
-            [{header: [2, 3, 4, 5, 6, false]}, [{'size': ['small', false, 'large', 'huge']}]],
-            ['bold', 'italic', 'underline', 'strike', {'script': 'sub'}, {'script': 'super'}, 'link'],
-            ['blockquote', { 'indent': '+1'}, {'direction': 'rtl'}, {list: 'ordered'}, {list: 'bullet'}],
-            [{'color': []}, {'background': []}, {'align': []}, ['clean']]
+            [{header: [2, 3, 4, false]}],
+            ['bold', 'italic', 'underline', 'strike', {'script': 'sub'}, {'script': 'super'}, {'color': []}, {'background': []}, 'link'],
+            [{'align': []}, { 'indent': '+1'}, {list: 'ordered'}, {list: 'bullet'}, 'blockquote']
           ]
         },
         placeholder: placeholdText,
