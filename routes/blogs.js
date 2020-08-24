@@ -88,7 +88,7 @@ router.delete('/blog/:board/:id', helpers.isLoggedIn, (req, res) => {
     if (err || !post) {
       req.flash('error', err);
       res.redirect('/blog/' + req.params.board);
-    } else {
+    } else { 
       req.flash('deleteSuccess', 'Your post has been deleted');
       res.redirect('/blog/' + req.params.board + '?deleted=true');
     }

@@ -580,13 +580,13 @@ div.dropdown-menu {
 .postTextArea, #newPostTitle, #postTitle {
   border-radius: 5px;
 }
-#postTitle:disabled, #postTitle {
+#postTitle:disabled, #postTitle, #newPostTitle {
   color: #00008b;
 }
 #postTitle:disabled, #postTextArea:disabled {
   background: none;
 }
-#postTitle {
+#postTitle, #newPostTitle {
   border: none;
   font-weight: bold;
   max-width: 800px;
@@ -686,12 +686,16 @@ border-radius: .25rem;
 .dropdown-menu li:hover {
   background-color: #fff;
 }
-.ql-editor, #postTitle {
+.ql-editor, #postTitle, #newPostTitle {
   background-color: #ebedf1d9;
 }
 .ql-container.ql-snow .ql-editor blockquote {
   border-left: 4px solid #00008b;
 }
+div.ql-snow div.ql-tooltip {
+  transform: translateY(-20px);
+}
+
 #mainDropdownContent {
   margin-left: 2%;
   padding: 1% 0 1.5% 0;

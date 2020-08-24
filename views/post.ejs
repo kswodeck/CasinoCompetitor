@@ -2,12 +2,10 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   renderTextHtml('<%= post.body %>', document.getElementById('editor-container'), '<%= sameUser %>');
-  setTimeout(() => {
     let comments = document.getElementsByClassName('postCommentArea');
     for (let i = 0; i < comments.length; i++) {
       handleContent(null, comments[i]);
     }
-  }, 100);
 });
 </script>
 <div id="mid-container">
@@ -28,15 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
     <form action="/blog/<%= board %>/<%= post.id %>?_method=PUT" method="POST" id="postForm" class="postCommentForm">
       <div id="postFormDiv">
         <label for="postTitle" id="postTitleLabel" class="account-label"></label>
-        <input type="text" id="postTitle" class="lg-text post-heading postTextInput" name="postTitle" value="<%= post.title %>" minlength="2", maxlength="40" size="30" form="postForm" onkeydown="handleContent(event, this, '<%= sameUser %>')" autocomplete="off" required disabled>
+        <input type="text" id="postTitle" class="lg-text post-heading postTextInput" name="postTitle" value="<%= post.title %>" minlength="2", maxlength="40" size="30" form="postForm" onkeydown="handleContent(event, this, '<%= sameUser %>')" placeholder="Post Title" autocomplete="off" required disabled>
         <label for="postTextArea" id="postTextLabel" class="account-label"></label><br>
         <input type="hidden" id="textInput" name="postTextArea" form="postForm">
-        <% if (!sameUser) { %>
-        <textarea id="editor-container" class="postTextInput postTextArea" minlength="2" maxlength="50000" rows="1" cols="10" wrap="hard" disabled required></textarea>
-        <% } else { %>
-        <div id="editor-container" class="xs-text postTextArea postTextInput postEditor" onkeydown="handleContent(event, this, '<%= sameUser %>')">
-        </div>
-        <% } %>
+        <div id="editor-container" class="blue-text xs-text postTextArea postTextInput postEditor" onkeydown="handleContent(event, this, '<%= sameUser %>')"></div>
       </div>
       <ul id="invalid-post-list" class="invalid-fields-list">
         <% if (updateSuccess && updateSuccess.length > 0) { %>
@@ -74,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <input class="commentNumInput" value="<%= i %>" name="commentNum">
             <!-- <label for="commentTextInput<%= i %>" class="red-text sm-text account-label commentUser"><%= comment.username %></label><br> -->
             <!-- <input type="hidden" id="commentTextInput<%= i %>" name="commentTextArea" form="commentForm<%= i %>"> -->
-            <label for="commentTextArea<%= i %>" class="red-text sm-text account-label commentUser"><%= comment.username %></label><br>
+            <label for="commentTextArea<%= i %>" class="blue-text sm-text account-label commentUser"><%= comment.username %></label><br>
             <textarea id="commentTextArea<%= i %>" class="blue-text xs-text postCommentArea postCommentInput<%= i %> postTextArea" name="commentTextArea" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="commentForm<%= i %>" onkeydown="handleContent(event, this, 'false', this)" disabled required><%= comment.body %></textarea>
             <% if (currentUser && comment.username == currentUser.username) { %>
               <% let sameCommenter = true; %>
@@ -149,5 +142,9 @@ document.addEventListener('DOMContentLoaded', () => {
 <script defer>
   setTimeout(() => displayDialog('generalPostDialog', '<%= deleteComment %>'), 150);
 </script>
-<% } %>
+<% } else if (success && success.length > 0) { %>
+  <script defer>
+    setTimeout(() => displayDialog('generalPostDialog', '<%= success %>'), 150);
+  </script>
+  <% } %>
 <%- include('partials/commondialogs') %>
