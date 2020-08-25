@@ -151,10 +151,12 @@ router.get('/login', helpers.isLoggedOut, (req, res) => {
   res.render('prelogin', {pageTitle: 'Login'});
 });
 router.post('/login', helpers.isLoggedOut, passport.authenticate('local', {
-  successRedirect: '/?afterLogin=true',
+  successRedirect: '/?afterLogin=true', //may need to remove this and everything with afterLogin
   failureFlash: 'Incorrect username or password',
   failureRedirect: '/login'
-}));
+}), (req, res) => { //may want to put loginStreak and lastLogin calculations here
+  console.log("logged in");
+});
 router.get('/logout', helpers.isLoggedIn, (req, res) => {
   req.logout();
   req.flash('popup', true);
