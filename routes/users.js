@@ -155,7 +155,7 @@ router.post('/login', helpers.isLoggedOut, passport.authenticate('local', {
   failureFlash: 'Incorrect username or password',
   failureRedirect: '/login'
 }), (req, res) => { //may want to put loginStreak and lastLogin calculations here
-  console.log("logged in");
+  console.log("logged in"); //possibly use res.locals.${variablename} to pass varibles over to views. possible res.send or res.json will work also
 });
 router.get('/logout', helpers.isLoggedIn, (req, res) => {
   req.logout();
