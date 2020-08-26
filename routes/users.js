@@ -97,7 +97,7 @@ router.get('/leaderboard', helpers.isLoggedIn, (req, res) => {
               return res.status(204).send(); // return the same url the user come from
             }
             var i = cur, j = cur; //initialize incrementing variables according to the corresponding page
-            while (j < cur+100 && i < allUsers.lengt && j < users.length) { // sorts and ranks the searched leaderboard
+            while (j < cur+100 && i < allUsers.length && j < users.length) { // sorts and ranks the searched leaderboard
               let allId = allUsers[i]._id.toString(), usersId = users[j]._id.toString(); //converts user ids to strings
               if (usersId == allId) { //only store users that exist and were searched and found
                 pageUsers.push(users[j]); //store found users onto page
@@ -151,7 +151,7 @@ router.get('/login', helpers.isLoggedOut, (req, res) => {
   res.render('prelogin', {pageTitle: 'Login'});
 });
 router.post('/login', helpers.isLoggedOut, passport.authenticate('local', {
-  successRedirect: '/?afterLogin=true', //may need to remove this and everything with afterLogin
+  successRedirect: '/?afterLogin=true', //need to remove this and everything with afterLogin. can't access req, res with this here
   failureFlash: 'Incorrect username or password',
   failureRedirect: '/login'
 }), (req, res) => { //may want to put loginStreak and lastLogin calculations here

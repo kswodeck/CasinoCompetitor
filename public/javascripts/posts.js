@@ -1,6 +1,3 @@
-import './common.js';
-
-// const postTextArea = document.getElementById('postTextArea');
 var documentIsReady = new Promise(resolve => {
   document.onreadystatechange = function () {
     if (document.readyState == "complete") {
@@ -9,6 +6,7 @@ var documentIsReady = new Promise(resolve => {
   };
 });
 
+const postTextArea = document.getElementById('postTextArea');
 var postTitle = document.getElementById('postTitle');
 var postTextArea = document.getElementById('editor-container');
 if (document.getElementsByTagName('title')[0].innerText != 'Create New Post') {

@@ -932,7 +932,7 @@ dialog.account-dialog {
   text-align: left;
 }
 
-.login-heading, #dice-clear-tally-row, #header {
+.login-heading, #dice-clear-tally-row, #header, #confirmHeading {
   margin: 0 auto 1.5% auto;
 }
 .exit-dialog-button {
@@ -1099,7 +1099,7 @@ dialog::-webkit-backdrop, div.backdrop, dialog::backdrop {
   right: 0px;
   bottom: 0px;
   left: 0px;
-  background: #0000001a;
+  background: #0000004d;
 }
 
 /* Animations */

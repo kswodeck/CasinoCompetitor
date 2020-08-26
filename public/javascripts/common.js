@@ -177,6 +177,9 @@ function displayDialog(dialog, message=false) {
         curDialog.style.cssText = '';
         backdrop.style.cssText = '';
       }
+      if (pageTitle.innerText == 'My Account') {
+        container.style.display = 'none';
+      }
     } else {
       console.log('The <dialog> API is not supported by this browser');
     }
