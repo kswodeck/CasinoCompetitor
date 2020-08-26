@@ -1,4 +1,12 @@
 /* refactored 8/3/2020 */
+var documentIsReady = new Promise(resolve => {
+  document.onreadystatechange = function () {
+    if (document.readyState == "complete") {
+      resolve(5);
+    }
+  };
+});
+
 import {badWords} from '/javascripts/words.js';
 const container = document.getElementById('mid-container');
 const pageTitle = document.getElementsByTagName('title')[0];
@@ -7,7 +15,6 @@ const mainDropdown = document.getElementById('mainDropdown');
 const backdrop = document.getElementsByClassName('backdrop')[0];
 const loginDialog = document.getElementById('loginDialog');
 const invalidList = document.getElementById('invalid-fields-list');
-const avatarImage = document.getElementById('profileImage');
 const createAccountNames = ['firstName', 'lastName', 'email', 'username', 'password', 'newpassword', 'birthday', 'phone'];
 const accountNames = ['firstName', 'lastName', 'email', 'username', 'birthday', 'phone'];
 const loginNames = ['username', 'password'];
@@ -21,7 +28,10 @@ if (pageTitle.innerText == 'My Account') {
   var birthdayValue = accountInputs[4].value;
   var phoneValue = accountInputs[5].value;
   var imageValue = accountInputs[6].value;
-  setTimeout(() => highlightUserAvatar(), 200);
+  var avatarImage = document.getElementById('profileImage');
+  documentIsReady.then(() => {
+    selectAvatar(avatarImage);
+  });
 }
 
 function restoreContainer() {
@@ -202,7 +212,7 @@ function displayStreakDialog(streak){
   loginCoinSpan.innerText = `You earned ${streak*10} `;
 }
 
-function toggleHamburger(dropdown) {
+function toggleHamburger() {
   hamContent.classList.toggle('collapse');
   hamContent.classList.toggle('show');
   mainDropdown.classList.toggle('collapse');
@@ -223,6 +233,7 @@ function validateAccountCreate() {
 function validateAccountUpdate() {
   let values = [accountInputs[0].value, accountInputs[1].value, accountInputs[2].value, accountInputs[3].value, accountInputs[4].value, accountInputs[5].value];
   const item = document.createElement('li');
+  clearValidityMessages();
   if (values[0] == firstNameValue && values[1] == lastNameValue && values[2] == emailValue && values[3] == usernameValue &&
     values[4] == birthdayValue && values[5] == phoneValue && accountInputs[6].value == imageValue) {
       item.className = 'invalid-list';
@@ -343,7 +354,6 @@ function validateInputs(invalidList, inputs, button, disableTime=1000, names=[],
     } else if (inputs[i].tagName == 'DIV' && inputs[i].className.includes('postEditor')) {
       isProfane = checkProfanity(inputs[i].innerHTML);
     }
-    inputs[i].style.borderWidth = '0.06em';
   }
   storeValues(names, values);
   if (empty) {
@@ -362,103 +372,102 @@ function emailIsValid(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-function checkProfanity(word) {
-  for (let i = 0; i < badWords.length; i++) { //imported badWords from words.js
-    if (word.includes(badWords[i])) {
-      return badWords[i];
+function checkProfanity(text) {
+  for (let i = 0; i < badWords.length; i++) { //goes through imported badWords string array from words.js
+    if (text.includes(badWords[i])) { // if text includes any of the defined profanities
+      return badWords[i]; // returns the first profane word that was found (return is now truthy)
     }
   }
-  return false;
+  return false; //return false (falsey) if no profanities are within the text.
 }
 
-function disableAfterSubmit(button, time=1000) {
-  let element = document.getElementById(button);
-  setTimeout(() => element.disabled = true, 50);
-  setTimeout(() => element.disabled = false, time);
+function disableAfterSubmit(elId, time=1000) {
+  let el = document.getElementById(elId);
+  setTimeout(() => el.disabled = true, 50); //disable button before another click/interactiion can be made
+  setTimeout(() => el.disabled = false, time); //re-enable button (after 1000 ms is default)
 }
 
 function removeWhiteSpace(inputs) {
-  for (let i = 0; i < inputs.length; i++) {
-    let inputType = inputs[i].getAttribute('type');
-    while (inputs[i].value.startsWith(' ') && inputType != 'password') {
-      inputs[i].value = inputs[i].value.substr(1);
+  for (let i = 0; i < inputs.length; i++) { //goes through all inputs that were passed in
+    let inputType = inputs[i].getAttribute('type'); //input type = password will not recieve white space trimming
+    while (inputs[i].value.startsWith(' ') && inputType != 'password') { //detects if the 1st char is a space until no spaces remain
+      inputs[i].value = inputs[i].value.substr(1); //removes the space and sets new input value
     }
-    while (inputs[i].value.endsWith(' ') && inputType != 'password') {
-      inputs[i].value = inputs[i].value.replace(inputs[i].value.slice(-1),'');
-    }
-  }
-}
-
-function storeValues(inputs=[], values=[]) {
-  for (let i = 0; i < values.length; i++) {
-    if (localStorage.getItem(inputs[i])) {
-      localStorage.removeItem(inputs[i]);
-    }
-    localStorage.setItem(inputs[i], values[i]);
-  }
-}
-
-function getFormValues(selector, names) {
-  if (localStorage.length > 0) {
-    const inputs = document.getElementsByClassName(selector);
-    for (let i = 0; i < inputs.length; i++) {
-      let storedVal = localStorage.getItem(names[i]);
-      if (storedVal != null && storedVal != undefined) inputs[i].value = storedVal;
+    while (inputs[i].value.endsWith(' ') && inputType != 'password') { //detects if the last char is a space until no spaces remain
+      inputs[i].value = inputs[i].value.replace(inputs[i].value.slice(-1),''); //removes the space and sets new input value
     }
   }
 }
 
-function addToInvalidList(str, el, invalidList) {
-  const item = document.createElement('li');
-  item.className = 'invalid-list';
-  item.innerText = str;
-  invalidList.appendChild(item);
-  el.style.borderWidth = '0.06em';
+function storeValues(inputs=[], values=[]) { //for storing user's input values into local storage to use later
+  for (let i = 0; i < values.length; i++) { //goes through all input array values that were passed in
+    if (localStorage.getItem(inputs[i])) { //if the input already exists
+      localStorage.removeItem(inputs[i]); //remove it and its value from local storage
+    }
+    localStorage.setItem(inputs[i], values[i]); //set the new value for the input in local storage
+  }
+}
+
+function getFormValues(selector, names) { //retrieving input values from local storage and setting as default form values
+  if (localStorage.length > 0) { //goes through local storage
+    const inputs = document.getElementsByClassName(selector); //gets inputs based on passed class name selector
+    for (let i = 0; i < inputs.length; i++) { //goes through inputs
+      let storedVal = localStorage.getItem(names[i]); //retrieves values of inputs in local storage based on passed names
+      if (storedVal != null && storedVal != undefined) inputs[i].value = storedVal; //if a value exists set it for the form input
+    }
+  }
+}
+
+function addToInvalidList(msg, el, list) { //for showing that an input was invalid (failed validatity check)
+  const item = document.createElement('li'); //create a list item
+  item.className = 'invalid-list'; //list item has "invalid"/red styling
+  item.innerText = msg; //set the list item message as the passed msg
+  list.appendChild(item); //add the list item to the passed invalid list
+  el.style.borderWidth = '0.06em'; //give the invalid input a thicker border
 }
 
 function clearValidityMessages() {
   let invalidMessages = document.getElementsByClassName('invalid-list');
   let validMessages = document.getElementsByClassName('valid-list');
-  while(invalidMessages.length > 0) {
-    invalidMessages[0].remove();
+  while (invalidMessages.length > 0) {
+    invalidMessages[0].remove(); // clear all negative messages
   }
-  while(validMessages.length > 0) {
-    validMessages[0].remove();
+  while (validMessages.length > 0) {
+    validMessages[0].remove(); // clear all postive message
   }
 }
 
-function forceNumeric(evt, type) {
+function forceNumeric(evt, type) { //stops non numeric chars from being used, requiring numbers
   let key;
   let theEvent = evt || window.event;
-  if (theEvent.type === 'paste') { // Handle paste
-    key = theEvent.clipboardData.getData('text/plain');
+  if (theEvent.type === 'paste') { // Handle paste if a paste occured
+    key = theEvent.clipboardData.getData('text/plain'); // store pasted data as key
   } else {
     key = theEvent.keyCode || theEvent.which; // Handle key press
-    key = String.fromCharCode(key);
+    key = String.fromCharCode(key); // store typed data as key
   }
-  var regex = /[0-9]/;
-  if(!regex.test(key) || isNaN(key)) {
-    theEvent.returnValue = false;
-    theEvent.preventDefault();
+  var regex = /[0-9]/; //numeric regex
+  if (!regex.test(key) || isNaN(key)) { //if key fails regex numeric test or is not a number
+    theEvent.returnValue = false; //don't return the value of the key
+    theEvent.preventDefault(); //prevent input
     return false;
   }
 }
 
-function selectAvatar(avatar) {
-  avatarImage.value = avatar.name;
-  const avatars = document.getElementsByClassName('avatarButton');
-  for (i = 0; i < avatars.length; i++) {
-    avatars[i].classList.remove('avatarBorder');
+function selectAvatar(avatar=avatarImage) { //for styling of selected avatar in my account or register pages
+  if (avatar == avatarImage) {
+    avatar = document.querySelector('.avatarButton[name=' + avatarImage.value + ']');
+  } else {
+    avatarImage.value = avatar.name;
   }
-  avatar.classList.add('avatarBorder');
+  const avatars = document.getElementsByClassName('avatarButton');
+  for (let i = 0; i < avatars.length; i++) {
+    avatars[i].classList.remove('avatarBorder'); //remove styling of previously selected avatar
+  }
+  avatar.classList.add('avatarBorder'); //add styling for newly selected avatar
 }
 
-function highlightUserAvatar() {
-  let avatarValue = ".avatarButton[name=" + avatarImage.value + "]";
-  document.querySelector(avatarValue).classList.add('avatarBorder');
-}
-
-function sendForgotPWEmail(email, id, username) {
+function sendForgotPWEmail(email, id, username) { //emails don't go to yahoo and likely others
   let link = window.location.origin + '/forgotpass/' + id;
   Email.send({
     Host : "smtp.elasticemail.com",
@@ -467,7 +476,7 @@ function sendForgotPWEmail(email, id, username) {
     To : email,
     From : "kmswodeck@gmail.com",
     Subject : "Forgotten Password Recovery",
-    Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 280px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: #be0b2f; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><p>Hi <strong>' + username + '!</strong> You requested to recover a misplaced password<br>Click the link below to create a new password for your account</p><a style="color: darkblue; font-size: 20px" href="' + link + '">Create New Password</a></div></html>'
+    Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 300px; max-width: 1000px; padding: 3% 0; margin: auto"><h1 style="color: #be0b2f; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><p>Hi <strong>' + username + '!</strong> You requested to recover a misplaced password<br>Click the link below to create a new password for your account</p><a style="color: darkblue; font-size: 20px" href="' + link + '">Create New Password</a></div></html>'
   });
 }
 
@@ -483,7 +492,7 @@ function sendContactEmail() {
     To : "kristofferswodeck@live.com",
     From : "kmswodeck@gmail.com",
     Subject : "Contact Us Submission - " + subject,
-    Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 280px; max-width: 800px; padding: 3% 0; margin: auto"><h1 style="color: #be0b2f; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><h3 style="color: darkblue; font-size: 20px; margin-bottom: 10px">From: ' + name + ' (' + email + ')</h3><p>You received a new contact us form submission:<br>' + '"' + text + '"' + '</p></div></html>'
+    Body : '<html><div style="text-align: center; background-color: #D1D7E5; width: 70%; min-width: 300px; max-width: 1000px; padding: 3% 0; margin: auto"><h1 style="color: #be0b2f; font-size: 28px; margin-bottom: 25px">Casino Competitor</h1><h3 style="color: darkblue; font-size: 20px; margin-bottom: 10px">From: ' + name + ' (' + email + ')</h3><p>You received a new contact us form submission:<br>' + '"' + text + '"' + '</p></div></html>'
   }).then(() => document.getElementById('contactUsForm').submit());
 }
 
