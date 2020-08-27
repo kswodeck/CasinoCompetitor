@@ -8,47 +8,49 @@ const express  = require('express'),
 
 // account, authentication, and routes only for logged in users
 router.get('/', (req, res) => {
-  var afterLogin, changedLastLogin;
-  if (req.query.afterLogin) {
-    afterLogin = req.query.afterLogin;
-  } else {
-    afterLogin = false;
-  }
-  if (req.user && afterLogin) {
-    let adjYesDate = new Date(moment().subtract(1, 'days').format());
-    let yesterday = helpers.formatDate(adjYesDate);
-    let current = new Date(helpers.getCurrentDate());
-    let today = helpers.formatDate(current);
-    let last = new Date(req.user.lastLogin);
-    let lastLoginDate = helpers.formatDate(last);
-    let newStreak = 1;
-    let addCoins = newStreak*10;
-    let newCoins = req.user.coins + addCoins;
-    if (yesterday == lastLoginDate) {
-      newStreak = req.user.loginStreak + 1;
-      addCoins = newStreak*10;
-      newCoins = req.user.coins + addCoins;
-      changedLastLogin = false;
-    } else if (today == lastLoginDate) {
-      newCoins = req.user.coins;
-      changedLastLogin = true;
-    } else {
-      changedLastLogin = false;
-    }
-    if (changedLastLogin) {
-      User.findOneAndUpdate({_id: req.user._id}, {$set: {lastLogin: current}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
-    } else if (!changedLastLogin){
-      User.findOneAndUpdate({_id: req.user._id}, {$set: {loginStreak: newStreak, lastLogin: current, coins: newCoins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
-    }
-    res.render('index', {pageTitle: 'Casino Competitor', loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins});
-  } else {
-    let streak, coins;
-    if (req.user) {
-      streak = req.user.loginStreak;
-      coins = req.user.coins;
-    }
-    res.render('index', {pageTitle: 'Casino Competitor', loggedInToday: true, streak: streak, coins: coins});
-  }
+  // var afterLogin, changedLastLogin;
+  // if (req.query.afterLogin) {
+  //   afterLogin = req.query.afterLogin;
+  // } else {
+  //   afterLogin = false;
+  // }
+  // if (req.user && afterLogin) {
+  //   let adjYesDate = new Date(moment().subtract(1, 'days').format());
+  //   let yesterday = helpers.formatDate(adjYesDate);
+  //   let current = new Date(helpers.getCurrentDate());
+  //   let today = helpers.formatDate(current);
+  //   let last = new Date(req.user.lastLogin);
+  //   let lastLoginDate = helpers.formatDate(last);
+  //   let newStreak = 1;
+  //   let addCoins = newStreak*10;
+  //   let newCoins = req.user.coins + addCoins;
+  //   if (yesterday == lastLoginDate) {
+  //     newStreak = req.user.loginStreak + 1;
+  //     addCoins = newStreak*10;
+  //     newCoins = req.user.coins + addCoins;
+  //     changedLastLogin = false;
+  //   } else if (today == lastLoginDate) {
+  //     newCoins = req.user.coins;
+  //     changedLastLogin = true;
+  //   } else {
+  //     changedLastLogin = false;
+  //   }
+  //   if (changedLastLogin) {
+  //     User.findOneAndUpdate({_id: req.user._id}, {$set: {lastLogin: current}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
+  //   } else if (!changedLastLogin){
+  //     User.findOneAndUpdate({_id: req.user._id}, {$set: {loginStreak: newStreak, lastLogin: current, coins: newCoins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
+  //   }
+  //   res.render('index', {pageTitle: 'Casino Competitor', loggedInToday: changedLastLogin, streak: newStreak, coins: newCoins});
+  // } else {
+  //   let streak, coins;
+  //   if (req.user) {
+  //     streak = req.user.loginStreak;
+  //     coins = req.user.coins;
+  //   }
+  //   res.render('index', {pageTitle: 'Casino Competitor', loggedInToday: true, streak: streak, coins: coins});
+  // }
+  console.log('in index');
+  res.render('index', {pageTitle: 'Casino Competitor'});
 });
 
 router.get('/cards', helpers.isLoggedIn, (req, res) => {
@@ -151,12 +153,40 @@ router.get('/login', helpers.isLoggedOut, (req, res) => {
   res.render('prelogin', {pageTitle: 'Login'});
 });
 router.post('/login', helpers.isLoggedOut, passport.authenticate('local', {
-  successRedirect: '/?afterLogin=true', //need to remove this and everything with afterLogin. can't access req, res with this here
+  // successRedirect: '/?afterLogin=true', //need to remove this and everything with afterLogin. can't access req, res with this here
   failureFlash: 'Incorrect username or password',
   failureRedirect: '/login'
 }), (req, res) => { //may want to put loginStreak and lastLogin calculations here
   console.log("logged in"); //possibly use res.locals.${variablename} to pass varibles over to views. possible res.send or res.json will work also
-});
+  let streak = req.user.loginStreak, coins = req.user.coins, loggedInToday = true;
+  let adjYesDate = new Date(moment().subtract(1, 'days').format());
+  let yesterday = helpers.formatDate(adjYesDate);
+  let current = new Date(helpers.getCurrentDate());
+  let today = helpers.formatDate(current);
+  let last = new Date(req.user.lastLogin);
+  let lastLoginDate = helpers.formatDate(last);
+  if (today == lastLoginDate) {
+    loggedInToday = true;
+  } else {
+    if (yesterday == lastLoginDate) {
+      streak = req.user.loginStreak + 1;
+      coins = req.user.coins + (streak*10);
+    } else {
+      streak = 1;
+      coins = req.user.coins + 10;
+    }
+    loggedInToday = false;
+  }
+    User.findOneAndUpdate({_id: req.user._id}, {$set: {loginStreak: streak, lastLogin: current, coins: coins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (err, user) => {
+    // res.locals.loggedInToday = loggedInToday; //final problem is sending loggedInToday to the client side
+    // console.log(res.locals.loggedInToday);
+    console.log(res.locals);
+    // res.render('index', {pageTitle: 'Casino Competitor'});
+    // req.flash('loggedInToday', loggedInToday);
+    res.redirect('#');
+    });
+  });
+
 router.get('/logout', helpers.isLoggedIn, (req, res) => {
   req.logout();
   req.flash('popup', true);

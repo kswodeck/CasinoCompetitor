@@ -113,3 +113,28 @@
         </div>
       </nav>
     </header>
+    <dialog id="loginStreakDialog" class="account-form-div account-dialog">
+      <div class ="exit-button-div">
+        <button id="streakDialogExit" class="exit-dialog-button md-text" role="button" onclick="window.location.reload()">✖</button>
+      </div>
+        <b id="streakHeading" class="blue-text md-text"></b><br>
+        <b id="login-streak-win" class="red-text md-text"></b><img loading="lazy" alt="coins" id="loginStreakCoinImg" class="coins-img" src="images/coins.webp"><br>
+        <b class="coins-streak blue-text md-text">Keep up the streak!</b>
+    </dialog>
+    <% if (currentUser && !loggedInToday) { %>
+      <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+          console.log('<%= loggedInToday %>');
+          displayStreakDialog('<%= currentUser.loginStreak %>');
+          // var uri = window.location.toString();
+          // if (uri.indexOf("?") > 0) {
+          //   var clean_uri = uri.substring(0, uri.indexOf("?"));
+          //   window.history.replaceState({}, document.title, clean_uri);
+          // }
+        });
+      </script>
+      <% } else { %>
+        <script>
+          console.log('<%= loggedInToday %>');
+        </script>
+        <% } %>

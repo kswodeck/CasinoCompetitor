@@ -204,6 +204,7 @@ function displayStreakDialog(streak){
         window.location.reload();
       }
     }, 10000);
+    container.style.display = 'none';
   } else {
     console.log('The <dialog> API is not supported by this browser');
   }
