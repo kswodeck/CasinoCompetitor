@@ -1,7 +1,7 @@
 const moment   = require('moment');
 
-function getLocalNoonDate(date) { //used to assume birthday times
-  let adjustedTime = 12 + (moment().utcOffset()/60); //makes the date time 12
+function getLocalNoonDate(date) { //used to assume birthday times are at 12 noon of the user's time zone
+  let adjustedTime = 12 + (moment().utcOffset()/60);
   let inputDate = date + ' ' + adjustedTime + ':00';
   return moment().format(inputDate);
 }

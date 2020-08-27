@@ -50,7 +50,8 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => { //set local variables
   res.locals.currentUser = req.user;
   // res.locals.loggedInToday = true;
-  // res.locals.loggedInToday = req.flash('loggedInToday');
+  res.locals.logIn = req.flash('logIn');
+  res.locals.loggedInToday = req.flash('loggedInToday');
   res.locals.error = req.flash('error');
   res.locals.success = req.flash('success');
   res.locals.invalidUser = req.flash('invalidUser');
