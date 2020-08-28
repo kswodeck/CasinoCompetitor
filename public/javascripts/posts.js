@@ -72,10 +72,10 @@ function enablePostEdit(user='false', elId='editor-container') {
 function handleContent(evt=null, el=postTextArea, user='false', input1=postTextArea, input2=postTitle) {
   if (evt && evt.code == 'Tab' && el != postTitle) {
     if (el.type == 'textarea') {
-      if (el.getAttribute('id').includes('add')) {
+      if (el.getAttribute('id').includes('add')) { //these don't work for tabbing to addComment buttons
         document.getElementById('addCommentButton').focus();
       } else {
-        let idAtt = el.getAttribute('id');
+        let idAtt = el.getAttribute('id'); //these don't work for tabbing to update Buttons
         document.getElementById('commentButton' + idAtt.slice(idAtt.length-1)).focus();
       }
     } else {
