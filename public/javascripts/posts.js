@@ -10,7 +10,7 @@ var postTitle = document.getElementById('postTitle');
 var postTextArea = document.getElementById('editor-container');
 if (document.getElementsByTagName('title')[0].innerText != 'Create New Post') {
   var editPostButton = document.getElementById('editPostButton');
-  var postTextVal; //.value
+  var postTextVal;
   var postTitleVal;
 }
 
@@ -89,7 +89,7 @@ function handleContent(evt=null, el=postTextArea, user='false', input1=postTextA
   setTimeout(() => {
     el.style.height = 'auto';
     el.style.height = el.scrollHeight + 'px';
-    if (user != 'new' && user != 'false') { //these are not working well, staying disabled on posttextarea
+    if (user != 'new' && user != 'false') {
       if ((postTextVal == input1.childNodes[0].innerHTML && postTitleVal == input2.value) ||
       (document.querySelector('#editor-container > div.ql-editor').innerText.length < 10 || !input2.value)) {
       editPostButton.disabled = true;
