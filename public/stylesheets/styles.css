@@ -26,8 +26,8 @@ input, button {
   font-family: "Georgia", "Verdana", "Times New Roman";
 }
 ::-webkit-scrollbar {
-  width: calc(5px + 0.1vw + 0.05vh);
-  height: calc(5px + 0.05vw + 0.1vh);
+  width: calc(5px + 0.12vw);
+  height: calc(5px + 0.12vh);
 }
 ::-webkit-scrollbar-thumb, ::-webkit-scrollbar, #header, div.dropdown-menu, .ql-toolbar.ql-snow {
   background-color: #343a40;
@@ -789,8 +789,8 @@ div.ql-snow .ql-picker.ql-header .ql-picker-item::before {
 
 #postDeleteButton {
   visibility: hidden;
-  height: calc(35px + .75vw);
-  width: calc(45px + .1vw + .5vh);
+  height: calc(35px + .4vh + .0.8vw);
+  width: calc(45px + .1vh + .5vw);
 }
 #postDeleteButton, .delete-button-label, .comment-delete-button {
   visibility: hidden;
@@ -1003,7 +1003,7 @@ button.back-arrow, #user-coins-img {
   border: 1px solid lightsteelblue;
   border-radius: 2px;
 }
-#leaderboard-table, #board-table {
+#leaderboard-table, #board-table, #editor-container {
   width: 100%;
 }
 .leaderboard-head, .leaderboard-cell, #leaderboard-table, #user-post-div {
@@ -1069,10 +1069,10 @@ dialog {
 }
 
 dialog.md-dialog, #SignUpDiv {
-  width: calc(270px + 6vw + 1.5vh);
+  width: calc(230px + 7vw);
 }
 dialog.sm-dialog {
-  width: calc(140px + 4vw + 1vh);
+  width: calc(140px + 5vw);
 }
 
 #go-button-link:hover{

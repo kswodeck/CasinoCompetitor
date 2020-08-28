@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
       streak = 1;
       loggedInToday = false;
     }
-    console.log('These logs are important if kswodeck2 is logging in on 8/29');
+    console.log('These logs are important if kswodeck2 is logging in on 8/29. streak should be 1');
     console.log("otherwise don't login with kswodeck2 until 8/29");
     console.log('lastLoginDate:', lastLoginDate);
     console.log('streak:', streak);

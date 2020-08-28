@@ -341,37 +341,45 @@ function validateInputs(invalidList, inputs, button, disableTime=1000, names=[],
   let validity = true;
   let empty = false;
   let isProfane = false;
+  let affectedInput = inputs[inputs.length-1];
   for (let i = 0; i < inputs.length; i++) {
+    inputs[i].style.cssText = '';
     if (inputs[i].tagName != 'DIV' && !inputs[i].checkValidity()) {
       if (!inputs[i].value) {
         empty = true;
       }
+      inputs[i].style.borderColor = '#be0b2f';
+      affectedInput = inputs[i];
       validity = false;
     } else if (inputs[i].tagName != 'DIV' && inputs[i].type == 'email') {
       if (!emailIsValid(inputs[i].value)) {
-        inputs[i].style.borderColor = '#be0b2f';
+        affectedInput = inputs[i];
         validity = false;
       }
     } else if ((inputs[i].getAttribute('id').includes('sername') && pageTitle.innerText.includes('Account'))
-    || inputs[i].type == 'textarea' || inputs[i].getAttribute('id').includes('ostTitle') && !isProfane) {
+    || (inputs[i].type == 'textarea' || inputs[i].getAttribute('id').includes('ostTitle')) && !isProfane) {
       isProfane = checkProfanity(inputs[i].value);
-    } else if (inputs[i].tagName == 'DIV' && inputs[i].className.includes('postEditor')) {
+      if (isProfane) {
+        affectedInput = inputs[i];
+      }
+    } else if (inputs[i].tagName == 'DIV' && inputs[i].className.includes('postEditor') && !isProfane) {
       isProfane = checkProfanity(inputs[i].innerHTML);
     }
   }
   storeValues(names, values);
   if (empty) {
-    addToInvalidList('* please fill out all fields', inputs[inputs.length-1], invalidList);
+    addToInvalidList('* please fill out all fields', affectedInput, invalidList);
     return false;
   } else if (!validity) {
-    addToInvalidList('* all fields must be valid', inputs[inputs.length-1], invalidList);
+    addToInvalidList('* all fields must be valid', affectedInput, invalidList);
     return false;
   } else if (isProfane) {
-    addToInvalidList("* Please don't use profanity: " + isProfane, inputs[inputs.length-1], invalidList);
+    addToInvalidList("* Please don't use profanity: " + isProfane, affectedInput, invalidList);
     return false;
   }
   return validity;
 }
+
 function emailIsValid(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
@@ -427,7 +435,7 @@ function addToInvalidList(msg, el, list) { //for showing that an input was inval
   item.className = 'invalid-list'; //list item has "invalid"/red styling
   item.innerText = msg; //set the list item message as the passed msg
   list.appendChild(item); //add the list item to the passed invalid list
-  el.style.borderWidth = '0.06em'; //give the invalid input a thicker border
+  el.style.border = '0.06em solid #be0b2f'; //give the invalid input a thicker border
 }
 
 function clearValidityMessages() {

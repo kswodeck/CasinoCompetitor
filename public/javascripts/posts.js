@@ -6,14 +6,20 @@ var documentIsReady = new Promise(resolve => {
   };
 });
 
-const postTextArea = document.getElementById('postTextArea');
 var postTitle = document.getElementById('postTitle');
 var postTextArea = document.getElementById('editor-container');
 if (document.getElementsByTagName('title')[0].innerText != 'Create New Post') {
   var editPostButton = document.getElementById('editPostButton');
-  var postTextVal = postTextArea.innerText; //.value
-  var postTitleVal = postTitle.value;
-  }
+  var postTextVal; //.value
+  var postTitleVal;
+  documentIsReady.then(() => {
+    setTimeout(() => {
+      postTitleVal = postTitle.value;
+      postTextVal = postTextArea.innerText;
+      editPostButton.disabled = true;
+    }, 500);
+  })
+}
 
 function renderTextHtml(htmlText, parentEl, user='false', sameCommenter='NA') {
   documentIsReady.then(() => {
@@ -45,7 +51,7 @@ function enablePostEdit(user='false', elId='editor-container') {
     postTitle.disabled = false;
   }
   if (user !='false') {
-      var quill = new Quill(editorId, {
+      new Quill(editorId, {
         modules: {
           toolbar: [
             [{header: [2, 3, 4, false]}],
@@ -73,12 +79,19 @@ function handleContent(evt=null, el=postTextArea, user='false', input1=postTextA
     if (evt && theEvent.code != 'Tab') {
       el.focus();
     }
-    if (user != 'new' && user != 'false') {
-      if (postTextVal == input1.innerText && postTitleVal ==  input2.value) {
+    if (user != 'new' && user != 'false') { //these are not working well, staying disabled on posttextarea
+      if ((postTextVal == input1.innerText && postTitleVal == input2.value) ||
+        (document.querySelector('#editor-container > div.ql-editor').innerText.length < 10 || !input2.value)) {
         editPostButton.disabled = true;
-      } else if (postTextVal != input1.innerText || postTitleVal !=  input2.value) {
+      } else if ((postTextVal != input1.innerText && ((!!input2.value) && postTitleVal != input2.value)) &&
+      document.querySelector('#editor-container > div.ql-editor').innerText.length > 9) {
         editPostButton.disabled = false;
       }
+      console.log(postTextVal);
+      console.log(input1.innerText);
+      console.log(postTitleVal);
+      console.log(input2.value);
+      console.log(document.querySelector('#editor-container > div.ql-editor').innerText.length);
     }
   }, 100);
 }
