@@ -11,7 +11,7 @@
         <input type="text" id="newPostTitle" class="lg-text post-heading blue-text postTextInput" name="newPostTitle" minlength="2" maxlength="40" placeholder="Post Title" size="30" form="newPostForm"  autocomplete="off" required>
         <label for="newPostText" id="postTextLabel" class="account-label"></label><br>
         <input type="hidden" id="textInput" name="newPostText" form="newPostForm">
-        <div id="editor-container" class="xs-text postTextArea postTextInput postEditor" onkeydown="handleContent(event, this, 'new')"></div>
+        <div id="editor-container" class="postTextArea postTextInput postEditor" onkeydown="handleContent(event, this, 'new')"></div>
         <ul id="invalid-post-list" class="invalid-fields-list"></ul>
         <button type="submit" role="button" name="create-post" onclick="return validateInputs(document.getElementById('invalid-post-list'), document.getElementsByClassName('postTextInput'), 'createPostButton', 800)" class="btn md-text blue-bg gold-text btn-style account-button" id="createPostButton" form="newPostForm">Create Post</button>
       </div>

@@ -552,6 +552,7 @@ div.dropdown-menu {
 #postFormDiv, #addCommentDiv, .postCommentArea:disabled {
   display: inline-block;
   background: #dce1ebd9;
+  color: #000;
 }
 #postFormDiv {
   max-width: 1100px;
@@ -767,6 +768,10 @@ div.ql-snow div.ql-tooltip {
 div.ql-editor {
   overflow: hidden;
 }
+#editor-container, .addCommentInput, .postCommentArea {
+  font-size: 13px;
+  font-family: Helvetica ,Arial, sans-serif;
+}
 
 div.ql-snow .ql-stroke {
   stroke: #fff;
@@ -825,7 +830,7 @@ div.ql-snow .ql-picker.ql-header .ql-picker-item::before {
   margin: 5px auto 0 auto;
 }
 .placeholderPassword {
-  margin-left: calc(13px + 0.6vw);
+  margin-left: calc(16px + 0.6vw);
 }
 .user-input {
   font-size: calc(11px + 0.3vw);

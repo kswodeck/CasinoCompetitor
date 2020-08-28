@@ -49,7 +49,7 @@
 <% } else if (currentUser && !loggedInToday) { %>
 <script>
   window.addEventListener('DOMContentLoaded', (event) => {
-    displayStreakDialog('<%= currentUser.loginStreak %>');
+    displayStreakDialog('<%= streak %>');
     var uri = window.location.toString();
     if (uri.indexOf("?") > 0) {
       var clean_uri = uri.substring(0, uri.indexOf("?"));

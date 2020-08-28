@@ -104,7 +104,7 @@ router.post('/blog/:board/:id', (req, res) => {
       console.log(err);
       res.redirect('/blog/' + req.params.board);
     } else {
-      Comment.create({username: post.username, body: req.body.addCommentTextArea}, (err, comment) => {
+      Comment.create({username: req.user.username, body: req.body.addCommentTextArea}, (err, comment) => {
         if (err || !comment) {
           console.log(err);
         } else {

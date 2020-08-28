@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <input type="text" id="postTitle" class="lg-text post-heading postTextInput" name="postTitle" value="<%= post.title %>" minlength="2", maxlength="40" size="30" form="postForm" onkeydown="handleContent(event, this, '<%= sameUser %>')" placeholder="Post Title" autocomplete="off" required disabled>
         <label for="postTextArea" id="postTextLabel" class="account-label"></label><br>
         <input type="hidden" id="textInput" name="postTextArea" form="postForm">
-        <div id="editor-container" class="xs-text postTextArea postTextInput postEditor" onkeydown="handleContent(event, this, '<%= sameUser %>')"></div>
+        <div id="editor-container" class="postTextArea postTextInput postEditor" onkeydown="handleContent(event, this, '<%= sameUser %>')"></div>
       </div>
       <ul id="invalid-post-list" class="invalid-fields-list">
         <% if (updateSuccess && updateSuccess.length > 0) { %>
@@ -65,10 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <form action="/blog/<%= board %>/<%= post.id %>/<%= i %>?_method=PUT" method="POST" id="commentForm<%= i %>" class="postCommentForm">
           <div class="commentDiv">
             <input class="commentNumInput" value="<%= i %>" name="commentNum">
-            <!-- <label for="commentTextInput<%= i %>" class="red-text sm-text account-label commentUser"><%= comment.username %></label><br> -->
-            <!-- <input type="hidden" id="commentTextInput<%= i %>" name="commentTextArea" form="commentForm<%= i %>"> -->
             <label for="commentTextArea<%= i %>" class="blue-text sm-text account-label commentUser"><%= comment.username %></label><br>
-            <textarea id="commentTextArea<%= i %>" class="blue-text xs-text postCommentArea postCommentInput<%= i %> postTextArea" name="commentTextArea" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="commentForm<%= i %>" onkeydown="handleContent(event, this, 'false', this)" disabled required><%= comment.body %></textarea>
+            <textarea id="commentTextArea<%= i %>" class="postCommentArea postCommentInput<%= i %> postTextArea" name="commentTextArea" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="commentForm<%= i %>" onkeydown="handleContent(event, this, 'false', this)" disabled required><%= comment.body %></textarea>
             <% if (currentUser && comment.username == currentUser.username) { %>
               <% let sameCommenter = true; %>
             <button type="submit" role="button" id="commentButton<%= i %>" class="btn sm-text gold-bg red-text btn-style account-button" name="commentButton<%= i %>" form="commentForm<%= i %>" onclick="return validateInputs(document.getElementById('invalid-comment-list<%= i %>'), document.getElementsByClassName('postCommentInput<%= i %>'), 'commentButton<%= i %>', 800)">Update Comment</button>
@@ -89,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <!-- <label for="addCommentTextInput" class="addCommentUser"></label><br> -->
       <!-- <input type="hidden" id="addCommentTextInput" name="addCommentTextArea" form="addCommentForm"> -->
       <label for="addCommentTextArea" id="addCommentTextLabel" class="xs-text account-label"></label>
-      <textarea id="addCommentTextArea" class="blue-text xs-text addCommentInput postTextArea" name="addCommentTextArea" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="addCommentForm" placeholder="type your comment here..." onkeydown="handleContent(event, this, 'false', this)"required></textarea>
+      <textarea id="addCommentTextArea" class="addCommentInput postTextArea" name="addCommentTextArea" minlength="2" maxlength="30000" rows="1" cols="8" wrap="hard" form="addCommentForm" placeholder="type your comment here..." onkeydown="handleContent(event, this, 'false', this)"required></textarea>
       <ul id="invalid-new-comment-list" class="invalid-fields-list"></ul>
       <% if (currentUser) { %>
       <button type="submit" role="button" id="addCommentButton" class="btn xs-text red-bg gold-text btn-style account-button" name="addCommentButton" form="addCommentForm" onclick="return validateInputs(document.getElementById('invalid-new-comment-list'), document.getElementsByClassName('addCommentInput'), 'addCommentButton', 800)">Add Comment</button>

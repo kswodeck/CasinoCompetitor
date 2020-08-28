@@ -27,22 +27,26 @@ router.get('/', (req, res) => {
       streak = streak + 1;
       coins = coins + (streak*10);
       loggedInToday = false;
-    } else if (today != lastLoginDate) { //this situation may be off.. try logging in with kswodeck2 on 8/29
+    } else if (today != lastLoginDate) { //this situation may be off.. try logging in with kswodeck2 on 8/30
       coins = coins + 10;
       streak = 1;
       loggedInToday = false;
     }
-    console.log('These logs are important if kswodeck2 is logging in on 8/29. streak should be 1');
-    console.log("otherwise don't login with kswodeck2 until 8/29");
+    console.log('These logs are important if kswodeck2 is logging in on 8/30. streak should be 1');
+    console.log("otherwise don't login with kswodeck2 until 8/30");
     console.log('lastLoginDate:', lastLoginDate);
     console.log('streak:', streak);
     console.log('coins:', coins);
     console.log('loggedInToday:', loggedInToday);
 
-    User.findOneAndUpdate({_id: req.user._id}, {$set: {lastLogin: current, loginStreak: streak, coins: coins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (req, res) => {});
-    
+    User.findOneAndUpdate({_id: req.user._id}, {$set: {lastLogin: current, loginStreak: streak, coins: coins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (err, user) => {
+      if (!err && user) {
+        res.render('index', {pageTitle: 'Casino Competitor', loggedInToday: loggedInToday, streak: streak});
+      }
+    });
+  } else {
+    res.render('index', {pageTitle: 'Casino Competitor', loggedInToday: true, streak: 0});
   }
-  res.render('index', {pageTitle: 'Casino Competitor', loggedInToday: loggedInToday});
 });
 
 router.get('/cards', helpers.isLoggedIn, (req, res) => {

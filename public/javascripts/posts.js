@@ -12,13 +12,6 @@ if (document.getElementsByTagName('title')[0].innerText != 'Create New Post') {
   var editPostButton = document.getElementById('editPostButton');
   var postTextVal; //.value
   var postTitleVal;
-  documentIsReady.then(() => {
-    setTimeout(() => {
-      postTitleVal = postTitle.value;
-      postTextVal = postTextArea.innerText;
-      editPostButton.disabled = true;
-    }, 500);
-  })
 }
 
 function renderTextHtml(htmlText, parentEl, user='false', sameCommenter='NA') {
@@ -30,6 +23,12 @@ function renderTextHtml(htmlText, parentEl, user='false', sameCommenter='NA') {
     el.innerHTML = htmlText;
     el.innerHTML = el.innerText;
   }).then(() => {
+    if (user !='false') {
+      editPostButton.disabled = true;
+      postTitleVal = postTitle.value;
+      postTextVal = postTextArea.childNodes[0].innerHTML;
+      document.querySelector('.ql-toolbar').onclick = () => handleContent(null, parentEl, user, parentEl);
+    }
     handleContent(null, parentEl, user, parentEl);
   });
 }
@@ -71,27 +70,33 @@ function enablePostEdit(user='false', elId='editor-container') {
 }
 
 function handleContent(evt=null, el=postTextArea, user='false', input1=postTextArea, input2=postTitle) {
-  let theEvent = evt || window.event;
+  if (evt && evt.code == 'Tab' && el != postTitle) {
+    if (el.type == 'textarea') {
+      if (el.getAttribute('id').includes('add')) {
+        document.getElementById('addCommentButton').focus();
+      } else {
+        let idAtt = el.getAttribute('id');
+        document.getElementById('commentButton' + idAtt.slice(idAtt.length-1)).focus();
+      }
+    } else {
+      let lastElText = el.childNodes[0].childNodes[el.childNodes[0].childNodes.length-1].innerText;
+      editPostButton.focus();
+      lastElText = lastElText.replace('\t','');
+    }
+  } else {
+    el.focus();
+  }
   setTimeout(() => {
     el.style.height = 'auto';
     el.style.height = el.scrollHeight + 'px';
-    el.blur();
-    if (evt && theEvent.code != 'Tab') {
-      el.focus();
-    }
     if (user != 'new' && user != 'false') { //these are not working well, staying disabled on posttextarea
-      if ((postTextVal == input1.innerText && postTitleVal == input2.value) ||
-        (document.querySelector('#editor-container > div.ql-editor').innerText.length < 10 || !input2.value)) {
-        editPostButton.disabled = true;
-      } else if ((postTextVal != input1.innerText && ((!!input2.value) && postTitleVal != input2.value)) &&
-      document.querySelector('#editor-container > div.ql-editor').innerText.length > 9) {
-        editPostButton.disabled = false;
-      }
-      console.log(postTextVal);
-      console.log(input1.innerText);
-      console.log(postTitleVal);
-      console.log(input2.value);
-      console.log(document.querySelector('#editor-container > div.ql-editor').innerText.length);
+      if ((postTextVal == input1.childNodes[0].innerHTML && postTitleVal == input2.value) ||
+      (document.querySelector('#editor-container > div.ql-editor').innerText.length < 10 || !input2.value)) {
+      editPostButton.disabled = true;
+    } else if ((postTextVal != input1.childNodes[0].innerHTML || postTitleVal != input2.value) &&
+    document.querySelector('#editor-container > div.ql-editor').innerText.length > 9 && !!input2.value) {
+      editPostButton.disabled = false;
+    }
     }
   }, 100);
 }
