@@ -32,13 +32,6 @@ router.get('/', (req, res) => {
       streak = 1;
       loggedInToday = false;
     }
-    console.log('These logs are important if kswodeck2 is logging in on 8/30. streak should be 1');
-    console.log("otherwise don't login with kswodeck2 until 8/30");
-    console.log('lastLoginDate:', lastLoginDate);
-    console.log('streak:', streak);
-    console.log('coins:', coins);
-    console.log('loggedInToday:', loggedInToday);
-
     User.findOneAndUpdate({_id: req.user._id}, {$set: {lastLogin: current, loginStreak: streak, coins: coins}}, {runValidators: true, useFindAndModify: false, rawResult: true}, (err, user) => {
       if (!err && user) {
         res.render('index', {pageTitle: 'Casino Competitor', loggedInToday: loggedInToday, streak: streak});

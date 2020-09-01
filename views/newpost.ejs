@@ -8,7 +8,7 @@
     <form action="/blog/<%= board %>" method="POST" id="newPostForm">
       <div id="postFormDiv">
         <label for="newPostTitle" id="postTitleLabel" class="md-text account-label"></label><br>
-        <input type="text" id="newPostTitle" class="lg-text post-heading blue-text postTextInput" name="newPostTitle" minlength="2" maxlength="40" placeholder="Post Title" size="30" form="newPostForm"  autocomplete="off" required>
+        <input type="text" id="newPostTitle" class="lg-text post-heading postTextInput" name="newPostTitle" minlength="2" maxlength="40" placeholder="Post Title" size="30" form="newPostForm"  autocomplete="off" required>
         <label for="newPostText" id="postTextLabel" class="account-label"></label><br>
         <input type="hidden" id="textInput" name="newPostText" form="newPostForm">
         <div id="editor-container" class="postTextArea postTextInput postEditor" onkeydown="handleContent(event, this, 'new')"></div>

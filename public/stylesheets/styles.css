@@ -581,9 +581,6 @@ div.dropdown-menu {
 .postTextArea, #newPostTitle, #postTitle {
   border-radius: 5px;
 }
-#postTitle:disabled, #postTitle, #newPostTitle {
-  color: #00008b;
-}
 #postTitle:disabled, #postTextArea:disabled {
   background: none;
 }
