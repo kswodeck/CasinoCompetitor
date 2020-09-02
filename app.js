@@ -21,7 +21,10 @@ Sentry.init({dsn:'https://bc7444c26cad4159a4fc1818045022ba@o404801.ingest.sentry
 
 const hostname = process.env.HOSTNAME || '0.0.0.0';
 const port = process.env.PORT || 5000;
-const dbURL = process.env.DATABASEURL;
+let dbURL = process.env.DATABASEURL;
+if (port == 5000) {
+  dbURL = process.env.TESTDBURL;
+}
 
 mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true});
 app.use(sslRedirect());

@@ -70,35 +70,35 @@ function enablePostEdit(user='false', elId='editor-container') {
 }
 
 function handleContent(evt=null, el=postTextArea, user='false', input1=postTextArea, input2=postTitle) {
-  evt = evt;
   if (evt && evt.code == 'Tab' && el != postTitle) { //can't tab to buttons. fix this.
-    el.innerHTML = el.innerHTML.replace(/\t/,'');
+  el.innerHTML = el.innerHTML.replace(/\t/,'');
+    let focusEl = editPostButton;
     if (el.type == 'textarea') {
       if (el.getAttribute('id').includes('add')) { //these don't work for tabbing to addComment buttons
-        document.getElementById('addCommentButton').focus();
+        console.log('focusing the add comment button');
+        focusEl = document.getElementById('addCommentButton');
       } else {
         let idAtt = el.getAttribute('id'); //these don't work for tabbing to update Buttons
-        document.getElementById('commentButton' + idAtt.slice(idAtt.length-1)).focus();
+        console.log('focusing an update comment button');
+        focusEl = document.getElementById('commentButton' + idAtt.slice(idAtt.length-1));
       }
-    } else {
-      editPostButton.focus();
     }
+    setTimeout(() => {
+      focusEl.focus();
+    }, 500);
   } else {
-    el.focus();
-  }
-  setTimeout(() => {
     el.style.height = 'auto';
     el.style.height = el.scrollHeight + 'px';
     if (user != 'new' && user != 'false') {
       if ((postTextVal == input1.childNodes[0].innerHTML && postTitleVal == input2.value) ||
       (document.querySelector('#editor-container > div.ql-editor').innerText.length < 10 || !input2.value)) {
       editPostButton.disabled = true;
-    } else if ((postTextVal != input1.childNodes[0].innerHTML || postTitleVal != input2.value) &&
-    document.querySelector('#editor-container > div.ql-editor').innerText.length > 9 && !!input2.value) {
+      } else if ((postTextVal != input1.childNodes[0].innerHTML || postTitleVal != input2.value) &&
+      document.querySelector('#editor-container > div.ql-editor').innerText.length > 9 && !!input2.value) {
       editPostButton.disabled = false;
+      }
     }
-    }
-  }, 100);
+  }
 }
 
 window.enablePostEdit = enablePostEdit; window.handleContent = handleContent;
