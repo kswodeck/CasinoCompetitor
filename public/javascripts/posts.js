@@ -70,15 +70,15 @@ function enablePostEdit(user='false', elId='editor-container') {
 }
 
 function handleContent(evt=null, el=postTextArea, user='false', input1=postTextArea, input2=postTitle) {
-  if (evt && evt.code == 'Tab' && el != postTitle) { //can't tab to buttons. fix this.
+  if (evt && evt.code == 'Tab' && el != postTitle) {
   el.innerHTML = el.innerHTML.replace(/\t/,'');
     let focusEl = editPostButton;
     if (el.type == 'textarea') {
-      if (el.getAttribute('id').includes('add')) { //these don't work for tabbing to addComment buttons
+      if (el.getAttribute('id').includes('add')) {
         console.log('focusing the add comment button');
         focusEl = document.getElementById('addCommentButton');
       } else {
-        let idAtt = el.getAttribute('id'); //these don't work for tabbing to update Buttons
+        let idAtt = el.getAttribute('id');
         console.log('focusing an update comment button');
         focusEl = document.getElementById('commentButton' + idAtt.slice(idAtt.length-1));
       }
