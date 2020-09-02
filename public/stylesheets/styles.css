@@ -7,8 +7,6 @@ body, html {
 }
 body {
   margin: 0;
-  background-color: #fff;
-  background-image: radial-gradient(ellipse, #fff 40%, #ebedf1d9, #dadde4d9, #cacfdad9);
 }
 :root {
   --bluish: #bec6d2d9;
