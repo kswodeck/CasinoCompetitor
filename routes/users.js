@@ -128,7 +128,7 @@ router.post('/register', helpers.isLoggedOut, (req, res) => {
                 res.redirect('/register');
               } else {
                 passport.authenticate('local')(req, res, () => {
-                  res.redirect('/?afterLogin=true');
+                  res.redirect('/');
               });
             }
           });
