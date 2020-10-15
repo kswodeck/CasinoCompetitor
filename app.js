@@ -8,7 +8,7 @@ const express    = require('express'),
   minify         = require('express-minify'),
   methodOverride = require('method-override'),
   compression    = require('compression'),
-  sslRedirect    = require('heroku-ssl-redirect'),
+  // sslRedirect    = require('heroku-ssl-redirect'),
   app            = express(),
   User           = require('./models/user'),
   userRoutes     = require('./routes/users'),
@@ -27,14 +27,14 @@ if (port == 5000) {
 }
 
 mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true});
-app.use(sslRedirect());
+// app.use(sslRedirect());
 app.use(compression());
 app.use(minify());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/public', {maxAge: 7200000}));
+app.use(express.static(__dirname + '/public', {maxAge: 6000000}));
 app.use('/javascripts', express.static(__dirname + '/node_modules/'));
 app.use(flash());
 app.set('view cache', true);
